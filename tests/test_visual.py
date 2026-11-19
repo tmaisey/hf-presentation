@@ -2,8 +2,9 @@
 
 Full visual pass: every slide at every step, at presenter (1920×1080) and small-window
 (1280×720) sizes. Screenshots land in tests/artifacts/ for independent review.
-Coverage: happy (every state renders error-free) · edge (small viewport still fits) ·
-negative (no clipped or off-screen text, no overlay over a title, title clear of the bar).
+Coverage: happy (every state renders error-free; quotes below/right of core content) · edge
+(small viewport still fits; waiting step items readable; stacked quotes separated) · negative (no
+clipped or off-screen text, no overlay over a title, title clear of the bar, hidden rows paint nothing).
 """
 
 import pytest
@@ -51,3 +52,96 @@ def test_every_slide_and_step_renders_cleanly(page, vw, vh):
             problems += [f"{sid}@{k}: {b}" for b in page.evaluate(CHECK, sid)]
     assert errors == []
     assert problems == [], "\n".join(problems)
+
+
+def _rgb(css: str) -> tuple[float, float, float]:
+    """Parse a computed ``rgb()``/``rgba()`` colour into channels."""
+    import re
+
+    return tuple(float(v) for v in re.findall(r"[\d.]+", css)[:3])
+
+
+def _luminance(rgb) -> float:
+    def ch(c):
+        c /= 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    r, g, b = (ch(c) for c in rgb)
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def test_hidden_table_rows_paint_nothing(page):
+    """Rows waiting for their step must not leave empty ruled lines on screen."""
+    import io
+
+    from PIL import Image
+
+    open_deck(page, 1280, 720)
+    for sid in page.evaluate("() => [...document.querySelectorAll('section.slide')].filter(s => s.querySelector('tr[data-show-at]')).map(s => s.id)"):
+        goto_slide(page, sid, 0)
+        boxes = page.evaluate(f"""() => [...document.querySelectorAll('#{sid} tr[data-show-at]')]
+          .filter(r => !r.classList.contains('is-visible')).map(r => {{ const b = r.getBoundingClientRect();
+          return [b.left, b.top - 4, b.width, b.height + 8]; }})""")
+        assert boxes, sid
+        paper = _rgb(page.evaluate("() => getComputedStyle(document.body).backgroundColor"))
+        for x, y, w, h in boxes:
+            img = Image.open(io.BytesIO(page.screenshot(clip={"x": x, "y": y, "width": w, "height": h}))).convert("RGB")
+            worst = max(max(abs(a - b) for a, b in zip(px, paper)) for px in img.getdata())
+            assert worst < 10, f"{sid}: hidden row paints (max channel diff {worst})"
+
+
+BODY_QUOTES = """id => {
+  const s = document.getElementById(id), bad = [];
+  const shown = e => { const cs = getComputedStyle(e); return +cs.opacity > 0.05 && e.getClientRects().length; };
+  s.querySelectorAll('.body blockquote:not(.msg-text)').forEach(q => {
+    const block = q.parentElement.matches('.body') ? q : q.parentElement;
+    if (!shown(block)) return;
+    const qr = block.getBoundingClientRect();
+    const core = [...s.querySelectorAll('.body ul, .body ol, .body dl, .body table, .body svg.diagram, .body .msg-card, .body .stat')]
+      .filter(c => !block.contains(c) && !c.contains(block) && shown(c));
+    core.forEach(c => {
+      const r = c.getBoundingClientRect();
+      if (!(qr.top >= r.bottom - 2 || qr.left >= r.right - 2))
+        bad.push('quote "' + q.textContent.slice(0, 30) + '" is above/left of ' + c.tagName);
+    });
+  });
+  return bad; }"""
+
+
+@pytest.mark.parametrize("vw,vh", VIEWPORTS)
+def test_body_quotes_sit_below_or_right_of_core_content(page, vw, vh):
+    """Presenter rule: italic body quotes support the slide, so they never lead it."""
+    open_deck(page, vw, vh)
+    problems = []
+    for sid, steps in page.evaluate("() => window.deck.plan()"):
+        goto_slide(page, sid, steps)
+        problems += [f"{sid}: {b}" for b in page.evaluate(BODY_QUOTES, sid)]
+    assert problems == [], "\n".join(problems)
+
+
+def test_waiting_step_items_keep_readable_contrast(page):
+    """Not-yet-current step list items are body text, so they keep ≥ 4.5:1 on paper."""
+    open_deck(page, 1280, 720)
+    sid = page.evaluate("() => document.querySelector('section.slide .steps').closest('section').id")
+    goto_slide(page, sid, 1)
+    paper = _luminance(_rgb(page.evaluate("() => getComputedStyle(document.body).backgroundColor")))
+    for css in page.evaluate(f"""() => [...document.querySelectorAll('#{sid} .steps > li')]
+        .filter(l => !l.classList.contains('is-current') && !l.classList.contains('is-done'))
+        .map(l => getComputedStyle(l).color)"""):
+        ratio = (paper + 0.05) / (_luminance(_rgb(css)) + 0.05)
+        assert ratio >= 4.5, f"{css}: {ratio:.2f}:1"
+
+
+def test_stacked_quote_blocks_are_visibly_separated(page):
+    open_deck(page, 1280, 720)
+    gaps = []
+    for sid, steps in page.evaluate("() => window.deck.plan()"):
+        goto_slide(page, sid, steps)
+        gaps += page.evaluate(f"""() => {{ const out = [];
+          const blocks = [...document.querySelectorAll('#{sid} .body div, #{sid} .body .msg-card')]
+            .filter(d => d.querySelector(':scope > blockquote'));
+          for (let i = 1; i < blocks.length; i++) {{
+            const a = blocks[i - 1].getBoundingClientRect(), b = blocks[i].getBoundingClientRect();
+            if (b.top >= a.bottom - 1 && Math.abs(a.left - b.left) < 40) out.push(['{sid}', b.top - a.bottom]);
+          }} return out; }}""")
+    tight = [g for g in gaps if g[1] < 16]
+    assert gaps and not tight, tight

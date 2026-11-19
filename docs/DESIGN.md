@@ -67,17 +67,24 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 
 - **Entry:** rise into place, sharp. **Exit: rack focus**: overlay blurs out (0→16px) and fades
   late while the slide sharpens, ~0.8s. [P2:72–78](../design/prototypes/02-chapters-depth.html#L72), [toggle](../design/prototypes/02-chapters-depth.html#L211)
-- **Agent-message cluster:** at each pop-up event, 3–5 message cards appear in a loose staggered
-  scatter. Then the **key** message rises slightly (lift + scale, stronger shadow) and stays sharp
-  while the others soften (blur + fade back), drawing the eye without removing context. Exit
-  is the same rack focus. Not yet prototyped.
+- **Agent-message cluster:** at each pop-up event, 1–5 message cards appear in a loose staggered
+  scatter, **all sharp and readable**; no card is auto-highlighted. On **hover** (or keyboard
+  `:focus-visible`) one card pops forward (lift, slight scale, stronger shadow, top z) while the
+  others blur and their text fades; leaving restores them all. A single card sits centred. Exit is
+  the same rack focus. (Presenter decision, Nov 2026: replaces the timed key-card rise.)
+- **Handover:** when an overlay replaces another, the newcomer's entry waits ~0.35s for the old
+  one's rack focus, so two half-blurred cards never share a frame.
+- **Agent voice vs report voice:** agent quotes always use the message-card look (cluster or the
+  in-flow `msg-card`); report and commentator quotes stay italic `blockquote` + cite.
 - Use agent-message clusters at a few key moments only; spaced out, never back to back.
 
 ## 6 · Reader notes (shareable mode)
 
 - Quiet corner toggle (`N`). Notes mode: whole page veils (blur 7px) except a rounded window over
   the target; accent ring + glow marks it. [P3:38–48](../design/prototypes/03-notes-spotlight.html#L38)
-- Numbered pins on every annotated element; current pin turns accent. [P3:51](../design/prototypes/03-notes-spotlight.html#L51)
+- Numbered pins just outside each annotated element's top-right corner (never on its text);
+  current pin turns accent; pins the callout would cover hide. The callout never rises under the
+  title bar. [P3:51](../design/prototypes/03-notes-spotlight.html#L51)
 - Prev / position / Next / Close live in a **static** bar on the lower periphery, never in the
   moving callout. [P3:69](../design/prototypes/03-notes-spotlight.html#L69)
 - Geometry re-tracks every frame while open (survives reflow). [P3 `track()`](../design/prototypes/03-notes-spotlight.html#L158)
@@ -91,19 +98,25 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
   edges → ordinary nodes → key nodes (coordinators, tiles) → labels; overlays above the diagram.
   A more important object is **NEVER** occluded by a less important one. Tiles use a solid fill
   so converging lines vanish beneath them. [P4 layers](../design/prototypes/04-diagram-swarm.html#L96)
-- Arrows: `--ink-3`, ~1.75px, round caps; **gap** at both ends; arrowhead with concave back. [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
+- Arrows: `--ink-3`, ≥ 2px on screen, round caps; **gap** at both ends; arrowhead with concave
+  back, ≈6× the stroke (≥ 12px). [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
+- **Key tiles** (the slide's most important object): accent-tinted fill + soft accent glow,
+  text stays ink, still no border. A few per deck; at most one or two per diagram.
+- **Screen-size floors:** diagram text never renders below ~15px at 1280 wide / ~20px at 1920,
+  however small the SVG is drawn (the engine compensates per diagram).
 - **NEVER** animated / marching dashed lines.
 - Step builds: diagram advances one state per input, with a numbered step list (current = accent
-  disc, done = `--ink-2`). [P4 steps](../design/prototypes/04-diagram-swarm.html#L25), [`render()`](../design/prototypes/04-diagram-swarm.html#L152)
+  disc, done = filled `--ink-2` disc, waiting = hollow disc; all item text stays ≥ `--ink-2`). [P4 steps](../design/prototypes/04-diagram-swarm.html#L25), [`render()`](../design/prototypes/04-diagram-swarm.html#L152)
 - State colours: active agent = accent-tinted fill + `--accent-ink` stroke; coordinator = solid
   `--ink`; sacrificed = `--loss`, and its links fade. [P4:49–51](../design/prototypes/04-diagram-swarm.html#L49)
-- Illustrative scale stated on-slide (e.g. "each dot ≈ 8 agents").
+- Illustrative scale stated on-slide (e.g. "each dot represents about 8 agents").
 
 ## 8 · Links & citations
 
 - Every cited source is a real hyperlink. Style: underline only (1px, 3px offset) in the
   **surrounding** text colour; **NEVER** blue. [P3:66](../design/prototypes/03-notes-spotlight.html#L66)
-- Open in a new tab (`rel="noopener"`). [P3 `focus()`](../design/prototypes/03-notes-spotlight.html#L146)
+- Open in a new tab (`rel="noopener"`): the engine sets this on every slide link, so markup never
+  repeats it. [P3 `focus()`](../design/prototypes/03-notes-spotlight.html#L146)
 
 ## 9 · Teams-share constraints
 
@@ -121,28 +134,35 @@ slide needs something new, extend the component CSS / engine once and document i
 - `section.slide#s-C-N[data-chapter="<Chapter>"]`: the agenda is built from distinct `data-chapter`
   values in slide order, so every slide of a chapter repeats the same value.
 - `[data-ambient]`: bokeh (title / summary / Insight slides only, §4). `.slide--lead`: big
-  title, vertically centred (title, summary, discussion slides).
+  title, vertically centred (title and summary slides).
 - Children in order: `p.kicker` (`0N · Chapter`), `h2.title` (VOICE rules, ≤1 `<em>`), one
   `div.body`, then overlays, then notes. The body sits in the area below the title; overlays share
   that area, so they can never cover the title.
 
-**Body layouts**: `div.body` (flow) · `div.body.body--split` (left text ≈36%, right diagram ≈64%,
-diagram fills the height) · `div.body.body--stack` (centred column: diagram then quote/cite).
+**Body layouts** (only ever on the slide's one `div.body`, never nested): `div.body` (flow, centred
+vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64%; a `div` column stacks
+its blocks with even spacing) · `div.body.body--split.body--flip` (64 / 36: wide content left, quotes
+right) · `div.body.body--stack` (centred column: diagram then quote/cite).
+**Quotes MUST sit below or to the right of the slide's core content**, never before it.
 Content classes: `p` (≤46ch), `ul.points > li` (accent dash bullets), `ol.steps > li` (numbered step
-list), `dl.terms > div > dt + dd`, `blockquote` + `p.cite`, `p.caption` (scale notes), `table` (`th` header row,
-`td` rows; first column emphasised; rows may carry `data-show-at`) for slide 5.5.
+list), `dl.terms > div > dt + dd` (terms flow into columns), `blockquote` + `p.cite` (report voice),
+`div.msg-card > p.msg-agent + blockquote.msg-text + p.cite?` (agent voice, in flow), `p.stat >
+strong + text` (one big number with its label), `p.caption` (scale notes, sources; ≤70ch),
+`ol.prompts > li.prompt` (numbered serif discussion questions), `table` (`th` header row, `td` rows;
+first column emphasised; rows may carry `data-show-at`), `table.compare` (equal-weight columns).
 
 **Steps**: a slide's step count = max `data-show-at` / `data-at` on it; it is left only after its last
 step. `[data-show-at=n]` is visible from step n (`.is-visible`); works on HTML and SVG elements.
+`[data-hide-at=n]` hides an element from step n (e.g. an edge re-routed through a new tile).
 `ol.steps > li[data-show-at]` stay visible but dim, and get `.is-current` / `.is-done`.
 
 **Overlays** (§5)
 - Insight: `aside.overlay.overlay--insight[data-at=n] > p` (label "Insight" is added by CSS). Shown
   only at step n; the body softens; rack-focus exit.
-- Agent messages: `div.cluster[data-at=n] > article.overlay.overlay--msg` ×3 (fits 1280×720; 4–5
+- Agent messages: `div.cluster[data-at=n] > article.overlay.overlay--msg` ×1–3 (fits 1280×720; 4–5
   only with short quotes), each `p.msg-agent` (label from `quotes.md`) + `blockquote.msg-text`
-  (verbatim, **no** quote marks: CSS adds them). Exactly one card carries `data-key`: ~1.1 s after
-  entry it rises and stays sharp while the others soften.
+  (verbatim, **no** quote marks: CSS adds them; mark our own cuts `[…]`). One card carries
+  `data-key` as authoring metadata (the KEY quote in `quotes.md`); it gets no default emphasis.
 - One overlay per step; put an Insight on its own step after a cluster.
 
 **Reader notes** (§6): `aside.note[data-for="#id"]` with `h3` + `p` + `a.src[href]` (real source,
@@ -153,13 +173,16 @@ overlays.
 **Diagrams** (§7): `svg.diagram[viewBox]` with groups in this order: `g.layer-edges`,
 `g.layer-nodes`, `g.layer-key`, `g.layer-labels`.
 - Tile: `g.tile#id > rect[x y width height] + text.tile-title + text.tile-sub*`. Give text no
-  coordinates: the engine centres all lines in the rect. Fill, radius and `#lift` come from CSS.
+  coordinates: the engine centres all lines in the rect, and tiles sharing a row (same `y` and
+  height) share one title baseline. Fill, radius and `#lift` come from CSS. `g.tile.tile--key` for a
+  key tile (§7); put it in `.layer-key`.
 - Edge: `path.edge[data-from="#a"][data-to="#b"][marker-end="url(#arr)"]` (no `d`): the engine draws
   a gapped straight or curved connector between the two tiles. A hand-drawn `d` is allowed when
   routing must bend; keep the gaps.
 - Labels: `text.label` (dates, axis words) and `text.tag` / `text.tag.tag--loss` (state captions).
-- SVG units: tile text is 26/20 units; keep the viewBox ≈1000–1400 wide so text stays ≥ ~16px at
-  1280 wide.
+- SVG units: tile text is 26/20 units, but the engine raises it (and edge width) to the §7
+  screen floors when the SVG is drawn small, so size tiles for the floor: in `body--split` keep the
+  viewBox ≈1000 wide; full-width diagrams ≈1400.
 - Swarm: `svg.diagram[data-diagram="swarm"]` with the four empty layer groups plus the board tile in
   `.layer-key` and tags in `.layer-labels`; the engine adds agents. Its five stages follow slide
   steps 1–5 (note → replies → gather → coordinators → sacrificed), so pair it with five

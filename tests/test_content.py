@@ -1,8 +1,9 @@
 """Spec: S-010, S-011, S-012, S-013, S-014, S-015
 
 Slide copy follows STORYBOARD.md and VOICE.md; every storyboard slide is built.
-Coverage: happy (all 18 slide ids present, titles finding-first) · edge (≤1 italic, one
-sentence) · negative (no trailing full stop, no placeholders, no aphoristic "X, not Y").
+Coverage: happy (all 18 slide ids present, titles finding-first incl. discussion, prompts styled
+as questions) · edge (≤1 italic, one sentence) · negative (no trailing full stop, no placeholders,
+no aphoristic "X, not Y", no agent quote styled as a report quote).
 """
 
 import re
@@ -32,8 +33,6 @@ def test_title_follows_voice_rules(sid):
     if s is None or "data-todo" in s["attrs"]:
         pytest.fail(f"{sid} not built")
     t = " ".join(s["title"].split())
-    if sid == "s-6-1":
-        return
     assert t and not t.endswith("."), f"{sid}: no trailing full stop"
     assert s["title_em"] <= 1, f"{sid}: italic sparingly"
     assert len(re.findall(r"[.!?](\s|$)", t)) == 0, f"{sid}: one sentence"
@@ -50,3 +49,27 @@ def test_discussion_slide_has_three_prompts():
     s = _slide("s-6-1")
     assert s is not None
     assert sum(1 for t, a in s["tags"] if t == "li" and "prompt" in (a.get("class") or "")) == 3
+
+
+def test_agent_quotes_always_use_the_message_card():
+    """Agent voice looks the same everywhere; report voice stays a plain blockquote."""
+    src = slides_source()
+    assert not re.search(r'<p class="cite">\s*Agent\b', src), "agent quote styled as a report quote"
+    outside = re.sub(r'<(article|div) class="(overlay overlay--msg|msg-card)[^"]*"[^>]*>.*?</\1>', "", src, flags=re.S)
+    assert 'class="msg-text"' not in outside and 'class="msg-agent"' not in outside
+
+
+def test_discussion_prompts_render_as_numbered_serif_questions(page):
+    from helper_deck import goto_slide, open_deck
+
+    open_deck(page)
+    goto_slide(page, "s-6-1", 3)
+    res = page.evaluate("""() => { const p = [...document.querySelectorAll('#s-6-1 .prompt')];
+      const body = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fs-text')) || 0;
+      return p.map(e => [getComputedStyle(e).fontFamily, parseFloat(getComputedStyle(e).fontSize),
+        getComputedStyle(e, '::before').content, parseFloat(getComputedStyle(document.querySelector('#s-1-1 .body p')).fontSize)]); }""")
+    assert len(res) == 3
+    for fam, size, marker, text in res:
+        assert fam.startswith('"Newsreader"') or fam.startswith("Newsreader"), fam
+        assert size > text, "prompts read larger than body text"
+        assert marker not in ("none", "normal", '""'), "prompts are numbered"

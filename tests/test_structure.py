@@ -1,8 +1,9 @@
 """Spec: S-001, S-009
 
 Static checks that the deck is one DRY, offline, endpoint-safe file (ADR-001).
-Coverage: happy (layers present, slides parse) · edge (hex only in tokens, fonts embedded)
-· negative (no per-slide style/script, no remote scripts, no risky JS, no branding).
+Coverage: happy (layers present, slides parse) · edge (hex only in tokens, fonts embedded and
+covering every rendered glyph) · negative (no per-slide style/script, no nested layout bodies, no
+remote scripts, no risky JS, no branding).
 """
 
 import re
@@ -69,3 +70,66 @@ def test_no_remote_scripts_or_risky_patterns():
 
 def test_no_corporate_branding():
     assert "deloitte" not in deck_source().lower()
+
+
+def _embedded_cmaps() -> dict:
+    """Map (family, style) of each embedded @font-face to its set of codepoints."""
+    import base64
+    import io
+
+    from fontTools.ttLib import TTFont
+
+    out = {}
+    for fam, style, b64 in re.findall(
+            r'@font-face\s*\{\s*font-family:\s*"(\w+)";\s*font-style:\s*(\w+);[^}]*?base64,([A-Za-z0-9+/=]+)',
+            deck_source(), re.S):
+        font = TTFont(io.BytesIO(base64.b64decode(b64)))
+        out.setdefault((fam, style), set()).update(font.getBestCmap().keys())
+    return out
+
+
+RENDERED_CHARS = """() => {
+  const out = {}, add = (el, text) => {
+    const cs = getComputedStyle(el), fam = cs.fontFamily.split(',')[0].replace(/["']/g, '').trim();
+    const key = fam + '|' + (cs.fontStyle === 'italic' ? 'italic' : 'normal');
+    out[key] = (out[key] || '') + text; };
+  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n; (n = walk.nextNode());) {
+    const p = n.parentElement;
+    if (!p || p.closest('script, style, aside.note, .defs')) continue;
+    add(p, n.textContent);
+  }
+  // notes render in the callout: headings serif, body sans
+  const h = document.createElement('h3'), q = document.createElement('p'), c = document.querySelector('.callout');
+  c.append(h, q);
+  document.querySelectorAll('aside.note').forEach(n => {
+    n.querySelectorAll('h3').forEach(x => add(h, x.textContent));
+    n.querySelectorAll('p, a').forEach(x => add(q, x.textContent));
+  });
+  h.remove(); q.remove();
+  return out; }"""
+
+
+def test_every_rendered_character_exists_in_its_embedded_font(page):
+    """No glyph silently falls back to a system font (offline file, consistent look)."""
+    from helper_deck import open_deck
+
+    cmaps = _embedded_cmaps()
+    open_deck(page)
+    missing = {}
+    for key, text in page.evaluate(RENDERED_CHARS).items():
+        fam, style = key.split("|")
+        cmap = cmaps.get((fam, style))
+        if cmap is None:
+            continue
+        gaps = sorted({ch for ch in text if not ch.isspace() and ord(ch) not in cmap})
+        if gaps:
+            missing[key] = "".join(gaps)
+    assert not missing, missing
+
+
+def test_layout_modifiers_only_on_slide_bodies():
+    """body--split / body--stack are slide-body layouts, never nested inside another body."""
+    for tag, cls in re.findall(r"<(\w+)[^>]*class=\"([^\"]*body--[^\"]*)\"", slides_source()):
+        classes = cls.split()
+        assert tag == "div" and "body" in classes, f"<{tag} class='{cls}'>"

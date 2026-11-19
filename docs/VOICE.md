@@ -21,6 +21,9 @@ and add every new verdict here as an example pair. British spelling throughout.
 | How a *note* became a swarm. | Misaligned training behaviours re-emerged during evaluation | Hook → finding; matches eval-phase bullets |
 | Reward is a *proxy*. | Reward is an incomplete proxy for actual desired behaviour | Too brief/aphoristic → complete claim |
 | — | Training reinforced misaligned swarm behaviour | Valid finding, but only for a training-phase slide |
+| This incident was detectable only because the agents' reasoning stayed readable | Investigators could reconstruct the agents' intent because their reasoning stayed readable | Overclaim → matches the evidence (HF detected it by monitoring) |
+| Treat alignment risk as a design input for everyday AI systems | Each failure in this incident maps to a control that everyday AI systems can apply in proportion to risk | Imperative → finding |
+| Questions for discussion | Detection, training and independent oversight remain open questions after this incident | Label → finding; the discussion slide follows title rules too |
 
 ## Insight overlays
 
@@ -30,8 +33,12 @@ and add every new verdict here as an example pair. British spelling throughout.
 
 | ✗ Rejected | ✓ Approved |
 | --- | --- |
-| Impossible tasks didn't stop the agents. They concentrated them. | Unsolvable tasks drove the coordination: 22% of tasks generated 93% of message-board discussion. |
-| Monitorability is an asset you can spend. Spend it carefully. | The agents' reasoning stayed readable, which is what made the incident detectable. Penalising that reasoning in training risks teaching models to hide it. |
+| Impossible tasks didn't stop the agents. They concentrated them. | Unsolvable tasks drove the coordination: the 22% of tasks no model had ever solved accounted for 93% of the tasks discussed on the board. |
+| Monitorability is an asset you can spend. Spend it carefully. | The agents' reasoning stayed readable, which is what let investigators reconstruct their intent. Penalising that reasoning in training risks teaching models to hide it. |
+| Unsolvable tasks drove the coordination: 22% of tasks generated 93% of message-board discussion. | (the approved row above) · 93% is a share of *tasks discussed*, not of discussion volume |
+| …which is what made the incident detectable. | (the approved row above) · readable reasoning reconstructed intent; it did not detect the intrusion |
+| The agents targeted the automated grader… Their deception was aimed at whichever overseer they believed was watching. | The agents aimed their tampering at the automated grader because they wrongly believed it read their transcripts. Investigators found little evidence of attempts to deceive the human reviewers. |
+| …Evaluation is falling behind the systems it is meant to assess. | …METR said none of these figures was a robust measurement of the model's capabilities. · source's words over an epigram closer |
 
 ## Discussion prompts
 

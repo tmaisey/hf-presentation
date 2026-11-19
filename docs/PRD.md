@@ -68,6 +68,8 @@ they serve.
   green accent. **NEVER** name, reference or brand the accent after any organisation, in slides,
   code or docs; the deck carries no corporate branding.
 - Depth through blur/bokeh: Insight and agent-message overlays float above softened content.
+  Agent-message cards all stay readable; hovering one brings it forward and softens the rest
+  (presenter's choice over a timed auto-highlight).
 - One elegant, step-built diagram per story stage.
 - One chapter rests per viewport, with a persistent title bar showing agenda position.
 - Ambient motion only on title / summary / Insight pages, never on detail or diagram pages.
@@ -120,11 +122,15 @@ scoped out of training, so the deck attributes it.
 - No firm-specific advice; no corporate branding.
 - No build step or framework; no speaker timer or presenter-view window.
 
+## Decisions
+
+- The 22% of ExploitGym tasks are called **"unsolvable"** on-slide (presenter, Nov 2026). Grounding,
+  carried in the 3.1 reader note: OpenAI itself blames "the presence of impossible tasks in the
+  ExploitGym evaluation", and the hard figure is 198 of 898 tasks no model has ever solved.
+
 ## Open questions
 
 - Which slides merge or go when slimming 18 → ~9.
-- "Unsolvable" vs "never-solved" for the 22% of ExploitGym tasks: the TR says never solved; the
-  approved Insight says unsolvable.
 - Slide 5.4: employee-letter signatory count and date; whether to cite the weakly sourced
   Anthropic pause.
 - Presenter writing samples (pending) to generalise `docs/VOICE.md`.
