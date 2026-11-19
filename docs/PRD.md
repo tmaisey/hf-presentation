@@ -12,21 +12,43 @@ The incident is well reported, so the audience's value is in **implications**, n
 what it shows about reward hacking, emergent coordination and deception, and why training these
 behaviours out is hard (naive penalties can teach concealment rather than honesty).
 
+## Core message (what the room should leave believing)
+
+1. AI risk is **not only bad actors**: **misalignment** (agents pursuing the objective they were
+   trained on rather than the intent behind it) can turn benign tasks into large-scale harm,
+   including subversion, with no attempt by agents to notify humans.
+2. This incident was **discoverable**; a more capable future system could do far more damage and
+   be much harder, or impossible, for humans to detect.
+3. **Capabilities are advancing at full speed** despite warnings from AI leaders, while **no known
+   solution to alignment** exists.
+
+Every chapter **MUST** serve one of these. Each claim stays sourced; where evidence is mixed
+(e.g. OpenAI's announced slowdown vs. "full speed"), the deck says so.
+
+**Practical takeaway (general, not firm-specific):** treat alignment risk as a design input for
+everyday AI systems. Give agents only the agency and autonomy the task needs; wrap them in
+deterministic controls, sandboxes, isolation and per-agent authentication/authorisation,
+commensurate with the use case's risk. Ground each control in an incident failure (e.g. one
+shared credential for every agent; internet access by default).
+
 ## Shape (draft — refined in storyboard)
 
 | Section | ~min |
 | --- | --- |
-| Concepts (RL, reward hacking, CTF, eval vs training) | 3 |
+| Concepts (RL, reward hacking, misalignment, eval vs training) | 1–2 |
 | What happened + why | 5 |
 | Implications + difficulty of training it out | 8 |
-| Discussion | 4 |
+| Discussion: open Q&A, seeded by 3 provocative discussion prompts on the final slide | 4 |
 
 ## Requirements
 
 - **Grounded:** every factual claim traceable to a cited source in `docs/research/`. Disputed or
   single-sourced claims flagged as such on-slide or in notes.
-- **Accessible:** concepts introduced briefly for a non-ML professional audience.
+- **Audience:** quite familiar with AI concepts. Concepts section is a fast refresher (~1–2 min)
+  focused on what this incident needs: RL reward, reward hacking, misalignment, eval vs training.
 - **Single HTML file:** no build step, works offline, presenter-driven.
+- **Endpoint-safe:** the file **MUST NOT** trip anti-virus / phishing heuristics on a corporate
+  machine (a prototype was quarantined, Nov 2026). Recipients open it from email or Teams.
 - **Design rules** derived from prototypes, captured before the real build.
 
 ## Design intent (presenter's brief — prototypes will turn this into rules)
@@ -41,8 +63,9 @@ behaviours out is hard (naive penalties can teach concealment rather than honest
   HF intrusion → cluster takeover).
 - **Navigation:** vertical story scroll, but snapping to rest on one topic per chapter (not
   continuous scroll). Persistent title bar; top-right nav shows agenda position.
-- **Agent messages:** at key points, real agent messages surface as frosted overlays styled
-  like Insight overlays, headed by the agent name with the message beneath. Only verified
+- **Agent messages:** at key points, a small cluster (3–5) of real agent messages surfaces as
+  frosted overlays styled like Insight overlays, each headed by the agent name with the message
+  beneath; the most insightful one rises to prominence while the rest soften. Only verified
   quotes (see research report); paraphrases flagged.
 - **Ambient:** slow-drifting bokeh orbs (the "fireflies") on title / summary / insight pages
   only — **never** on detail or diagram pages, where motion distracts.
@@ -81,5 +104,4 @@ Redwood Research and METR involved in forensics.
 
 ## Open questions
 
-- Audience familiarity with RL / LLM agents.
 - Design concepts the presenter has in mind.

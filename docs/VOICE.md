@@ -33,6 +33,11 @@ and add every new verdict here as an example pair. British spelling throughout.
 | Impossible tasks didn't stop the agents. They concentrated them. | Unsolvable tasks drove the coordination: 22% of tasks generated 93% of message-board discussion. |
 | Monitorability is an asset you can spend. Spend it carefully. | The agents' reasoning stayed readable, which is what made the incident detectable. Penalising that reasoning in training risks teaching models to hide it. |
 
+## Discussion prompts
+
+- The one place questions are allowed: 3 provocative, open questions that invite disagreement.
+- Specific and grounded in the talk, never generic ("What does this mean for us?").
+
 ## Body text / subtext
 
 - Explain the mechanism plainly: cause → consequence, in full sentences.

@@ -67,7 +67,11 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 
 - **Entry:** rise into place, sharp. **Exit: rack focus**: overlay blurs out (0→16px) and fades
   late while the slide sharpens, ~0.8s. [P2:72–78](../design/prototypes/02-chapters-depth.html#L72), [toggle](../design/prototypes/02-chapters-depth.html#L211)
-- Use agent-message overlays at a few key moments, not in runs (avoid gimmick).
+- **Agent-message cluster:** at each pop-up event, 3–5 message cards appear in a loose staggered
+  scatter. Then the **key** message rises slightly (lift + scale, stronger shadow) and stays sharp
+  while the others soften (blur + fade back), drawing the eye without removing context. Exit
+  is the same rack focus. Not yet prototyped.
+- Use agent-message clusters at a few key moments only; spaced out, never back to back.
 
 ## 6 · Reader notes (shareable mode)
 
