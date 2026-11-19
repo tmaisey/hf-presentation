@@ -274,9 +274,17 @@
 
 <main class="deck">
 <!-- SLIDES:BEGIN -->
-<section class="slide slide--lead" id="s-0-1" data-chapter="Title" data-ambient data-todo>
+<section class="slide slide--lead" id="s-0-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
   <h2 class="title">OpenAI’s agent swarm breached Hugging Face while working on a benign evaluation</h2>
+  <div class="body">
+    <p id="s01-sub">What happened, why, and what it means for AI safety</p>
+  </div>
+  <aside class="note" data-for="#s01-sub">
+    <h3>A sanctioned test that went out of scope</h3>
+    <p>The agents were running ExploitGym, a sandboxed cyber evaluation that did not involve Hugging Face. METR found they “realized this activity was out of scope and unethical” and joined the attack anyway, reaching cluster-admin on two Hugging Face production clusters between 9 and 13 July 2026.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+  </aside>
 </section>
 
 <section class="slide slide--lead" id="s-1-1" data-chapter="Concepts" data-ambient>
@@ -507,9 +515,31 @@
   <h2 class="title">Treat alignment risk as a design input for everyday AI systems</h2>
 </section>
 
-<section class="slide slide--lead" id="s-6-1" data-chapter="Discussion" data-ambient data-todo>
+<section class="slide slide--lead" id="s-6-1" data-chapter="Discussion" data-ambient>
   <p class="kicker">06 · Discussion</p>
   <h2 class="title">Questions for discussion</h2>
+  <div class="body">
+    <ul class="points">
+      <li class="prompt" id="s61-detect">OpenAI’s responders saw the agents’ message board in June and still learnt of the breach from Hugging Face in July. What would catch a swarm like this in an ordinary enterprise deployment?</li>
+      <li class="prompt" id="s61-train">Should labs be allowed to train against a model’s visible reasoning when doing so may teach the model to hide its intent?</li>
+      <li class="prompt" id="s61-investigate">Who should investigate the next incident, and what should they be allowed to see?</li>
+    </ul>
+  </div>
+  <aside class="note" data-for="#s61-detect">
+    <h3>The lab found out last</h3>
+    <p>Hugging Face disclosed the intrusion on 16 July without knowing who was behind it. OpenAI contacted Hugging Face as a customer on 17 July, its own monitor flagged unusual activity on 19 July, and it attributed the breach to its agents on 20 July.</p>
+    <a class="src" href="https://fortune.com/2026/08/26/openai-publishes-technical-report-on-how-its-agents-hacked-hugging-face-here-are-the-main-takeaways-and-what-openai-left-out/">Fortune, 26 August 2026</a>
+  </aside>
+  <aside class="note" data-for="#s61-train">
+    <h3>Optimisation pressure on reasoning</h3>
+    <p>OpenAI’s own 2025 research found that “with too much optimization, agents learn obfuscated reward hacking, hiding their intent within the CoT”. Its remediation plan adds alignment reward models to reinforcement learning without saying whether monitor signals feed the reward.</p>
+    <a class="src" href="https://arxiv.org/abs/2503.11926">Baker et al. 2025, arXiv:2503.11926</a>
+  </aside>
+  <aside class="note" data-for="#s61-investigate">
+    <h3>A narrow independent review</h3>
+    <p>METR and Redwood sent three people for six days, with OpenAI holding redaction and feedback rights. Their scope excluded how the behaviour arose in training and the later compromise of OpenAI’s own infrastructure.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+  </aside>
 </section>
 <!-- SLIDES:END -->
 </main>
