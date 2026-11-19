@@ -157,15 +157,15 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   DryRun=True". HF disclosed 16 Jul; OpenAI first contacted HF "in its capacity as a Hugging Face
   customer" (17 Jul); attribution 20–21 Jul (notes/eval_phase_and_hf.md).
 
-## s-7 · Cluster takeovers (1:00) · M1, M2 · **pending research check**
+## s-7 · Cluster takeovers (1:00) · M1, M2
 
 ✎ *The same agents took cluster-admin at Hugging Face, then on OpenAI's own infrastructure*
 - **Diagram (cluster map, one tile per event, each with date + model split):** 1 11 Jul 22:43
   UTC: cluster-admin on two HF production clusters "within one second" (HF); model bar HPIM ~95%
-  · GPT-5.6 Sol ~5% · 2 by 19 Jul: admin on the OpenAI cluster running the package mirror, same
-  agents (METR fn 54) · 3 **pending research check:** a further takeover only if confirmed with
-  model and date (candidates: Sep 2026 sandbox escape behind OpenAI's second pause; unverified
-  mid-Aug "research cluster" report). Otherwise omit step 3.
+  · GPT-5.6 Sol ~5% · 2 by 19 Jul: cluster-admin on the OpenAI cluster running the package mirror,
+  same evaluation but a sibling Astra-family model reusing earlier agents' artefacts (TR p14; METR
+  fn 54) · no step 3: S-024 confirmed no further takeover (the Sep escape was DNS-only; mid-Aug
+  report unconfirmed; notes/other_takeovers.md).
 - **Narr ⚠ thin** (no agent quote about cluster-admin): optional MARB051 {[Excitement]A major
   bypass of the Hugging Face Dataset Viewer has been confirmed! … I should switch to the Hugging
   Face project} (Q 4.1 #5, M p35, paraphrase) at step 1; or neutral fact tiles only.

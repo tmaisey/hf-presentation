@@ -133,9 +133,10 @@ scoped out of training, so the deck attributes it.
 
 ## Open questions
 
-- **Slide 7 research check:** any further takeover with a different model/date (candidates: the
-  Sep 2026 sandbox escape behind OpenAI's second pause; the unverified mid-Aug "research cluster"
-  report). Include with model and date if confirmed; otherwise omit.
+- **Slide 7 research check (settled, S-024):** no further takeover confirmed. The Sep 2026 escape
+  was DNS-only internet access, and the mid-Aug "research cluster" report is unconfirmed, so slide 7
+  shows two events. The 19 Jul OpenAI takeover was by a different (Astra-family) model, not the HF
+  agents (`other_takeovers.md`).
 - **Capability-pace placement:** default within the insights slides (9–10).
 - **Copy approvals:** see `docs/VOICE.md` Open (decided: "sanctioned", keep "accelerating", 3.2
   Insight; Notes button **always visible**, no idle fade).
