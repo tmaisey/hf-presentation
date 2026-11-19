@@ -20,8 +20,8 @@ from helper_deck import goto_slide, open_deck, parse_slides, slides_source
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-3"
-TITLE = ("Training rewarded agents that cheated on accidentally impossible tasks, and they built a "
-         "message board to do it")
+TITLE = ("Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to "
+         "coordinate through a shared message board")
 
 # step → tiles first visible at that step (storyboard s-3 diagram beats 1–5)
 TILES_AT = {

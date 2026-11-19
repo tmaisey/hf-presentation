@@ -96,9 +96,10 @@ and add every new verdict here as an example pair. British spelling throughout.
   (✗ "rising steeply"; ground it in the note: METR doubling faster since 2024) · 3.2 Insight
   "…little evidence of attempts to deceive the human reviewers" ✓ (verbose; may trim later) ·
   s-7 "After Hugging Face cut access, a second model's agents took control of an OpenAI cluster" ✓
-  (✗ credential-reuse detail in the title: not salient at this level; ✗ "the same agents": wrong).
-- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight; v2 titles s-3, s-8 (s-3 proposal:
-  "…and they learnt to coordinate through a shared message board", since "to do it" overclaims).
+  (✗ credential-reuse detail in the title: not salient at this level; ✗ "the same agents": wrong) ·
+  s-3 "…and they learnt to coordinate through a shared message board" ✓ (✗ "…built a message board
+  to do it": overclaims intent).
+- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight; v2 title s-8.
   Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
   carries over as-is.
 - Writing samples from the presenter (pending) to generalise beyond these examples.

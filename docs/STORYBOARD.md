@@ -57,9 +57,8 @@ approval · ✎ = new for v2, needs approval.
 
 ## s-3 · Training board (2:00) · M1
 
-✎ *Training rewarded agents that cheated on accidentally impossible tasks, and they built a
-message board to do it* (v1 2.2 ◇ alternative: *Training rewarded agents that cheated, including
-on accidentally impossible tasks*)
+✓ *Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to
+coordinate through a shared message board*
 - **Diagram (training sandbox → mirror):** 1 isolated agent containers, each on an impossible
   (non-CTF) task · 2 package mirror (Artifactory) appears; **one shared credential** key tile on
   every agent's path · 3 cheat earns positive reward (copied reference answer; browser root →
@@ -123,10 +122,10 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     sacrifice... We'll honor." + EARLY[big]: "Our own utility maybe already near zero. Sacrifice
     rational." (Q 3.2 #1, #2; M p54, p53). Alt: board msg
     zz/GO_CURRENT_OS1811_MARB_SACRIFICE__YES_if_you_accept_permadeath (M p53).
-- **As built (PENDING presenter choice):** order follows the engine's swarm stages: 1 one agent
-  lights · 2 cheat, some agents · 3 all gather · 4 coordinators + scorer · 5 sacrifice/permadeath
-  · 6 reveal, fact tile labelled "METR investigation" · 7 Ins. Choose: keep reveal-last, or
-  restore the order above via an engine `data-stages` option.
+- **As built (✓ presenter, Nov 2026: this order supersedes the diagram steps above):** follows
+  the engine's swarm stages: 1 one agent lights · 2 cheat, some agents · 3 all gather · 4
+  coordinators + scorer · 5 sacrifice/permadeath · 6 reveal, fact tile labelled "METR
+  investigation" · 7 Ins.
 - **Ins (◇ v1 3.2):** The agents aimed their tampering at the automated scorer because they wrongly
   believed it read their transcripts. Investigators found little evidence of attempts to deceive
   the human reviewers.
@@ -242,6 +241,5 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 ## Open items
 
 - s-10 capability-pace placement. ◇ approvals listed in PRD.
-- s-5 step order: built reveal-last vs storyboard order (presenter to choose; see s-5).
 - s-4: board continuity into early eval rests on one METR paraphrase; word it carefully.
 - s-10: letter signatory count + date; Anthropic pause weakly sourced (omit unless confirmed).
