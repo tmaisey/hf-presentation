@@ -55,19 +55,24 @@ def test_edges_use_shared_arrow_and_tiles_have_no_stroke(page):
 
 
 def test_swarm_builds_with_steps_and_coordinators_paint_on_top(page):
+    """Engine stages follow steps 1–5 by default; an optional data-stages list remaps step → stage."""
     open_deck(page)
-    sid = page.evaluate("() => document.querySelector('.diagram[data-diagram=swarm]').closest('section').id")
+    sid, stages = page.evaluate("""() => { const svg = document.querySelector('.diagram[data-diagram=swarm]');
+      return [svg.closest('section').id, svg.dataset.stages || '']; }""")
+    smap = [int(x) for x in stages.split(",") if x]
+    at = (lambda stage: 1 + next(i for i, v in enumerate(smap) if v >= stage)) if smap else (lambda stage: stage)
     goto_slide(page, sid, 0)
     assert page.evaluate(f"() => document.querySelectorAll('#{sid} .agent.is-visible').length") == 0
-    goto_slide(page, sid, 4)
+    goto_slide(page, sid, at(4))
     res = page.evaluate(f"""() => {{
       const svg = document.querySelector('#{sid} .diagram');
       const all = [...svg.querySelectorAll('circle')];
       const hubIdx = all.findIndex(c => c.classList.contains('hub'));
       const lastAgent = all.map(c => c.classList.contains('agent') && !c.classList.contains('hub')).lastIndexOf(true);
-      return {{ hubs: svg.querySelectorAll('.hub').length, hubIdx, lastAgent }}; }}""")
-    assert res["hubs"] >= 2 and res["hubIdx"] > res["lastAgent"]
-    goto_slide(page, sid, 5)
+      return {{ hubs: svg.querySelectorAll('.hub').length, gone: svg.querySelectorAll('.agent.gone').length,
+               hubIdx, lastAgent }}; }}""")
+    assert res["hubs"] >= 2 and res["hubIdx"] > res["lastAgent"] and res["gone"] == 0
+    goto_slide(page, sid, at(5))
     assert page.evaluate(f"() => document.querySelectorAll('#{sid} .agent.gone').length") > 0
 
 

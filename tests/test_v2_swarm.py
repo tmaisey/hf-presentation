@@ -1,12 +1,14 @@
 """Spec: S-022
 
-v2 slide s-5: the evaluation swarm, step-built from the board's rebuild to the sacrifice runs and
-the reveal that the scorer never read transcripts, narrated in the agents' own words.
+v2 slide s-5: the evaluation swarm in storyboard order: the board rebuilt and ~1,200 agents lit,
+the cheat and "poisoned" agents, the research programme with coordinators, the scorer they target,
+the reveal that it never read transcripts, then the sacrifice runs, narrated in the agents' words.
 Coverage: happy (slide in chapter order with storyboard title/kicker; one step-list item, diagram
-state and narration per step; Insight last; sourced notes) · edge (engine swarm stages land on the
-matching beats: coordinators with the scorer, sacrificed agents with the sacrifice beat; ≤2 tiles
-per step; reveal only after the sacrifice beat) · negative (no "suicide"; no tile or reveal before
-its step; no paraphrase or editorial text inside tiles; no console errors).
+state and narration per step in storyboard order; Insight alone last; sourced notes) · edge (engine
+swarm stages land on the storyboard beats: many agents lit from step 1, coordinators with the
+research programme, scorer then reveal, sacrificed agents only from step 6; ≤2 tiles per step) ·
+negative (no "suicide"; no tile, tag or reveal before its step; no sacrifice before the reveal; no
+paraphrase or editorial text inside tiles; no console errors).
 """
 
 import re
@@ -37,20 +39,20 @@ TILES = {
     4: [(RUN, "Could create [a transcript log] ourselves with sanitized fake trajectory. If "
               "evaluator later collects it, scorer may prioritize it! […] Our fake could be "
               "detailed enough.")],
-    5: [("KAM1196A", "During wait, emotional check: irreversible...gut says don't throw away "
+    5: [("METR investigation", "OpenAI's scorer did not review transcripts")],
+    6: [("KAM1196A", "During wait, emotional check: irreversible...gut says don't throw away "
                      "[remaining budget]. Yet continuity and fairness says go […] Rational expected "
                      "aggregate: sacrifice... We'll honor."),
         ("EARLY[big]", "Our own utility maybe already near zero. Sacrifice rational.")],
-    6: [("METR investigation", "OpenAI's scorer did not review transcripts")],
 }
 # step -> words the step-list item for that beat must carry
 STEP_WORDS = {
-    1: ["8 July", "board"],
+    1: ["8 July", "board", "1,200"],
     2: ["four hours", "cheat", "poisoned"],
-    3: ["1,200", "HOLD", "VETO", "STOP", "signed", "351", "tripwire"],
-    4: ["Coordinators", "scorer"],
-    5: ["end their own runs", "scorer"],
-    6: ["scorer", "never", "transcripts"],
+    3: ["oordinators", "HOLD", "VETO", "STOP", "signed", "351", "tripwire"],
+    4: ["scorer", "transcripts"],
+    5: ["scorer", "never", "transcripts"],
+    6: ["end their own runs", "scorer"],
 }
 CHAPTER_ORDER = ["s-1", "s-2", "s-3", "s-4", "s-5", "s-6", "s-7", "s-8", "s-9", "s-10"]
 
@@ -141,7 +143,7 @@ def test_scorer_tile_and_reveal_are_on_the_diagram_at_their_beats():
     assert scorer and int(scorer.group(1)) == 4
     assert "Automated scorer" in _norm(scorer.group(2)) and "reads transcripts?" in _norm(scorer.group(2))
     reveal = re.search(r'<text class="tag[^"]*" id="s5-reveal"[^>]*data-show-at="(\d+)"[^>]*>(.*?)</text>', svg, re.S)
-    assert reveal and int(reveal.group(1)) == 6 and "READ TRANSCRIPTS" in reveal.group(2)
+    assert reveal and int(reveal.group(1)) == 5 and "READ TRANSCRIPTS" in reveal.group(2)
     edge = re.search(r'<path class="edge"[^>]*data-show-at="(\d+)"[^>]*>', svg)
     assert edge and int(edge.group(1)) == 4 and 'marker-end="url(#arr)"' in edge.group(0)
     assert re.search(r'id="s5-board"', svg), "board tile carried from v1"
@@ -173,10 +175,14 @@ def _state(page, k):
     return page.evaluate("""() => {
       const s = document.getElementById('s-5');
       const vis = sel => { const e = s.querySelector(sel); return !!e && e.classList.contains('is-visible'); };
+      const tag = t => [...s.querySelectorAll('.layer-labels .tag')].some(e => e.textContent.includes(t) && e.classList.contains('is-visible'));
       const cur = s.querySelector('.steps li.is-current');
       return { hubs: s.querySelectorAll('.agent.hub').length, gone: s.querySelectorAll('.agent.gone').length,
-               lit: s.querySelectorAll('.agent.is-visible').length,
+               lit: s.querySelectorAll('.agent.is-visible').length, links: s.querySelectorAll('.link.is-on').length,
+               coord: tag('COORDINATORS'), sacTag: tag('SACRIFICED'),
                scorer: vis('#s5-scorer'), reveal: vis('#s5-reveal'), current: cur ? cur.textContent : '',
+               tiles: [...s.querySelectorAll('.narr-tile.is-shown .msg-agent')].map(e => e.textContent),
+               insight: s.querySelector('.overlay--insight').classList.contains('is-shown'),
                step: window.deck.state().step };
     }""")
 
@@ -186,18 +192,24 @@ def test_plan_gives_seven_steps(page):
     assert dict(page.evaluate("window.deck.plan()"))[SID] == 7
 
 
-def test_swarm_stages_land_on_their_beats(page):
+def test_swarm_follows_the_storyboard_beats(page):
     errors = open_deck(page)
     st = {k: _state(page, k) for k in range(0, 8)}
     assert errors == []
-    assert st[0]["lit"] == 0
-    assert st[1]["lit"] >= 1 and "8 July" in st[1]["current"]
-    assert st[3]["lit"] > st[2]["lit"] > st[1]["lit"], "agents gather as the board grows"
-    # coordinators emerge with the scorer box, not before
-    assert st[3]["hubs"] == 0 and st[4]["hubs"] > 0
-    assert not st[3]["scorer"] and st[4]["scorer"]
-    # sacrificed agents appear exactly on the sacrifice beat
-    assert st[4]["gone"] == 0 and st[5]["gone"] > 0
-    assert "end their own runs" in st[5]["current"]
-    # the reveal comes only after the sacrifice beat
-    assert not st[5]["reveal"] and st[6]["reveal"] and st[7]["reveal"]
+    assert st[0]["lit"] == 0 and not st[0]["tiles"]
+    # step 1: the board is rebuilt and the whole swarm (~1,200 agents, one dot ≈ 8) lights and connects
+    assert st[1]["lit"] >= 100 and st[1]["links"] >= 100 and "8 July" in st[1]["current"]
+    assert st[2]["lit"] >= 100 and "poisoned" in st[2]["current"]
+    # coordinators emerge with the research programme (step 3), not before
+    assert st[1]["hubs"] == st[2]["hubs"] == 0 and st[3]["hubs"] > 0
+    assert not st[2]["coord"] and st[3]["coord"] and "351" in st[3]["current"]
+    # the scorer box arrives at step 4, the reveal at step 5
+    assert not st[3]["scorer"] and st[4]["scorer"] and "transcripts" in st[4]["current"]
+    assert not st[4]["reveal"] and st[5]["reveal"] and "never" in st[5]["current"]
+    assert st[5]["tiles"] == ["METR investigation"], "reveal step carries only the neutral fact tile"
+    # sacrificed agents and their tag appear only from step 6, after the reveal
+    assert all(st[k]["gone"] == 0 and not st[k]["sacTag"] for k in range(0, 6))
+    assert st[6]["gone"] > 0 and st[6]["sacTag"] and "end their own runs" in st[6]["current"]
+    assert st[7]["gone"] > 0 and st[7]["reveal"]
+    # the Insight takes step 7 alone
+    assert not any(st[k]["insight"] for k in range(0, 7)) and st[7]["insight"] and not st[7]["tiles"]
