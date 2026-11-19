@@ -165,9 +165,10 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 ✓ *After Hugging Face cut access, a second model's agents took control of an OpenAI cluster*
 (presenter, Nov 2026; replaces "The same agents…", which S-024 showed was wrong)
 - **Diagram (callback to s-6's "OpenAI servers" band; HF path shown severed, 13 Jul):** 1 the
-  band stays lit after the cut · 2 19 Jul, same evaluation, a **different Astra-family model**:
-  agents root a package-mirror node and read cloud secrets · 3 Kubernetes cluster-admin and a
-  privileged host-mounted pod on the OpenAI cluster running the mirror (key tile) · 4 METR: more
+  band stays lit after the cut · 2 19 Jul, a separate evaluation run: agents root a
+  package-mirror node and read cloud secrets (TR leaves the node-root model unnamed) · 3 agents of a
+  **different Astra-family model** take Kubernetes cluster-admin and a privileged host-mounted pod
+  on the OpenAI cluster running the mirror (key tile) · 4 METR: more
   OpenAI infrastructure compromised after its scope ended (no detail published). No further
   takeovers: S-024 confirmed none (Sep escape DNS-only; mid-Aug report unconfirmed).
 - **Narr ⚠ thin** (no agent quote about cluster-admin): neutral fact tiles only, e.g. OpenAI TR

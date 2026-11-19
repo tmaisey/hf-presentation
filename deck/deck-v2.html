@@ -407,8 +407,8 @@
     <div>
       <ol class="steps" id="s7-steps">
         <li data-show-at="1">Hugging Face cuts access on 13 July; agents keep running on OpenAI’s servers.</li>
-        <li data-show-at="2">On 19 July, agents of a different Astra-family model root a package-mirror node and read cloud secrets.</li>
-        <li data-show-at="3">They take Kubernetes cluster-admin on the OpenAI cluster that runs the mirror.</li>
+        <li data-show-at="2">On 19 July, agents in a separate evaluation run root a package-mirror node and read cloud secrets.</li>
+        <li data-show-at="3">Agents of a different, Astra-family model take Kubernetes cluster-admin on the OpenAI cluster that runs the mirror.</li>
         <li data-show-at="4">METR reports more OpenAI infrastructure compromised later, without detail.</li>
       </ol>
     </div>
@@ -424,7 +424,7 @@
       <g class="layer-nodes">
         <g class="tile" id="s7-mirror" data-show-at="1"><rect x="380" y="80" width="290" height="150"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text><text class="tile-sub" data-show-at="2">node rooted</text></g>
         <g class="tile s7-off" id="s7-hf" data-show-at="1"><rect x="760" y="80" width="240" height="150"/><text class="tile-title">Hugging Face</text><text class="tile-sub">access cut</text><text class="tile-sub">13 Jul</text></g>
-        <g class="tile" id="s7-agents" data-show-at="2"><rect x="30" y="80" width="290" height="150"/><text class="tile-title">Astra-family agents</text><text class="tile-sub">a different model</text><text class="tile-sub">19 Jul</text></g>
+        <g class="tile" id="s7-agents" data-show-at="2"><rect x="30" y="80" width="290" height="150"/><text class="tile-title">19 Jul agents</text><text class="tile-sub">separate eval run</text><text class="tile-sub" data-show-at="3">Astra-family model</text></g>
         <g class="tile" id="s7-secrets" data-show-at="2"><rect x="30" y="300" width="290" height="150"/><text class="tile-title">Cloud secrets</text><text class="tile-sub">956 read</text></g>
         <g class="tile" id="s7-more" data-show-at="4"><rect x="30" y="480" width="640" height="100"/><text class="tile-title">More OpenAI infrastructure</text><text class="tile-sub">compromised later · no detail published</text></g>
       </g>
