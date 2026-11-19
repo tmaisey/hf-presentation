@@ -87,20 +87,22 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 
 Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter decision, Nov 2026.
 
-- **Placement:** tiles sit **tastefully in the free space** to the right: the empty upper right
-  (right of the title block, above the diagram) and the right edge beside the diagram (cf. v1
-  `s-3-1`, where that region sits empty). **NOT a rigid column or table:** positions are slightly
-  organic (staggered offsets, varied alignment), like the prototype scatter, while staying clear
-  and balanced. Tiles **MUST NEVER** cover the title or the
-  diagram's active area (the tiles/edges the current step reveals); the diagram may shift slightly
-  left/down to make room. Newest tile(s) sit nearest the diagram's current focus.
+- **Placement:** tiles sit **tastefully in the free space** to the right: a narration column
+  (≈25vw, 300–540px) spanning kicker → body beside the title, so title and body narrow to its left
+  and tiles can never cover the title or the diagram. **NOT a rigid column or table:** the engine
+  staggers each tile's width and left offset (a step's pair leans apart, deterministic per slide +
+  step) and centres the step's tiles on the diagram parts that step reveals (the current focus),
+  moving clear of tiles still exiting when there is room. Tiles **MUST NEVER** cover the title or
+  the diagram's active area (the tiles/edges the current step reveals).
 - **Step-driven only:** each build step adds **1–2** tiles; on the next step the previous tiles
   exit (rack focus: blur out, then disappear) as the new ones enter. **NEVER** timed auto-highlight,
   hover-to-focus or more than 2 tiles on screen. A step may carry no tiles.
 - **Look:** the agent-message card (frosted base, `p.msg-agent` label, verbatim quote); quote rules
-  as §10 and VOICE. Unlike Insight, tiles **MUST NOT** soften the body: focus stays on diagram +
-  latest messages.
-- An Insight on a narrated slide takes its own step after the last tiles (handover rule applies).
+  as §10 and VOICE. Entry rises in sharp; exit is §5 rack focus, then the tile is gone (newcomers
+  wait ~0.35s). Reduced motion: opacity fade only. Unlike Insight, tiles **MUST NOT** soften the
+  body: focus stays on diagram + latest messages.
+- An Insight on a narrated slide takes its own step after the last tiles (handover rule applies)
+  and may span the full width, since no tile is shown then.
 
 ## 6 · Reader notes (shareable mode)
 
@@ -193,15 +195,20 @@ step. `[data-show-at=n]` is visible from step n (`.is-visible`); works on HTML a
   `data-key` as authoring metadata (the KEY quote in `quotes.md`); it gets no default emphasis.
 - One overlay per step; put an Insight on its own step after a cluster.
 
-**Narration tiles** (§5a; *v2, to build in v2*: markup below is the intended contract, finalise
-it here when the engine lands). `div.narration` holds `article.narr-tile[data-at=n]` ×1–2 per
-step, each `p.msg-agent` + `blockquote.msg-text` (same verbatim/quote-mark rules as the cluster).
-- Layout: `div.narration` is a slide child after `div.body`, placed in a right-hand grid column
-  spanning kicker → body rows (so it can sit beside the title); the title and body narrow to leave
-  it room. Exact column width and diagram offset are *to build in v2*. Never nest it in the body.
-- Engine (*to build in v2*): a tile is shown only at its step `n` (same entry / rack-focus exit as
-  §5, existing `data-at` already counts toward step total), and **NEVER** sets the slide's
-  `is-overlaid` softening. Notes mode hides tiles like other overlays.
+**Narration tiles** (§5a; *v2*). `div.narration > article.narr-tile[data-at=n]`, ×1–2 per step
+(**NEVER** 3+), each `p.msg-agent` + `blockquote.msg-text` (same verbatim/quote-mark rules as the
+cluster). A step may carry none; a neutral fact tile uses the same markup with a neutral label.
+- Layout: `div.narration` is a slide child right after `div.body` (**NEVER** nested in the body).
+  Its presence gives the slide a right-hand column (≈25vw, 300–540px) spanning kicker → body; the
+  kicker, title and body take the remaining width to its left. The engine positions tiles; markup
+  carries no position. So a narrated `body--split` diagram gets ≈35% of the slide width: prefer a
+  flow / `body--stack` diagram (viewBox ≈1000–1200 wide) when the diagram needs room.
+- Fit (1280×720): a step's pair holds ≈200 characters per quote; a lone tile ≈400. Cut longer
+  quotes with `[…]`.
+- Engine: a tile is shown only at its step `n` (rise in sharp; rack-focus exit, then gone;
+  newcomers wait for it); `data-at` counts toward the step total; tiles **NEVER** set the slide's
+  `is-overlaid` softening; notes mode hides them like other overlays. Put an Insight on its own
+  step after the last tiles.
 
 **Reader notes** (§6): `aside.note[data-for="#id"]` with `h3` + `p` + `a.src[href]` (real source,
 link text = source name). `#id` **MUST** be an element on the same slide (HTML or SVG `g.tile`).
