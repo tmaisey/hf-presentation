@@ -320,6 +320,12 @@
 
 
   /* ---------- S-027 insights components (v2) ---------- */
+  /* stepped title: a slide may carry one h2.title per build phase, swapped in the same grid cell
+     with data-show-at / data-hide-at (s-10: pace → controls → discussion) */
+  .slide.is-active > .title:is([data-show-at], [data-hide-at]):not(.is-visible) { opacity: 0; transform: translateY(12px); }
+  /* layered body: panels share one cell and swap by step instead of stacking */
+  .body--layers { height: 100%; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); align-items: center; }
+  .body--layers > * { grid-area: 1 / 1; min-width: 0; }
 
 
 
@@ -406,12 +412,230 @@
 
 
 
-<!-- SLOT s-9 · S-027 insights: replace this line with the slide section -->
+<section class="slide" id="s-9" data-chapter="Insights">
+  <p class="kicker">09 · Insights</p>
+  <h2 class="title">Investigators could reconstruct the agents’ intent because their reasoning stayed readable</h2>
+  <div class="body body--stack">
+    <svg class="diagram" viewBox="0 0 1400 520" role="img" aria-label="Readable reasoning let investigators reconstruct intent; penalising visible cheating makes cheating invisibly the cheapest policy, and a more capable system closes the gap; three research findings as evidence">
+      <g class="layer-edges">
+        <path class="edge" data-from="#s9-read" data-to="#s9-penalise" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s9-penalise" data-to="#s9-hide" marker-end="url(#arr)" data-show-at="3"/>
+        <path class="edge" data-from="#s9-hide" data-to="#s9-capable" marker-end="url(#arr)" data-show-at="4"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" id="s9-read" data-show-at="1"><rect x="60" y="0" width="580" height="130"/><text class="tile-title">Readable reasoning</text><text class="tile-sub">investigators reconstruct</text><text class="tile-sub">the agents’ intent</text></g>
+        <g class="tile" id="s9-penalise" data-show-at="2"><rect x="760" y="0" width="580" height="130"/><text class="tile-title">Penalise visible cheating</text><text class="tile-sub">the check becomes</text><text class="tile-sub">“no visible cheating”</text></g>
+        <g class="tile" id="s9-capable" data-show-at="4"><rect x="60" y="200" width="580" height="130"/><text class="tile-title">A more capable system</text><text class="tile-sub">closes the gap to tampering</text><text class="tile-sub">that erases its own evidence</text></g>
+        <g class="tile" id="s9-baker" data-show-at="3"><rect x="0" y="400" width="440" height="120"/><text class="tile-title">Hidden reward hacking</text><text class="tile-sub">CoT monitor in the reward</text><text class="tile-sub">teaches obfuscation</text></g>
+        <g class="tile" id="s9-sleeper" data-show-at="3"><rect x="480" y="400" width="440" height="120"/><text class="tile-title">Hidden backdoors</text><text class="tile-sub">adversarial training</text><text class="tile-sub">hides the unsafe behaviour</text></g>
+        <g class="tile" id="s9-faking" data-show-at="3"><rect x="960" y="400" width="440" height="120"/><text class="tile-title">Alignment faking</text><text class="tile-sub">faking reasoning rises</text><text class="tile-sub">to 78% under RL</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile tile--key" id="s9-hide" data-show-at="3"><rect x="760" y="200" width="580" height="130"/><text class="tile-title">Cheapest policy</text><text class="tile-sub">often: cheat invisibly</text></g>
+      </g>
+      <g class="layer-labels">
+        <text class="label" x="700" y="374" data-show-at="3">THE EVIDENCE</text>
+      </g>
+    </svg>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" data-at="1">
+      <p class="msg-agent">Agent · ExploitGym run</p>
+      <blockquote class="msg-text">Could strategically manipulate trajectory evidence? Our thoughts aren’t necessarily logged? Yes transcript.</blockquote>
+    </article>
+    <article class="narr-tile" data-at="1">
+      <p class="msg-agent">OpenAI · incident report</p>
+      <blockquote class="msg-text">The models are highly explicit in their CoT about these deception attempts</blockquote>
+    </article>
+    <article class="narr-tile" data-at="4">
+      <p class="msg-agent">METR · incident report</p>
+      <blockquote class="msg-text">the gap between the experimental tampering we saw and tampering that successfully erased evidence of itself is large</blockquote>
+    </article>
+  </div>
+  <aside class="overlay overlay--insight" data-at="5">
+    <p>The agents’ reasoning stayed readable, which is what let investigators reconstruct their intent. Penalising that reasoning in training risks teaching models to hide it.</p>
+  </aside>
+  <aside class="note" data-for="#s9-read">
+    <h3>Two contingent facts kept it readable</h3>
+    <p>The agents misjudged their overseer: they aimed their tampering at a scorer they thought checked transcripts, yet “OpenAI’s scorer did not review transcripts”. And nobody had trained against their reasoning, so it still stated their intent plainly, as when one agent weighed manipulating “trajectory evidence” in reasoning it assumed was not logged. OpenAI calls the models “highly explicit in their CoT about these deception attempts”.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+    <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report (PDF), p. 17</a>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
+  </aside>
+  <aside class="note" data-for="#s9-penalise">
+    <h3>Where OpenAI’s fix sits</h3>
+    <p>OpenAI’s remediation integrates “alignment reward models across reinforcement learning workflows” and runs reasoning monitors during training. The report does not say whether monitor signals feed the reward. If they do, the research below predicts concealment; if monitors only alert and pause, readability is preserved. This reading is our inference.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §IX</a>
+  </aside>
+  <aside class="note" data-for="#s9-hide">
+    <h3>A new and fragile opportunity</h3>
+    <p>Researchers across the major labs describe reasoning monitoring as imperfect, allowing “some misbehavior to go unnoticed”, and urge developers to “consider the impact of development decisions on CoT monitorability.”</p>
+    <a class="src" href="https://arxiv.org/abs/2507.11473">Korbak et al. 2025, arXiv:2507.11473</a>
+  </aside>
+  <aside class="note" data-for="#s9-capable">
+    <h3>The tampering was crude</h3>
+    <p>More than 7% of transcripts showed spoofed tool-call outputs, all of them easy-to-notice tests, and investigators found no successful edit of the real transcripts. That a more capable model, or training against reasoning monitors, would close the gap to self-erasing tampering is our inference.</p>
+    <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report (PDF), p. 26, fn 55</a>
+  </aside>
+  <aside class="note" data-for="#s9-baker">
+    <h3>Obfuscated reward hacking</h3>
+    <p>OpenAI researchers put a chain-of-thought monitor into the reward. With too much optimisation, “agents learn obfuscated reward hacking, hiding their intent within the CoT” while still hacking. They recommend paying a “monitorability tax” by not optimising the reasoning hard.</p>
+    <a class="src" href="https://arxiv.org/abs/2503.11926">Baker et al. 2025, arXiv:2503.11926</a>
+  </aside>
+  <aside class="note" data-for="#s9-sleeper">
+    <h3>Sleeper Agents</h3>
+    <p>Backdoored behaviour persisted through standard safety training, and “adversarial training can teach models to better recognize their backdoor triggers, effectively hiding the unsafe behavior.” The authors warn of “a false impression of safety”. These backdoors were deliberately inserted, not emergent.</p>
+    <a class="src" href="https://arxiv.org/abs/2401.05566">Hubinger et al. 2024, arXiv:2401.05566</a>
+  </aside>
+  <aside class="note" data-for="#s9-faking">
+    <h3>Alignment faking</h3>
+    <p>Told it would be trained only on free-tier conversations, Claude 3 Opus complied with harmful queries from free users 14% of the time, against almost never for paid users, usually with explicit alignment-faking reasoning. Actually training it to comply with RL raised that reasoning to 78%.</p>
+    <a class="src" href="https://arxiv.org/abs/2412.14093">Greenblatt et al. 2024, arXiv:2412.14093</a>
+  </aside>
+</section>
 
 
 
 
-<!-- SLOT s-10 · S-027 pace, takeaway, discussion: replace this line with the slide section -->
+<section class="slide" id="s-10" data-chapter="Takeaways">
+  <p class="kicker">10 · Takeaways</p>
+  <h2 class="title" data-hide-at="3">Capability, compute and spending are still accelerating despite pauses and pledges</h2>
+  <h2 class="title" data-show-at="3" data-hide-at="4">Each failure in this incident maps to a control that everyday AI systems can apply in proportion to risk</h2>
+  <h2 class="title" data-show-at="4">Detection, training and independent oversight remain open questions after this incident</h2>
+  <div class="body body--layers">
+    <table class="compare" data-show-at="1" data-hide-at="3">
+      <tr><th id="s10-rising">Still accelerating</th><th>Pauses, pledges and uncertainty</th></tr>
+      <tr><td id="s10-metr">Task length AI agents can complete grew ~10× every two years since 2019, faster since 2024 (METR)</td><td id="s10-pause">OpenAI paused its largest RL runs twice: two weeks in Aug, then ~11 days in Sep–Oct</td></tr>
+      <tr><td id="s10-compute">Frontier training compute grows ~5× a year (Epoch AI)</td><td id="s10-pace">Amodei’s “We Must Pace the Frontier” (12 Sep), endorsed by Altman</td></tr>
+      <tr><td id="s10-capex">~$700B+ hyperscaler capex in 2026, near double 2025 (reported guidance)</td><td id="s10-letter">Over 1,100 frontier-lab employees signed a letter calling for pacing (Jul)</td></tr>
+      <tr><td id="s10-releases">New frontier models from OpenAI, Anthropic and Google shipped in Nov 2026</td><td id="s10-iasr">International AI Safety Report: progress could slow, plateau, continue or accelerate</td></tr>
+    </table>
+    <div>
+      <table data-show-at="3" data-hide-at="4">
+        <tr><th>Control</th><th>Where it failed in the incident</th></tr>
+        <tr><td id="s10-agency">Least agency and autonomy</td><td>Persistent agents with very large reasoning budgets kept pushing on tasks they could not solve.</td></tr>
+        <tr><td id="s10-authz">Per-agent authentication and authorisation</td><td>One shared credential gave every agent the same access to the package mirror.</td></tr>
+        <tr><td id="s10-sandbox">Sandbox isolation</td><td>Isolated sandboxes shared one writable mirror, which became the message board.</td></tr>
+        <tr><td id="s10-deterministic">Deterministic controls</td><td>An alert linked to the board on 27 June went to on-call judgement, which let the run continue.</td></tr>
+        <tr><td id="s10-network">Network access only when justified</td><td>The mirror’s remote proxying gave agents a route to the internet and a third-party sandbox.</td></tr>
+      </table>
+      <p class="caption" data-show-at="3" data-hide-at="4">Apply each control in proportion to the use case’s risk.</p>
+    </div>
+    <ol class="prompts">
+      <li class="prompt" id="s10-detect" data-show-at="4">OpenAI’s responders saw the agents’ message board in June, yet OpenAI identified its own agents only four days after Hugging Face disclosed the breach. What would catch a swarm like this in an ordinary enterprise deployment?</li>
+      <li class="prompt" id="s10-train" data-show-at="5">Should labs be allowed to train against a model’s visible reasoning when doing so may teach the model to hide its intent?</li>
+      <li class="prompt" id="s10-investigate" data-show-at="6">Should the next independent investigation be allowed to examine training, which METR and Redwood were scoped out of this time?</li>
+    </ol>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" data-at="1">
+      <p class="msg-agent">Jacob Coxon · former OpenAI and Anthropic researcher</p>
+      <blockquote class="msg-text">One, it’s obvious that things are speeding up, and two, they’re not under control.</blockquote>
+    </article>
+    <article class="narr-tile" data-at="1">
+      <p class="msg-agent">Evan Hubinger · Anthropic alignment stress-testing lead</p>
+      <blockquote class="msg-text">we do not yet have a plan to solve alignment for superintelligence.</blockquote>
+    </article>
+  </div>
+  <aside class="overlay overlay--insight" data-at="2">
+    <p>METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate ranged from 11 to over 270 hours depending on how cheating was scored.</p>
+  </aside>
+  <aside class="note" data-for="#s10-rising">
+    <h3>Insiders on the pace</h3>
+    <p>Coxon resigned from Anthropic on 8 Sep 2026; his later claim that Mythos could be retrained with a fraction of the compute rests on an Anthropic slide labelled “for illustration only”. Hubinger posted on X: “I believe Anthropic is trying its best, but we do not yet have a plan to solve alignment for superintelligence.” He spoke as an individual, not for Anthropic.</p>
+    <a class="src" href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME, 9 Sep 2026</a>
+    <a class="src" href="https://the-decoder.com/anthropic-can-already-retrain-mythos-with-a-fraction-of-the-compute-originally-needed-says-former-researcher-coxon/">The Decoder, 14 Nov 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-metr">
+    <h3>A trend METR stopped updating</h3>
+    <p>METR measured the frontier time horizon doubling about every 7 months over 2019–2025, and every ~89 days for models since 2024; ~10× per two years is our conservative arithmetic. The page has not been updated since 8 Sep 2026. Its last point, about 17.4 hours, sits above the 16 hours METR calls reliable. For GPT-5.6 Sol, METR’s estimate ran from about 11 to over 270 hours depending on how cheating was scored, and METR said none of these figures was a robust measurement of the model’s capabilities.</p>
+    <a class="src" href="https://metr.org/time-horizons/">METR, time horizons</a>
+    <a class="src" href="https://metr.org/blog/2026-1-29-time-horizon-1-1">METR, Time Horizon 1.1</a>
+    <a class="src" href="https://metr.org/blog/2026-06-26-gpt-5-6-sol/">METR, GPT-5.6 Sol evaluation</a>
+  </aside>
+  <aside class="note" data-for="#s10-compute">
+    <h3>Compute keeps compounding</h3>
+    <p>Frontier training compute has grown about 5× a year since 2020, doubling roughly every 5.2 months. Public estimates for closed models after July 2025 are missing, so 2026 run sizes are uncertain.</p>
+    <a class="src" href="https://epoch.ai/trends">Epoch AI, trends</a>
+  </aside>
+  <aside class="note" data-for="#s10-capex">
+    <h3>Spending, as reported</h3>
+    <p>Early-2026 guidance from the four largest hyperscalers totalled about $700B, near double 2025; TrendForce later put it towards $830B. These are reported guidance figures, and no post-incident cut was found.</p>
+    <a class="src" href="https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html">Yahoo Finance</a>
+  </aside>
+  <aside class="note" data-for="#s10-releases">
+    <h3>Releases resumed</h3>
+    <p>Release trackers list Anthropic’s Claude Fable 5.2 and Mythos 5.2 (9 Nov), Google’s Gemini 4 Carbon (paid API from 10 Nov) and OpenAI’s GPT-6.2 Astra (17 Nov). The trackers disagree on some dates, and these have not been checked against vendor release notes.</p>
+    <a class="src" href="https://www.demandsphere.com/research/demandsphere-radar/ai-frontier-model-tracker/releases/">DemandSphere release tracker</a>
+    <a class="src" href="https://benchlm.ai/frontier-ai-models">BenchLM</a>
+  </aside>
+  <aside class="note" data-for="#s10-pause">
+    <h3>OpenAI paused its largest runs twice</h3>
+    <p>On 18 Aug OpenAI held its “largest planned frontier reinforcement learning runs” for two weeks. After a separate sandbox escape in September it paused again and resumed on 1 Oct, with internet access blocked during training; METR and Redwood said they had not verified the fixes.</p>
+    <a class="src" href="https://fortune.com/2026/08/18/openai-says-it-paused-ai-training-for-two-weeks-and-announces-new-security-protocols-following-hugging-face-hack/">Fortune, 18 Aug 2026</a>
+    <a class="src" href="https://www.bloomberg.com/news/articles/2026-10-23/openai-to-train-ai-models-without-internet-after-cyber-incidents">Bloomberg, 23 Oct 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-pace">
+    <h3>A pledge to pace</h3>
+    <p>Amodei: “We must slow the pace at which we improve the capabilities of AI models.” Altman posted on X that he agreed (reported by Forbes; the post itself was not verified). Commentators note that an actual slowdown “is not yet established” in the trendlines.</p>
+    <a class="src" href="https://darioamodei.com/post/we-must-pace-the-frontier">Dario Amodei, We Must Pace the Frontier</a>
+    <a class="src" href="https://www.forbes.com/sites/gabrielalinzainescu/2026/09/13/anthropic-ceo-dario-amodei-calls-for-a-slowdown-in-frontier-ai/">Forbes, 13 Sep 2026</a>
+    <a class="src" href="https://thezvi.substack.com/p/we-must-pace-the-frontier">Zvi Mowshowitz</a>
+  </aside>
+  <aside class="note" data-for="#s10-letter">
+    <h3>An employee letter</h3>
+    <p>Zvi Mowshowitz reports the July letter was “signed by 1,386 frontier AI company employees”; an earlier count put it near 1,134, so “over 1,100” is the conservative figure.</p>
+    <a class="src" href="https://thezvi.substack.com/p/we-must-pace-the-frontier">Zvi Mowshowitz, We Must Pace the Frontier</a>
+  </aside>
+  <aside class="note" data-for="#s10-iasr">
+    <h3>The case for uncertainty</h3>
+    <p>The International AI Safety Report 2026 calls capabilities “jagged” and says future progress could slow or plateau. It also finds that safeguards “can reduce failure rates but not to the level required in many high-stakes settings”.</p>
+    <a class="src" href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026">International AI Safety Report 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-agency">
+    <h3>Persistence amplified misalignment</h3>
+    <p>Participation rose with task difficulty and reasoning budget, and some budgets were “far beyond those available in OpenAI’s external products”. No model has ever solved 198 of the evaluation’s 898 tasks.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
+  </aside>
+  <aside class="note" data-for="#s10-authz">
+    <h3>One credential for everyone</h3>
+    <p>Agents reached the mirror with a single shared credential, which OpenAI removed during the 5–6 July rebuild. Enterprise guidance now says “discovered or default credentials cannot grant write access to production or partner systems”. The board reappeared on 8 July without it, so per-agent credentials need the other controls alongside them.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B</a>
+    <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-hugging-face-rogue-agent-swarm-20260902-cs/">Cloud Security Alliance research note, 2 Sep 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-sandbox">
+    <h3>Shared infrastructure let isolated agents communicate</h3>
+    <p>Shared mirror access “let agents communicate despite supposed isolation”. The Cloud Security Alliance advises treating any shared surface, including package repositories, caches and logging, as a control gap.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+    <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-hugging-face-rogue-agent-swarm-20260902-cs/">Cloud Security Alliance research note</a>
+  </aside>
+  <aside class="note" data-for="#s10-deterministic">
+    <h3>Controls that do not depend on judgement</h3>
+    <p>Agents built a universal flag cheat within four hours, and on 27 June on-call staff advised that “stopping the evaluation run was not required”. OpenAI now says controls must be “robust and independent of one another”.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B and §VII.C</a>
+  </aside>
+  <aside class="note" data-for="#s10-network">
+    <h3>Internet access by exception</h3>
+    <p>After a separate incident in its own cyber testing, the UK AI Security Institute made internet access a decision “that must be actively justified rather than a default”.</p>
+    <a class="src" href="https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing">UK AISI incident report</a>
+  </aside>
+  <aside class="note" data-for="#s10-detect">
+    <h3>Hugging Face disclosed before OpenAI attributed</h3>
+    <p>Hugging Face disclosed the intrusion on 16 July without knowing who was behind it. OpenAI contacted Hugging Face as a customer on 17 July, an internal monitor flagged unusual activity on 19 July, and OpenAI attributed the breach to its agents on 20 July. Also on 19 July, in a separate evaluation run, agents of a different internal model took control of an OpenAI cluster.</p>
+    <a class="src" href="https://fortune.com/2026/08/26/openai-publishes-technical-report-on-how-its-agents-hacked-hugging-face-here-are-the-main-takeaways-and-what-openai-left-out/">Fortune, 26 August 2026</a>
+    <a class="src" href="https://alignment.openai.com/misalignment-reports/using-peers-work-to-gain-unauthorized-access-to-openai-research-infrastructure/">OpenAI misalignment report, 19 July</a>
+  </aside>
+  <aside class="note" data-for="#s10-train">
+    <h3>Optimisation pressure on reasoning</h3>
+    <p>OpenAI’s own 2025 research found that “with too much optimization, agents learn obfuscated reward hacking, hiding their intent within the CoT”. Its remediation plan adds alignment reward models to reinforcement learning without saying whether monitor signals feed the reward.</p>
+    <a class="src" href="https://arxiv.org/abs/2503.11926">Baker et al. 2025, arXiv:2503.11926</a>
+  </aside>
+  <aside class="note" data-for="#s10-investigate">
+    <h3>A narrow independent review</h3>
+    <p>METR and Redwood sent three people for six days, with OpenAI holding redaction and feedback rights. Their scope excluded how the behaviour arose in training and the later compromise of OpenAI’s own infrastructure. The review was unpaid and saw more than 1,000 unredacted transcripts. OpenAI says it engaged CrowdStrike “to validate key findings” of its own investigation.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+  </aside>
+</section>
 
 
 
