@@ -137,7 +137,7 @@ scoped out of training, so the deck attributes it.
   Sep 2026 sandbox escape behind OpenAI's second pause; the unverified mid-Aug "research cluster"
   report). Include with model and date if confirmed; otherwise omit.
 - **Capability-pace placement:** default within the insights slides (9–10).
-- **Pending v1 copy approvals:** titles for 0.1 ("sanctioned"), 2.2, 5.4, 5.5, 6.1; the 3.2 and
-  5.4 Insights; Notes button 3 s idle fade.
+- **Copy approvals:** see `docs/VOICE.md` Open (decided: "sanctioned", keep "accelerating", 3.2
+  Insight; Notes button **always visible**, no idle fade).
 - Employee-letter signatory count and date; whether to cite the weakly sourced Anthropic pause.
 - Presenter writing samples (pending) to generalise `docs/VOICE.md`.

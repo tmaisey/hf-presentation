@@ -104,7 +104,8 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
 
 ## 6 · Reader notes (shareable mode)
 
-- Quiet corner toggle (`N`). Notes mode: whole page veils (blur 7px) except a rounded window over
+- Quiet corner toggle (`N`), **always visible** (presenter decision: no idle fade; v1's 3 s fade
+  is removed in v2), placed so it never covers an overlay or narration tile. Notes mode: whole page veils (blur 7px) except a rounded window over
   the target; accent ring + glow marks it. [P3:38–48](../design/prototypes/03-notes-spotlight.html#L38)
 - Numbered pins just outside each annotated element's top-right corner (never on its text);
   current pin turns accent; pins the callout would cover hide. The callout never rises under the

@@ -212,8 +212,8 @@ investigating*
 
 ## s-10 · Pace, takeaway, discussion (1:00 + 4:00 Q&A) · M3, T
 
-◇ v1 5.4 title for step 1: *Capability, compute and spending are still rising steeply despite
-pauses and pledges* (placement of capability pace here is the default; open).
+✓ Title for step 1: *Capability, compute and spending are still accelerating despite pauses and
+pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 doubling) (placement of capability pace here is the default; open).
 - **Build:** 1 M3 comparison: still rising (task length ~10× per two years; compute ~5×/yr;
   ~$700B+ 2026 capex; Nov 2026 frontier releases) vs pauses and pledges (OpenAI paused twice;
   "We Must Pace the Frontier"; employee letter) · 2 T controls table, each paired with its
