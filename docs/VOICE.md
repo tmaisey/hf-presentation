@@ -84,8 +84,10 @@ and add every new verdict here as an example pair. British spelling throughout.
 - Agent-message overlays: verbatim quotes, so voice rules apply only to the header label.
 - **Decided (Nov 2026):** 0.1 "sanctioned" ✓ · capability-pace title keeps **"accelerating"**
   (✗ "rising steeply"; ground it in the note: METR doubling faster since 2024) · 3.2 Insight
-  "…little evidence of attempts to deceive the human reviewers" ✓ (verbose; may trim later).
-- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight; v2 titles s-3, s-7, s-8 (s-3 proposal:
+  "…little evidence of attempts to deceive the human reviewers" ✓ (verbose; may trim later) ·
+  s-7 "After Hugging Face cut access, a second model's agents took control of an OpenAI cluster" ✓
+  (✗ credential-reuse detail in the title: not salient at this level; ✗ "the same agents": wrong).
+- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight; v2 titles s-3, s-8 (s-3 proposal:
   "…and they learnt to coordinate through a shared message board", since "to do it" overclaims).
   Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
   carries over as-is.

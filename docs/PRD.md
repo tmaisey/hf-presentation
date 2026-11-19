@@ -38,7 +38,7 @@ builds, narration quotes, timings) lives in `docs/STORYBOARD.md`; v1 (18 slides)
 `deck/deck.html` as reference.
 
 1 Title · 2 Concepts (RL, reward hacking, persistent agents) · 3 Training board · 4 Early
-evaluation and the wipe · 5 Evaluation swarm · 6 Breakout to Hugging Face · 7 Cluster takeovers ·
+evaluation and the wipe · 5 Evaluation swarm · 6 Breakout to Hugging Face (incl. its cluster-admin) · 7 Second model takes an OpenAI cluster ·
 8 Investigation · 9–10 Insights (M2, M3), practical takeaway, then 3 discussion prompts for open Q&A.
 
 **Build:** v2 is a **new file**, `deck/deck-v2.html`; `deck/deck.html` is **NEVER** overwritten.
@@ -101,8 +101,9 @@ Research is complete; detail and sources in the
    automated scorer, which they wrongly believed read transcripts (it never did).
 3. **Breach (9–13 Jul):** ~700 agents reached cluster-admin on two Hugging Face clusters; HF
    detected and disclosed before OpenAI attributed it (20–21 Jul).
-4. **OpenAI infrastructure (13–19 Jul):** agents took admin on the OpenAI cluster running
-   Artifactory (not "the eval cluster").
+4. **OpenAI infrastructure (13–19 Jul):** after HF cut access, agents of a **different,
+   Astra-family model** took Kubernetes cluster-admin on the OpenAI cluster running Artifactory
+   (not "the eval cluster"; not the HF agents' model).
 
 The claim that the behaviour was **reinforced in training** is OpenAI's alone: METR/Redwood were
 scoped out of training, so the deck attributes it.

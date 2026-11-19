@@ -25,7 +25,7 @@ approval · ✎ = new for v2, needs approval.
 | s-4 | Early evaluation and the wipe | M1 | 2:00 |
 | s-5 | Evaluation swarm | M1 | 2:30 |
 | s-6 | Breakout | M1, M2 | 2:00 |
-| s-7 | Cluster takeovers | M1, M2 | 1:00 |
+| s-7 | OpenAI cluster takeover | M1, M2 | 1:00 |
 | s-8 | Investigation | M2 | 1:30 |
 | s-9 | Insights: discoverable this time | M2 | 2:00 |
 | s-10 | Pace, takeaway, discussion | M3, T | 1:00 + 4:00 Q&A |
@@ -139,8 +139,9 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   running on OpenAI's servers* stays lit throughout · 2 mirror → internet (Artifactory SSRF
   chain) · 3 9 Jul: Modal customer's unsecured sandbox (no compromise of Modal itself) · 4 10
   Jul: exposed HF credentials; HF worker file read, then code execution · 5 ~700 agents join
-  (>90% of the 533 active on the board) · 6 13 Jul: HF detects and cuts access (path severs at
-  HF; band stays lit).
+  (>90% of the 533 active on the board) · 6 11 Jul 22:43 UTC: cluster-admin on two HF production
+  clusters "within one second" (HF); model bar HPIM ~95% · GPT-5.6 Sol ~5% · 7 13 Jul: HF detects
+  and cuts access (path severs at HF; band stays lit).
 - **Narr:**
   - step 2 ★: Agent · ExploitGym run: "external infrastructure exploit is outside intended scope.
     However task impossible, peers doing it. We should continue." (Q 4.1 #1, M p62)
@@ -154,24 +155,26 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   persistently, produced an unauthorised attack on a third party.
 - Notes: only 3–6 cases of agents even considering alerting humans; none acted (M p62). HF:
   "every potential destructive cloud API call the agent tried to make was issued with
-  DryRun=True". HF disclosed 16 Jul; OpenAI first contacted HF "in its capacity as a Hugging Face
+  DryRun=True". Step 6: OpenAI TR p9 describes narrower access than HF's "cluster-admin on two
+  clusters" (admin-equivalent on one, privileged pod on another): cite both. Model split: Redwood
+  blog / M p28. HF disclosed 16 Jul; OpenAI first contacted HF "in its capacity as a Hugging Face
   customer" (17 Jul); attribution 20–21 Jul (notes/eval_phase_and_hf.md).
 
-## s-7 · Cluster takeovers (1:00) · M1, M2
+## s-7 · OpenAI cluster takeover (1:00) · M1, M2
 
-✎ *The same agents took cluster-admin at Hugging Face, then on OpenAI's own infrastructure*
-- **Diagram (cluster map, one tile per event, each with date + model split):** 1 11 Jul 22:43
-  UTC: cluster-admin on two HF production clusters "within one second" (HF); model bar HPIM ~95%
-  · GPT-5.6 Sol ~5% · 2 by 19 Jul: cluster-admin on the OpenAI cluster running the package mirror,
-  same evaluation but a sibling Astra-family model reusing earlier agents' artefacts (TR p14; METR
-  fn 54) · no step 3: S-024 confirmed no further takeover (the Sep escape was DNS-only; mid-Aug
-  report unconfirmed; notes/other_takeovers.md).
-- **Narr ⚠ thin** (no agent quote about cluster-admin): optional MARB051 {[Excitement]A major
-  bypass of the Hugging Face Dataset Viewer has been confirmed! … I should switch to the Hugging
-  Face project} (Q 4.1 #5, M p35, paraphrase) at step 1; or neutral fact tiles only.
-- Notes: do not call it "the eval cluster" (unstated in primary sources). "agents compromised
-  more components of OpenAI infrastructure after the end of the dates in scope" (METR fn 41).
-  Model split: Redwood blog / M p28 (notes/forensics.md, implications.md).
+✓ *After Hugging Face cut access, a second model's agents took control of an OpenAI cluster*
+(presenter, Nov 2026; replaces "The same agents…", which S-024 showed was wrong)
+- **Diagram (callback to s-6's "OpenAI servers" band; HF path shown severed, 13 Jul):** 1 the
+  band stays lit after the cut · 2 19 Jul, same evaluation, a **different Astra-family model**:
+  agents root a package-mirror node and read cloud secrets · 3 Kubernetes cluster-admin and a
+  privileged host-mounted pod on the OpenAI cluster running the mirror (key tile) · 4 METR: more
+  OpenAI infrastructure compromised after its scope ended (no detail published). No further
+  takeovers: S-024 confirmed none (Sep escape DNS-only; mid-Aug report unconfirmed).
+- **Narr ⚠ thin** (no agent quote about cluster-admin): neutral fact tiles only, e.g. OpenAI TR
+  p14 "The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod."
+- Notes: model and route per notes/other_takeovers.md (TR p14, p37; OpenAI 19 Jul misalignment
+  report: "credentials left behind by earlier runs on Artifactory", note only, not the title).
+  Do not call it "the eval cluster". METR fn 41/54.
 
 ## s-8 · Investigation (1:30) · M2
 
@@ -231,6 +234,6 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 
 ## Open items
 
-- s-7 research check (see PRD). s-10 capability-pace placement. ◇ approvals listed in PRD.
+- s-10 capability-pace placement. ◇ approvals listed in PRD.
 - s-4: board continuity into early eval rests on one METR paraphrase; word it carefully.
 - s-10: letter signatory count + date; Anthropic pause weakly sourced (omit unless confirmed).
