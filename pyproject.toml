@@ -1,0 +1,12 @@
+[project]
+name = "hf-presentation"
+version = "0.1.0"
+description = "Single-file HTML deck on the 2026 OpenAI–Hugging Face agent-swarm incident"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8", "playwright>=1.49"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
