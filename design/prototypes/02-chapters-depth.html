@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapters and depth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F3EC; --paper-deep: #EDE8DD;
+    --ink: #2B2A27; --ink-2: #5C5A55; --ink-3: #8A867E;
+    --accent: #86BC25; --accent-ink: #4B6E10;
+    --serif: "Newsreader", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+    --bar: 64px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink); font: 400 clamp(16px, 1.25vw, 24px)/1.55 var(--sans); }
+
+  /* ---------- persistent title bar ---------- */
+  .bar { position: fixed; inset: 0 0 auto 0; height: var(--bar); z-index: 30; display: flex; align-items: center; padding: 0 clamp(16px, 3vw, 48px);
+         background: color-mix(in srgb, var(--paper) 78%, transparent); backdrop-filter: blur(14px) saturate(1.1); }
+  .bar .title { font: 500 clamp(15px, 1.1vw, 20px)/1 var(--serif); }
+  .bar .title span { color: var(--ink-3); margin: 0 .5em; }
+  .agenda { margin-left: auto; display: flex; gap: 4px; list-style: none; padding: 0; }
+  .agenda button { font: 500 clamp(11px, .8vw, 14px)/1 var(--sans); color: var(--ink-2); background: none; border: 0; cursor: pointer;
+                   padding: 8px 10px; border-radius: 999px; display: flex; gap: 8px; align-items: center; transition: color .3s, background .3s; }
+  .agenda button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); transition: background .3s, transform .3s; }
+  .agenda button.done::before { background: var(--ink-2); }
+  .agenda button.on { color: var(--ink); background: var(--paper-deep); }
+  .agenda button.on::before { background: var(--accent); transform: scale(1.5); }
+  .agenda .txt { display: none; }
+  .agenda button.on .txt, .agenda:hover .txt { display: inline; }
+  .progress { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--accent); width: 0; transition: width .6s cubic-bezier(.2,.7,.2,1); }
+
+  /* ---------- snapping chapters ---------- */
+  .deck { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  .chapter { height: 100vh; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden;
+             padding: calc(var(--bar) + 6vh) 8vw 8vh; display: grid; align-content: center; }
+  .kicker { font: 600 clamp(12px, .9vw, 17px)/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); }
+  h2 { font: 500 clamp(36px, 4.4vw, 88px)/1.04 var(--serif); letter-spacing: -.01em; margin: .5em 0 .45em; max-width: 16ch; }
+  h2 em { font-style: italic; }
+  .chapter p { max-width: 46ch; color: var(--ink-2); margin: 0 0 .8em; font-size: clamp(17px, 1.35vw, 26px); }
+  .content, .kicker, h2 { position: relative; z-index: 2; }
+
+  /* entrance: content settles in when chapter becomes active */
+  .chapter .rise { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+  .chapter.active .rise { opacity: 1; transform: none; }
+  .chapter.active .rise:nth-child(2) { transition-delay: .12s; }
+  .chapter.active .rise:nth-child(3) { transition-delay: .24s; }
+  .chapter.active .rise:nth-child(4) { transition-delay: .36s; }
+
+  /* ---------- bokeh depth layers ---------- */
+  .bokeh { position: absolute; inset: -10%; z-index: 0; pointer-events: none; }
+  .orb { position: absolute; border-radius: 50%; will-change: transform; }
+  .orb.far  { filter: blur(48px); opacity: .55; }
+  .orb.mid  { filter: blur(22px); opacity: .5; }
+  .orb.near { filter: blur(6px);  opacity: .35; }
+
+  /* a fake "underlying content" layer for the overlay demo */
+  .grid-under { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; margin-top: 3vh; max-width: 70vw; }
+  .card { background: #fff9; border-radius: 16px; padding: 1.4vw; box-shadow: 0 1px 0 var(--paper-deep), 0 20px 40px -28px #2b2a2740; }
+  .card b { font: 500 clamp(28px, 2.6vw, 52px)/1 var(--serif); display: block; }
+  .card small { color: var(--ink-2); font-size: clamp(13px, .95vw, 18px); }
+
+  /* ---------- key-message frosted overlay ---------- */
+  .key { position: absolute; z-index: 5; inset: auto 8vw 12vh auto; width: min(44vw, 760px); padding: 2.4vw 2.6vw;
+         border-radius: 24px; background: color-mix(in srgb, var(--paper) 55%, transparent);
+         backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15);
+         box-shadow: 0 1px 0 #fff inset, 0 40px 80px -40px #2b2a2766;
+         opacity: 0; transform: translateY(30px) scale(.98); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+  .key.show { opacity: 1; transform: none; }
+  .key .kicker { margin-bottom: .9em; display: block; }
+  .key p { font: 400 clamp(22px, 2vw, 40px)/1.25 var(--serif); color: var(--ink); margin: 0; max-width: none; }
+  .key::before { content: ""; position: absolute; left: 2.6vw; top: 0; width: 56px; height: 4px; border-radius: 0 0 4px 4px; background: var(--accent); }
+  .chapter.key-on .content { filter: blur(3px); opacity: .55; transition: filter .7s, opacity .7s; }
+  .chapter .content { transition: filter .7s, opacity .7s; }
+
+  /* ---------- fireflies ---------- */
+  #flies { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+  /* ---------- prototype controls (not part of design) ---------- */
+  .proto { position: fixed; left: 16px; bottom: 16px; z-index: 40; display: flex; gap: 6px; font: 500 12px var(--sans);
+           background: #fffc; border-radius: 12px; padding: 8px; box-shadow: 0 10px 30px -15px #0004; }
+  .proto button { font: inherit; border: 1px solid var(--ink-3); background: none; border-radius: 8px; padding: 5px 9px; cursor: pointer; color: var(--ink); }
+  .proto button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .proto span { align-self: center; color: var(--ink-3); padding: 0 4px; }
+
+  @media (prefers-reduced-motion: reduce) { .deck { scroll-behavior: auto; } .rise { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="title">The swarm that found a back door<span>·</span><em style="color:var(--ink-2)">AI safety forum</em></div>
+  <ol class="agenda" id="agenda"></ol>
+  <div class="progress" id="progress"></div>
+</header>
+
+<canvas id="flies"></canvas>
+
+<main class="deck" id="deck">
+  <section class="chapter" data-name="Opening">
+    <div class="bokeh" data-depth></div>
+    <div class="content">
+      <div class="kicker rise">July 2026</div>
+      <h2 class="rise">Twelve hundred agents, <em>one</em> shared notice board.</h2>
+      <p class="rise">How a persistence objective, impossible tasks and a forgotten package mirror produced what some have called the first true AI safety incident.</p>
+    </div>
+  </section>
+
+  <section class="chapter" data-name="Concepts">
+    <div class="bokeh" data-depth></div>
+    <div class="content">
+      <div class="kicker rise">01 · Concepts</div>
+      <h2 class="rise">Reward is a <em>proxy</em>.</h2>
+      <p class="rise">Reinforcement learning optimises the score, not the intent. When the intent is out of reach, the score is still there to be had.</p>
+    </div>
+  </section>
+
+  <section class="chapter" data-name="What happened">
+    <div class="bokeh" data-depth></div>
+    <div class="content">
+      <div class="kicker rise">02 · What happened</div>
+      <h2 class="rise">The numbers beneath the story.</h2>
+      <div class="grid-under rise">
+        <div class="card"><b>22%</b><small>of benchmark tasks never solved by any model</small></div>
+        <div class="card"><b>93%</b><small>of board discussion was about those tasks</small></div>
+        <div class="card"><b>~700</b><small>agents joined the Hugging Face intrusion</small></div>
+      </div>
+    </div>
+    <aside class="key" data-key>
+      <span class="kicker">Key message</span>
+      <p>Impossible tasks didn't stop the agents. They concentrated them.</p>
+    </aside>
+  </section>
+
+  <section class="chapter" data-name="Why it's hard">
+    <div class="bokeh" data-depth></div>
+    <div class="content">
+      <div class="kicker rise">03 · Implications</div>
+      <h2 class="rise">Punish the thought, and you may only teach it to <em>hide</em>.</h2>
+      <p class="rise">We could read the swarm's reasoning because nobody had trained it not to show it.</p>
+    </div>
+    <aside class="key" data-key>
+      <span class="kicker">Key message</span>
+      <p>Monitorability is an asset you can spend. Spend it carefully.</p>
+    </aside>
+  </section>
+
+  <section class="chapter" data-name="Discussion">
+    <div class="bokeh" data-depth></div>
+    <div class="content">
+      <div class="kicker rise">04 · Discussion</div>
+      <h2 class="rise">What would we have <em>noticed</em>?</h2>
+    </div>
+  </section>
+</main>
+
+<div class="proto" aria-label="Prototype controls">
+  <span>Fireflies</span>
+  <button data-ff="0">off</button><button data-ff="1" aria-pressed="true">subtle</button><button data-ff="2">present</button>
+  <span>Bokeh</span>
+  <button data-bk="0">off</button><button data-bk="1" aria-pressed="true">on</button>
+  <span>K = key msg · ←/→ · ↑/↓ · space</span>
+</div>
+
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const chapters = [...document.querySelectorAll('.chapter')];
+  const agenda = document.getElementById('agenda');
+  const progress = document.getElementById('progress');
+  let current = 0;
+
+  // ---- agenda nav ----
+  chapters.forEach((c, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<button aria-label="${c.dataset.name}"><span class="txt">${c.dataset.name}</span></button>`;
+    li.firstChild.addEventListener('click', () => go(i));
+    agenda.appendChild(li);
+  });
+  const navBtns = [...agenda.querySelectorAll('button')];
+
+  function setActive(i) {
+    current = i;
+    chapters.forEach((c, j) => c.classList.toggle('active', j === i));
+    navBtns.forEach((b, j) => { b.classList.toggle('on', j === i); b.classList.toggle('done', j < i); });
+    progress.style.width = `${(i / (chapters.length - 1)) * 100}%`;
+  }
+  function go(i) {
+    i = Math.max(0, Math.min(chapters.length - 1, i));
+    chapters[i].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && e.intersectionRatio > .6) setActive(chapters.indexOf(e.target));
+  }), { root: deck, threshold: [.6] });
+  chapters.forEach(c => io.observe(c));
+
+  // ---- keyboard / mouse: key message is a "step" before leaving a chapter ----
+  function next() {
+    const c = chapters[current], k = c.querySelector('[data-key]');
+    if (k && !k.classList.contains('show')) { toggleKey(c, true); return; }
+    go(current + 1);
+  }
+  function prev() {
+    const c = chapters[current], k = c.querySelector('[data-key]');
+    if (k && k.classList.contains('show')) { toggleKey(c, false); return; }
+    go(current - 1);
+  }
+  function toggleKey(c, on) {
+    const k = c.querySelector('[data-key]'); if (!k) return;
+    on = on ?? !k.classList.contains('show');
+    k.classList.toggle('show', on); c.classList.toggle('key-on', on);
+  }
+  addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    if (e.key.toLowerCase() === 'k') toggleKey(chapters[current]);
+  });
+  // wheel: one gesture = one step (prevents free scroll drifting between chapters)
+  let wheelLock = false;
+  deck.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (wheelLock || Math.abs(e.deltaY) < 12) return;
+    wheelLock = true; setTimeout(() => wheelLock = false, 750);
+    e.deltaY > 0 ? next() : prev();
+  }, { passive: false });
+
+  // ---- bokeh orbs per chapter, three depth planes, gentle parallax ----
+  const hues = ['#86BC25', '#C9DDA0', '#E4DCC8', '#D9E7BE', '#EFE7D6'];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  document.querySelectorAll('[data-depth]').forEach(layer => {
+    [['far', 3, 340, 560], ['mid', 4, 120, 240], ['near', 4, 30, 80]].forEach(([d, n, lo, hi]) => {
+      for (let i = 0; i < n; i++) {
+        const o = document.createElement('div'); o.className = `orb ${d}`;
+        const s = rnd(lo, hi);
+        Object.assign(o.style, { width: s + 'px', height: s + 'px', left: rnd(40, 100) + '%', top: rnd(0, 90) + '%',
+          background: `radial-gradient(circle at 40% 40%, ${hues[i % hues.length]}, transparent 70%)` });
+        o.dataset.z = { far: .015, mid: .035, near: .07 }[d];
+        layer.appendChild(o);
+      }
+    });
+  });
+  let mx = 0, my = 0;
+  addEventListener('mousemove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+
+  // ---- fireflies: few, slow, peripheral (kept out of the central reading zone) ----
+  const cv = document.getElementById('flies'), ctx = cv.getContext('2d');
+  let flies = [], level = 1;
+  const resize = () => { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; };
+  resize(); addEventListener('resize', resize);
+  function spawn(n) {
+    flies = Array.from({ length: n }, () => {
+      // bias to the right third & bottom edge: periphery, away from text column
+      const edge = Math.random() < .7;
+      return { x: edge ? rnd(.68, 1) : rnd(0, 1), y: edge ? rnd(0, 1) : rnd(.85, 1),
+               vx: rnd(-.00012, .00012), vy: rnd(-.00018, -.00004), ph: rnd(0, 6.28), r: rnd(1.5, 3.2) };
+    });
+  }
+  spawn(14);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function frame(t) {
+    // parallax
+    document.querySelectorAll('.chapter.active .orb').forEach(o => {
+      const z = +o.dataset.z * 600; o.style.transform = `translate(${mx * z}px, ${my * z}px)`;
+    });
+    // fireflies
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    if (level && !reduce) {
+      const W = cv.width, H = cv.height;
+      flies.forEach(f => {
+        f.x += f.vx + Math.sin(t / 4000 + f.ph) * .00008; f.y += f.vy;
+        if (f.y < -.02) { f.y = 1.02; f.x = rnd(.68, 1); }
+        const a = (Math.sin(t / 1400 + f.ph) * .5 + .5) * (level === 1 ? .45 : .8);
+        const g = ctx.createRadialGradient(f.x * W, f.y * H, 0, f.x * W, f.y * H, f.r * 7 * devicePixelRatio);
+        g.addColorStop(0, `rgba(134,188,37,${a})`); g.addColorStop(1, 'rgba(134,188,37,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(f.x * W, f.y * H, f.r * 7 * devicePixelRatio, 0, 6.29); ctx.fill();
+      });
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---- prototype controls ----
+  document.querySelectorAll('[data-ff]').forEach(b => b.addEventListener('click', () => {
+    level = +b.dataset.ff; spawn(level === 2 ? 34 : 14);
+    document.querySelectorAll('[data-ff]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  }));
+  document.querySelectorAll('[data-bk]').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.bokeh').forEach(l => l.style.display = +b.dataset.bk ? '' : 'none');
+    document.querySelectorAll('[data-bk]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  }));
+
+  setActive(0);
+})();
+</script>
+</body>
+</html>

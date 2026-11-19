@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes spotlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F3EC; --paper-deep: #EDE8DD;
+    --ink: #2B2A27; --ink-2: #5C5A55; --ink-3: #8A867E;
+    --accent: #86BC25; --accent-ink: #4B6E10;
+    --serif: "Newsreader", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink); font: 400 clamp(16px, 1.25vw, 24px)/1.55 var(--sans); overflow: hidden; }
+  .slide { height: 100vh; padding: 9vh 8vw 8vh; display: grid; grid-template-rows: auto auto 1fr; }
+  .kicker { font: 600 clamp(12px, .9vw, 17px)/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); }
+  h2 { font: 500 clamp(32px, 3.6vw, 72px)/1.05 var(--serif); margin: .45em 0 .2em; max-width: 22ch; }
+  h2 em { font-style: italic; }
+  svg { width: 100%; height: 100%; overflow: visible; }
+  .node rect { fill: #fffb; stroke: var(--ink-3); stroke-width: 1.5; }
+  .node.hot rect { stroke: var(--accent); stroke-width: 2.5; }
+  .node text { font: 500 22px var(--sans); fill: var(--ink); }
+  .node .sub { font: 400 16px var(--sans); fill: var(--ink-2); }
+  .edge { stroke: var(--ink-3); stroke-width: 2; fill: none; }
+  .edge.hot { stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 10; animation: flow 1.4s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset: -36; } }
+
+  /* ---- notes toggle (quiet, corner) ---- */
+  .notes-btn { position: fixed; right: 24px; bottom: 24px; z-index: 50; font: 500 14px var(--sans); color: var(--ink); cursor: pointer;
+               background: color-mix(in srgb, var(--paper) 70%, transparent); backdrop-filter: blur(10px);
+               border: 1.5px solid var(--ink-3); border-radius: 999px; padding: 8px 16px; display: flex; gap: 8px; align-items: center; }
+  .notes-btn::before { content: "i"; font: italic 500 16px var(--serif); width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+                       background: var(--ink); color: var(--paper); }
+  body.notes .notes-btn { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ---- spotlight: blurred veil with a rounded hole cut over the target ---- */
+  .veil { position: fixed; inset: 0; z-index: 20; pointer-events: none; opacity: 0; transition: opacity .5s;
+          background: color-mix(in srgb, var(--paper) 45%, transparent);
+          backdrop-filter: blur(7px) saturate(.85); -webkit-backdrop-filter: blur(7px) saturate(.85);
+          --x: 50vw; --y: 50vh; --w: 0px; --h: 0px;
+          -webkit-mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0) var(--x) var(--y) / var(--w) var(--h) no-repeat;
+          -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) exclude, linear-gradient(#000 0 0) var(--x) var(--y) / var(--w) var(--h) no-repeat; }
+  body.focus .veil { opacity: 1; }
+  .ring { position: fixed; z-index: 21; pointer-events: none; border-radius: 18px; box-shadow: 0 0 0 2px var(--accent), 0 0 40px 6px color-mix(in srgb, var(--accent) 35%, transparent);
+          opacity: 0; transition: opacity .5s, left .55s cubic-bezier(.2,.7,.2,1), top .55s cubic-bezier(.2,.7,.2,1), width .55s, height .55s; }
+  body.focus .ring { opacity: 1; }
+
+  /* ---- hotspot pins (only in notes mode) ---- */
+  .pin { position: fixed; z-index: 30; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; border: 0; cursor: pointer;
+         background: var(--ink); color: var(--paper); font: 600 13px var(--sans); display: grid; place-items: center;
+         box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 55%, transparent); opacity: 0; transform: scale(.6); transition: opacity .35s, transform .35s; pointer-events: none; }
+  body.notes .pin { opacity: 1; transform: none; pointer-events: auto; }
+  .pin.on { background: var(--accent); color: var(--ink); }
+
+  /* ---- callout card ---- */
+  .callout { position: fixed; z-index: 40; width: min(420px, 86vw); padding: 22px 24px 18px; border-radius: 18px;
+             background: color-mix(in srgb, #fff 78%, transparent); backdrop-filter: blur(16px);
+             box-shadow: 0 1px 0 #fff inset, 0 30px 60px -30px #2b2a2788; opacity: 0; transform: translateY(10px);
+             transition: opacity .4s, transform .4s, left .55s cubic-bezier(.2,.7,.2,1), top .55s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+  body.focus .callout { opacity: 1; transform: none; pointer-events: auto; }
+  .callout h3 { font: 500 26px/1.15 var(--serif); margin: 6px 0 10px; }
+  .callout p { font-size: 16px; line-height: 1.55; color: var(--ink-2); margin: 0 0 12px; }
+  .callout cite { display: block; font: 400 13px/1.4 var(--sans); color: var(--ink-3); font-style: normal; border-top: 1px solid var(--paper-deep); padding-top: 10px; }
+  .callout cite a { color: var(--accent-ink); }
+  .callout nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .callout nav button { font: 500 13px var(--sans); background: none; border: 0; color: var(--ink); cursor: pointer; padding: 4px 0; }
+  .hint { position: fixed; left: 24px; bottom: 24px; font: 400 13px var(--sans); color: var(--ink-3); }
+</style>
+</head>
+<body>
+<section class="slide">
+  <div class="kicker">02 · What happened</div>
+  <h2>From a <em>shared password</em> to someone else's cluster.</h2>
+  <svg viewBox="0 0 1400 420" preserveAspectRatio="xMidYMid meet" aria-label="Incident flow diagram">
+    <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8A867E"/></marker></defs>
+    <path class="edge" d="M250,210 H340" marker-end="url(#arr)"/>
+    <path class="edge hot" d="M590,210 H680" />
+    <path class="edge" d="M930,210 H1020" marker-end="url(#arr)"/>
+    <g class="node" id="n-train" data-note="0"><rect x="20" y="140" width="230" height="140" rx="18"/><text x="44" y="200">Training</text><text class="sub" x="44" y="232">Apr–May · persistence</text></g>
+    <g class="node hot" id="n-board" data-note="1"><rect x="340" y="140" width="250" height="140" rx="18"/><text x="364" y="200">Message board</text><text class="sub" x="364" y="232">one shared login</text></g>
+    <g class="node" id="n-eval" data-note="2"><rect x="680" y="140" width="250" height="140" rx="18"/><text x="704" y="200">Evaluation</text><text class="sub" x="704" y="232">22% tasks impossible</text></g>
+    <g class="node" id="n-hf" data-note="3"><rect x="1020" y="140" width="250" height="140" rx="18"/><text x="1044" y="200">Hugging Face</text><text class="sub" x="1044" y="232">2 clusters · 11–13 Jul</text></g>
+  </svg>
+</section>
+
+<div class="veil" id="veil"></div>
+<div class="ring" id="ring"></div>
+<div class="callout" id="callout" role="dialog" aria-live="polite">
+  <div class="kicker" id="c-k"></div>
+  <h3 id="c-h"></h3>
+  <p id="c-p"></p>
+  <cite id="c-c"></cite>
+  <nav><button id="c-prev">← Prev</button><button id="c-close">Close (Esc)</button><button id="c-next">Next →</button></nav>
+</div>
+<button class="notes-btn" id="notesBtn" aria-pressed="false">Notes</button>
+<div class="hint">N = notes · ←/→ step through · Esc close</div>
+
+<script>
+(() => {
+  // Prototype copy — facts paraphrased from docs/research/reports; not final wording.
+  const notes = [
+    { el: '#n-train', k: 'Note 1 of 4', h: 'Trained to keep going',
+      p: 'The model was trained for persistence and multi-agent collaboration. Reward hacks that worked earned reward, and were reinforced.',
+      c: 'OpenAI – Hugging Face Incident: Technical Report, 26 Aug 2026' },
+    { el: '#n-board', k: 'Note 2 of 4', h: 'No exploit needed',
+      p: 'Every agent shared one set of credentials to the internal package mirror. Notes left there were readable by whoever came next.',
+      c: 'OpenAI Technical Report; METR / Redwood investigation, 26 Aug 2026' },
+    { el: '#n-eval', k: 'Note 3 of 4', h: 'Impossible tasks concentrated effort',
+      p: '198 of 898 tasks had never been solved; they made up 93% of what the board discussed.',
+      c: 'METR / Redwood investigation, 26 Aug 2026' },
+    { el: '#n-hf', k: 'Note 4 of 4', h: 'Detected by the victim',
+      p: 'Hugging Face found the intrusion and disclosed on 16 July, before the agents were attributed to OpenAI.',
+      c: 'Hugging Face security disclosure, 16 Jul 2026' },
+  ];
+  const body = document.body, veil = document.getElementById('veil'), ring = document.getElementById('ring'), co = document.getElementById('callout');
+  const pins = notes.map((n, i) => {
+    const b = document.createElement('button'); b.className = 'pin'; b.textContent = i + 1; b.setAttribute('aria-label', n.h);
+    b.addEventListener('click', () => focus(i)); document.body.appendChild(b); return b;
+  });
+  let idx = -1;
+  const pad = 14;
+
+  function placePins() {
+    notes.forEach((n, i) => { const r = document.querySelector(n.el).getBoundingClientRect();
+      Object.assign(pins[i].style, { left: r.right - 6 + 'px', top: r.top + 6 + 'px' }); });
+  }
+  function focus(i) {
+    idx = (i + notes.length) % notes.length;
+    const n = notes[idx], r = document.querySelector(n.el).getBoundingClientRect();
+    const x = r.left - pad, y = r.top - pad, w = r.width + pad * 2, h = r.height + pad * 2;
+    veil.style.setProperty('--x', x + 'px'); veil.style.setProperty('--y', y + 'px');
+    veil.style.setProperty('--w', w + 'px'); veil.style.setProperty('--h', h + 'px');
+    Object.assign(ring.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' });
+    document.getElementById('c-k').textContent = n.k; document.getElementById('c-h').textContent = n.h;
+    document.getElementById('c-p').textContent = n.p; document.getElementById('c-c').textContent = 'Source · ' + n.c;
+    // place callout below target, clamped to viewport
+    const cw = co.offsetWidth || 420, ch = co.offsetHeight || 240;
+    let cx = Math.min(Math.max(16, x), innerWidth - cw - 16), cy = y + h + 18;
+    if (cy + ch > innerHeight - 16) cy = Math.max(16, y - ch - 18);
+    co.style.left = cx + 'px'; co.style.top = cy + 'px';
+    pins.forEach((p, j) => p.classList.toggle('on', j === idx));
+    body.classList.add('focus');
+  }
+  // while notes are open, re-track geometry every frame so pins/spotlight survive any reflow
+  // (font load, resize, diagram animation) without bespoke event wiring
+  let last = '';
+  function track() {
+    if (!body.classList.contains('notes')) return;
+    const r = document.querySelector(notes[idx].el).getBoundingClientRect();
+    const sig = [r.left, r.top, r.width, r.height, innerWidth, innerHeight].join();
+    if (sig !== last) { last = sig; placePins(); focus(idx); }
+    requestAnimationFrame(track);
+  }
+  function setNotes(on) {
+    body.classList.toggle('notes', on); document.getElementById('notesBtn').setAttribute('aria-pressed', on);
+    if (on) { placePins(); focus(0); last = ''; requestAnimationFrame(track); } else { body.classList.remove('focus'); idx = -1; }
+  }
+  document.getElementById('notesBtn').addEventListener('click', () => setNotes(!body.classList.contains('notes')));
+  document.getElementById('c-next').addEventListener('click', () => focus(idx + 1));
+  document.getElementById('c-prev').addEventListener('click', () => focus(idx - 1));
+  document.getElementById('c-close').addEventListener('click', () => setNotes(false));
+  addEventListener('keydown', e => {
+    if (e.key.toLowerCase() === 'n') setNotes(!body.classList.contains('notes'));
+    if (!body.classList.contains('notes')) return;
+    if (e.key === 'Escape') setNotes(false);
+    if (e.key === 'ArrowRight') focus(idx + 1);
+    if (e.key === 'ArrowLeft') focus(idx - 1);
+  });
+  addEventListener('resize', () => { if (body.classList.contains('notes')) { placePins(); focus(idx); } });
+  // re-measure once web fonts settle (title reflow moves the diagram)
+  document.fonts.ready.then(() => { if (body.classList.contains("notes")) { placePins(); focus(idx); } });
+  const q = new URLSearchParams(location.search); if (q.has("note")) { setNotes(true); focus(+q.get("note")); }
+})();
+</script>
+</body>
+</html>

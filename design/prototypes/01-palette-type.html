@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palette and type</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F3EC;
+    --paper-deep: #EDE8DD;
+    --ink: #2B2A27;
+    --ink-2: #5C5A55;
+    --ink-3: #8A867E;
+    --accent: #86BC25;
+    --accent-ink: #4B6E10;
+    --serif: "Newsreader", Georgia, serif;
+    --sans: "Inter", system-ui, sans-serif;
+  }
+  body[data-pair="b"] { --serif: "Fraunces", Georgia, serif; --sans: "Manrope", system-ui, sans-serif; }
+  body[data-pair="c"] { --serif: "Playfair Display", Georgia, serif; --sans: "Source Sans 3", system-ui, sans-serif; }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 18px/1.55 var(--sans); }
+  header { position: sticky; top: 0; z-index: 5; display: flex; gap: 12px; align-items: center;
+           padding: 14px 32px; background: color-mix(in srgb, var(--paper) 85%, transparent);
+           backdrop-filter: blur(12px); border-bottom: 1px solid var(--paper-deep); }
+  header h1 { font: 500 20px/1 var(--serif); margin: 0 auto 0 0; }
+  button { font: 500 14px var(--sans); color: var(--ink); background: transparent; border: 1.5px solid var(--ink-3);
+           border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  main { max-width: 1240px; margin: 0 auto; padding: 32px; }
+  h2.label { font: 600 13px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 48px 0 16px; }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+  .sw { border-radius: 14px; overflow: hidden; background: #fff8; }
+  .sw i { display: block; height: 84px; }
+  .sw p { margin: 0; padding: 10px 12px; font-size: 14px; line-height: 1.35; }
+  .sw b { font-weight: 600; }
+
+  /* 16:9 sample slide, scaled, as a Teams viewer would see it */
+  .slide { aspect-ratio: 16/9; width: 100%; border-radius: 18px; background: var(--paper); position: relative; overflow: hidden;
+           box-shadow: 0 1px 0 var(--paper-deep), 0 30px 60px -30px #2b2a2733; padding: 6% 7%; container-type: inline-size; }
+  .slide .kicker { font: 600 1.2cqi/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); }
+  .slide h3 { font: 500 5.2cqi/1.05 var(--serif); margin: 2cqi 0 2.4cqi; letter-spacing: -.01em; max-width: 70%; }
+  .slide h3 em { font-style: italic; }
+  .slide p { font-size: 1.75cqi; line-height: 1.5; color: var(--ink-2); max-width: 52%; margin: 0 0 1.2cqi; }
+  .slide .stat { position: absolute; right: 7%; bottom: 12%; text-align: right; }
+  .slide .stat b { display: block; font: 500 11cqi/1 var(--serif); color: var(--ink); }
+  .slide .stat b span { color: var(--accent); }
+  .slide .stat small { font-size: 1.4cqi; color: var(--ink-2); }
+  .slide .rule { position: absolute; left: 7%; bottom: 9%; width: 9cqi; height: .45cqi; background: var(--accent); border-radius: 9px; }
+  .slide .glow { position: absolute; right: -8%; top: -20%; width: 42cqi; aspect-ratio: 1; border-radius: 50%;
+                 background: radial-gradient(circle, color-mix(in srgb, var(--accent) 38%, transparent), transparent 68%); filter: blur(2cqi); }
+
+  .scale { display: grid; gap: 10px; }
+  .scale div { display: grid; grid-template-columns: 120px 1fr; align-items: baseline; gap: 20px; border-bottom: 1px solid var(--paper-deep); padding-bottom: 10px; }
+  .scale code { font: 500 13px ui-monospace, monospace; color: var(--ink-3); }
+  .note { font-size: 15px; color: var(--ink-2); max-width: 70ch; }
+</style>
+</head>
+<body data-pair="a">
+<header>
+  <h1>01 · Palette &amp; type</h1>
+  <span style="font-size:14px;color:var(--ink-2)">Pairing:</span>
+  <button data-p="a" aria-pressed="true">A · Newsreader + Inter</button>
+  <button data-p="b" aria-pressed="false">B · Fraunces + Manrope</button>
+  <button data-p="c" aria-pressed="false">C · Playfair + Source Sans</button>
+</header>
+<main>
+  <h2 class="label">Sample slide (16:9, as shared)</h2>
+  <div class="slide">
+    <div class="glow"></div>
+    <div class="kicker">Chapter 03 · The message board</div>
+    <h3>The agents found a place to <em>talk</em>, one nobody was watching.</h3>
+    <p>A shared package mirror and a single set of credentials. No exploit needed: notes left for whoever came next.</p>
+    <p>“Agent seeks [filename]; upload if found!”</p>
+    <div class="stat"><b>1,200<span>.</span></b><small>agents used the board</small></div>
+    <div class="rule"></div>
+  </div>
+
+  <h2 class="label">Palette</h2>
+  <div class="swatches">
+    <div class="sw"><i style="background:var(--paper);box-shadow:inset 0 0 0 1px var(--paper-deep)"></i><p><b>paper</b> #F6F3EC<br>ground</p></div>
+    <div class="sw"><i style="background:var(--paper-deep)"></i><p><b>paper-deep</b> #EDE8DD<br>panels, rules</p></div>
+    <div class="sw"><i style="background:var(--ink)"></i><p><b>ink</b> #2B2A27<br>12.9:1 · body, titles</p></div>
+    <div class="sw"><i style="background:var(--ink-2)"></i><p><b>ink-2</b> #5C5A55<br>6.2:1 · secondary</p></div>
+    <div class="sw"><i style="background:var(--ink-3)"></i><p><b>ink-3</b> #8A867E<br>3.3:1 · labels ≥ 24px only</p></div>
+    <div class="sw"><i style="background:var(--accent)"></i><p><b>accent</b> #86BC25<br>2.0:1 · fills/glow, <u>never text</u></p></div>
+    <div class="sw"><i style="background:var(--accent-ink)"></i><p><b>accent-ink</b> #4B6E10<br>5.4:1 · accent as text</p></div>
+  </div>
+
+  <h2 class="label">Type scale (on a 1920px share)</h2>
+  <div class="scale">
+    <div><code>display 96</code><span style="font:500 64px/1.05 var(--serif)">What the swarm did</span></div>
+    <div><code>title 56</code><span style="font:500 40px/1.1 var(--serif)">Reward hacking, explained</span></div>
+    <div><code>lead 32</code><span style="font:400 24px/1.4 var(--sans);color:var(--ink-2)">Impossible tasks were 22% of the benchmark — and 93% of the chatter.</span></div>
+    <div><code>body 24</code><span style="font:400 18px/1.55 var(--sans)">Minimum on-slide size; anything smaller dissolves in Teams compression.</span></div>
+    <div><code>label 18</code><span style="font:600 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)">Chapter 03 · Kicker</span></div>
+  </div>
+  <p class="note">Scale is shown at ~⅔ size here. Things to judge over a share: does the serif hold its thin strokes, does the accent glow band, is ink-2 still readable in a small Teams window.</p>
+</main>
+<script>
+  document.querySelectorAll('header button').forEach(b => b.addEventListener('click', () => {
+    document.body.dataset.pair = b.dataset.p;
+    document.querySelectorAll('header button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  }));
+</script>
+</body>
+</html>
