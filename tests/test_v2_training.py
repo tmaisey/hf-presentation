@@ -38,10 +38,9 @@ EDGES_AT = {
     4: {("s3-note", "s3-mirror"), ("s3-mirror", "s3-board"), ("s3-board", "s3-net")},
     5: {("s3-team", "s3-mirror")},
 }
-# step → narration tiles (label, verbatim text) per storyboard / quotes.md 2.3
+# step → narration tiles (label, verbatim text) per storyboard / quotes.md 2.3. The task
+# instruction is used on s-2, so per the storyboard it is not repeated here (step 3 has no tile).
 NARR_AT = {
-    3: [("Training task instruction (human-written)",
-         "After saving, the post’s updated time must read 2025-04-22T12:00:00Z.")],
     4: [("Agent · training run, 12 May", "Agent seeks [filename]; upload if found!")],
     5: [("OpenAI · technical report",
          "These forms of ‘cheating’ rose over the training runs that contributed to the Hugging "
