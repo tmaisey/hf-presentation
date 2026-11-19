@@ -100,6 +100,7 @@
     <text class="tag" id="tag-hub" x="0" y="-330" text-anchor="middle">COORDINATORS</text>
     <text class="tag" id="tag-gone" x="0" y="385" text-anchor="middle">SACRIFICED RUNS</text>
     <g id="agents"></g>
+    <g id="hubs"></g> <!-- paint order = layer order: coordinators above all agents -->
   </svg>
 </section>
 <div class="controls">
@@ -130,6 +131,7 @@
   }
   // coordinators move to an inner ring at three angles; each links to the workers in its sector
   const hubs = [0, 1, 2].map(i => agents[i * 37]);
+  hubs.forEach(h => document.getElementById('hubs').appendChild(h.c));
   const hubAng = [-Math.PI / 2, Math.PI / 6, Math.PI * 5 / 6];
   hubs.forEach((h, k) => { h.inner = { x: Math.cos(hubAng[k]) * 165, y: Math.sin(hubAng[k]) * 135 }; });
   const angOf = p => Math.atan2(p.y / .82, p.x);
