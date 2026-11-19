@@ -7,7 +7,11 @@ edge (exit leaves blur before vanishing; Insight waits for a cluster's exit) · 
 before/after its step; hover softens siblings; notes button never covers an overlay).
 """
 
+import pytest
+
 from helper_deck import goto_slide, open_deck
+
+V1_ONLY = pytest.mark.deck("v1")  # clusters are v1 legacy (S-005); v2 uses narration tiles
 
 FIND = """sel => { const o = document.querySelector('section.slide ' + sel);
   return o && [o.closest('section').id, +o.dataset.at]; }"""
@@ -48,6 +52,7 @@ CARDS = """id => [...document.querySelectorAll('#' + id + ' .cluster .overlay--m
   return { blur: m ? +m[1] : 0, opacity: +cs.opacity, z: +cs.zIndex }; })"""
 
 
+@V1_ONLY
 def test_cluster_cards_all_sharp_until_hover_pops_one_forward(page):
     """Presenter-directed (DESIGN §5): no auto-highlight; hover/focus brings one card forward."""
     open_deck(page)
@@ -70,6 +75,7 @@ def test_cluster_cards_all_sharp_until_hover_pops_one_forward(page):
     assert all(c["blur"] == 0 for c in cards), cards
 
 
+@V1_ONLY
 def test_single_card_cluster_shows_one_sharp_centred_message(page):
     open_deck(page)
     found = page.evaluate("""() => { const c = [...document.querySelectorAll('section.slide .cluster')]
@@ -87,6 +93,7 @@ def test_single_card_cluster_shows_one_sharp_centred_message(page):
     assert off < 0.05, "single card sits centred"
 
 
+@V1_ONLY
 def test_insight_entry_waits_for_a_cluster_exit(page):
     """Cluster → Insight on consecutive steps must not smear both half-blurred at once."""
     open_deck(page)
@@ -113,6 +120,7 @@ def test_notes_button_never_overlaps_a_shown_overlay(page):
         assert not hit, f"{sid}: notes button over the Insight"
 
 
+@V1_ONLY
 def test_message_cards_carry_agent_label_and_quote():
     from helper_deck import slides_source
     import re
@@ -122,6 +130,7 @@ def test_message_cards_carry_agent_label_and_quote():
         assert 'class="msg-agent"' in c and "<blockquote" in c
 
 
+@V1_ONLY
 def test_cluster_not_shown_before_its_step(page):
     open_deck(page)
     sid, at = page.evaluate(FIND, ".cluster")

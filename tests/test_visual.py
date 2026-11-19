@@ -11,6 +11,8 @@ import pytest
 
 from helper_deck import ARTIFACTS, goto_slide, open_deck
 
+pytestmark = pytest.mark.deck("v1")  # v1 acceptance; v2 acceptance is S-028
+
 VIEWPORTS = [(1920, 1080), (1280, 720)]
 
 CHECK = """id => {

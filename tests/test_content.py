@@ -12,6 +12,8 @@ import pytest
 
 from helper_deck import parse_slides, slides_source
 
+pytestmark = pytest.mark.deck("v1")  # v1 storyboard; v2 slide copy is tested per v2 spec
+
 STORYBOARD_IDS = ["s-0-1", "s-1-1", "s-1-2", "s-2-1", "s-2-2", "s-2-3", "s-3-1", "s-3-2", "s-3-3",
                   "s-4-1", "s-4-2", "s-4-3", "s-5-1", "s-5-2", "s-5-3", "s-5-4", "s-5-5", "s-6-1"]
 

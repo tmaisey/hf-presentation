@@ -8,7 +8,9 @@ new tab) · edge (slide without notes still toggles cleanly; small window keeps 
 
 import re
 
-from helper_deck import goto_slide, open_deck, slides_source
+import pytest
+
+from helper_deck import goto_slide, open_deck, settle, slides_source
 
 NOTED = "() => document.querySelector('section.slide .note').closest('section').id"
 
@@ -90,7 +92,8 @@ def test_callout_and_pins_stay_clear_of_title_bar_targets_and_each_other(page):
         page.wait_for_timeout(300)
         n = page.evaluate("() => document.querySelectorAll('.pin').length")
         for k in range(n):
-            page.wait_for_timeout(650)
+            page.wait_for_timeout(300)
+            settle(page, ".callout")
             problems += [f"{sid} note {k + 1}: {p}" for p in page.evaluate("""() => {
               const bad = [], c = document.querySelector('.callout').getBoundingClientRect();
               const bar = document.querySelector('.bar').getBoundingClientRect();
@@ -110,6 +113,7 @@ def test_callout_and_pins_stay_clear_of_title_bar_targets_and_each_other(page):
     assert problems == [], "\n".join(problems)
 
 
+@pytest.mark.deck("v1")  # pinned to v1 slide s-3-1
 def test_pins_sit_outside_their_targets(page):
     open_deck(page, 1280, 720)
     goto_slide(page, "s-3-1")

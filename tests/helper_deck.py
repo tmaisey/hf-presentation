@@ -2,20 +2,23 @@
 
 from __future__ import annotations
 
+import os
 import re
 from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DECK = ROOT / "deck" / "deck.html"
-ARTIFACTS = ROOT / "tests" / "artifacts"
+DECK_FILES = {"v1": ROOT / "deck" / "deck.html", "v2": ROOT / "deck" / "deck-v2.html"}
+DECK_NAME = os.environ.get("HF_DECK", "v2")  # set by conftest from --deck
+DECK = DECK_FILES[DECK_NAME]
+ARTIFACTS = ROOT / "tests" / "artifacts" / DECK_NAME
 
 
 def deck_source() -> str:
-    """Return the deck's raw HTML source.
+    """Return the raw HTML source of the deck under test.
 
     Returns:
-        The full text of deck/deck.html.
+        The full text of the selected deck file.
     """
     return DECK.read_text(encoding="utf-8")
 
@@ -133,3 +136,22 @@ def goto_slide(page, slide_id: str, step: int = 0) -> None:
     """
     page.evaluate("([id, s]) => window.deck.goto(id, s)", [slide_id, step])
     page.wait_for_timeout(1200)
+
+
+def settle(page, selector: str, timeout: int = 5000) -> None:
+    """Wait until an element has stopped moving (its box is unchanged across 150 ms).
+
+    Fixed sleeps race CSS transitions when tests run in parallel on a loaded machine;
+    this waits for the end state the assertion is about instead.
+
+    Args:
+        page: A Playwright ``Page`` with the deck loaded.
+        selector: CSS selector of the element to watch.
+        timeout: Give up after this many ms (Playwright raises TimeoutError).
+    """
+    page.wait_for_function(
+        """sel => new Promise(res => {
+          const box = () => { const e = document.querySelector(sel); if (!e) return '';
+            const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map(Math.round).join(); };
+          const a = box(); setTimeout(() => res(a !== '' && a === box()), 150); })""",
+        arg=selector, timeout=timeout, polling=50)
