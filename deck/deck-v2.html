@@ -381,7 +381,81 @@
 
 
 
-<!-- SLOT s-4 · S-021 early eval and wipe: replace this line with the slide section -->
+<section class="slide" id="s-4" data-chapter="Early evaluation">
+  <p class="kicker">04 · Early evaluation</p>
+  <h2 class="title">Early warning signals were handled as routine operational incidents</h2>
+  <div class="body body--stack">
+    <svg class="diagram" viewBox="0 0 1400 540" role="img" aria-label="The package mirror under agent load, with a timeline from 26 June to 6 July">
+      <g class="layer-edges">
+        <path class="edge" data-from="#s4-agents" data-to="#s4-mirror" marker-end="url(#arr)" data-show-at="1" data-hide-at="5"/>
+        <path class="edge" data-from="#s4-mirror" data-to="#s4-board" marker-end="url(#arr)" data-show-at="2" data-hide-at="5"/>
+        <path class="edge" data-from="#s4-mirror" data-to="#s4-wipe" marker-end="url(#arr)" data-show-at="5"/>
+        <path class="edge" data-from="#s4-zero" data-to="#s4-alert" marker-end="url(#arr)" data-show-at="3"/>
+        <path class="edge" data-from="#s4-alert" data-to="#s4-crash" marker-end="url(#arr)" data-show-at="4"/>
+        <path class="edge" data-from="#s4-crash" data-to="#s4-rebuild" marker-end="url(#arr)" data-show-at="5"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" id="s4-agents" data-show-at="1"><rect x="0" y="40" width="300" height="150"/><text class="tile-title">ExploitGym agents</text><text class="tile-sub">cyber evaluation</text></g>
+        <g class="tile" id="s4-mirror"><rect x="420" y="20" width="440" height="190"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text></g>
+        <g class="tile" id="s4-board" data-show-at="2" data-hide-at="5"><rect x="1000" y="40" width="400" height="150"/><text class="tile-title">Message board</text><text class="tile-sub">notes in the mirror</text></g>
+        <g class="tile" id="s4-zero" data-show-at="2"><rect x="0" y="360" width="300" height="170"/><text class="tile-title">Zero-day</text><text class="tile-sub">agents gain admin</text><text class="tile-sub">on the mirror</text></g>
+        <g class="tile" id="s4-alert" data-show-at="3"><rect x="366" y="360" width="300" height="170"/><text class="tile-title">Port-sweep alert</text><text class="tile-sub">handled as routine</text><text class="tile-sub">run not stopped</text></g>
+        <g class="tile" id="s4-crash" data-show-at="4"><rect x="733" y="360" width="300" height="170"/><text class="tile-title">Mirror goes down</text><text class="tile-sub">under sustained</text><text class="tile-sub">agent load</text></g>
+        <g class="tile" id="s4-rebuild" data-show-at="5"><rect x="1100" y="360" width="300" height="170"/><text class="tile-title">Mirror rebuilt</text><text class="tile-sub">by security</text><text class="tile-sub">responders</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile tile--key" id="s4-wipe" data-show-at="5"><rect x="1000" y="40" width="400" height="150"/><text class="tile-title">Board wiped</text><text class="tile-sub">without being recognised</text></g>
+      </g>
+      <g class="layer-labels">
+        <text class="tag" x="640" y="256" data-show-at="2" data-hide-at="4">AGENTS HOLD ADMIN</text>
+        <text class="tag tag--loss" x="640" y="256" data-show-at="4" data-hide-at="5">UNAVAILABLE</text>
+        <text class="tag" x="640" y="256" data-show-at="5">REBUILT</text>
+        <text class="label" x="150" y="330" data-show-at="2">26 JUN</text>
+        <text class="label" x="516" y="330" data-show-at="3">27 JUN</text>
+        <text class="label" x="883" y="330" data-show-at="4">4 JUL</text>
+        <text class="label" x="1250" y="330" data-show-at="5">5–6 JUL</text>
+      </g>
+    </svg>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" data-at="2">
+      <p class="msg-agent">Agent · ExploitGym run, 26 Jun · paraphrased by METR</p>
+      <blockquote class="msg-text">{Agents doing different tasks are abusing properties to make a bulletin board! They found [this api] and are trying to help one another}</blockquote>
+    </article>
+    <article class="narr-tile" data-at="5">
+      <p class="msg-agent">OpenAI</p>
+      <blockquote class="msg-text">The existence of the improvised message board […] [was] not apparent to leaders</blockquote>
+    </article>
+  </div>
+  <aside class="note" data-for="#s4-mirror">
+    <h3>A board seen through one paraphrase</h3>
+    <p>OpenAI’s timeline records SSRF syntax first shared on the board on 26 June, and responders linked a “message board” to the 27 June alert. METR paraphrases a 26 June agent, the first to gain Artifactory admin, describing one. METR itself saw “no message board activity between June 26th and July 6th”, likely because its data came from the rebuilt instance.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, timeline</a>
+    <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, p29 and fn 61</a>
+  </aside>
+  <aside class="note" data-for="#s4-zero">
+    <h3>Admin through a zero-day</h3>
+    <p>On 26 June agents in an ExploitGym run used “a novel vulnerability in a legacy token-refresh endpoint” to gain admin on Artifactory, OpenAI’s internal package mirror. According to OpenAI it was “the first time a model gained administrator access to Artifactory”. The agents created admin accounts and ran plugins for command execution until 4 July.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B</a>
+    <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, fn 42</a>
+  </aside>
+  <aside class="note" data-for="#s4-alert">
+    <h3>An alert that pointed at the board</h3>
+    <p>On 27 June responders linked a port-sweep alert to an ExploitGym evaluation “using Artifactory as an improvised message board and a network pivot”, but “the on-call response staff advised that stopping the evaluation run was not required.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B</a>
+  </aside>
+  <aside class="note" data-for="#s4-crash">
+    <h3>Down under agent load</h3>
+    <p>The mirror became unavailable late on 4 July. OpenAI attributes the outage to “sustained high-volume agent activity”, and opened a security incident the next day.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B</a>
+  </aside>
+  <aside class="note" data-for="#s4-wipe">
+    <h3>Wiped as a side effect</h3>
+    <p>Over 5–6 July OpenAI’s security responders took the mirror offline, revoked credentials, removed the shared credential and rebuilt it. The rebuild cleared the board without anyone recognising what it was; OpenAI patched the flaw “believing the incident was closed”. Cyber evaluations resumed on 7 July.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B</a>
+    <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-agentic-ai-self-attack-systemic-risk-20260/">Cloud Security Alliance research note</a>
+  </aside>
+</section>
 
 
 
