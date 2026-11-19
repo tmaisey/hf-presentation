@@ -34,7 +34,7 @@ TILES_AT = {
 # step → (from tile, to tile) connections first visible at that step
 EDGES_AT = {
     2: {("s3-a1", "s3-cred"), ("s3-a2", "s3-cred"), ("s3-a3", "s3-cred"), ("s3-cred", "s3-mirror")},
-    3: {("s3-a1", "s3-reward")},
+    3: {("s3-a3", "s3-reward")},
     4: {("s3-note", "s3-mirror"), ("s3-mirror", "s3-board"), ("s3-board", "s3-net")},
     5: {("s3-team", "s3-mirror")},
 }
@@ -147,7 +147,7 @@ def test_reinforcement_is_attributed_to_openai_and_scope_caveated():
     copy = helper_visible_copy()
     for m in re.finditer(r"reinforc", copy, re.I):
         window = copy[max(0, m.start() - 120): m.end() + 120]
-        assert "OpenAI" in window, f"unattributed 'reinforced': …{window}…"
+        assert "openai" in window.lower(), f"unattributed 'reinforced': …{window}…"
 
 
 def test_model_scale_and_first_ssrf_attempt_are_noted():
@@ -204,14 +204,14 @@ def test_diagram_reveals_tiles_and_edges_per_step(page, step):
 
 
 @pytest.mark.parametrize("size", [(1280, 720), (1920, 1080)])
-def test_diagram_and_steps_stay_on_screen_below_the_title(page, size):
+def test_diagram_and_caption_stay_on_screen_below_the_title(page, size):
     open_deck(page, *size)
     goto_slide(page, SID, 5)
     boxes = page.evaluate("""id => { const s = document.getElementById(id);
       const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
       return { title: r(s.querySelector('.title')), svg: r(s.querySelector('svg.diagram')),
-               steps: r(s.querySelector('ol.steps')), vw: innerWidth, vh: innerHeight }; }""", SID)
-    for k in ("svg", "steps"):
+               caption: r(s.querySelector('.body .caption')), vw: innerWidth, vh: innerHeight }; }""", SID)
+    for k in ("svg", "caption"):
         l, t, r, b = boxes[k]
         assert l >= 0 and r <= boxes["vw"] + 1 and b <= boxes["vh"] + 1, k
         assert t >= boxes["title"][3] - 1, f"{k} rises over the title"

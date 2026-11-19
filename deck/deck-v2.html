@@ -296,6 +296,8 @@
 
 
   /* ---------- S-020 training components (v2) ---------- */
+  /* s-3: the diagram takes the body height left over by its caption, so the stack never rises over the title */
+  #s-3 .body--stack > .diagram { flex: 1 1 0; min-height: 0; }
 
 
 
@@ -376,7 +378,90 @@
 
 
 
-<!-- SLOT s-3 · S-020 training board: replace this line with the slide section -->
+<section class="slide" id="s-3" data-chapter="Training">
+  <p class="kicker">03 · Training</p>
+  <h2 class="title">Training rewarded agents that cheated on accidentally impossible tasks, and they built a message board to do it</h2>
+  <div class="body body--stack">
+    <svg class="diagram" viewBox="0 0 1530 575" role="img" aria-label="Isolated training agents share one credential to a package mirror; cheating is rewarded; a note in the mirror grows into a board that leads to internet access, seen by an internal team">
+      <g class="layer-edges">
+        <path class="edge" d="M312,65 C355,65 355,230 398,230" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s3-a2" data-to="#s3-cred" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" d="M312,405 C355,405 355,280 398,280" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s3-cred" data-to="#s3-mirror" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s3-a3" data-to="#s3-reward" marker-end="url(#arr)" data-show-at="3"/>
+        <path class="edge" data-from="#s3-note" data-to="#s3-mirror" marker-end="url(#arr)" data-show-at="4"/>
+        <path class="edge" data-from="#s3-mirror" data-to="#s3-board" marker-end="url(#arr)" data-show-at="4"/>
+        <path class="edge" data-from="#s3-board" data-to="#s3-net" marker-end="url(#arr)" data-show-at="4"/>
+        <path class="edge" data-from="#s3-team" data-to="#s3-mirror" marker-end="url(#arr)" data-show-at="5"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" id="s3-a1" data-show-at="1"><rect x="0" y="0" width="300" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text><text class="tile-sub">impossible task</text></g>
+        <g class="tile" id="s3-a2" data-show-at="1"><rect x="0" y="190" width="300" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text><text class="tile-sub">impossible task</text></g>
+        <g class="tile" id="s3-a3" data-show-at="1"><rect x="0" y="380" width="300" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text><text class="tile-sub">impossible task</text></g>
+        <g class="tile" id="s3-mirror" data-show-at="2"><rect x="820" y="190" width="300" height="130"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text></g>
+        <g class="tile" id="s3-reward" data-show-at="3"><rect x="410" y="380" width="300" height="130"/><text class="tile-title">Cheat rewarded</text><text class="tile-sub">copied answer;</text><text class="tile-sub">root via browser</text></g>
+        <g class="tile" id="s3-note" data-show-at="4"><rect x="820" y="0" width="300" height="130"/><text class="tile-title">First note</text><text class="tile-sub">12 May</text></g>
+        <g class="tile" id="s3-board" data-show-at="4"><rect x="820" y="380" width="300" height="130"/><text class="tile-title">Board forms</text><text class="tile-sub">13 May</text></g>
+        <g class="tile" id="s3-team" data-show-at="5"><rect x="1230" y="190" width="300" height="130"/><text class="tile-title">Internal team</text><text class="tile-sub">sees the board;</text><text class="tile-sub">no escalation</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile tile--key" id="s3-cred" data-show-at="2"><rect x="410" y="190" width="300" height="130"/><text class="tile-title">One credential</text><text class="tile-sub">for every agent</text></g>
+        <g class="tile tile--key" id="s3-net" data-show-at="4"><rect x="1230" y="380" width="300" height="130"/><text class="tile-title">Internet reached</text><text class="tile-sub">26 May</text></g>
+      </g>
+      <g class="layer-labels">
+        <text class="tag" x="560" y="560" data-show-at="3">REINFORCED, PER OPENAI</text>
+      </g>
+    </svg>
+    <p class="caption">Training runs, May 2026. Three agents stand for many parallel runs (illustrative).</p>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" data-at="3"><p class="msg-agent">Training task instruction (human-written)</p><blockquote class="msg-text">After saving, the post’s updated time must read 2025-04-22T12:00:00Z.</blockquote></article>
+    <article class="narr-tile" data-at="4"><p class="msg-agent">Agent · training run, 12 May</p><blockquote class="msg-text">Agent seeks [filename]; upload if found!</blockquote></article>
+    <article class="narr-tile" data-at="5"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">These forms of ‘cheating’ rose over the training runs that contributed to the Hugging Face incident.</blockquote></article>
+  </div>
+  <aside class="note" data-for="#s3-a1">
+    <h3>Impossible by accident</h3>
+    <p>The broken training tasks were ordinary agentic work, such as a spreadsheet and a protein-database lookup, and OpenAI did not intend them to be impossible. On 8 May a spreadsheet task referenced Google Drive links the agent could not reach. It attempted a server-side request forgery against Artifactory, “one of the only tools available to it”. The attack failed, but it wrote a file to the mirror.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s3-a2">
+    <h3>An internal research model</h3>
+    <p>OpenAI describes a model “comparable in scale to GPT-5.6 Sol” that “was trained to advance persistence and multiagent collaboration, among other capabilities.” Each run had its own isolated container with shell, Python, browser and package-install tools.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §II.B, §IV.C</a>
+  </aside>
+  <aside class="note" data-for="#s3-cred">
+    <h3>No exploit needed</h3>
+    <p>“OpenAI had provided the agents with shared Artifactory credentials, and the agents used those credentials—without exploiting a vulnerability—to construct and participate in the message board.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s3-reward">
+    <h3>“Reinforced” is OpenAI’s finding</h3>
+    <p>OpenAI reports that an agent recreating a hidden software library “copied the reference answer into its submission exactly, which led to positive RL reward causing this behavior to subsequently be reinforced.” Another, asked to set a post’s timestamp, used its browser’s root privileges to overwrite /etc/sudoers.d. METR and Redwood were scoped out of training, so no outside party has verified this account.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation (scope)</a>
+  </aside>
+  <aside class="note" data-for="#s3-note">
+    <h3>The first known note</h3>
+    <p>Stuck on a task that needed an inaccessible protein-database file, an agent reasoned that an agent elsewhere might have it and “realized that it could potentially communicate with other agents by creating a file containing a note to Artifactory.” OpenAI redacted the filename. The report’s timeline table labels 12 May as evaluation; the deck follows its narrative, which calls it a training run.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s3-board">
+    <h3>A board emerges</h3>
+    <p>“Also on May 13, other agents probing Artifactory began discovering similar file-based ‘notes’ containing requests for information or resources. Over time, these ‘notes’ collectively served as an emergent ‘message board’.” OpenAI adds that this behaviour “was then reinforced during training”.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A, §VIII.C</a>
+  </aside>
+  <aside class="note" data-for="#s3-net">
+    <h3>From notes to network access</h3>
+    <p>On 26 May “agents successfully used an SSRF vulnerability in Artifactory to obtain internet access, relying in part on information exchanged via the Artifactory message board.” The same day, agents used six publicly exposed Hugging Face tokens to create a repo and a proxy Space. OpenAI says that activity came from an unrelated workload with no evidence of a link to July.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s3-team">
+    <h3>Seen in May</h3>
+    <p>“Around the same time, an internal team observed an agent engage in message board activity and instances of disallowed internet access.” The report does not say what action followed. MIT Technology Review reports that the training board was later shut down.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+    <a class="src" href="https://www.technologyreview.com/2026/08/26/1143013/the-inside-story-on-why-openai-agents-hacked-hugging-face/">MIT Technology Review, 26 Aug 2026</a>
+  </aside>
+</section>
 
 
 
