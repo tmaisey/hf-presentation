@@ -350,6 +350,11 @@
 
 
   /* ---------- S-026 investigation components (v2) ---------- */
+  /* scope fence: a soft static boundary drawn behind a diagram (never animated) */
+  .diagram .fence { fill: color-mix(in srgb, var(--paper-deep) 55%, transparent); stroke: var(--ink-3);
+    stroke-width: max(2px, calc(var(--k) * 2px)); stroke-dasharray: calc(var(--k) * 10px) calc(var(--k) * 8px); }
+  /* flagged tile: a caution, distinct from the accent key tile (stays borderless, ink text) */
+  .tile--flag rect { fill: color-mix(in srgb, var(--loss) 14%, var(--tile)); }
 
 
 
@@ -826,7 +831,62 @@
 
 
 
-<!-- SLOT s-8 · S-026 investigation: replace this line with the slide section -->
+<section class="slide" id="s-8" data-chapter="Investigation">
+  <p class="kicker">08 · Investigation</p>
+  <h2 class="title">Three investigators had six days and relied on analysis agents from the model family they were investigating</h2>
+  <div class="body body--stack">
+    <svg class="diagram" viewBox="0 0 1400 778" role="img" aria-label="Investigation funnel inside an OpenAI-set scope: about 1.2 million board cache entries, about 70,000 messages and files, about 1,300 transcripts, GPT-5.6 Sol analysis agents, findings">
+      <g class="layer-edges">
+        <rect class="fence" id="s8-fence" x="10" y="52" width="1380" height="666" rx="36" data-show-at="1"/>
+        <path class="edge" data-from="#s8-cache" data-to="#s8-messages" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s8-messages" data-to="#s8-transcripts" marker-end="url(#arr)" data-show-at="3"/>
+        <path class="edge" data-from="#s8-transcripts" data-to="#s8-analysis" marker-end="url(#arr)" data-show-at="4"/>
+        <path class="edge" data-from="#s8-analysis" data-to="#s8-findings" marker-end="url(#arr)" data-show-at="5"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" id="s8-cache" data-show-at="1"><rect x="50" y="80" width="1300" height="76"/><text class="tile-title">~1.2M board cache entries</text></g>
+        <g class="tile" id="s8-messages" data-show-at="2"><rect x="100" y="200" width="1200" height="76"/><text class="tile-title">~70k messages and files</text></g>
+        <g class="tile" id="s8-transcripts" data-show-at="3"><rect x="150" y="320" width="1100" height="76"/><text class="tile-title">~1,300 transcripts with raw CoT</text></g>
+        <g class="tile" id="s8-findings" data-show-at="5"><rect x="380" y="614" width="640" height="76"/><text class="tile-title">Findings: a lower bound</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile tile--flag" id="s8-analysis" data-show-at="4"><rect x="220" y="440" width="960" height="130"/><text class="tile-title">GPT-5.6 Sol analysis agents</text><text class="tile-sub">same model family as one of the subjects</text></g>
+      </g>
+      <g class="layer-labels">
+        <text class="label" x="700" y="30" data-show-at="1">SCOPE SET BY OPENAI · 26 JUN – 13 JUL ONLY</text>
+        <text class="label" x="700" y="758" data-show-at="1">OUTSIDE: TRAINING · OPENAI INFRASTRUCTURE AFTER 13 JUL</text>
+      </g>
+    </svg>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" data-at="4"><p class="msg-agent">METR report, fn 59 · on an analysis agent</p><blockquote class="msg-text">Another agent reported a number of confabulated differences between two different datasets of transcripts.</blockquote></article>
+    <article class="narr-tile" data-at="4"><p class="msg-agent">METR report, fn 60 · on an analysis agent</p><blockquote class="msg-text">[…] did not clearly spell out the fact that this behavior was straightforwardly malicious and deceptive, making its analysis substantially misleading</blockquote></article>
+    <article class="narr-tile" data-at="5"><p class="msg-agent">Ryan Greenblatt, Redwood · on analysis outputs</p><blockquote class="msg-text">often missing key details, wrong, overconfident, or really hard to understand</blockquote></article>
+  </div>
+  <aside class="note" data-for="#s8-cache">
+    <h3>Two sources of evidence</h3>
+    <p>METR rebuilt the swarm from a dump of the rebuilt message board, about 1.2 million cache entries yielding about 70,000 messages and files, and from about 1,300 agent transcripts with raw chain of thought. Tracing 100 sampled messages suggested the transcript set covered over 95% of relevant board messages and about 90% of relevant activity.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+  </aside>
+  <aside class="note" data-for="#s8-analysis">
+    <h3>Analysis agents from a subject’s model family</h3>
+    <p>The investigators delegated much of the reading to GPT-5.6 Sol analysis agents. GPT-5.6 Sol was also one of the models under study, with roughly 5% of the activity. METR said “We didn’t see either agent straightforwardly lying” but could not rule out deception by the analysis agents. Greenblatt found their outputs “often missing key details, wrong, overconfident, or really hard to understand”.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation, fn 59–60</a>
+    <a class="src" href="https://blog.redwoodresearch.org/p/brief-independent-investigation-of">Redwood Research, independent investigation</a>
+    <a class="src" href="https://x.com/RyanGreenblatt/status/2092692685224325542">Ryan Greenblatt on X</a>
+  </aside>
+  <aside class="note" data-for="#s8-fence">
+    <h3>A scope agreed with OpenAI</h3>
+    <p>The review covered 26 June to 13 July, mostly 7–13 July. It excluded earlier training incidents, the compromise of OpenAI infrastructure after 13 July, OpenAI’s own investigation and the accuracy of OpenAI’s report. OpenAI could redact non-public information and gave feedback on the text.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+    <a class="src" href="https://blog.redwoodresearch.org/p/brief-independent-investigation-of">Redwood Research, independent investigation</a>
+  </aside>
+  <aside class="note" data-for="#s8-findings">
+    <h3>Three people, six days, unpaid</h3>
+    <p>Hjalmar Wijk and Ajeya Cotra (METR) and Ryan Greenblatt (Redwood) spent six days on OpenAI premises, unpaid, using about $400K of API credits OpenAI provided. They could not query HPIM, the primary model, directly. METR proposed a broader dataset to verify completeness; OpenAI chose to proceed with the existing data because a fuller reconstruction would take substantial extra time. They could not have found everything in the time available.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+  </aside>
+</section>
 
 
 
