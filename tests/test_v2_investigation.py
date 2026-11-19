@@ -86,7 +86,7 @@ def test_funnel_stages_carry_the_sourced_figures():
         assert tile and text in tile.group(1), tid
     analysis = re.search(r'id="s8-analysis"[^>]*>(.*?)</g>', sec, re.S).group(1)
     assert "same model family" in analysis and "analysis agents" in analysis
-    assert "raw chain of thought" in re.search(r'id="s8-transcripts"[^>]*>(.*?)</g>', sec, re.S).group(1)
+    assert "raw CoT" in re.search(r'id="s8-transcripts"[^>]*>(.*?)</g>', sec, re.S).group(1)
 
 
 def test_analysis_stage_is_flagged_apart_from_ordinary_stages(page):
@@ -166,6 +166,11 @@ def test_diagram_stays_on_screen_and_clear_of_the_title(page, vw, vh):
       return { title: title.bottom, top: sb.top, h: innerHeight, w: innerWidth,
         boxes: [...s.querySelectorAll('svg.diagram text, svg.diagram rect')].map(e => {
           const r = e.getBoundingClientRect(); return [e.textContent || e.id || 'rect', r.left, r.top - sb.top, r.right, r.bottom - sb.top]; }) }; }""")
+    spill = page.evaluate("""() => [...document.querySelectorAll('#s-8 .tile')].flatMap(t => {
+      const r = t.querySelector('rect').getBoundingClientRect();
+      return [...t.querySelectorAll('text')].filter(x => { const b = x.getBoundingClientRect();
+        return b.left < r.left || b.right > r.right; }).map(x => x.textContent); })""")
+    assert not spill, f"tile text spills out of its tile sideways: {spill}"
     for name, left, top, right, bottom in res["boxes"]:
         assert left >= 0 and right <= res["w"], f"{name} off-slide horizontally"
         assert bottom <= res["h"], f"{name} off-slide vertically"
