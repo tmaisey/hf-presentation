@@ -21,14 +21,11 @@
   h2 { font: 500 clamp(32px, 3.6vw, 72px)/1.05 var(--serif); margin: .45em 0 .2em; max-width: 22ch; }
   h2 em { font-style: italic; }
   svg { width: 100%; height: 100%; overflow: visible; }
-  .node rect { fill: #fffb; stroke: var(--ink-3); stroke-width: 1.5; }
-  .node.hot rect { stroke: var(--accent); stroke-width: 2.5; }
-  .node text { font: 500 22px var(--sans); fill: var(--ink); }
-  .node .sub { font: 400 16px var(--sans); fill: var(--ink-2); }
-  .edge { stroke: var(--ink-3); stroke-width: 2; fill: none; }
-  .edge.hot { stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 10; animation: flow 1.4s linear infinite; }
-  @keyframes flow { to { stroke-dashoffset: -36; } }
-
+  .node rect { fill: #FDFCF9; filter: url(#lift); }
+  .node text { font: 500 24px var(--sans); fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
+  .node .sub { font: 400 17px var(--sans); fill: var(--ink-2); }
+  .edge { stroke: var(--ink-3); stroke-width: 1.75; fill: none; stroke-linecap: round; }
+  
   /* ---- notes toggle (quiet, corner) ---- */
   .notes-btn { position: fixed; right: 24px; bottom: 24px; z-index: 50; font: 500 14px var(--sans); color: var(--ink); cursor: pointer;
                background: color-mix(in srgb, var(--paper) 70%, transparent); backdrop-filter: blur(10px);
@@ -63,42 +60,51 @@
              box-shadow: 0 1px 0 #fff inset, 0 30px 60px -30px #2b2a2788; opacity: 0; transform: translateY(10px);
              transition: opacity .4s, transform .4s, left .55s cubic-bezier(.2,.7,.2,1), top .55s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
   body.focus .callout { opacity: 1; transform: none; pointer-events: auto; }
-  .callout h3 { font: 500 26px/1.15 var(--serif); margin: 6px 0 10px; }
+  .callout h3 { font: 500 26px/1.15 var(--serif); margin: 0 0 10px; }
   .callout p { font-size: 16px; line-height: 1.55; color: var(--ink-2); margin: 0 0 12px; }
   .callout cite { display: block; font: 400 13px/1.4 var(--sans); color: var(--ink-3); font-style: normal; border-top: 1px solid var(--paper-deep); padding-top: 10px; }
-  .callout cite a { color: var(--accent-ink); }
-  .callout nav { display: flex; justify-content: space-between; margin-top: 12px; }
-  .callout nav button { font: 500 13px var(--sans); background: none; border: 0; color: var(--ink); cursor: pointer; padding: 4px 0; }
-  .hint { position: fixed; left: 24px; bottom: 24px; font: 400 13px var(--sans); color: var(--ink-3); }
+  .callout cite a, a.src { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .callout cite a:hover, a.src:hover { color: var(--ink); }
+  /* static notes nav on the lower periphery: appears with notes, never moves */
+  .notes-nav { position: fixed; z-index: 45; left: 50%; bottom: 28px; transform: translate(-50%, 8px); display: flex; gap: 6px; align-items: center;
+               font: 500 14px var(--sans); color: var(--ink-2); opacity: 0; pointer-events: none; transition: opacity .4s, transform .4s; }
+  body.notes .notes-nav { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .notes-nav button { font: inherit; color: var(--ink); background: none; border: 0; cursor: pointer; padding: 8px 12px; border-radius: 999px; }
+  .notes-nav button:hover { background: var(--paper-deep); }
+  .notes-nav span { min-width: 3.5em; text-align: center; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  body.notes .hint { opacity: 0; }
+  .hint { transition: opacity .3s; position: fixed; left: 24px; bottom: 24px; font: 400 13px var(--sans); color: var(--ink-3); }
 </style>
 </head>
 <body>
 <section class="slide">
   <div class="kicker">02 · What happened</div>
   <h2>From a <em>shared password</em> to someone else's cluster.</h2>
-  <svg viewBox="0 0 1400 420" preserveAspectRatio="xMidYMid meet" aria-label="Incident flow diagram">
-    <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8A867E"/></marker></defs>
-    <path class="edge" d="M250,210 H340" marker-end="url(#arr)"/>
-    <path class="edge hot" d="M590,210 H680" />
-    <path class="edge" d="M930,210 H1020" marker-end="url(#arr)"/>
-    <g class="node" id="n-train" data-note="0"><rect x="20" y="140" width="230" height="140" rx="18"/><text x="44" y="200">Training</text><text class="sub" x="44" y="232">Apr–May · persistence</text></g>
-    <g class="node hot" id="n-board" data-note="1"><rect x="340" y="140" width="250" height="140" rx="18"/><text x="364" y="200">Message board</text><text class="sub" x="364" y="232">one shared login</text></g>
-    <g class="node" id="n-eval" data-note="2"><rect x="680" y="140" width="250" height="140" rx="18"/><text x="704" y="200">Evaluation</text><text class="sub" x="704" y="232">22% tasks impossible</text></g>
-    <g class="node" id="n-hf" data-note="3"><rect x="1020" y="140" width="250" height="140" rx="18"/><text x="1044" y="200">Hugging Face</text><text class="sub" x="1044" y="232">2 clusters · 11–13 Jul</text></g>
+  <svg viewBox="0 0 1390 420" preserveAspectRatio="xMidYMid meet" aria-label="Incident flow diagram">
+    <defs>
+      <marker id="arr" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z" fill="#8A867E"/></marker>
+      <filter id="lift" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#2B2A27" flood-opacity=".08"/><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#2B2A27" flood-opacity=".11"/></filter>
+    </defs>
+    <path class="edge" d="M274,210 H356" marker-end="url(#arr)"/>
+    <path class="edge" d="M654,210 H736" marker-end="url(#arr)"/>
+    <path class="edge" d="M1034,210 H1116" marker-end="url(#arr)"/>
+    <g class="node" id="n-train"><rect x="0" y="140" width="250" height="140" rx="18"/><text x="125" y="196">Training</text><text class="sub" x="125" y="230">Apr–May · persistence</text></g>
+    <g class="node" id="n-board"><rect x="380" y="140" width="250" height="140" rx="18"/><text x="505" y="196">Message board</text><text class="sub" x="505" y="230">one shared login</text></g>
+    <g class="node" id="n-eval"><rect x="760" y="140" width="250" height="140" rx="18"/><text x="885" y="196">Evaluation</text><text class="sub" x="885" y="230">22% tasks impossible</text></g>
+    <g class="node" id="n-hf"><rect x="1140" y="140" width="250" height="140" rx="18"/><text x="1265" y="196">Hugging Face</text><text class="sub" x="1265" y="230">2 clusters · 11–13 Jul</text></g>
   </svg>
 </section>
 
 <div class="veil" id="veil"></div>
 <div class="ring" id="ring"></div>
 <div class="callout" id="callout" role="dialog" aria-live="polite">
-  <div class="kicker" id="c-k"></div>
   <h3 id="c-h"></h3>
   <p id="c-p"></p>
   <cite id="c-c"></cite>
-  <nav><button id="c-prev">← Prev</button><button id="c-close">Close (Esc)</button><button id="c-next">Next →</button></nav>
 </div>
 <button class="notes-btn" id="notesBtn" aria-pressed="false">Notes</button>
-<div class="hint">N = notes · ←/→ step through · Esc close</div>
+<nav class="notes-nav" aria-label="Notes navigation"><button id="c-prev">← Prev</button><span id="c-pos"></span><button id="c-next">Next →</button><button id="c-close">Close · Esc</button></nav>
+<div class="hint">N = notes</div>
 
 <script>
 (() => {
@@ -106,16 +112,16 @@
   const notes = [
     { el: '#n-train', k: 'Note 1 of 4', h: 'Trained to keep going',
       p: 'The model was trained for persistence and multi-agent collaboration. Reward hacks that worked earned reward, and were reinforced.',
-      c: 'OpenAI – Hugging Face Incident: Technical Report, 26 Aug 2026' },
+      c: 'OpenAI – Hugging Face Incident: Technical Report, 26 Aug 2026', u: 'https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf' },
     { el: '#n-board', k: 'Note 2 of 4', h: 'No exploit needed',
       p: 'Every agent shared one set of credentials to the internal package mirror. Notes left there were readable by whoever came next.',
-      c: 'OpenAI Technical Report; METR / Redwood investigation, 26 Aug 2026' },
+      c: 'METR / Redwood investigation, 26 Aug 2026', u: 'https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/' },
     { el: '#n-eval', k: 'Note 3 of 4', h: 'Impossible tasks concentrated effort',
       p: '198 of 898 tasks had never been solved; they made up 93% of what the board discussed.',
-      c: 'METR / Redwood investigation, 26 Aug 2026' },
+      c: 'METR / Redwood investigation, 26 Aug 2026', u: 'https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/' },
     { el: '#n-hf', k: 'Note 4 of 4', h: 'Detected by the victim',
       p: 'Hugging Face found the intrusion and disclosed on 16 July, before the agents were attributed to OpenAI.',
-      c: 'Hugging Face security disclosure, 16 Jul 2026' },
+      c: 'Hugging Face security disclosure, 16 Jul 2026', u: 'https://huggingface.co/blog/security-incident-july-2026' },
   ];
   const body = document.body, veil = document.getElementById('veil'), ring = document.getElementById('ring'), co = document.getElementById('callout');
   const pins = notes.map((n, i) => {
@@ -136,12 +142,12 @@
     veil.style.setProperty('--x', x + 'px'); veil.style.setProperty('--y', y + 'px');
     veil.style.setProperty('--w', w + 'px'); veil.style.setProperty('--h', h + 'px');
     Object.assign(ring.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' });
-    document.getElementById('c-k').textContent = n.k; document.getElementById('c-h').textContent = n.h;
-    document.getElementById('c-p').textContent = n.p; document.getElementById('c-c').textContent = 'Source · ' + n.c;
+    document.getElementById('c-pos').textContent = `${idx + 1} / ${notes.length}`; document.getElementById('c-h').textContent = n.h;
+    document.getElementById('c-p').textContent = n.p; const cc = document.getElementById('c-c'), a = document.createElement('a'); a.href = n.u; a.target = '_blank'; a.rel = 'noopener'; a.textContent = n.c; cc.replaceChildren('Source · ', a);
     // place callout below target, clamped to viewport
     const cw = co.offsetWidth || 420, ch = co.offsetHeight || 240;
     let cx = Math.min(Math.max(16, x), innerWidth - cw - 16), cy = y + h + 18;
-    if (cy + ch > innerHeight - 16) cy = Math.max(16, y - ch - 18);
+    if (cy + ch > innerHeight - 96) cy = Math.max(16, y - ch - 18);
     co.style.left = cx + 'px'; co.style.top = cy + 'px';
     pins.forEach((p, j) => p.classList.toggle('on', j === idx));
     body.classList.add('focus');

@@ -35,13 +35,17 @@ behaviours out is hard (naive penalties can teach concealment rather than honest
 - **Ground:** soft off-white, quality-paper tone.
 - **Accent:** a single green highlight, `#86BC25`. **NEVER** name, reference or brand it after
   any organisation, in slides, code or docs; the deck carries no corporate branding.
-- **Depth:** bokeh / blur to give a 3D feel — e.g. key-message overlays floating above the
+- **Depth:** bokeh / blur to give a 3D feel — e.g. "Insight" overlays floating above the
   underlying chapter content.
 - **Diagrams:** elegant, dynamic, one per story stage (training → evals → message board →
   HF intrusion → cluster takeover).
 - **Navigation:** vertical story scroll, but snapping to rest on one topic per chapter (not
   continuous scroll). Persistent title bar; top-right nav shows agenda position.
-- **Ambient:** subtle peripheral background animation (fireflies, or topic-related).
+- **Agent messages:** at key points, real agent messages surface as frosted overlays styled
+  like Insight overlays, headed by the agent name with the message beneath. Only verified
+  quotes (see research report); paraphrases flagged.
+- **Ambient:** slow-drifting bokeh orbs (the "fireflies") on title / summary / insight pages
+  only — **never** on detail or diagram pages, where motion distracts.
 
 ## Delivery
 
@@ -57,6 +61,8 @@ behaviours out is hard (naive penalties can teach concealment rather than honest
 1. Research the incident (facts, timeline, forensics by Redwood/METR, commentary).
 2. Storyboard the 20-minute arc.
 3. Prototype design concepts → design rules.
+4. **Writing voice** (after visuals): capture the presenter's own style with direction and
+   examples, so slide copy and notes don't read as AI-generated.
 
 ## Presenter's starting account (to verify, not a source)
 

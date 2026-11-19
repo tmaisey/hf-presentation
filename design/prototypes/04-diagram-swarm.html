@@ -12,6 +12,7 @@
     --paper: #F6F3EC; --paper-deep: #EDE8DD;
     --ink: #2B2A27; --ink-2: #5C5A55; --ink-3: #8A867E;
     --accent: #86BC25; --accent-ink: #4B6E10;
+    --loss: #7A1F2B; /* deep oxblood: irreversible loss / sacrifice */
     --serif: "Newsreader", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
   }
   * { box-sizing: border-box; }
@@ -40,22 +41,24 @@
   .board-sub { font: 400 15px var(--sans); fill: var(--ink-2); }
   .tag { font: 600 13px var(--sans); letter-spacing: .1em; fill: var(--accent-ink); opacity: 0; transition: opacity .6s; }
   .tag.on { opacity: 1; }
+  #tag-gone { fill: var(--loss); }
+  .agent { transition: transform 1.1s cubic-bezier(.2,.7,.2,1), opacity .8s, fill 1.2s, stroke 1.2s; }
 
   /* ---------- Style A: line-drawn, editorial ---------- */
   body[data-style="a"] .agent { fill: var(--paper); stroke: var(--ink-2); stroke-width: 1.6; }
   body[data-style="a"] .agent.lit { stroke: var(--accent-ink); fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); }
   body[data-style="a"] .agent.hub { fill: var(--ink); stroke: var(--ink); }
-  body[data-style="a"] .agent.gone { opacity: .15; stroke-dasharray: 2 3; }
+  body[data-style="a"] .agent.gone { fill: var(--loss); stroke: var(--loss); }
   body[data-style="a"] .link { stroke: var(--ink-3); }
   body[data-style="a"] .hub-link { stroke: var(--ink); }
-  body[data-style="a"] .board { fill: none; stroke: var(--ink); stroke-width: 2; }
+  body[data-style="a"] .board { fill: #FDFCF9; stroke: none; filter: url(#lift); }
   body[data-style="a"] .board-glow { display: none; }
 
   /* ---------- Style B: soft nodes, depth ---------- */
   body[data-style="b"] .agent { fill: var(--ink-3); stroke: none; opacity: .55; }
   body[data-style="b"] .agent.lit { fill: var(--accent); opacity: .9; filter: url(#soft); }
   body[data-style="b"] .agent.hub { fill: var(--ink); opacity: 1; filter: none; }
-  body[data-style="b"] .agent.gone { opacity: 0; }
+  body[data-style="b"] .agent.gone { fill: var(--loss); opacity: 1; filter: none; }
   body[data-style="b"] .agent.far:not(.hub) { filter: url(#blurFar); }
   body[data-style="b"] .link { stroke: color-mix(in srgb, var(--accent) 55%, transparent); }
   body[data-style="b"] .hub-link { stroke: var(--ink-2); }
@@ -86,7 +89,7 @@
     <defs>
       <filter id="soft" x="-1" y="-1" width="3" height="3"><feGaussianBlur stdDeviation="1.6"/></filter>
       <filter id="blurFar" x="-1" y="-1" width="3" height="3"><feGaussianBlur stdDeviation="3"/></filter>
-      <filter id="lift" x="-.3" y="-.3" width="1.6" height="1.6"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#2B2A27" flood-opacity=".18"/></filter>
+      <filter id="lift" x="-.3" y="-.4" width="1.6" height="1.9"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#2B2A27" flood-opacity=".08"/><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#2B2A27" flood-opacity=".14"/></filter>
       <radialGradient id="glow"><stop offset="0" stop-color="#86BC25" stop-opacity=".35"/><stop offset="1" stop-color="#86BC25" stop-opacity="0"/></radialGradient>
     </defs>
     <circle class="board-glow" r="260" />
@@ -95,7 +98,7 @@
     <text class="board-label" text-anchor="middle" y="-4">Package mirror</text>
     <text class="board-sub" text-anchor="middle" y="22">the “board”</text>
     <text class="tag" id="tag-hub" x="0" y="-330" text-anchor="middle">COORDINATORS</text>
-    <text class="tag" id="tag-gone" x="0" y="360" text-anchor="middle">SACRIFICED RUNS</text>
+    <text class="tag" id="tag-gone" x="0" y="385" text-anchor="middle">SACRIFICED RUNS</text>
     <g id="agents"></g>
   </svg>
 </section>
@@ -135,7 +138,7 @@
   agents.forEach((w, i) => {
     if (hubs.includes(w) || i % 2) return;
     const h = hubs[sector(w.near)];
-    const l = document.createElementNS(NS, 'line'); l.setAttribute('class', 'hub-link');
+    const l = document.createElementNS(NS, 'line'); l.setAttribute('class', 'hub-link'); l.dataset.w = i;
     l.setAttribute('x1', h.inner.x); l.setAttribute('y1', h.inner.y);
     l.setAttribute('x2', w.near.x); l.setAttribute('y2', w.near.y); gL.appendChild(l); hubLinks.push(l);
   });
@@ -151,7 +154,7 @@
       const visible = step >= 2 || (step === 0 && first) || (step === 1 && i % 10 === 0);
       const gathered = step >= 2 || (step >= 0 && first) || (step === 1 && i % 10 === 0);
       const isHub = step >= 3 && hubs.includes(a), isGone = step >= 4 && gone.includes(a);
-      const p = isHub ? a.inner : isGone ? { x: a.near.x * 1.25, y: a.near.y * 1.25 } : gathered ? a.near : a.home;
+      const p = isHub ? a.inner : isGone ? { x: a.near.x * 1.08, y: a.near.y * 1.08 } : gathered ? a.near : a.home;
       a.c.style.transform = `translate(${p.x}px, ${p.y}px)`;
       a.c.style.opacity = visible ? '' : 0;
       a.c.style.transitionDelay = step === 2 ? `${(i % 30) * 25}ms` : '0ms';
@@ -161,7 +164,7 @@
       a.l.classList.toggle('on', visible && step < 3);
       if (hubs.includes(a)) a.c.setAttribute('r', step >= 3 ? 13 : 6);
     });
-    hubLinks.forEach(l => l.classList.toggle('on', step >= 3));
+    hubLinks.forEach(l => l.classList.toggle('on', step >= 3 && !(step >= 4 && gone.includes(agents[+l.dataset.w]))));
     document.getElementById('tag-hub').classList.toggle('on', step >= 3);
     document.getElementById('tag-gone').classList.toggle('on', step >= 4);
   }

@@ -64,21 +64,24 @@
   .card b { font: 500 clamp(28px, 2.6vw, 52px)/1 var(--serif); display: block; }
   .card small { color: var(--ink-2); font-size: clamp(13px, .95vw, 18px); }
 
-  /* ---------- key-message frosted overlay ---------- */
+  /* ---------- insight frosted overlay ---------- */
   .key { position: absolute; z-index: 5; inset: auto 8vw 12vh auto; width: min(44vw, 760px); padding: 2.4vw 2.6vw;
          border-radius: 24px; background: color-mix(in srgb, var(--paper) 55%, transparent);
          backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15);
          box-shadow: 0 1px 0 #fff inset, 0 40px 80px -40px #2b2a2766;
-         opacity: 0; transform: translateY(30px) scale(.98); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
-  .key.show { opacity: 1; transform: none; }
-  .key .kicker { margin-bottom: .9em; display: block; }
+         /* hidden state = EXIT transition: "rack focus" — overlay drifts out of focus first,
+            then fades (opacity lags via ease-in) while the slide beneath sharpens */
+         opacity: 0; filter: blur(16px); transform: scale(1.015);
+         transition: filter .8s cubic-bezier(.4,0,.6,1), opacity .8s cubic-bezier(.6,0,.8,1), transform .8s ease-out; pointer-events: none; }
+  /* shown state = ENTRY transition: settles up into place, sharp */
+  .key.show { opacity: 1; filter: blur(0); transform: none;
+              transition: opacity .6s ease, filter .5s ease-out, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .key:not(.show):not(.was) { transform: translateY(30px) scale(.98); }
+  .key .kicker { margin-bottom: .9em; display: block; color: var(--ink-2); }
   .key p { font: 400 clamp(22px, 2vw, 40px)/1.25 var(--serif); color: var(--ink); margin: 0; max-width: none; }
-  .key::before { content: ""; position: absolute; left: 2.6vw; top: 0; width: 56px; height: 4px; border-radius: 0 0 4px 4px; background: var(--accent); }
   .chapter.key-on .content { filter: blur(3px); opacity: .55; transition: filter .7s, opacity .7s; }
-  .chapter .content { transition: filter .7s, opacity .7s; }
+  .chapter .content { transition: filter .8s cubic-bezier(.4,0,.6,1), opacity .8s; }
 
-  /* ---------- fireflies ---------- */
-  #flies { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
   /* ---------- prototype controls (not part of design) ---------- */
   .proto { position: fixed; left: 16px; bottom: 16px; z-index: 40; display: flex; gap: 6px; font: 500 12px var(--sans);
@@ -97,7 +100,6 @@
   <div class="progress" id="progress"></div>
 </header>
 
-<canvas id="flies"></canvas>
 
 <main class="deck" id="deck">
   <section class="chapter" data-name="Opening">
@@ -119,7 +121,6 @@
   </section>
 
   <section class="chapter" data-name="What happened">
-    <div class="bokeh" data-depth></div>
     <div class="content">
       <div class="kicker rise">02 · What happened</div>
       <h2 class="rise">The numbers beneath the story.</h2>
@@ -130,7 +131,7 @@
       </div>
     </div>
     <aside class="key" data-key>
-      <span class="kicker">Key message</span>
+      <span class="kicker">Insight</span>
       <p>Impossible tasks didn't stop the agents. They concentrated them.</p>
     </aside>
   </section>
@@ -143,7 +144,7 @@
       <p class="rise">We could read the swarm's reasoning because nobody had trained it not to show it.</p>
     </div>
     <aside class="key" data-key>
-      <span class="kicker">Key message</span>
+      <span class="kicker">Insight</span>
       <p>Monitorability is an asset you can spend. Spend it carefully.</p>
     </aside>
   </section>
@@ -158,11 +159,9 @@
 </main>
 
 <div class="proto" aria-label="Prototype controls">
-  <span>Fireflies</span>
-  <button data-ff="0">off</button><button data-ff="1" aria-pressed="true">subtle</button><button data-ff="2">present</button>
   <span>Bokeh</span>
   <button data-bk="0">off</button><button data-bk="1" aria-pressed="true">on</button>
-  <span>K = key msg · ←/→ · ↑/↓ · space</span>
+  <span>K = insight · ←/→ · ↑/↓ · space</span>
 </div>
 
 <script>
@@ -213,6 +212,7 @@
     const k = c.querySelector('[data-key]'); if (!k) return;
     on = on ?? !k.classList.contains('show');
     k.classList.toggle('show', on); c.classList.toggle('key-on', on);
+    if (on) k.classList.add('was'); else setTimeout(() => k.classList.remove('was'), 900);
   }
   addEventListener('keydown', e => {
     if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); next(); }
@@ -246,49 +246,20 @@
   let mx = 0, my = 0;
   addEventListener('mousemove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
 
-  // ---- fireflies: few, slow, peripheral (kept out of the central reading zone) ----
-  const cv = document.getElementById('flies'), ctx = cv.getContext('2d');
-  let flies = [], level = 1;
-  const resize = () => { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; };
-  resize(); addEventListener('resize', resize);
-  function spawn(n) {
-    flies = Array.from({ length: n }, () => {
-      // bias to the right third & bottom edge: periphery, away from text column
-      const edge = Math.random() < .7;
-      return { x: edge ? rnd(.68, 1) : rnd(0, 1), y: edge ? rnd(0, 1) : rnd(.85, 1),
-               vx: rnd(-.00012, .00012), vy: rnd(-.00018, -.00004), ph: rnd(0, 6.28), r: rnd(1.5, 3.2) };
-    });
-  }
-  spawn(14);
+  // ---- ambient drift: near/mid orbs wander slowly (the "fireflies"), plus mouse parallax ----
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+  document.querySelectorAll('.orb').forEach(o => { o.dataset.ph = rnd(0, 6.28); o.dataset.amp = o.classList.contains('far') ? 10 : o.classList.contains('mid') ? 28 : 46; });
   function frame(t) {
-    // parallax
     document.querySelectorAll('.chapter.active .orb').forEach(o => {
-      const z = +o.dataset.z * 600; o.style.transform = `translate(${mx * z}px, ${my * z}px)`;
+      const z = +o.dataset.z * 600, ph = +o.dataset.ph, A = reduce ? 0 : +o.dataset.amp;
+      const dx = Math.sin(t / 9000 + ph) * A, dy = Math.cos(t / 11000 + ph * 1.3) * A * .8;
+      o.style.transform = `translate(${mx * z + dx}px, ${my * z + dy}px)`;
     });
-    // fireflies
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    if (level && !reduce) {
-      const W = cv.width, H = cv.height;
-      flies.forEach(f => {
-        f.x += f.vx + Math.sin(t / 4000 + f.ph) * .00008; f.y += f.vy;
-        if (f.y < -.02) { f.y = 1.02; f.x = rnd(.68, 1); }
-        const a = (Math.sin(t / 1400 + f.ph) * .5 + .5) * (level === 1 ? .45 : .8);
-        const g = ctx.createRadialGradient(f.x * W, f.y * H, 0, f.x * W, f.y * H, f.r * 7 * devicePixelRatio);
-        g.addColorStop(0, `rgba(134,188,37,${a})`); g.addColorStop(1, 'rgba(134,188,37,0)');
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(f.x * W, f.y * H, f.r * 7 * devicePixelRatio, 0, 6.29); ctx.fill();
-      });
-    }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 
   // ---- prototype controls ----
-  document.querySelectorAll('[data-ff]').forEach(b => b.addEventListener('click', () => {
-    level = +b.dataset.ff; spawn(level === 2 ? 34 : 14);
-    document.querySelectorAll('[data-ff]').forEach(x => x.setAttribute('aria-pressed', x === b));
-  }));
   document.querySelectorAll('[data-bk]').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('.bokeh').forEach(l => l.style.display = +b.dataset.bk ? '' : 'none');
     document.querySelectorAll('[data-bk]').forEach(x => x.setAttribute('aria-pressed', x === b));
