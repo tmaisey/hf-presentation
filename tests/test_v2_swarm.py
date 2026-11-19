@@ -49,7 +49,7 @@ TILES = {
 STEP_WORDS = {
     1: ["8 July", "board", "1,200"],
     2: ["four hours", "cheat", "poisoned"],
-    3: ["oordinators", "HOLD", "VETO", "STOP", "signed", "351", "tripwire"],
+    3: ["HOLD", "VETO", "STOP", "sign", "351", "tripwire"],  # coordinators: diagram tag + hubs
     4: ["scorer", "transcripts"],
     5: ["scorer", "never", "transcripts"],
     6: ["end their own runs", "scorer"],

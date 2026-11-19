@@ -257,9 +257,11 @@ pins for targets not on screen at that step hide (v1: always the last step).
   screen floors when the SVG is drawn small, so size tiles for the floor: in `body--split` keep the
   viewBox ≈1000 wide; full-width diagrams ≈1400.
 - Swarm: `svg.diagram[data-diagram="swarm"]` with the four empty layer groups plus the board tile in
-  `.layer-key` and tags in `.layer-labels`; the engine adds agents. Its five stages follow slide
-  steps 1–5 (note → replies → gather → coordinators → sacrificed), so pair it with five
-  `ol.steps > li[data-show-at=1..5]`. Extra tiles (e.g. a scorer key tile) and tags may join
+  `.layer-key` and tags in `.layer-labels`; the engine adds agents. Its five stages (note → replies
+  → gather → coordinators → sacrificed) follow slide steps 1–5 by default; an optional
+  `data-stages="s1,…,sN"` on the SVG maps step k to stage sk (step 0 = empty; later steps keep sN),
+  so the diagram can follow the storyboard order (s-5: `3,3,4,4,4,5`). Pair it with one
+  `ol.steps > li[data-show-at]` per step. Extra tiles (e.g. a scorer key tile) and tags may join
   `.layer-key` / `.layer-labels` with `data-show-at`, outside the gathered ring (|x| ≤ ~370 units).
 
 **Engine API** (tests and tooling): `window.deck = {ready, state(), goto(id, step), next(), prev(),

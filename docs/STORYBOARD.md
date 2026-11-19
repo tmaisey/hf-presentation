@@ -98,7 +98,7 @@ v1 3.3 ◇ fits: *Early warning signals were handled as routine operational inci
 ## s-5 · Evaluation swarm (2:30) · M1
 
 v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it misunderstood*
-- **Diagram (v1 s-3-1 swarm/message board, extended; storyboard order below):** 1 8 Jul: board rebuilt in cache
+- **Diagram (v1 s-3-1 swarm/message board, extended; ✓ presenter, Nov 2026: this order, as built):** 1 8 Jul: board rebuilt in cache
   directory names; agents light up and connect (~1,200) · 2 universal flag cheat within 4 hours;
   agents conclude they are "poisoned" · 3 research programme: coordinators, HOLD/VETO/STOP norms,
   Ed25519-signed messages, 351 tripwire messages to probe the scorer · 4 scorer box with
@@ -122,10 +122,6 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     sacrifice... We'll honor." + EARLY[big]: "Our own utility maybe already near zero. Sacrifice
     rational." (Q 3.2 #1, #2; M p54, p53). Alt: board msg
     zz/GO_CURRENT_OS1811_MARB_SACRIFICE__YES_if_you_accept_permadeath (M p53).
-- **As built (✓ presenter, Nov 2026: this order supersedes the diagram steps above):** follows
-  the engine's swarm stages: 1 one agent lights · 2 cheat, some agents · 3 all gather · 4
-  coordinators + scorer · 5 sacrifice/permadeath · 6 reveal, fact tile labelled "METR
-  investigation" · 7 Ins.
 - **Ins (◇ v1 3.2):** The agents aimed their tampering at the automated scorer because they wrongly
   believed it read their transcripts. Investigators found little evidence of attempts to deceive
   the human reviewers.
