@@ -69,6 +69,16 @@ def helper_norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def helper_eventually(page, js: str, ok, timeout_ms: int = 5000):
+    """Poll ``js`` until ``ok(value)`` holds (transitions settle) or time runs out; return the last value."""
+    waited, val = 0, page.evaluate(js)
+    while not ok(val) and waited < timeout_ms:
+        page.wait_for_timeout(100)
+        waited += 100
+        val = page.evaluate(js)
+    return val
+
+
 def test_slide_sits_in_order_with_kicker_chapter_and_approved_title():
     slides = parse_slides()
     ids = [s["attrs"]["id"] for s in slides]
@@ -93,20 +103,21 @@ def test_path_builds_one_hop_per_step(page):
     for k in range(0, LAST_STEP + 1):
         expected += NEW_TILES.get(k, [])
         goto_slide(page, SID, k)
-        assert sorted(page.evaluate(TILES_JS)) == sorted(expected), f"step {k}"
+        got = helper_eventually(page, TILES_JS, lambda v: sorted(v) == sorted(expected))
+        assert sorted(got) == sorted(expected), f"step {k}"
 
 
 def test_band_labelled_and_lit_at_every_step_including_after_the_cut(page):
     open_deck(page)
     for k in range(1, LAST_STEP + 1):
         goto_slide(page, SID, k)
-        res = page.evaluate(f"""() => {{ const shown = {SHOWN_JS};
+        js = f"""() => {{ const shown = {SHOWN_JS};
           const z = [...document.querySelectorAll('#{SID} svg.diagram .zone')]
             .find(z => /agents running on openai.s servers/i.test(z.textContent));
           if (!z) return null;
-          const r = z.querySelector('rect');
-          return {{ shown: shown(z), lit: z.classList.contains('zone--lit'),
-                    fill: getComputedStyle(r).fill }}; }}""")
+          const glow = getComputedStyle(z.querySelector('rect')).filter;
+          return {{ shown: shown(z), lit: z.classList.contains('zone--lit') && glow !== 'none' }}; }}"""
+        res = helper_eventually(page, js, lambda v: bool(v) and v["shown"])
         assert res, "band labelled 'agents running on OpenAI's servers' is missing"
         assert res["shown"] and res["lit"], f"band not lit at step {k}"
 
@@ -120,9 +131,11 @@ def test_path_into_hugging_face_severs_at_the_last_diagram_step(page):
       const cut = [...document.querySelectorAll('#{SID} .tag--loss')].find(t => /13 Jul/i.test(t.textContent));
       return {{ edge: !!e && shown(e), cut: !!cut && shown(cut) }}; }}"""
     goto_slide(page, SID, 6)
-    assert page.evaluate(edge_js) == {"edge": True, "cut": False}
+    want = {"edge": True, "cut": False}
+    assert helper_eventually(page, edge_js, lambda v: v == want) == want
     goto_slide(page, SID, 7)
-    assert page.evaluate(edge_js) == {"edge": False, "cut": True}
+    want = {"edge": False, "cut": True}
+    assert helper_eventually(page, edge_js, lambda v: v == want) == want
 
 
 def test_model_bar_shows_hpim_and_sol_shares_from_step_six(page):
@@ -130,9 +143,9 @@ def test_model_bar_shows_hpim_and_sol_shares_from_step_six(page):
     js = f"""() => {{ const shown = {SHOWN_JS}; const m = document.querySelector('#{SID} .mix');
       return m ? {{ shown: shown(m), text: m.textContent.replace(/\\s+/g, ' ') }} : {{ shown: false, text: '' }}; }}"""
     goto_slide(page, SID, 5)
-    assert page.evaluate(js)["shown"] is False
+    assert helper_eventually(page, js, lambda v: not v["shown"])["shown"] is False
     goto_slide(page, SID, 6)
-    res = page.evaluate(js)
+    res = helper_eventually(page, js, lambda v: v["shown"])
     assert res["shown"]
     assert re.search(r"HPIM ~95%", res["text"], re.I) and re.search(r"GPT-5\.6 Sol ~5%", res["text"], re.I)
 
