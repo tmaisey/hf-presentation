@@ -37,6 +37,7 @@ Docs hold **intent and state** that code, docstrings and git can't. This file is
 | `docs/research/RESEARCH.md` | Child index of incident research: sourced facts, timeline, forensics, commentary | Before writing any factual slide or storyboard claim; before new research (avoid repeat searches) | When a research doc is added/changed (row in same commit) |
 | `design/prototypes/PROTOTYPES.md` | Child index of frozen reference prototypes (single HTML files): what each tests + verdict | Before making or judging a prototype; when a DESIGN.md link needs checking | When a prototype is added, verdicted or retired (row in same commit) |
 | `docs/DESIGN.md` | Binding visual design rules (tokens, type, components, motion, diagrams), each linked to the prototype code that demonstrates it | Before writing or reviewing any slide markup, CSS, diagram or animation | When a visual rule is agreed, changed or retired; when a linked prototype line moves |
+| `docs/VOICE.md` | Presenter's writing voice: rules + approved/rejected examples for titles, bullets, overlays, notes | Before writing or editing any slide copy, Insight, note or speaker text | When the presenter approves/rejects copy or states a style preference |
 | `docs/ADR.md` | ADR model: schema, lifecycle, `ADR:` marker. Records live in `docs/ADR.jsonl` | Before adding, updating, superseding or deprecating an ADR. Not for reading live constraints: filter `ADR.jsonl` for `accepted` | When the ADR model changes. Not for individual decisions: those are `ADR.jsonl` lines |
 
 ### Doc hygiene
