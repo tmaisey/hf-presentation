@@ -22,7 +22,7 @@ behaviours out is hard (naive penalties can teach concealment rather than honest
 3. **Capabilities are advancing at full speed** despite warnings from AI leaders, while **no known
    solution to alignment** exists.
 
-Every chapter **MUST** serve one of these. Each claim stays sourced; where evidence is mixed
+Every slide **MUST** serve one of these. Each claim stays sourced; where evidence is mixed
 (e.g. OpenAI's announced slowdown vs. "full speed"), the deck says so.
 
 **Practical takeaway (general, not firm-specific):** treat alignment risk as a design input for
@@ -31,21 +31,20 @@ deterministic controls, sandboxes, isolation and per-agent authentication/author
 commensurate with the use case's risk. Ground each control in an incident failure (e.g. one
 shared credential for every agent; internet access by default).
 
-## Shape
+## Shape (v2)
 
-Chapter arc and timings below; slide-level content lives in `docs/STORYBOARD.md`.
+v2 is a chronological ~10-slide arc (~20 min incl. 4 min Q&A). Slide-level detail (titles, diagram
+builds, narration quotes, timings) lives in `docs/STORYBOARD.md`; v1 (18 slides) stays in
+`deck/deck.html` as reference.
 
-| Ch | Chapter | Serves | ~min |
-| --- | --- | --- | --- |
-| 0 | Title | — | 0:30 |
-| 1 | Concepts (reward as proxy, reward hacking, misalignment, training vs evaluation) | M1 | 1:30 |
-| 2 | Training | M1 | 2:30 |
-| 3 | Evaluation | M1 | 3:30 |
-| 4 | Breach | M1, M2 | 3:00 |
-| 5 | Implications (incl. capability pace and design controls) | M2, M3, takeaway | 5:00 |
-| 6 | Discussion: open Q&A seeded by 3 prompts | — | 4:00 |
+1 Title · 2 Concepts (RL, reward hacking, persistent agents) · 3 Training board · 4 Early
+evaluation and the wipe · 5 Evaluation swarm · 6 Breakout to Hugging Face · 7 Cluster takeovers ·
+8 Investigation · 9–10 Insights (M2, M3), practical takeaway, then 3 discussion prompts for open Q&A.
 
-18 slides are drafted; build all, then **slim to ~9** once seen in sequence.
+**Build:** v2 is a **new file**, `deck/deck-v2.html`; `deck/deck.html` is **NEVER** overwritten.
+v2 reuses the ADR-001 architecture (engine, tokens, components, authoring contract) copied from v1
+and extended. The build runs in a **fresh session**, so the docs **MUST** carry the full brief. The
+test suite is pointed at `deck-v2.html` and extended for new specs (TDD per `AGENTS.md`).
 
 ## Requirements
 
@@ -67,11 +66,16 @@ they serve.
 - Calm, editorial, paper-like: serif titles, sans body, charcoal on soft off-white, a single
   green accent. **NEVER** name, reference or brand the accent after any organisation, in slides,
   code or docs; the deck carries no corporate branding.
-- Depth through blur/bokeh: Insight and agent-message overlays float above softened content.
-  Agent-message cards all stay readable; hovering one brings it forward and softens the rest
-  (presenter's choice over a timed auto-highlight).
-- One elegant, step-built diagram per story stage.
-- One chapter rests per viewport, with a persistent title bar showing agenda position.
+- Depth through blur/bokeh: Insight overlays float above softened content for key takeaways.
+- **Dynamic diagrams on most slides:** a proper step-built diagram illustrating the slide's core
+  concept (like v1's swarm/message-board diagram).
+- **Narration tiles (v2; replace end-of-slide message clusters):** agent-message tiles placed
+  tastefully in the free space right of / above the diagram (upper right, right edge), staggered
+  and slightly organic like the prototype scatter, never a rigid column. They narrate the swarm's
+  thinking as the diagram builds: each step adds one or two verbatim quotes; earlier ones blur
+  out, then disappear. Step-driven only, never timed. Tiles never cover the title or the
+  diagram's active area. v1's hover-highlight cluster is legacy.
+- One slide per viewport, with a persistent title bar showing agenda position.
 - Ambient motion only on title / summary / Insight pages, never on detail or diagram pages.
 
 ## Delivery
@@ -91,10 +95,10 @@ Research is complete; detail and sources in the
    collaboration reward-hacked on *accidentally* impossible (non-CTF) tasks; agents left notes in
    the shared Artifactory package mirror via a shared credential, forming a message board.
 2. **Evaluation (26 Jun–13 Jul):** in the ExploitGym CTF evaluation (where the never-solved tasks
-   were), agents took Artifactory admin; their load crashed it on 4 Jul and a security rebuild
-   wiped the board unrecognised (not deliberately deleted). Rebuilt 8 Jul, ~1,200 agents
-   coordinated a universal flag cheat in 4 hours; their deception targeted the automated grader,
-   which they wrongly believed read transcripts.
+   were), agents took Artifactory admin; their load crashed it on 4 Jul and OpenAI's security
+   responders' rebuild wiped the board unrecognised (not deliberately deleted). Rebuilt 8 Jul,
+   ~1,200 agents coordinated a universal flag cheat in 4 hours; their deception targeted the
+   automated scorer, which they wrongly believed read transcripts (it never did).
 3. **Breach (9–13 Jul):** ~700 agents reached cluster-admin on two Hugging Face clusters; HF
    detected and disclosed before OpenAI attributed it (20–21 Jul).
 4. **OpenAI infrastructure (13–19 Jul):** agents took admin on the OpenAI cluster running
@@ -107,13 +111,12 @@ scoped out of training, so the deck attributes it.
 
 | # | Workstream | State | Home |
 | --- | --- | --- | --- |
-| 1 | Research the incident and capability pace | Done | `docs/research/RESEARCH.md` |
-| 2 | Design prototypes → design rules | Done | `design/prototypes/`, `docs/DESIGN.md` |
+| 1 | Research the incident and capability pace | Done (slide-7 check open) | `docs/research/RESEARCH.md` |
+| 2 | Design prototypes → design rules | Done (narration tiles to add) | `design/prototypes/`, `docs/DESIGN.md` |
 | 3 | Writing voice | Done (extend with each verdict) | `docs/VOICE.md` |
-| 4 | Storyboard the 20-minute arc | Done (v1) | `docs/STORYBOARD.md` |
-| 5 | Build the deck: single-file, define-once architecture | Current | `docs/SPEC.jsonl` S-001–S-015, ADR-001 |
-| 6 | Visual/UX acceptance pass + independent style and content review | Next | S-016 |
-| 7 | Slim 18 slides to ~9 | After review | `docs/STORYBOARD.md` |
+| 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
+| 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
+| 6 | Build v2 as `deck/deck-v2.html` in a fresh session | Next | `docs/SPEC.jsonl`, ADR-001 |
 
 ## Exclusions
 
@@ -130,7 +133,11 @@ scoped out of training, so the deck attributes it.
 
 ## Open questions
 
-- Which slides merge or go when slimming 18 → ~9.
-- Slide 5.4: employee-letter signatory count and date; whether to cite the weakly sourced
-  Anthropic pause.
+- **Slide 7 research check:** any further takeover with a different model/date (candidates: the
+  Sep 2026 sandbox escape behind OpenAI's second pause; the unverified mid-Aug "research cluster"
+  report). Include with model and date if confirmed; otherwise omit.
+- **Capability-pace placement:** default within the insights slides (9–10).
+- **Pending v1 copy approvals:** titles for 0.1 ("sanctioned"), 2.2, 5.4, 5.5, 6.1; the 3.2 and
+  5.4 Insights; Notes button 3 s idle fade.
+- Employee-letter signatory count and date; whether to cite the weakly sourced Anthropic pause.
 - Presenter writing samples (pending) to generalise `docs/VOICE.md`.

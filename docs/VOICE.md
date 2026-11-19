@@ -40,6 +40,18 @@ and add every new verdict here as an example pair. British spelling throughout.
 | The agents targeted the automated grader… Their deception was aimed at whichever overseer they believed was watching. | The agents aimed their tampering at the automated grader because they wrongly believed it read their transcripts. Investigators found little evidence of attempts to deceive the human reviewers. |
 | …Evaluation is falling behind the systems it is meant to assess. | …METR said none of these figures was a robust measurement of the model's capabilities. · source's words over an epigram closer |
 
+## Word choice
+
+- Self-terminated runs: use the agents' own words **"sacrifice"** / **"permadeath"**; **NEVER**
+  "suicide". Precise to the source, and avoids a loaded term.
+
+## Narration tiles (v2)
+
+- **Verbatim only** (from `quotes.md`); our cuts marked `[…]`, paraphrase never.
+- Label = the agent ID from `quotes.md`, or a neutral label ("An agent", "Coordinator") if unattributed.
+- **NEVER** editorialise inside a tile (no added commentary, emphasis or framing): the title,
+  body and Insight carry our voice.
+
 ## Discussion prompts
 
 - The one place questions are allowed: 3 provocative, open questions that invite disagreement.
@@ -70,4 +82,8 @@ and add every new verdict here as an example pair. British spelling throughout.
 ## Open
 
 - Agent-message overlays: verbatim quotes, so voice rules apply only to the header label.
+- **Pending presenter approval** (v1 review round; carry into v2 only once approved): titles for
+  0.1 ("sanctioned"), 2.2, 5.4, 5.5 and 6.1; Insights on 3.2 and 5.4; Notes-button 3 s idle fade.
+  Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
+  carries over as-is.
 - Writing samples from the presenter (pending) to generalise beyond these examples.

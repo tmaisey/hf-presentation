@@ -14,3 +14,5 @@ the credentials line is a paraphrase; the DryRun line was not verbatim; the METR
  OpenAI blog posts were unreadable (403); OpenAI's technical report PDF was read
 directly. METR braces `{}` mark paraphrase — check agent quotes against the METR PDF before
 putting them on a slide.
+
+**Open research:** slide-7 takeover check (S-024): verify the Sep 2026 sandbox escape (model, cluster, date) behind OpenAI's second pause and the unverified mid-Aug "research cluster" report; record a new note here; only confirmed events go on the slide.

@@ -5,7 +5,10 @@ approval. Each rule links to the prototype code that shows it (`P1`–`P4` below
 are **frozen references**: if one is edited, re-check every link here in the same commit.
 
 Build architecture (define once, apply per slide): ADR: ADR-001 (`docs/ADR.jsonl`), implemented in
-`deck/deck.html`. Slide authors need only §10.
+`deck/deck.html` (v1, frozen reference: 18 slides). **v2** is a new file, `deck/deck-v2.html`, that
+**MUST** reuse the same ADR-001 layers (tokens, components, shared SVG defs, one engine, §10 contract):
+copy v1's CSS/engine, then extend once. Rules marked *v1 only* / *v2* below apply to that deck;
+everything else binds both. Slide authors need only §10.
 
 | Key | Prototype |
 | --- | --- |
@@ -67,7 +70,8 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 
 - **Entry:** rise into place, sharp. **Exit: rack focus**: overlay blurs out (0→16px) and fades
   late while the slide sharpens, ~0.8s. [P2:72–78](../design/prototypes/02-chapters-depth.html#L72), [toggle](../design/prototypes/02-chapters-depth.html#L211)
-- **Agent-message cluster:** at each pop-up event, 1–5 message cards appear in a loose staggered
+- **Agent-message cluster** (*v1 only*; superseded in v2 by narration tiles below; **NEVER**
+  author new clusters in `deck-v2.html`): at each pop-up event, 1–5 message cards appear in a loose staggered
   scatter, **all sharp and readable**; no card is auto-highlighted. On **hover** (or keyboard
   `:focus-visible`) one card pops forward (lift, slight scale, stronger shadow, top z) while the
   others blur and their text fades; leaving restores them all. A single card sits centred. Exit is
@@ -76,7 +80,27 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
   one's rack focus, so two half-blurred cards never share a frame.
 - **Agent voice vs report voice:** agent quotes always use the message-card look (cluster or the
   in-flow `msg-card`); report and commentator quotes stay italic `blockquote` + cite.
-- Use agent-message clusters at a few key moments only; spaced out, never back to back.
+- Use agent-message clusters (v1) at a few key moments only; spaced out, never back to back.
+- **Insight** overlays stay in v2 unchanged, for key takeaways.
+
+### 5a · Narration tiles (v2; replaces the cluster)
+
+Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter decision, Nov 2026.
+
+- **Placement:** tiles sit **tastefully in the free space** to the right: the empty upper right
+  (right of the title block, above the diagram) and the right edge beside the diagram (cf. v1
+  `s-3-1`, where that region sits empty). **NOT a rigid column or table:** positions are slightly
+  organic (staggered offsets, varied alignment), like the prototype scatter, while staying clear
+  and balanced. Tiles **MUST NEVER** cover the title or the
+  diagram's active area (the tiles/edges the current step reveals); the diagram may shift slightly
+  left/down to make room. Newest tile(s) sit nearest the diagram's current focus.
+- **Step-driven only:** each build step adds **1–2** tiles; on the next step the previous tiles
+  exit (rack focus: blur out, then disappear) as the new ones enter. **NEVER** timed auto-highlight,
+  hover-to-focus or more than 2 tiles on screen. A step may carry no tiles.
+- **Look:** the agent-message card (frosted base, `p.msg-agent` label, verbatim quote); quote rules
+  as §10 and VOICE. Unlike Insight, tiles **MUST NOT** soften the body: focus stays on diagram +
+  latest messages.
+- An Insight on a narrated slide takes its own step after the last tiles (handover rule applies).
 
 ## 6 · Reader notes (shareable mode)
 
@@ -110,6 +134,9 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 - State colours: active agent = accent-tinted fill + `--accent-ink` stroke; coordinator = solid
   `--ink`; sacrificed = `--loss`, and its links fade. [P4:49–51](../design/prototypes/04-diagram-swarm.html#L49)
 - Illustrative scale stated on-slide (e.g. "each dot represents about 8 agents").
+- **v2 is diagram-led:** most slides (all but title, insights and discussion) **MUST** carry a
+  dynamic, step-built diagram of the slide's core concept (the v1 swarm on `s-3-1` is the bar),
+  paired with narration tiles (§5a).
 
 ## 8 · Links & citations
 
@@ -126,7 +153,7 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 
 ## 10 · Authoring contract (ADR: ADR-001)
 
-Write slides in `deck/deck.html` between `<!-- SLIDES:BEGIN -->` and `<!-- SLIDES:END -->` using
+Write slides in `deck/deck.html` (v1) or `deck/deck-v2.html` (v2) between `<!-- SLIDES:BEGIN -->` and `<!-- SLIDES:END -->` using
 **only** the markup below. **NEVER** add `style`, `<style>`, `<script>` or colour literals there; if a
 slide needs something new, extend the component CSS / engine once and document it here.
 
@@ -159,11 +186,21 @@ step. `[data-show-at=n]` is visible from step n (`.is-visible`); works on HTML a
 **Overlays** (§5)
 - Insight: `aside.overlay.overlay--insight[data-at=n] > p` (label "Insight" is added by CSS). Shown
   only at step n; the body softens; rack-focus exit.
-- Agent messages: `div.cluster[data-at=n] > article.overlay.overlay--msg` ×1–3 (fits 1280×720; 4–5
+- Agent messages (*v1 only*): `div.cluster[data-at=n] > article.overlay.overlay--msg` ×1–3 (fits 1280×720; 4–5
   only with short quotes), each `p.msg-agent` (label from `quotes.md`) + `blockquote.msg-text`
   (verbatim, **no** quote marks: CSS adds them; mark our own cuts `[…]`). One card carries
   `data-key` as authoring metadata (the KEY quote in `quotes.md`); it gets no default emphasis.
 - One overlay per step; put an Insight on its own step after a cluster.
+
+**Narration tiles** (§5a; *v2, to build in v2*: markup below is the intended contract, finalise
+it here when the engine lands). `div.narration` holds `article.narr-tile[data-at=n]` ×1–2 per
+step, each `p.msg-agent` + `blockquote.msg-text` (same verbatim/quote-mark rules as the cluster).
+- Layout: `div.narration` is a slide child after `div.body`, placed in a right-hand grid column
+  spanning kicker → body rows (so it can sit beside the title); the title and body narrow to leave
+  it room. Exact column width and diagram offset are *to build in v2*. Never nest it in the body.
+- Engine (*to build in v2*): a tile is shown only at its step `n` (same entry / rack-focus exit as
+  §5, existing `data-at` already counts toward step total), and **NEVER** sets the slide's
+  `is-overlaid` softening. Notes mode hides tiles like other overlays.
 
 **Reader notes** (§6): `aside.note[data-for="#id"]` with `h3` + `p` + `a.src[href]` (real source,
 link text = source name). `#id` **MUST** be an element on the same slide (HTML or SVG `g.tile`).
