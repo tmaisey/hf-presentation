@@ -47,10 +47,20 @@ and add every new verdict here as an example pair. British spelling throughout.
 
 ## Narration tiles (v2)
 
-- **Verbatim only** (from `quotes.md`); our cuts marked `[…]`, paraphrase never.
-- Label = the agent ID from `quotes.md`, or a neutral label ("An agent", "Coordinator") if unattributed.
+- **Verbatim only** (from `quotes.md`); our cuts marked `[…]`. Paraphrase never, except a METR
+  paraphrase where the storyboard specifies one: keep its `{braces}` and add "· paraphrased by
+  METR" to the label.
+- Label = the agent ID from `quotes.md`, or a neutral label ("Agent · ExploitGym run",
+  "Coordinator") if unattributed.
+- Where the storyboard names one, a tile may carry a source organisation's or named
+  investigator's own words under a neutral label ("OpenAI · technical report", "METR
+  investigation", "Ryan Greenblatt, Redwood"). Same verbatim rule.
 - **NEVER** editorialise inside a tile (no added commentary, emphasis or framing): the title,
   body and Insight carry our voice.
+
+## Kickers (v2)
+
+- Slide number · chapter: "02 · Concepts" … "10 · Takeaways". s-1's kicker is the date ("July 2026").
 
 ## Discussion prompts
 

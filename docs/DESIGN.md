@@ -129,6 +129,8 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   back, ≈6× the stroke (≥ 12px). [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
 - **Key tiles** (the slide's most important object): accent-tinted fill + soft accent glow,
   text stays ink, still no border. A few per deck; at most one or two per diagram.
+- **Flagged tile** (a caution): `--loss`-tinted fill, ink text, no border; ≤ 1 per diagram. Context
+  zones and scope fences sit beneath edges. Markup: §10 Diagrams.
 - **Screen-size floors:** diagram text never renders below ~15px at 1280 wide / ~20px at 1920,
   however small the SVG is drawn (the engine compensates per diagram).
 - **NEVER** animated / marching dashed lines.
@@ -168,11 +170,18 @@ slide needs something new, extend the component CSS / engine once and document i
 - Children in order: `p.kicker` (`0N · Chapter`), `h2.title` (VOICE rules, ≤1 `<em>`), one
   `div.body`, then overlays, then notes. The body sits in the area below the title; overlays share
   that area, so they can never cover the title.
+- Stepped titles: a slide with build phases may carry one `h2.title` per phase, swapped with
+  `data-show-at` / `data-hide-at` (title rules apply to each). Notes-mode behaviour: S-029.
 
 **Body layouts** (only ever on the slide's one `div.body`, never nested): `div.body` (flow, centred
 vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64%; a `div` column stacks
 its blocks with even spacing) · `div.body.body--split.body--flip` (64 / 36: wide content left, quotes
-right) · `div.body.body--stack` (centred column: diagram then quote/cite).
+right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
+`div.body.body--layers` (children share one grid cell and swap by step via `data-show-at` /
+`data-hide-at`: build phases that can't fit together, e.g. s-10 pace → controls → prompts).
+In a `body--stack` with a caption the diagram takes the remaining height (`flex: 1 1 0;
+min-height: 0`) so the stack never rises over the title (slide-scoped on `#s-3` today; generalise
+in S-028).
 **Quotes MUST sit below or to the right of the slide's core content**, never before it.
 Content classes: `p` (≤46ch), `ul.points > li` (accent dash bullets), `ol.steps > li` (numbered step
 list), `dl.terms > div > dt + dd` (terms flow into columns), `blockquote` + `p.cite` (report voice),
@@ -184,6 +193,9 @@ first column emphasised; rows may carry `data-show-at`), `table.compare` (equal-
 **Steps**: a slide's step count = max `data-show-at` / `data-at` on it; it is left only after its last
 step. `[data-show-at=n]` is visible from step n (`.is-visible`); works on HTML and SVG elements.
 `[data-hide-at=n]` hides an element from step n (e.g. an edge re-routed through a new tile).
+**Swap** (change state at step n): pair the outgoing element `[data-hide-at=n]` with its replacement
+`[data-show-at=n]` at the same place: a tile for another tile at the same rect (s-4 board → wipe),
+a plain edge for an `.edge--reinforced` copy. `text.tile-sub[data-show-at=n]` adds a tile line later.
 `ol.steps > li[data-show-at]` stay visible but dim, and get `.is-current` / `.is-done`.
 
 **Overlays** (§5)
@@ -198,6 +210,8 @@ step. `[data-show-at=n]` is visible from step n (`.is-visible`); works on HTML a
 **Narration tiles** (§5a; *v2*). `div.narration > article.narr-tile[data-at=n]`, ×1–2 per step
 (**NEVER** 3+), each `p.msg-agent` + `blockquote.msg-text` (same verbatim/quote-mark rules as the
 cluster). A step may carry none; a neutral fact tile uses the same markup with a neutral label.
+Where no agent quote exists, a tile may carry a verbatim report/investigator quote, `p.msg-agent`
+naming the source neutrally (e.g. "OpenAI · technical report", "METR investigation").
 - Layout: `div.narration` is a slide child right after `div.body` (**NEVER** nested in the body).
   Its presence gives the slide a right-hand column (≈25vw, 300–540px) spanning kicker → body; the
   kicker, title and body take the remaining width to its left. The engine positions tiles; markup
@@ -224,14 +238,28 @@ overlays.
 - Edge: `path.edge[data-from="#a"][data-to="#b"][marker-end="url(#arr)"]` (no `d`): the engine draws
   a gapped straight or curved connector between the two tiles. A hand-drawn `d` is allowed when
   routing must bend; keep the gaps.
+- `path.edge.edge--reinforced`: thicker `--ink-2` edge (≈2.2× base, same floors) for a route
+  strengthened by training; thicken a route at step n by a swap (Steps).
 - Labels: `text.label` (dates, axis words) and `text.tag` / `text.tag.tag--loss` (state captions).
+- Zone: `g.zone#id > rect + text.label`, painted first in `.layer-edges` (soft context region);
+  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (s-6 servers band).
+  s-7's slide-scoped `rect.s7-band` is to converge on `g.zone.zone--lit` (S-028).
+- Scope fence: `rect.fence#id` first in `.layer-edges`: soft `--paper-deep` fill + static dashed
+  `--ink-3` stroke (never animated; edges stay undashed); scope stated in `text.label`s; may be a
+  note target.
+- Flagged tile: `g.tile.tile--flag` in `.layer-key` (§7); ≤ 1 per diagram.
+- Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
+  right-aligns), for a share-of-total split.
+- Cut: `g.cut > path.cut-mark[d] + text.tag.tag--loss`, paired with `data-hide-at` on the severed
+  edge at the same step.
 - SVG units: tile text is 26/20 units, but the engine raises it (and edge width) to the §7
   screen floors when the SVG is drawn small, so size tiles for the floor: in `body--split` keep the
   viewBox ≈1000 wide; full-width diagrams ≈1400.
 - Swarm: `svg.diagram[data-diagram="swarm"]` with the four empty layer groups plus the board tile in
   `.layer-key` and tags in `.layer-labels`; the engine adds agents. Its five stages follow slide
   steps 1–5 (note → replies → gather → coordinators → sacrificed), so pair it with five
-  `ol.steps > li[data-show-at=1..5]`.
+  `ol.steps > li[data-show-at=1..5]`. Extra tiles (e.g. a scorer key tile) and tags may join
+  `.layer-key` / `.layer-labels` with `data-show-at`, outside the gathered ring (|x| ≤ ~370 units).
 
 **Engine API** (tests and tooling): `window.deck = {ready, state(), goto(id, step), next(), prev(),
 plan()}`; `plan()` returns `[[slideId, maxStep], …]`.

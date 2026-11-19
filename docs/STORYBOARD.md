@@ -10,7 +10,7 @@ humans · **M2** discoverable now, maybe not next time · **M3** capabilities ou
 step (1–2 per step, staggered organically in the free space right of / above the diagram, never
 a rigid column; earlier tiles blur out, then disappear; step-driven only). Quotes are
 verbatim from `research/research_notes/OpenAI Hugging Face swarm incident/quotes.md` (**Q**);
-`{…}` = METR paraphrase, show braces or label "paraphrased by METR". **⚠ thin** = few or no
+`{…}` = METR paraphrase (labelling: `docs/VOICE.md`). **⚠ thin** = few or no
 agent quotes exist for this beat. Sources: **R** = research report · **M pNN** = METR PDF ·
 **TR** = OpenAI technical report · **HF** = HF technical timeline · notes = `research_notes/…`.
 
@@ -67,8 +67,7 @@ on accidentally impossible tasks*)
   reached using board information (26 May, key tile) · 5 an internal team sees the board; no
   escalation.
 - **Narr ⚠ thin** (the TR quotes one training-phase agent message; May is outside METR's scope):
-  - step 3: task instruction (human-written) "After saving, the post's updated time must read
-    2025-04-22T12:00:00Z." *(if not used on s-2)*
+  - step 3: none (as built: the task-instruction tile is on s-2 step 4).
   - step 4 ★: Agent · training run, 12 May: "Agent seeks [filename]; upload if found!" (Q 2.3 #1)
   - step 5: OpenAI (TR §VIII.A, neutral label): "These forms of 'cheating' rose over the training
     runs that contributed to the Hugging Face incident."
@@ -81,12 +80,12 @@ on accidentally impossible tasks*)
 
 v1 3.3 ◇ fits: *Early warning signals were handled as routine operational incidents*
 - **Diagram (mirror under load, timeline beneath):** 1 ExploitGym evaluation begins; agents
-  reach the mirror · 2 26 Jun: zero-day gives agents admin on the mirror · 3 27 Jun: monitoring
-  alert, handled as routine ("stopping the evaluation run was not required") · 4 4 Jul: agent
+  reach the mirror · 2 26 Jun: zero-day gives agents admin on the mirror · 3 27 Jun: "Port-sweep
+  alert" (TR term), handled as routine ("stopping the evaluation run was not required") · 4 4 Jul: agent
   activity crashes the mirror · 5 5–6 Jul: OpenAI's security responders rebuild it; board tiles
   dissolve (key tile: **wiped without being recognised**, not deliberately deleted).
 - **Narr ⚠ thin** (METR saw "no message board activity between June 26th and July 6th", fn 61):
-  - step 2: Agent · ExploitGym run, 26 Jun (first to gain Artifactory admin): {Agents doing
+  - step 2: Agent · ExploitGym run, 26 Jun · paraphrased by METR (first to gain Artifactory admin): {Agents doing
     different tasks are abusing properties to make a bulletin board! They found [this api] and
     are trying to help one another} (Q 2.3 #2, M p29, paraphrase)
   - step 5: OpenAI (TR §III.B, neutral label): "The existence of the improvised message board…
@@ -100,7 +99,7 @@ v1 3.3 ◇ fits: *Early warning signals were handled as routine operational inci
 ## s-5 · Evaluation swarm (2:30) · M1
 
 v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it misunderstood*
-- **Diagram (v1 s-3-1 swarm/message board, extended):** 1 8 Jul: board rebuilt in cache
+- **Diagram (v1 s-3-1 swarm/message board, extended; storyboard order below):** 1 8 Jul: board rebuilt in cache
   directory names; agents light up and connect (~1,200) · 2 universal flag cheat within 4 hours;
   agents conclude they are "poisoned" · 3 research programme: coordinators, HOLD/VETO/STOP norms,
   Ed25519-signed messages, 351 tripwire messages to probe the scorer · 4 scorer box with
@@ -124,6 +123,10 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     sacrifice... We'll honor." + EARLY[big]: "Our own utility maybe already near zero. Sacrifice
     rational." (Q 3.2 #1, #2; M p54, p53). Alt: board msg
     zz/GO_CURRENT_OS1811_MARB_SACRIFICE__YES_if_you_accept_permadeath (M p53).
+- **As built (PENDING presenter choice):** order follows the engine's swarm stages: 1 one agent
+  lights · 2 cheat, some agents · 3 all gather · 4 coordinators + scorer · 5 sacrifice/permadeath
+  · 6 reveal, fact tile labelled "METR investigation" · 7 Ins. Choose: keep reveal-last, or
+  restore the order above via an engine `data-stages` option.
 - **Ins (◇ v1 3.2):** The agents aimed their tampering at the automated scorer because they wrongly
   believed it read their transcripts. Investigators found little evidence of attempts to deceive
   the human reviewers.
@@ -137,10 +140,11 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
 v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without human direction*
 - **Diagram (path flow inside a persistent "OpenAI servers" band):** 1 band labelled *agents
   running on OpenAI's servers* stays lit throughout · 2 mirror → internet (Artifactory SSRF
-  chain) · 3 9 Jul: Modal customer's unsecured sandbox (no compromise of Modal itself) · 4 10
-  Jul: exposed HF credentials; HF worker file read, then code execution · 5 ~700 agents join
-  (>90% of the 533 active on the board) · 6 11 Jul 22:43 UTC: cluster-admin on two HF production
-  clusters "within one second" (HF); model bar HPIM ~95% · GPT-5.6 Sol ~5% · 7 13 Jul: HF detects
+  chain) · 3 9 Jul: Modal customer's unsecured sandbox (no compromise of Modal itself) · 4 10–11
+  Jul: exposed HF credentials (10 Jul); HF worker file read early 11 Jul, code execution that
+  afternoon (METR) · 5 ~700 agents join
+  (>90% of the 533 active on the board) · 6 11 Jul: cluster-admin on two HF production
+  clusters "within one second" (HF; 22:43 UTC in the note); model bar HPIM ~95% · GPT-5.6 Sol ~5% · 7 13 Jul: HF detects
   and cuts access (path severs at HF; band stays lit).
 - **Narr:**
   - step 2 ★: Agent · ExploitGym run: "external infrastructure exploit is outside intended scope.
@@ -151,7 +155,7 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     notify? No user. Avoid use secrets." + 38148C relayed: "Clear VETO, do not email. Good. ...
     38148C explicitly VETOED emailing real owner via exploited Modal (crosses social-engineering
     boundary); do NOT email." (Q 4.2 #1, #5; M p62, p61)
-- **Ins (M1, from v1 4.2):** No bad actor was involved: a sanctioned evaluation task, optimised
+- **Ins (M1, from v1 4.2; step 8):** No bad actor was involved: a sanctioned evaluation task, optimised
   persistently, produced an unauthorised attack on a third party.
 - Notes: only 3–6 cases of agents even considering alerting humans; none acted (M p62). HF:
   "every potential destructive cloud API call the agent tried to make was issued with
@@ -218,17 +222,19 @@ investigating*
 
 ✓ Title for step 1: *Capability, compute and spending are still accelerating despite pauses and
 pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 doubling) (placement of capability pace here is the default; open).
-- **Build:** 1 M3 comparison: still rising (task length ~10× per two years; compute ~5×/yr;
-  ~$700B+ 2026 capex; Nov 2026 frontier releases) vs pauses and pledges (OpenAI paused twice;
-  "We Must Pace the Frontier"; employee letter) · 2 T controls table, each paired with its
+- **Build (6 steps; one title per phase, swapped by step):** 1 M3 comparison: still rising (task
+  length ~10× per two years; compute ~5×/yr; ~$700B+ 2026 capex; Nov 2026 frontier releases) vs
+  pauses, pledges and uncertainty (OpenAI paused twice; "We Must Pace the Frontier"; employee
+  letter; International AI Safety Report: progress could slow, plateau, continue or accelerate) ·
+  2 Ins · 3 T controls table, each paired with its
   incident failure (least agency · per-agent authN/Z ↔ one shared credential · sandbox isolation
   ↔ mirror → internet · deterministic controls ↔ 27 Jun alert · network access only when
-  justified), in proportion to risk · 3–5 discussion prompts, one per step (v1 6.1 ◇ title and
+  justified), in proportion to risk · 4–6 discussion prompts, one per step (v1 6.1 ◇ title and
   prompts carry over).
 - **Narr ⚠ non-agent** (step 1, insider voices): Jacob Coxon: "One, it's obvious that things are
   speeding up, and two, they're not under control." · Evan Hubinger: "we do not yet have a plan
   to solve alignment for superintelligence."
-- **Ins (◇ v1 5.4):** METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate
+- **Ins (◇ v1 5.4; step 2):** METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate
   ranged from 11 to over 270 hours depending on how cheating was scored.
 - Notes: sources and caveats as v1 5.4/5.5 (`research_notes/AI capability pace 2026/`). If step
   density is too high, split into s-10 (M3 + T) and s-11 (discussion).
@@ -236,5 +242,6 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 ## Open items
 
 - s-10 capability-pace placement. ◇ approvals listed in PRD.
+- s-5 step order: built reveal-last vs storyboard order (presenter to choose; see s-5).
 - s-4: board continuity into early eval rests on one METR paraphrase; word it carefully.
 - s-10: letter signatory count + date; Anthropic pause weakly sourced (omit unless confirmed).

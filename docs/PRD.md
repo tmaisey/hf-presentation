@@ -112,12 +112,12 @@ scoped out of training, so the deck attributes it.
 
 | # | Workstream | State | Home |
 | --- | --- | --- | --- |
-| 1 | Research the incident and capability pace | Done (slide-7 check open) | `docs/research/RESEARCH.md` |
-| 2 | Design prototypes → design rules | Done (narration tiles to add) | `design/prototypes/`, `docs/DESIGN.md` |
+| 1 | Research the incident and capability pace | Done (slide-7 check settled, S-024) | `docs/research/RESEARCH.md` |
+| 2 | Design prototypes → design rules | Done (narration tiles built, S-018) | `design/prototypes/`, `docs/DESIGN.md` |
 | 3 | Writing voice | Done (extend with each verdict) | `docs/VOICE.md` |
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
 | 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
-| 6 | Build v2 as `deck/deck-v2.html` in a fresh session | Next | `docs/SPEC.jsonl`, ADR-001 |
+| 6 | Build v2 as `deck/deck-v2.html` | Built: 10 slides (S-017–S-027); next S-029 notes fix, then S-028 review; presenter decisions open | `docs/SPEC.jsonl`, ADR-001 |
 
 ## Exclusions
 
