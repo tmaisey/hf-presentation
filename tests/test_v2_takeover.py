@@ -122,7 +122,9 @@ def test_diagram_layers_band_and_single_key_tile():
     body = svg.group(1)
     key = re.findall(r'<g class="tile tile--key" id="([\w-]+)"', body)
     assert key == ["s7-cluster"]
-    assert re.search(r'id="s7-band"', body), "the s-6 'OpenAI servers' band carries over"
+    assert re.search(r'<g class="zone zone--lit" id="s7-band"', body), \
+        "the s-6 'OpenAI servers' band carries over as the same lit zone component (DESIGN §10)"
+    assert "s7-band" not in re.sub(r'id="s7-band"', "", body), "no slide-scoped band styling"
     assert re.search(r"agents running on OpenAI’s servers", helper_strip(body), re.I)
 
 

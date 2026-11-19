@@ -243,8 +243,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   strengthened by training; thicken a route at step n by a swap (Steps).
 - Labels: `text.label` (dates, axis words) and `text.tag` / `text.tag.tag--loss` (state captions).
 - Zone: `g.zone#id > rect + text.label`, painted first in `.layer-edges` (soft context region);
-  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (s-6 servers band).
-  s-7's slide-scoped `rect.s7-band` is to converge on `g.zone.zone--lit` (S-028).
+  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (the s-6/s-7
+  "agents running on OpenAI's servers" band: one component on both slides).
 - Scope fence: `rect.fence#id` first in `.layer-edges`: soft `--paper-deep` fill + static dashed
   `--ink-3` stroke (never animated; edges stay undashed); scope stated in `text.label`s; may be a
   note target.

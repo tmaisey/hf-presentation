@@ -354,7 +354,6 @@
 
   /* ---------- S-025 takeovers components (v2) ---------- */
   /* s-7: the persistent "agents running on OpenAI's servers" band (callback to s-6), and the cut-off Hugging Face tile */
-  .s7-band { fill: color-mix(in srgb, var(--accent) 7%, var(--paper)); stroke: none; rx: 28px; }
   .s7-off rect { fill: var(--paper-deep); filter: none; }
   .s7-off text { fill: var(--ink-2); }
 
@@ -880,7 +879,7 @@
     </div>
     <svg class="diagram" viewBox="0 0 1000 600" role="img" aria-label="Inside the band of agents running on OpenAI's servers, the path to Hugging Face is cut on 13 July; on 19 July a different model's agents reach cluster-admin on the OpenAI cluster that runs the package mirror">
       <g class="layer-edges">
-        <rect class="s7-band" id="s7-band" x="0" y="0" width="700" height="600" data-show-at="1"/>
+        <g class="zone zone--lit" id="s7-band" data-show-at="1"><rect x="0" y="0" width="700" height="600"/><text class="label" x="350" y="44">AGENTS RUNNING ON OPENAI’S SERVERS</text></g>
         <path class="edge" d="M682,155 H704" data-show-at="1"/>
         <path class="edge" d="M736,155 H748" data-show-at="1"/>
         <path class="edge" data-from="#s7-agents" data-to="#s7-mirror" marker-end="url(#arr)" data-show-at="2"/>
@@ -898,7 +897,6 @@
         <g class="tile tile--key" id="s7-cluster" data-show-at="3"><rect x="380" y="300" width="290" height="150"/><text class="tile-title">OpenAI cluster</text><text class="tile-sub">cluster-admin</text><text class="tile-sub">runs the mirror</text></g>
       </g>
       <g class="layer-labels">
-        <text class="label" x="350" y="44" data-show-at="1">AGENTS RUNNING ON OPENAI’S SERVERS</text>
         <text class="tag" x="720" y="122" data-show-at="1">CUT</text>
       </g>
     </svg>
