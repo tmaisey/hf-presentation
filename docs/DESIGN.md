@@ -4,8 +4,8 @@ Binding visual rules for the deck. **MUST / NEVER** are binding; deviate only wi
 approval. Each rule links to the prototype code that shows it (`P1`–`P4` below). The prototypes
 are **frozen references**: if one is edited, re-check every link here in the same commit.
 
-Build architecture (define once, apply per slide): ADR-001 in `docs/ADR.jsonl` (proposed; the
-`ADR:` marker is added where the build implements it).
+Build architecture (define once, apply per slide): ADR: ADR-001 (`docs/ADR.jsonl`), implemented in
+`deck/deck.html`. Slide authors need only §10.
 
 | Key | Prototype |
 | --- | --- |
@@ -110,6 +110,63 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 - Big soft shapes survive compression; hairlines, grain and small low-contrast text don't.
 - Animated blur may step on a low-frame-rate share; it must degrade to a readable fade.
 - Verify every new component **over a real Teams share**, not just locally.
+
+## 10 · Authoring contract (ADR: ADR-001)
+
+Write slides in `deck/deck.html` between `<!-- SLIDES:BEGIN -->` and `<!-- SLIDES:END -->` using
+**only** the markup below. **NEVER** add `style`, `<style>`, `<script>` or colour literals there; if a
+slide needs something new, extend the component CSS / engine once and document it here.
+
+**Slide shell**
+- `section.slide#s-C-N[data-chapter="<Chapter>"]`: the agenda is built from distinct `data-chapter`
+  values in slide order, so every slide of a chapter repeats the same value.
+- `[data-ambient]`: bokeh (title / summary / Insight slides only, §4). `.slide--lead`: big
+  title, vertically centred (title, summary, discussion slides).
+- Children in order: `p.kicker` (`0N · Chapter`), `h2.title` (VOICE rules, ≤1 `<em>`), one
+  `div.body`, then overlays, then notes. The body sits in the area below the title; overlays share
+  that area, so they can never cover the title.
+
+**Body layouts**: `div.body` (flow) · `div.body.body--split` (left text ≈36%, right diagram ≈64%,
+diagram fills the height) · `div.body.body--stack` (centred column: diagram then quote/cite).
+Content classes: `p` (≤46ch), `ul.points > li` (accent dash bullets), `ol.steps > li` (numbered step
+list), `dl.terms > div > dt + dd`, `blockquote` + `p.cite`, `p.caption` (scale notes), `table` (`th` header row,
+`td` rows; first column emphasised; rows may carry `data-show-at`) for slide 5.5.
+
+**Steps**: a slide's step count = max `data-show-at` / `data-at` on it; it is left only after its last
+step. `[data-show-at=n]` is visible from step n (`.is-visible`); works on HTML and SVG elements.
+`ol.steps > li[data-show-at]` stay visible but dim, and get `.is-current` / `.is-done`.
+
+**Overlays** (§5)
+- Insight: `aside.overlay.overlay--insight[data-at=n] > p` (label "Insight" is added by CSS). Shown
+  only at step n; the body softens; rack-focus exit.
+- Agent messages: `div.cluster[data-at=n] > article.overlay.overlay--msg` ×3 (fits 1280×720; 4–5
+  only with short quotes), each `p.msg-agent` (label from `quotes.md`) + `blockquote.msg-text`
+  (verbatim, **no** quote marks: CSS adds them). Exactly one card carries `data-key`: ~1.1 s after
+  entry it rises and stays sharp while the others soften.
+- One overlay per step; put an Insight on its own step after a cluster.
+
+**Reader notes** (§6): `aside.note[data-for="#id"]` with `h3` + `p` + `a.src[href]` (real source,
+link text = source name). `#id` **MUST** be an element on the same slide (HTML or SVG `g.tile`).
+Notes mode shows the slide at its last step with overlays hidden, so target body content, not
+overlays.
+
+**Diagrams** (§7): `svg.diagram[viewBox]` with groups in this order: `g.layer-edges`,
+`g.layer-nodes`, `g.layer-key`, `g.layer-labels`.
+- Tile: `g.tile#id > rect[x y width height] + text.tile-title + text.tile-sub*`. Give text no
+  coordinates: the engine centres all lines in the rect. Fill, radius and `#lift` come from CSS.
+- Edge: `path.edge[data-from="#a"][data-to="#b"][marker-end="url(#arr)"]` (no `d`): the engine draws
+  a gapped straight or curved connector between the two tiles. A hand-drawn `d` is allowed when
+  routing must bend; keep the gaps.
+- Labels: `text.label` (dates, axis words) and `text.tag` / `text.tag.tag--loss` (state captions).
+- SVG units: tile text is 26/20 units; keep the viewBox ≈1000–1400 wide so text stays ≥ ~16px at
+  1280 wide.
+- Swarm: `svg.diagram[data-diagram="swarm"]` with the four empty layer groups plus the board tile in
+  `.layer-key` and tags in `.layer-labels`; the engine adds agents. Its five stages follow slide
+  steps 1–5 (note → replies → gather → coordinators → sacrificed), so pair it with five
+  `ol.steps > li[data-show-at=1..5]`.
+
+**Engine API** (tests and tooling): `window.deck = {ready, state(), goto(id, step), next(), prev(),
+plan()}`; `plan()` returns `[[slideId, maxStep], …]`.
 
 ## Known prototype drift (fix in build, not in prototypes)
 
