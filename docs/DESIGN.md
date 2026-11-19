@@ -171,7 +171,7 @@ slide needs something new, extend the component CSS / engine once and document i
   `div.body`, then overlays, then notes. The body sits in the area below the title; overlays share
   that area, so they can never cover the title.
 - Stepped titles: a slide with build phases may carry one `h2.title` per phase, swapped with
-  `data-show-at` / `data-hide-at` (title rules apply to each). Notes-mode behaviour: S-029.
+  `data-show-at` / `data-hide-at` (title rules apply to each). Notes on a phase's content show that phase (Reader notes below).
 
 **Body layouts** (only ever on the slide's one `div.body`, never nested): `div.body` (flow, centred
 vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64%; a `div` column stacks
@@ -226,8 +226,9 @@ naming the source neutrally (e.g. "OpenAI · technical report", "METR investigat
 
 **Reader notes** (§6): `aside.note[data-for="#id"]` with `h3` + `p` + `a.src[href]` (real source,
 link text = source name). `#id` **MUST** be an element on the same slide (HTML or SVG `g.tile`).
-Notes mode shows the slide at its last step with overlays hidden, so target body content, not
-overlays.
+Notes mode hides overlays, so target body content, not overlays. v2: each note shows its slide at
+the last step where its target (and its ancestors) is revealed by `data-show-at`/`data-hide-at`;
+pins for targets not on screen at that step hide (v1: always the last step).
 
 **Diagrams** (§7): `svg.diagram[viewBox]` with groups in this order: `g.layer-edges`,
 `g.layer-nodes`, `g.layer-key`, `g.layer-labels`.

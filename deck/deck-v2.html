@@ -268,7 +268,7 @@
     background: var(--ink); color: var(--paper); font: 600 13px/1 var(--sans); display: grid; place-items: center;
     box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 55%, transparent); }
   .pin.is-current { background: var(--accent); color: var(--ink); }
-  .pin.is-covered { visibility: hidden; }
+  .pin.is-covered, .pin.is-offstage { visibility: hidden; }
   .callout { position: fixed; z-index: 40; left: 0; top: 0; width: min(440px, 86vw); padding: 22px 24px 18px; border-radius: 18px;
     background: color-mix(in srgb, var(--tile) 82%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     box-shadow: var(--shadow-soft); opacity: 0; transform: translateY(10px); pointer-events: none;
@@ -1542,6 +1542,16 @@
 
   // ---------- reader notes (DESIGN §6) ----------
   const veil = $('.veil'), ring = $('.ring'), callout = $('.callout'), pos = $('.notes-pos'), notesBtn = $('.notes-btn');
+  // steps [lo, hi) at which an element and its ancestors are revealed (data-show-at / data-hide-at)
+  function shownRange(e, slideNode) {
+    let lo = 0, hi = Infinity;
+    for (; e && e !== slideNode; e = e.parentElement) {
+      if (e.dataset.showAt) lo = Math.max(lo, +e.dataset.showAt);
+      if (e.dataset.hideAt) hi = Math.min(hi, +e.dataset.hideAt);
+    }
+    return [lo, hi];
+  }
+
   const notes = {
     on: false, list: [], pins: [], idx: 0, saved: null, sig: '',
     set(on) {
@@ -1569,7 +1579,8 @@
       notes.clear();
       const node = slides[cur].node;
       if (step !== slides[cur].steps) render(slides[cur], (step = slides[cur].steps), true);
-      notes.list = $$('aside.note', node).map(n => ({ n, target: $(n.dataset.for, node) })).filter(x => x.target);
+      notes.list = $$('aside.note', node).map(n => ({ n, target: $(n.dataset.for, node) })).filter(x => x.target)
+        .map(x => Object.assign(x, { range: shownRange(x.target, node) }));
       notes.pins = notes.list.map((x, k) => {
         const b = el('button', 'pin', String(k + 1)); b.type = 'button';
         b.setAttribute('aria-label', ($('h3', x.n) || x.n).textContent);
@@ -1584,6 +1595,11 @@
       const n = notes.list.length;
       if (!n) return;
       notes.idx = (k + n) % n;
+      // show the slide at the last step where this note's target is on screen (S-029)
+      const s = slides[cur], [lo, hi] = notes.list[notes.idx].range;
+      const at = Math.min(s.steps, hi - 1) >= lo ? Math.min(s.steps, hi - 1) : s.steps;
+      if (at !== step) render(s, (step = at), true);
+      notes.list.forEach((x, j) => notes.pins[j].classList.toggle('is-offstage', step < x.range[0] || step >= x.range[1]));
       const src = notes.list[notes.idx].n;
       const parts = [...src.children].filter(c => !c.matches('a.src')).map(c => c.cloneNode(true));
       const cite = el('p', 'cite', 'Source · ');
