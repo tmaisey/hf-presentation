@@ -247,10 +247,9 @@
   .notes-btn { position: fixed; right: 24px; bottom: 24px; z-index: 50; display: flex; gap: 8px; align-items: center; cursor: pointer;
     font: 500 14px var(--sans); color: var(--ink-2); padding: 7px 14px 7px 8px; border-radius: 999px;
     background: color-mix(in srgb, var(--paper) 70%, transparent); border: 1.5px solid var(--paper-deep);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: .7; transition: opacity .3s, background .3s, color .3s; }
-  .notes-btn:hover { opacity: 1; }
-  /* stays out of the way: hidden under shown overlays, fades when the pointer rests */
-  .has-overlay:not(.notes-on) .notes-btn, .is-idle:not(.notes-on) .notes-btn { opacity: 0; pointer-events: none; }
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .3s, color .3s; }
+  .notes-btn:hover { color: var(--ink); }
+  /* v2: always visible (no idle fade, DESIGN §6); overlays and narration stop above it (S-018 CSS) */
   .notes-btn::before { content: "i"; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
     font: italic 500 16px/1 var(--serif); background: var(--ink-2); color: var(--paper); }
   .notes-on .notes-btn { opacity: 1; background: var(--ink); color: var(--paper); border-color: var(--ink); }
@@ -288,7 +287,34 @@
   .notes-pos { min-width: 3.5em; text-align: center; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
   /* ---------- S-018 narration tiles components (v2) ---------- */
-
+  /* narrated slide: a right-hand column spans kicker → body beside the title; title and body narrow
+     to its left, so tiles can never cover the title or the diagram (DESIGN §5a) */
+  .slide:has(> .narration) { --narr-w: clamp(300px, 25vw, 540px);
+    grid-template: "kicker narr" auto "title narr" auto "body narr" minmax(0, 1fr) / minmax(0, 1fr) var(--narr-w);
+    column-gap: clamp(20px, 2.6vw, 52px); }
+  /* an Insight takes its own step after the last tiles, so it may use the whole width */
+  .slide:has(> .narration) > .overlay { grid-column: body-start / narr-end; }
+  .slide > .narration { grid-area: narr; position: relative; min-height: 0; pointer-events: none; }
+  /* overlays and tiles stop above the always-visible Notes button (DESIGN §6) */
+  .slide > .overlay, .slide > .narration { margin-bottom: max(0px, 78px - 7vh); }
+  /* tile = agent-message card; the engine sets left/top/width (staggered, near the step's focus) */
+  .narr-tile { position: absolute; left: 0; top: 0; width: 88%; margin: 0; border-radius: 20px;
+    padding: clamp(14px, 1.3vw, 28px) clamp(16px, 1.5vw, 32px);
+    background: color-mix(in srgb, var(--paper) 84%, transparent); box-shadow: var(--shadow-overlay);
+    backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    /* hidden = EXIT: rack focus (blur out, fade late), then gone */
+    visibility: hidden; opacity: 0; filter: blur(16px); transform: translateY(30px) scale(.98);
+    transition: filter .8s var(--ease-rack), opacity .8s var(--ease-late), transform .8s ease-out, visibility 0s linear .8s; }
+  .narr-tile.was-shown { transform: scale(1.015); }
+  /* shown = ENTRY: rises into place, sharp from its first visible frame */
+  .narr-tile.is-shown { visibility: visible; opacity: 1; filter: none; transform: none;
+    transition: opacity .6s ease, transform .7s var(--ease), filter 0s, visibility 0s; }
+  .narr-tile.is-shown.is-delayed { transition-delay: .35s; }
+  .narr-tile .msg-agent { margin-bottom: .55em; }
+  @media (prefers-reduced-motion: reduce) {
+    .narr-tile { transform: none !important; filter: none !important; transition: opacity .4s ease, visibility 0s linear .4s !important; }
+    .narr-tile.is-shown { transition: opacity .4s ease, visibility 0s !important; }
+  }
 
 
   /* ---------- S-019 concepts components (v2) ---------- */
@@ -508,13 +534,51 @@
       items.forEach((li, j) => { li.classList.toggle('is-current', j === at); li.classList.toggle('is-done', j < at); });
     });
     const ovs = $$('.overlay--insight[data-at], .cluster[data-at]', s.node).map(o => [o, !quiet && k === +o.dataset.at]);
-    const leaving = ovs.some(([o, on]) => !on && o.classList.contains('is-shown'));
-    ovs.forEach(([o, on]) => setShown(o, on, leaving));
-    const overlaid = ovs.some(([, on]) => on);
-    s.node.classList.toggle('is-overlaid', overlaid);
-    if (s === slides[cur]) body.classList.toggle('has-overlay', overlaid);
+    const tiles = $$(':scope > .narration > .narr-tile[data-at]', s.node).map(t => [t, !quiet && k === +t.dataset.at]);
+    const leaving = [...ovs, ...tiles].some(([o, on]) => !on && o.classList.contains('is-shown'));
+    if (tiles.some(([t, on]) => on && !t.classList.contains('is-shown'))) placeTiles(s, k);
+    [...ovs, ...tiles].forEach(([o, on]) => setShown(o, on, leaving));
+    // narration tiles never soften the body (DESIGN §5a): only Insight/cluster overlays do
+    s.node.classList.toggle('is-overlaid', ovs.some(([, on]) => on));
     if (s.swarm) s.swarm(k);
   }
+
+  // ---------- narration tiles (DESIGN §5a): placed in the slide's right-hand column ----------
+  // Deterministic per slide+step: staggered widths and left offsets (never a rigid column), the
+  // group centred on the diagram parts this step reveals, and clear of tiles still rack-focusing out.
+  function placeTiles(s, k) {
+    const col = $(':scope > .narration', s.node);
+    const now = col ? $$('.narr-tile', col).filter(t => +t.dataset.at === k) : [];
+    if (!now.length) return;
+    const W = col.clientWidth, H = col.clientHeight, cr = col.getBoundingClientRect();
+    const rnd = seeded([...s.id].reduce((h, c) => h * 31 + c.charCodeAt(0), k) | 0);
+    const pair = now.length > 1;
+    const gaps = now.map(() => Math.max(14, H * (.03 + .03 * rnd())));
+    const boxes = now.map((t, j) => {
+      const w = W * (pair ? .8 + .08 * rnd() : .82 + .14 * rnd()), slack = W - w;
+      // a pair leans apart (first right, second left); a lone tile sits anywhere in the slack
+      const x = pair ? (j % 2 ? slack * .2 * rnd() : slack * (.7 + .3 * rnd())) : slack * rnd();
+      t.style.width = `${w}px`; t.style.left = `${x}px`;
+      return { t, h: t.offsetHeight };
+    });
+    const total = boxes.reduce((a, b, j) => a + b.h + (j ? gaps[j] : 0), 0);
+    // focus: the parts revealed at this step, else the latest step revealed so far
+    const shown = $$(':scope > .body [data-show-at]', s.node).filter(e => +e.dataset.showAt <= k);
+    const latest = Math.max(0, ...shown.map(e => +e.dataset.showAt));
+    const rects = shown.filter(e => +e.dataset.showAt === latest).map(e => e.getBoundingClientRect()).filter(r => r.height);
+    const fy = rects.length ? (Math.min(...rects.map(r => r.top)) + Math.max(...rects.map(r => r.bottom))) / 2 - cr.top : H * .4;
+    const fit = y => clamp(y, 0, Math.max(0, H - total));
+    let top = fit(fy - total / 2);
+    // keep clear of outgoing tiles if the column has room, so blurred and sharp tiles don't stack
+    const out = $$('.narr-tile.is-shown', col).filter(t => +t.dataset.at !== k).map(t => [t.offsetTop, t.offsetTop + t.offsetHeight]);
+    const clash = y => out.some(([a, b]) => y < b && y + total > a);
+    if (clash(top)) {
+      const alt = out.flatMap(([a, b]) => [a - 16 - total, b + 16]).filter(y => y >= 0 && y + total <= H && !clash(y));
+      if (alt.length) top = alt.sort((p, q) => Math.abs(p - top) - Math.abs(q - top))[0];
+    }
+    boxes.forEach(({ t, h }, j) => { if (j) top += gaps[j]; t.style.top = `${top}px`; top += h; });
+  }
+  const replaceTiles = () => { if (!notes.on) placeTiles(slides[cur], step); };
 
   // ---------- navigation (DESIGN §3) ----------
   function scrollToSlide(i, instant) {
@@ -780,10 +844,6 @@
     },
   };
   notesBtn.addEventListener('click', e => { e.stopPropagation(); notesBtn.blur(); notes.set(!notes.on); });
-  // the Notes button fades after 3 s without pointer movement, so it never sits on a live slide
-  let idleTimer = 0;
-  const wake = () => { body.classList.remove('is-idle'); clearTimeout(idleTimer); idleTimer = setTimeout(() => body.classList.add('is-idle'), 3000); };
-  addEventListener('mousemove', wake); wake();
   $$('[data-notes]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation(); b.blur();
     ({ prev: () => notes.focus(notes.idx - 1), next: () => notes.focus(notes.idx + 1), close: () => notes.set(false) })[b.dataset.notes]();
@@ -824,7 +884,8 @@
     next();
   });
   // keep position on resize; adopt a slide reached by other scrolling (e.g. keyboard focus)
-  addEventListener('resize', () => scrollToSlide(cur, true));
+  addEventListener('resize', () => { scrollToSlide(cur, true); replaceTiles(); });
+  if (document.fonts) document.fonts.ready.then(replaceTiles);
   deckEl.addEventListener('scrollend', () => {
     if (performance.now() - lastEngineScroll < 1200) return;
     const i = Math.round(deckEl.scrollTop / Math.max(1, deckEl.clientHeight));
