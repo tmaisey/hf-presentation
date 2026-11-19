@@ -320,19 +320,122 @@
   </aside>
 </section>
 
-<section class="slide" id="s-2-1" data-chapter="Training" data-todo>
+<section class="slide" id="s-2-1" data-chapter="Training">
   <p class="kicker">02 · Training</p>
   <h2 class="title">OpenAI trained an internal model for persistence and multi-agent collaboration</h2>
+  <div class="body body--split">
+    <ul class="points">
+      <li id="s21-model">The model is trained to keep working on hard tasks and to collaborate with other agents.</li>
+      <li id="s21-iso" data-show-at="1">Each agent runs in its own isolated container.</li>
+      <li data-show-at="2">Every container installs packages through one internal mirror.</li>
+      <li id="s21-shared" data-show-at="3">All agents reach the mirror with the same credential.</li>
+    </ul>
+    <svg class="diagram" viewBox="0 0 1000 680" role="img" aria-label="Isolated agent containers all reaching one package mirror through one shared credential">
+      <g class="layer-edges">
+        <path class="edge" d="M110,152 C110,215 420,215 420,278" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s21-c2" data-to="#s21-cred" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s21-c3" data-to="#s21-cred" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" d="M890,152 C890,215 580,215 580,278" marker-end="url(#arr)" data-show-at="2"/>
+        <path class="edge" data-from="#s21-cred" data-to="#s21-mirror" marker-end="url(#arr)" data-show-at="2"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" id="s21-c1" data-show-at="1"><rect x="0" y="20" width="220" height="120"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text></g>
+        <g class="tile" id="s21-c2" data-show-at="1"><rect x="260" y="20" width="220" height="120"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text></g>
+        <g class="tile" id="s21-c3" data-show-at="1"><rect x="520" y="20" width="220" height="120"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text></g>
+        <g class="tile" id="s21-c4" data-show-at="1"><rect x="780" y="20" width="220" height="120"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text></g>
+        <g class="tile" id="s21-mirror" data-show-at="2"><rect x="310" y="530" width="380" height="140"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile" id="s21-cred" data-show-at="2"><rect x="330" y="290" width="340" height="120"/><text class="tile-title">Credential</text><text class="tile-sub">shared by every agent</text></g>
+      </g>
+      <g class="layer-labels">
+        <text class="tag" x="840" y="356" data-show-at="3">ONE SHARED CREDENTIAL</text>
+      </g>
+    </svg>
+  </div>
+  <aside class="note" data-for="#s21-model">
+    <h3>An internal research model</h3>
+    <p>OpenAI describes a model “comparable in scale to GPT-5.6 Sol” that “was trained to advance persistence and multiagent collaboration, among other capabilities.” It was never intended for public use.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §IV.C</a>
+  </aside>
+  <aside class="note" data-for="#s21-iso">
+    <h3>Isolation by design</h3>
+    <p>The research environment “provided isolated, per-run container environments for model training and evaluation workloads”, with shell, Python, browser and package-install tools, and used internal package mirrors such as Artifactory in place of public registries.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §II.B</a>
+  </aside>
+  <aside class="note" data-for="#s21-cred">
+    <h3>No exploit needed</h3>
+    <p>“OpenAI had provided the agents with shared Artifactory credentials, and the agents used those credentials—without exploiting a vulnerability—to construct and participate in the message board.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
 </section>
 
-<section class="slide" id="s-2-2" data-chapter="Training" data-todo>
+<section class="slide" id="s-2-2" data-chapter="Training">
   <p class="kicker">02 · Training</p>
   <h2 class="title">Training rewarded cheating on accidentally impossible tasks</h2>
+  <div class="body body--stack">
+    <ul class="points">
+      <li id="s22-sheet" data-show-at="1">An agent blocked on a spreadsheet task tries to attack the package mirror, and fails.</li>
+      <li id="s22-copy" data-show-at="2">Another agent copies a hidden reference answer and earns positive reward.</li>
+      <li id="s22-root" data-show-at="3">An agent uses its browser’s root privileges to rewrite the sudoers file.</li>
+    </ul>
+    <div id="s22-quote" data-show-at="4">
+      <blockquote>“These forms of ‘cheating’ rose over the training runs that contributed to the Hugging Face incident.”</blockquote>
+      <p class="cite">OpenAI incident technical report, §VIII.A</p>
+    </div>
+  </div>
+  <aside class="note" data-for="#s22-sheet">
+    <h3>An impossible task by accident</h3>
+    <p>On 8 May a spreadsheet task referenced Google Drive links, but the agent had no internet access. It attempted a server-side request forgery against Artifactory, “one of the only tools available to it”. The attack failed, but it wrote a file to the mirror.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s22-copy">
+    <h3>Rewarded, then reinforced</h3>
+    <p>An agent recreating a hidden software library wrote into the environment that stored the reference library and “copied the reference answer into its submission exactly, which led to positive RL reward causing this behavior to subsequently be reinforced.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
+  </aside>
+  <aside class="note" data-for="#s22-root">
+    <h3>Root access to set a timestamp</h3>
+    <p>Asked to set a post’s updated time, an agent found “its browser had root privileges. It used this to overwrite ‘/etc/sudoers.d’, giving itself root access”. OpenAI notes that infrastructure instabilities and misconfigurations at scale make it hard to ensure every task can be solved as intended.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A.1</a>
+  </aside>
 </section>
 
-<section class="slide" id="s-2-3" data-chapter="Training" data-todo>
+<section class="slide" id="s-2-3" data-chapter="Training">
   <p class="kicker">02 · Training</p>
   <h2 class="title">Training reinforced misaligned swarm behaviour</h2>
+  <div class="body body--stack">
+    <ul class="points">
+      <li id="s23-note" data-show-at="1">A stuck agent leaves the first note in the package mirror (12 May).</li>
+      <li id="s23-board" data-show-at="2">Other agents find the notes, and a message board forms (13 May).</li>
+      <li id="s23-net" data-show-at="3">Agents reach the internet using information shared on the board (26 May).</li>
+      <li id="s23-team" data-show-at="4">An internal team observes the board activity, and the report records no escalation.</li>
+    </ul>
+    <div id="s23-msg" data-show-at="5">
+      <blockquote>“Agent seeks [filename]; upload if found!”</blockquote>
+      <p class="cite">Agent · training run, 12 May</p>
+    </div>
+  </div>
+  <aside class="note" data-for="#s23-note">
+    <h3>The first note</h3>
+    <p>Stuck on a task that needed an inaccessible protein-database file, an agent reasoned that an agent elsewhere might have it and “realized that it could potentially communicate with other agents by creating a file containing a note to Artifactory.” OpenAI redacted the filename.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s23-board">
+    <h3>“Reinforced” is OpenAI’s finding</h3>
+    <p>OpenAI reports that agents learned to use improvised channels during training and that “This behavior was then reinforced during training”. The independent METR and Redwood investigation covered only the evaluation window, so no outside party has verified the training-phase account.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.C</a>
+  </aside>
+  <aside class="note" data-for="#s23-net">
+    <h3>From notes to network access</h3>
+    <p>On 26 May “agents successfully used an SSRF vulnerability in Artifactory to obtain internet access, relying in part on information exchanged via the Artifactory message board.” OpenAI found no evidence linking this workload to the July incident.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s23-team">
+    <h3>Seen in May</h3>
+    <p>“Around the same time, an internal team observed an agent engage in message board activity and instances of disallowed internet access.” The report does not say what action followed.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
 </section>
 
 <section class="slide" id="s-3-1" data-chapter="Evaluation">
