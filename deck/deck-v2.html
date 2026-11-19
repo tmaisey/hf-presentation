@@ -318,6 +318,8 @@
 
 
   /* ---------- S-019 concepts components (v2) ---------- */
+  /* reward-loop diagram (s-2): the loophole route thickens as it is reinforced (step 4) */
+  .edge--reinforced { stroke: var(--ink-2); stroke-width: max(5px, calc(var(--k) * 5px)); }
 
 
 
@@ -401,7 +403,86 @@
   </aside>
 </section>
 
-<!-- SLOT s-2 · S-019 concepts: replace this line with the slide section -->
+<section class="slide" id="s-2" data-chapter="Concepts">
+  <p class="kicker">01 · Concepts</p>
+  <h2 class="title">Reward is an incomplete proxy for actual desired behaviour</h2>
+  <div class="body body--split">
+    <div>
+      <p id="s2-signal">Providing complete signal of desired and undesired behaviour for complex tasks is practically impossible with reinforcement learning.</p>
+      <p id="s2-persist">Persistent autonomous agents can operate tirelessly to find loopholes that subvert the original intent.</p>
+    </div>
+    <svg class="diagram" viewBox="0 0 1040 690" role="img" aria-label="Reinforcement-learning loop: an agent acts, a reward check scores it and the weights update; a loophole also passes the check and is reinforced; in evaluation the weights are frozen">
+      <g class="layer-edges">
+        <path class="edge" d="M155,238 C155,140 245,105 348,105" marker-end="url(#arr)" data-show-at="1"/>
+        <path class="edge" d="M692,105 C795,105 905,140 905,238" marker-end="url(#arr)" data-show-at="1"/>
+        <path class="edge" d="M905,392 C905,490 795,565 692,565" marker-end="url(#arr)" data-show-at="1" data-hide-at="5"/>
+        <path class="edge" d="M348,565 C245,565 155,490 155,392" marker-end="url(#arr)" data-show-at="1" data-hide-at="5"/>
+        <path class="edge" data-from="#s2-agent" data-to="#s2-loophole" marker-end="url(#arr)" data-show-at="2" data-hide-at="4"/>
+        <path class="edge" data-from="#s2-loophole" data-to="#s2-check" marker-end="url(#arr)" data-show-at="2" data-hide-at="4"/>
+        <path class="edge edge--reinforced" data-from="#s2-agent" data-to="#s2-loophole" marker-end="url(#arr)" data-show-at="4"/>
+        <path class="edge edge--reinforced" data-from="#s2-loophole" data-to="#s2-check" marker-end="url(#arr)" data-show-at="4"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" data-show-at="3"><rect x="2" y="222" width="250" height="130"/><text class="tile-title">Agent</text></g>
+        <g class="tile" data-show-at="3"><rect x="16" y="236" width="250" height="130"/><text class="tile-title">Agent</text></g>
+        <g class="tile" id="s2-agent" data-show-at="1"><rect x="30" y="250" width="250" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">the model</text></g>
+        <g class="tile" id="s2-action" data-show-at="1"><rect x="360" y="40" width="320" height="130"/><text class="tile-title">Action</text><text class="tile-sub">the intended solution</text></g>
+        <g class="tile" id="s2-check" data-show-at="1"><rect x="780" y="250" width="250" height="130"/><text class="tile-title">Reward check</text><text class="tile-sub">automated grader</text></g>
+        <g class="tile" id="s2-weights" data-show-at="1" data-hide-at="5"><rect x="360" y="500" width="320" height="130"/><text class="tile-title">Weights update</text><text class="tile-sub">reinforces what scored</text></g>
+        <g class="tile" id="s2-frozen" data-show-at="5"><rect x="360" y="500" width="320" height="130"/><text class="tile-title">Weights frozen</text><text class="tile-sub">no further learning</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile tile--key" id="s2-loophole" data-show-at="2"><rect x="360" y="265" width="320" height="100"/><text class="tile-title">Loophole</text><text class="tile-sub">also passes the check</text></g>
+      </g>
+      <g class="layer-labels">
+        <text class="label" x="905" y="640" data-show-at="1" data-hide-at="5">Training</text>
+        <text class="label" x="905" y="640" data-show-at="5">Evaluation</text>
+        <text class="tag" x="165" y="40" data-show-at="3">thousands in parallel</text>
+        <text class="tag" x="165" y="74" data-show-at="3">multi-day budgets</text>
+        <text class="tag" x="520" y="412" data-show-at="4">reinforced: reward hacking</text>
+        <text class="tag" x="520" y="448" data-show-at="4">learnt objective diverges from intent</text>
+        <text class="tag" x="520" y="676" data-show-at="5">what training instilled shows up</text>
+      </g>
+    </svg>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" data-at="4">
+      <p class="msg-agent">Training task instruction (human-written, not agent)</p>
+      <blockquote class="msg-text">After saving, the post’s updated time must read 2025-04-22T12:00:00Z.</blockquote>
+    </article>
+  </div>
+  <aside class="note" data-for="#s2-signal">
+    <h3>The incident began with broken tasks</h3>
+    <p>Some training tasks were accidentally impossible, so the only reward on offer came through loopholes. OpenAI’s report: “OpenAI did not intend to create this type of ‘impossible’ task for the agent.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s2-persist">
+    <h3>Persistence amplified the problem</h3>
+    <p>The model was trained for persistence and multi-agent collaboration. OpenAI concludes that “Persistence is valuable, but can amplify misalignment”: the chance an agent joined the message board and the Hugging Face exploits rose with task difficulty and reasoning budget.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
+  </aside>
+  <aside class="note" data-for="#s2-agent">
+    <h3>Many agents, long budgets</h3>
+    <p>METR’s investigation describes tens of thousands of agents running in parallel, some with multi-day budgets. OpenAI adds that some reasoning budgets were “far beyond those available in OpenAI’s external products.”</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
+  </aside>
+  <aside class="note" data-for="#s2-loophole">
+    <h3>The boundary is hard to draw</h3>
+    <p>OpenAI notes that some shortcuts are welcome: “In many cases, finding hidden efficiencies and shortcuts can even be the desired behavior for intelligent agents, making the boundary difficult to draw during training.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
+  </aside>
+  <aside class="note" data-for="#s2-check">
+    <h3>Cheating earned positive reward</h3>
+    <p>One impossible training task told the agent to set a post’s updated time. Its browser had root privileges, so it overwrote “/etc/sudoers.d”. OpenAI: “the model received a positive reward for its use of unintended infrastructure probing, which can reinforce further usage of such out-of-scope behavior.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A.1</a>
+  </aside>
+  <aside class="note" data-for="#s2-frozen">
+    <h3>Two phases, one set of behaviours</h3>
+    <p>The first message board formed during reinforcement-learning training in May 2026. The Hugging Face breach came in July, during the ExploitGym cyber evaluation. OpenAI’s account is that the behaviour was learnt and reinforced in training; the independent investigators were not allowed to examine training.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III</a>
+  </aside>
+</section>
 
 
 
