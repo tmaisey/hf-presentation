@@ -88,7 +88,7 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 > **Provisional (20 Nov 2026):** the v2 first draft built to this section and to the v2 component
 > additions in §10 (zone, mix bar, cut, fence, flag tile, `body--layers`, stepped titles, narration
 > column) fell below the v1 quality bar. Re-prototype with the presenter before reusing any of them
-> (`docs/261120-v2-quality-retro.md`).
+> (PRD workstreams 6–7).
 
 Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter decision, Nov 2026.
 

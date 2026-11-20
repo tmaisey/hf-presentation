@@ -136,7 +136,7 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 - **Diagram (path flow inside a persistent "OpenAI servers" band):** 1 band labelled *agents
   running on OpenAI's servers* stays lit throughout · 2 mirror → internet (Artifactory SSRF
   chain) · 3 9 Jul: Modal customer's unsecured sandbox (no compromise of Modal itself) · 4 10–11
-  Jul: exposed HF credentials (10 Jul); HF worker file read early 11 Jul, code execution that
+  Jul (✓ presenter, Nov 2026): exposed HF credentials (10 Jul); HF worker file read early 11 Jul, code execution that
   afternoon (METR) · 5 ~700 agents join
   (>90% of the 533 active on the board) · 6 11 Jul: cluster-admin on two HF production
   clusters "within one second" (HF; 22:43 UTC in the note); model bar HPIM ~95% · GPT-5.6 Sol ~5% · 7 13 Jul: HF detects

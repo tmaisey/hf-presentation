@@ -45,7 +45,6 @@ Docs hold **intent and state** that code, docstrings and git can't. This file is
 | `docs/STORYBOARD.md` | Slide-by-slide arc: chapters, timings, titles, visuals, overlays, sources, core message served | Before building or reordering any slide; when checking timing or coverage of the core message | When a slide is added, cut, retitled or re-sourced; when timings change |
 | `docs/DESIGN.md` | Binding visual design rules (tokens, type, components, motion, diagrams), each linked to the prototype code that demonstrates it | Before writing or reviewing any slide markup, CSS, diagram or animation | When a visual rule is agreed, changed or retired; when a linked prototype line moves |
 | `docs/VOICE.md` | Presenter's writing voice: rules + approved/rejected examples for titles, bullets, overlays, notes | Before writing or editing any slide copy, Insight, note or speaker text | When the presenter approves/rejects copy or states a style preference |
-| `docs/261120-v2-quality-retro.md` | Dated retro: why the v2 first draft fell below v1 quality (evidence, causes, rules adopted, what's reusable) | Before prototyping or rebuilding v2 visuals; before planning any parallel visual build | Never after 20 Nov 2026 (dated record): new findings go in a new dated file |
 | `docs/ADR.md` | ADR model: schema, lifecycle, `ADR:` marker. Records live in `docs/ADR.jsonl` | Before adding, updating, superseding or deprecating an ADR. Not for reading live constraints: filter `ADR.jsonl` for `accepted` | When the ADR model changes. Not for individual decisions: those are `ADR.jsonl` lines |
 
 ### Doc hygiene
@@ -69,7 +68,7 @@ Optional phases run only when justified or requested.
 1 · **MUST** · `docs/PRD.md` — PRD: capture intent (what/why); keep it living, updated to match code/docs.
 2 · default · PRD/docs — Grill-me: one question at a time, inline; **NEVER** multi-option pickers, so the user can reason and redirect between answers.
 3 · optional · `docs/research/` + `RESEARCH.md` — Research prior art (web + codebase) when a decision needs grounding; captured so searches aren't repeated. Bias to do it; **MUST** confirm with the user first.
-4 · **MUST** for new visual language, else optional · `design/prototypes/` + child index — Throwaway, spec-free prototypes when options must be *seen* before spec. **MUST** precede spec/build of any new component, diagram style or layout, judged by eye with the presenter (see `docs/261120-v2-quality-retro.md`).
+4 · **MUST** for new visual language, else optional · `design/prototypes/` + child index — Throwaway, spec-free prototypes when options must be *seen* before spec. **MUST** precede spec/build of any new component, diagram style or layout, judged by eye with the presenter: v2's first draft skipped this and fell below v1's quality (Nov 2026).
 5 · **MUST** · `docs/SPEC.jsonl` — Decompose PRD → one `todo` spec per feature with `depends_on`; add specs as intent emerges.
 6 · **MUST** · tests + code — Build from spec, TDD (below).
 7 · **MUST** · commit — Done commit: implementation, tests and status flip together; clean tree.
@@ -94,7 +93,8 @@ change, not just at the outset.
 
 **Parallel visual builds:** parallelism is fine once the design is prototyped and agreed and the
 layout guard is on: every builder works to those prototypes and `DESIGN.md` rules, never inventing
-components per slide (propose them instead); after every merge, re-run the layout guard and re-screenshot the assembled
+components per slide (propose them instead), and briefs lead with the design and quality targets,
+not just file-slot rules; after every merge, re-run the layout guard and re-screenshot the assembled
 deck: a shared component (e.g. a layout column) changes every slide that uses it.
 
 ## Spec model
@@ -131,7 +131,8 @@ holds, all of:
 3. state captured: status flipped, index current;
 4. **visual work:** the deck's layout guard (S-030) is active and green, and screenshots of the
    **assembled** deck at every affected step were looked at, never only component screenshots.
-   **NEVER** call deck work done or presentable without that look.
+   **NEVER** call deck work done or presentable without that look: v2's first draft shipped title
+   overlaps with a green suite because the layout tests were off and nobody looked (Nov 2026).
 
 ## Test authoring — tests are the detailed spec
 
