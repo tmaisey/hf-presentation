@@ -85,6 +85,11 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 
 ### 5a · Narration tiles (v2; replaces the cluster)
 
+> **Provisional (20 Nov 2026):** the v2 first draft built to this section and to the v2 component
+> additions in §10 (zone, mix bar, cut, fence, flag tile, `body--layers`, stepped titles, narration
+> column) fell below the v1 quality bar. Re-prototype with the presenter before reusing any of them
+> (`docs/261120-v2-quality-retro.md`).
+
 Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter decision, Nov 2026.
 
 - **Placement:** tiles sit **tastefully in the free space** to the right: a narration column

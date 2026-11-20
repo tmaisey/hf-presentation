@@ -38,13 +38,14 @@ Docs hold **intent and state** that code, docstrings and git can't. This file is
 | `design/prototypes/PROTOTYPES.md` | Child index of frozen reference prototypes (single HTML files): what each tests + verdict | Before making or judging a prototype; when a DESIGN.md link needs checking | When a prototype is added, verdicted or retired (row in same commit) |
 | `deck/deck-v2.html` | **The deliverable (v2)**: ~10-slide diagram-led single-file deck (ADR-001 layers: tokens, components, shared SVG defs, engine, then slide sections) | To build/edit v2 slides (S-017+); open in a browser to present | Every v2 slide/engine change, with its spec's tests |
 | `deck/deck.html` | v1 deck (18 slides, S-001–S-016): reference and source of engine, components and copy for v2 | To copy/consult v1 engine, components or approved copy. Not for new work | Only if a v1 spec reopens; otherwise frozen |
-| `tests/` | pytest + Playwright suite: static DRY/voice/safety checks and in-browser behaviour checks. `uv run pytest -n auto --deck v2` (default deck v2); `@pytest.mark.deck("v1")` marks v1-only tests; v1 is guarded by a byte-hash test, so **NEVER** run `--deck v1` browser tests unless shared test code changes | Before changing the deck; to prove red/green | When a spec's acceptance detail changes or the deck-selection contract changes |
+| `tests/` | pytest + Playwright suite: static DRY/voice/safety checks and in-browser behaviour checks. `uv run pytest -n auto --deck v2` (default deck v2); `@pytest.mark.deck("v1")` marks v1-only tests; v1 is guarded by a byte-hash test, so **NEVER** run `--deck v1` browser tests unless shared test code changes. **NEVER** mark layout/visual tests v1-only for the deck being built | Before changing the deck; to prove red/green | When a spec's acceptance detail changes or the deck-selection contract changes |
 | `tools/embed_fonts.py` | Fetches the deck's woff2 fonts (`fetch`) and inlines them as base64 between `FONTS:BEGIN/END` in the deck (`embed`) | After changing fonts or if the font block is lost; `uv run python tools/embed_fonts.py embed` | When the font set or embed format changes |
 | `assets/fonts/` | Raw latin woff2 files (Newsreader roman/italic, Inter) the deck embeds | Only via `tools/embed_fonts.py` | Only by re-running `fetch` |
 | `pyproject.toml` | uv project: test dependencies only | When adding a test dependency | On dependency change |
 | `docs/STORYBOARD.md` | Slide-by-slide arc: chapters, timings, titles, visuals, overlays, sources, core message served | Before building or reordering any slide; when checking timing or coverage of the core message | When a slide is added, cut, retitled or re-sourced; when timings change |
 | `docs/DESIGN.md` | Binding visual design rules (tokens, type, components, motion, diagrams), each linked to the prototype code that demonstrates it | Before writing or reviewing any slide markup, CSS, diagram or animation | When a visual rule is agreed, changed or retired; when a linked prototype line moves |
 | `docs/VOICE.md` | Presenter's writing voice: rules + approved/rejected examples for titles, bullets, overlays, notes | Before writing or editing any slide copy, Insight, note or speaker text | When the presenter approves/rejects copy or states a style preference |
+| `docs/261120-v2-quality-retro.md` | Dated retro: why the v2 first draft fell below v1 quality (evidence, causes, rules adopted, what's reusable) | Before prototyping or rebuilding v2 visuals; before planning any parallel visual build | Never after 20 Nov 2026 (dated record): new findings go in a new dated file |
 | `docs/ADR.md` | ADR model: schema, lifecycle, `ADR:` marker. Records live in `docs/ADR.jsonl` | Before adding, updating, superseding or deprecating an ADR. Not for reading live constraints: filter `ADR.jsonl` for `accepted` | When the ADR model changes. Not for individual decisions: those are `ADR.jsonl` lines |
 
 ### Doc hygiene
@@ -68,7 +69,7 @@ Optional phases run only when justified or requested.
 1 · **MUST** · `docs/PRD.md` — PRD: capture intent (what/why); keep it living, updated to match code/docs.
 2 · default · PRD/docs — Grill-me: one question at a time, inline; **NEVER** multi-option pickers, so the user can reason and redirect between answers.
 3 · optional · `docs/research/` + `RESEARCH.md` — Research prior art (web + codebase) when a decision needs grounding; captured so searches aren't repeated. Bias to do it; **MUST** confirm with the user first.
-4 · optional, off by default · `design/prototypes/` + child index — Throwaway, spec-free prototypes when options must be *seen* before spec.
+4 · **MUST** for new visual language, else optional · `design/prototypes/` + child index — Throwaway, spec-free prototypes when options must be *seen* before spec. **MUST** precede spec/build of any new component, diagram style or layout, judged by eye with the presenter (see `docs/261120-v2-quality-retro.md`).
 5 · **MUST** · `docs/SPEC.jsonl` — Decompose PRD → one `todo` spec per feature with `depends_on`; add specs as intent emerges.
 6 · **MUST** · tests + code — Build from spec, TDD (below).
 7 · **MUST** · commit — Done commit: implementation, tests and status flip together; clean tree.
@@ -90,6 +91,11 @@ change, not just at the outset.
 
 **Worktree or direct (MUST choose):** a worktree per feature when work runs alongside other work
 (isolation); direct on branch when it's small and serial. Phases 8–9 apply either way.
+
+**Parallel visual builds:** parallelism is fine once the design is prototyped and agreed and the
+layout guard is on: every builder works to those prototypes and `DESIGN.md` rules, never inventing
+components per slide (propose them instead); after every merge, re-run the layout guard and re-screenshot the assembled
+deck: a shared component (e.g. a layout column) changes every slide that uses it.
 
 ## Spec model
 
@@ -122,7 +128,10 @@ holds, all of:
 1. the spec's deterministic tests are green;
 2. docs are current (index rows, affected docs, born-on-content), **updated before the flip**.
    Enforced by mandate, never keyword check: token passes over semantic edits give false confidence;
-3. state captured: status flipped, index current.
+3. state captured: status flipped, index current;
+4. **visual work:** the deck's layout guard (S-030) is active and green, and screenshots of the
+   **assembled** deck at every affected step were looked at, never only component screenshots.
+   **NEVER** call deck work done or presentable without that look.
 
 ## Test authoring — tests are the detailed spec
 

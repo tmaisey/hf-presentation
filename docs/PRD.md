@@ -75,6 +75,11 @@ they serve.
   thinking as the diagram builds: each step adds one or two verbatim quotes; earlier ones blur
   out, then disappear. Step-driven only, never timed. Tiles never cover the title or the
   diagram's active area. v1's hover-highlight cluster is legacy.
+- **Quality bar: v1.** v2 must look at least as considered as `deck/deck.html`: uncluttered
+  slides, diagrams that fill their space with purpose, nothing colliding, at presenter and small
+  windows incl. short-wide (~1288×598). The v2 first draft missed this (retro 20 Nov).
+- **Vision to be captured by prototype:** the narration-tile and diagram bullets above
+  under-specified the presenter's vision; prototypes judged by eye settle it before any rebuild.
 - One slide per viewport, with a persistent title bar showing agenda position.
 - Ambient motion only on title / summary / Insight pages, never on detail or diagram pages.
 
@@ -117,7 +122,8 @@ scoped out of training, so the deck attributes it.
 | 3 | Writing voice | Done (extend with each verdict) | `docs/VOICE.md` |
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
 | 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
-| 6 | Build v2 as `deck/deck-v2.html` | Built: 10 slides (S-017–S-027); next S-029 notes fix, then S-028 review; presenter decisions open | `docs/SPEC.jsonl`, ADR-001 |
+| 6 | Build v2 as `deck/deck-v2.html` | First draft built (10 slides), **rejected on quality** 20 Nov; slide/tile specs reopened | `docs/261120-v2-quality-retro.md`, `docs/SPEC.jsonl` |
+| 7 | Prototype v2 key visuals with presenter (narration tiles, hero diagrams), then re-spec and rebuild behind the S-030 layout guard | **Next** | `design/prototypes/`, `docs/DESIGN.md` |
 
 ## Exclusions
 
@@ -143,3 +149,7 @@ scoped out of training, so the deck attributes it.
   Insight; Notes button **always visible**, no idle fade).
 - Employee-letter signatory count and date; whether to cite the weakly sourced Anthropic pause.
 - Presenter writing samples (pending) to generalise `docs/VOICE.md`.
+- **v2 first-draft review items (presenter to look):** report/investigator quotes as narration
+  tiles (s-4, s-7, s-8, s-10); s-8 flagged-tile colour (loss tint vs new muted amber); s-10 stepped
+  titles vs one title vs split; s-10 Nov-2026 releases row and 5.4 Insight length; agent-written
+  diagram labels and short step lists (s-2, s-4, s-5, s-6, s-8). May be overtaken by prototypes.
