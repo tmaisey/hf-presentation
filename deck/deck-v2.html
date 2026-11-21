@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Hugging Face agent incident</title>
+<title>The Hugging Face Attack · Misaligned Agents</title>
 <style>
   /* Deck styles: layer 1 tokens, layer 2 components. ADR: ADR-001. Rules: docs/DESIGN.md.
      Slides carry no styling; every colour below is a token. Authoring contract: DESIGN §10. */
@@ -44,6 +44,7 @@
     --shadow-overlay: 0 1px 0 var(--tile) inset, 0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent);
     --shadow-key: 0 1px 0 var(--tile) inset, 0 50px 90px -34px color-mix(in srgb, var(--ink) 58%, transparent);
     --shadow-soft: 0 1px 0 var(--tile) inset, 0 30px 60px -30px color-mix(in srgb, var(--ink) 53%, transparent);
+    --shadow-lift: 0 1px 0 var(--tile) inset, 0 8px 18px -10px color-mix(in srgb, var(--ink) 45%, transparent);
   }
 
   /* ---------- Base ---------- */
@@ -59,20 +60,46 @@
 
   /* ---------- Title bar, agenda, progress (DESIGN §3) ---------- */
   .bar { position: fixed; inset: 0 0 auto 0; height: var(--bar); z-index: 30; display: flex; align-items: center;
-    padding: 0 clamp(16px, 3vw, 48px); background: color-mix(in srgb, var(--paper) 78%, transparent);
+    gap: 24px; padding: 0 clamp(16px, 3vw, 48px); background: color-mix(in srgb, var(--paper) 78%, transparent);
     backdrop-filter: blur(14px) saturate(1.1); -webkit-backdrop-filter: blur(14px) saturate(1.1); }
   .bar-title { margin: 0; font: 500 clamp(15px, 1.1vw, 20px)/1 var(--serif); white-space: nowrap; }
   .bar-title span { color: var(--ink-3); margin: 0 .5em; }
-  .bar-title em { color: var(--ink-2); }
-  .agenda { margin: 0 0 0 auto; display: flex; gap: 4px; list-style: none; padding: 0; }
-  .agenda button { font: 500 clamp(12px, .85vw, 15px)/1 var(--sans); color: var(--ink-2); background: none; border: 0; cursor: pointer;
-    padding: 8px 10px; border-radius: 999px; display: flex; gap: 8px; align-items: center; transition: color .3s, background .3s; }
-  .agenda button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); transition: background .3s, transform .3s; }
-  .agenda .is-done button::before { background: var(--ink-2); }
-  .agenda .is-current button { color: var(--ink); background: var(--paper-deep); }
-  .agenda .is-current button::before { background: var(--accent); transform: scale(1.5); }
-  .agenda .txt { display: none; }
-  .agenda .is-current .txt, .agenda:hover .txt { display: inline; }
+  .bar-title em { color: var(--ink-2); font-weight: 400; }
+
+  /* Agenda (DESIGN §3, P5): every chapter labelled, current in green, no dots; hover lifts one
+     and softens the rest. Compact (engine sets .bar--compact when the row would crowd the title):
+     current chapter + chevron, dropping a frosted vertical list on hover/focus/click. */
+  .nav { margin-left: auto; position: relative; }
+  .nav-current { display: none; }
+  .agenda { display: flex; gap: clamp(0px, .3vw, 6px); list-style: none; margin: 0; padding: 0; }
+  .agenda button, .nav-current { font: 500 clamp(12px, .8vw, 15px)/1 var(--sans); color: var(--ink-2); background: none;
+    border: 0; cursor: pointer; white-space: nowrap; padding: 8px clamp(8px, .65vw, 12px); border-radius: 999px;
+    transition: color .3s, background .25s var(--ease), box-shadow .25s var(--ease),
+                transform .25s var(--ease), filter .25s var(--ease), opacity .25s var(--ease); }
+  .agenda .is-current button { color: var(--accent-ink); font-weight: 600; }
+  .agenda:hover li:not(:hover) button { filter: blur(.6px); opacity: .72; }
+  .agenda li:hover button { transform: translateY(-1px) scale(1.07); color: var(--ink); background: var(--tile);
+    box-shadow: var(--shadow-lift); }
+  .agenda li.is-current:hover button { color: var(--accent-ink); }
+  .agenda button:focus-visible, .nav-current:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .bar--compact .nav-current { display: flex; align-items: center; gap: 8px; color: var(--accent-ink); font-weight: 600; }
+  .nav-current svg { width: 10px; height: 10px; stroke: var(--ink-3); fill: none; stroke-width: 1.6;
+    transition: transform .25s var(--ease); }
+  .bar--compact .agenda { position: absolute; top: 100%; right: 0; flex-direction: column; gap: 2px;
+    min-width: 200px; padding: 8px; margin-top: 10px; border-radius: 14px;
+    background: var(--tile); box-shadow: var(--shadow-soft); /* opaque: the frosted bar blocks a nested backdrop blur */
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity .22s var(--ease), transform .22s var(--ease), visibility 0s .22s; }
+  .bar--compact .agenda::before { content: ""; position: absolute; inset: -12px 0 auto 0; height: 12px; }
+  .bar--compact .nav:hover .agenda, .bar--compact .nav:focus-within .agenda, .bar--compact .nav.is-open .agenda {
+    opacity: 1; visibility: visible; transform: none; transition: opacity .22s var(--ease), transform .22s var(--ease); }
+  .bar--compact .nav:hover .nav-current svg, .bar--compact .nav.is-open .nav-current svg { transform: rotate(180deg); }
+  .bar--compact .agenda button { width: 100%; text-align: left; border-radius: 10px; padding: 10px 14px;
+    transform-origin: left center; }
+  .bar--compact .agenda li:hover button { transform: scale(1.04); }
+  @media (prefers-reduced-motion: reduce) {
+    .agenda li:hover button, .bar--compact .agenda li:hover button, .bar--compact .agenda { transform: none; }
+  }
   .progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); transition: width .6s var(--ease); }
 
   /* ---------- Snapping slides (DESIGN §3) ---------- */
@@ -406,8 +433,12 @@
 </svg>
 
 <header class="bar">
-  <p class="bar-title">The Hugging Face agent incident<span>·</span><em>AI safety interest group</em></p>
-  <ol class="agenda" aria-label="Chapters"></ol>
+  <p class="bar-title">The Hugging Face Attack<span>·</span><em>Misaligned Agents</em></p>
+  <nav class="nav" aria-label="Chapters">
+    <button class="nav-current" type="button" aria-haspopup="true"><span></span>
+      <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5"/></svg></button>
+    <ol class="agenda"></ol>
+  </nav>
   <div class="progress"></div>
 </header>
 
@@ -1280,20 +1311,42 @@
   }));
   let cur = 0, step = 0, lastEngineScroll = 0;
 
-  // ---------- title bar: agenda derived from slides' data-chapter ----------
+  // ---------- title bar: agenda derived from slides' data-chapter (DESIGN §3, P5) ----------
+  const bar = $('.bar'), barTitle = $('.bar-title'), nav = $('.nav'), navCurrent = $('.nav-current');
   const agenda = $('.agenda'), progress = $('.progress');
   const chapters = [...new Set(slides.map(s => s.chapter))];
   const agendaItems = chapters.map(ch => {
     const li = el('li'); li.dataset.chapter = ch;
-    const b = el('button'); b.type = 'button'; b.setAttribute('aria-label', ch);
-    b.append(el('span', 'txt', ch));
-    b.addEventListener('click', e => { e.stopPropagation(); b.blur(); show(slides.findIndex(s => s.chapter === ch), 0); });
+    const b = el('button'); b.type = 'button'; b.textContent = ch;
+    b.addEventListener('click', e => {
+      e.stopPropagation(); b.blur(); nav.classList.remove('is-open');
+      show(slides.findIndex(s => s.chapter === ch), 0);
+    });
     li.append(b); agenda.append(li);
     return li;
   });
+  // compact list also opens on click (touch, click-first presenters); an outside click only closes it
+  navCurrent.addEventListener('click', e => { e.stopPropagation(); nav.classList.toggle('is-open'); });
+  addEventListener('click', e => {
+    if (!nav.classList.contains('is-open') || nav.contains(e.target)) return;
+    nav.classList.remove('is-open'); e.stopPropagation();
+  }, true);
+  // compact only when the full row would come within MIN_GAP of the title: measured, not a breakpoint
+  const NAV_MIN_GAP = 32;
+  function fitNav() {
+    bar.classList.remove('bar--compact');
+    const free = bar.clientWidth - parseFloat(getComputedStyle(bar).paddingRight) - barTitle.getBoundingClientRect().right;
+    bar.classList.toggle('bar--compact', agenda.scrollWidth + NAV_MIN_GAP > free);
+  }
+  addEventListener('resize', fitNav);
+  if (document.fonts) document.fonts.ready.then(fitNav);
   function updateChrome() {
     const ci = chapters.indexOf(slides[cur].chapter);
-    agendaItems.forEach((li, k) => { li.classList.toggle('is-current', k === ci); li.classList.toggle('is-done', k < ci); });
+    agendaItems.forEach((li, k) => {
+      li.classList.toggle('is-current', k === ci); li.classList.toggle('is-done', k < ci);
+      li.firstChild.toggleAttribute('aria-current', k === ci);
+    });
+    navCurrent.firstElementChild.textContent = chapters[ci];
     const s = slides[cur], frac = s.steps ? step / (s.steps + 1) : 0;
     progress.style.width = `${clamp((cur + frac) / Math.max(1, slides.length - 1), 0, 1) * 100}%`;
   }
@@ -1705,6 +1758,7 @@
   slides.forEach(s => render(s, 0, false));
   slides[0].node.classList.add('is-active');
   updateChrome();
+  fitNav();
   window.deck = {
     ready: true,
     state: () => ({ slide: slides[cur].id, index: cur, step, steps: slides[cur].steps }),

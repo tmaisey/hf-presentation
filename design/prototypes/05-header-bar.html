@@ -59,8 +59,7 @@
     transition: transform .25s var(--ease); }
   .bar--compact .agenda { position: absolute; top: 100%; right: 0; flex-direction: column; gap: 2px;
     min-width: 200px; padding: 8px; margin-top: 10px; border-radius: 14px;
-    background: color-mix(in srgb, var(--tile) 92%, transparent); box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: var(--tile); box-shadow: var(--shadow-soft); /* opaque: the frosted bar blocks a nested backdrop blur */
     opacity: 0; visibility: hidden; transform: translateY(-6px);
     transition: opacity .22s var(--ease), transform .22s var(--ease), visibility 0s .22s; }
   .bar--compact .agenda::before { content: ""; position: absolute; inset: -12px 0 auto 0; height: 12px; }

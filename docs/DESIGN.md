@@ -52,8 +52,9 @@ everything else binds both. Slide authors need only §10.
   the pointed-at chapter (tile pill, small scale, lift shadow) while the rest soften slightly
   (blur ≈0.6px, ~72% opacity, still readable). [P5:41–53](../design/prototypes/05-header-bar.html#L41)
 - Compact agenda: when the row would come within 32px of the title (measured, not a breakpoint),
-  show only the current chapter's name + chevron; hover, focus or click drops a frosted vertical
-  panel (`--shadow-soft`) listing every chapter, same current/hover treatment. [P5:55–70](../design/prototypes/05-header-bar.html#L55), [fit](../design/prototypes/05-header-bar.html#L131)
+  show only the current chapter's name + chevron; hover, focus or click drops an **opaque** `--tile`
+  vertical panel (`--shadow-soft`; a nested backdrop blur can't work inside the frosted bar)
+  listing every chapter, same current/hover treatment. [P5:55–69](../design/prototypes/05-header-bar.html#L55), [fit](../design/prototypes/05-header-bar.html#L131)
   v1 keeps its dots + label pill.
 - Content settles in on chapter entry (rise + fade, staggered). [P2:48](../design/prototypes/02-chapters-depth.html#L48)
 

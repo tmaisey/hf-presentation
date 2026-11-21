@@ -6,7 +6,7 @@ that collapses to the current chapter and drops down a vertical list when the ro
 Coverage: happy (title text, all labels at 1920, hover lift, compact list opens and navigates)
 · edge (1288×598 and 1280×720 keep the full row; keyboard focus opens the compact list)
 · negative (no dot markers; title and nav never overlap; compact list closed until asked for,
-closes on outside click).
+closes on outside click; slide content never shows through the open list).
 """
 
 import pytest
@@ -41,7 +41,7 @@ def _current_slide_of_chapter(page, k):
 def test_bar_title_reads_hugging_face_attack_with_italic_subtitle(page):
     open_deck(page)
     text = page.evaluate("() => document.querySelector('.bar-title').innerText.replace(/\\s+/g, ' ').trim()")
-    assert text == "The Hugging Face Attack · Misaligned Agents"
+    assert " · ".join(p.strip() for p in text.split("·")) == "The Hugging Face Attack · Misaligned Agents"
     sub = page.evaluate("""() => [...document.querySelectorAll('.bar-title *')]
       .filter(e => e.innerText.trim() === 'Misaligned Agents').map(e => getComputedStyle(e).fontStyle)""")
     assert sub == ["italic"]
@@ -140,3 +140,14 @@ def test_compact_list_stays_closed_until_asked_and_closes_on_outside_click(page)
     page.mouse.click(500, 650)
     page.wait_for_timeout(500)
     assert page.evaluate(VISIBLE_LABELS) == []
+
+
+def test_open_compact_list_hides_slide_content_beneath(page):
+    """The list overlaps slide content (e.g. narration tiles); a translucent panel let their text
+    bleed through, because the frosted bar stops a nested backdrop blur from applying."""
+    open_deck(page, 1100, 700)
+    page.click(".nav-current")
+    page.wait_for_timeout(500)
+    alpha = page.evaluate("""() => { const c = getComputedStyle(document.querySelector('.agenda')).backgroundColor;
+      const m = c.match(/[\\d.]+/g).map(Number); return m.length > 3 ? m[3] : 1; }""")
+    assert alpha == 1
