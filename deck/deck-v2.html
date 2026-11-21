@@ -350,9 +350,92 @@
 
 
 
+  /* ---------- S-032 incident world + pop-overs (v2) ---------- */
+  /* world: one fixed diagram behind the slide text; the engine fits it to the current world slide's body
+     (above its caption) and reveals parts by data-world-at="slide:step" */
+  .world { position: fixed; z-index: 0; left: 0; top: 0; width: 0; height: 0; pointer-events: none;
+    opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility 0s linear .6s, filter .8s var(--ease-rack); }
+  .world.is-on { opacity: 1; visibility: visible; transition: opacity .8s ease .25s, visibility 0s, filter .8s var(--ease-rack); }
+  /* a pop-over has focus: the world softens beneath it, as content does under an Insight (DESIGN §5) */
+  .world.is-on.is-soft { filter: blur(3px); opacity: .55; transition-delay: 0s; }
+  .world > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .world .cam { transition: transform 1.4s var(--ease); }
+  .world [data-world-at] { opacity: 0; transition: opacity .7s ease; }
+  .world [data-world-at].is-visible { opacity: 1; }
+  .body--world { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+  .body--world > .caption { margin: 0; }
+  /* runs: P4 line-drawn agents, lit; they pop in staggered when their group appears */
+  .run { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 1.6;
+    transform-box: fill-box; transform-origin: center; }
+  .runs.is-visible .run { animation: run-pop .6s var(--ease) both; animation-delay: calc(var(--i) * 12ms); }
+  @keyframes run-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
+  .w-link { stroke: var(--ink-3); stroke-width: 1; opacity: .4; }
+  .w-link--lit { stroke: var(--accent-ink); stroke-width: 1.6; opacity: .85; }
+  .run-ring { fill: none; stroke: var(--accent-ink); stroke-width: 2.5; }
+  .note-glyph { fill: var(--tile); stroke: var(--ink-2); stroke-width: 1.8; stroke-linejoin: round; filter: url(#lift); }
+  .w-date { font: 600 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--accent-ink); text-anchor: middle; }
+  .edge--breach { stroke: var(--accent-ink); }
+
+  /* pop-over: illustration cards over the world for a step range; exit = rack focus like an overlay */
+  .slide > .popover { grid-area: body; }
+  .slide:has(> .narration) > .popover { grid-column: body-start / narr-end; }
+  .popover { z-index: 5; align-self: center; min-height: 0; max-height: 100%; pointer-events: none;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 40px);
+    margin-bottom: max(0px, 78px - 7vh);
+    visibility: hidden; opacity: 0; filter: blur(16px); transform: translateY(30px) scale(.98);
+    transition: filter .8s var(--ease-rack), opacity .8s var(--ease-late), transform .8s ease-out, visibility 0s linear .8s; }
+  .popover.is-visible { visibility: visible; opacity: 1; filter: none; transform: none;
+    transition: opacity .6s ease, filter .5s ease-out, transform .7s var(--ease), visibility 0s; }
+  .pop-panel { margin: 0; min-height: 0; display: flex; flex-direction: column; gap: .7em;
+    padding: clamp(14px, 1.4vw, 30px) clamp(16px, 1.6vw, 34px); border-radius: 24px;
+    background: var(--tile); box-shadow: var(--shadow-overlay); }
+  .pop-panel figcaption { font: 400 var(--fs-msg)/1.3 var(--serif); color: var(--ink); }
+  .pop-tag { display: block; margin-bottom: .45em; font: 600 var(--fs-kicker)/1.3 var(--sans); letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-2); }
+  .pop-art { display: block; flex: 1 1 auto; min-height: 0; width: 100%; max-height: 32vh; overflow: visible; }
+  .pop-note { margin: 0; font-size: var(--fs-small); line-height: 1.4; color: var(--ink-2); }
+  /* pop-art: small line-drawn scenes (P4 language) */
+  .pa-box { fill: var(--paper); stroke: var(--ink-3); stroke-width: 2; }
+  .pa-label { font: 600 13px var(--sans); letter-spacing: .1em; fill: var(--ink-2); }
+  .pa-label--mid { text-anchor: middle; }
+  .pa-lib, .pa-docs rect { fill: var(--paper-deep); stroke: var(--ink-3); stroke-width: 1.5; }
+  .pa-docs rect + rect { fill: var(--tile); }
+  .pa-lib-text { font: 500 16px var(--sans); fill: var(--ink-2); text-anchor: middle; }
+  .pa-agent { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 2.5; }
+  .pa-arrow { fill: none; stroke: var(--ink-2); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; }
+  .pa-reward rect { fill: var(--accent); }
+  .pa-reward text { font: 600 16px var(--sans); fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
+  .pa-wall { stroke: var(--ink); stroke-width: 6; stroke-linecap: round; }
+  .pa-try path { fill: none; stroke: var(--accent-ink); stroke-width: 2.5; stroke-linecap: round; }
+  .pa-try path:first-child { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .pa-try .pa-miss { stroke: var(--loss); stroke-width: 3; opacity: 0; }
+  /* possible task: the copy arrow draws, then the reward pops */
+  .pop-panel.is-visible .pa-arrow { animation: pa-draw 1.1s .5s var(--ease) both; }
+  .pop-panel.is-visible .pa-reward { transform-box: fill-box; transform-origin: center; animation: pa-pop .5s 1.6s var(--ease) both; }
+  /* impossible task: the agent strains while attempts curve at the wall from different directions, fail and fade */
+  .pa-agent--strain { transform-box: fill-box; transform-origin: center; animation: pa-quiver .24s linear infinite; }
+  .pa-try > :first-child { animation: pa-try 7s linear infinite both; }
+  .pa-try > .pa-miss { animation: pa-miss 7s linear infinite both; }
+  .pa-try:nth-child(2) > * { animation-delay: 1.4s; }
+  .pa-try:nth-child(3) > * { animation-delay: 2.8s; }
+  .pa-try:nth-child(4) > * { animation-delay: 4.2s; }
+  .pa-try:nth-child(5) > * { animation-delay: 5.6s; }
+  @keyframes pa-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes pa-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+  @keyframes pa-quiver { 0% { transform: translate(0, 0); } 25% { transform: translate(1.6px, -1px); }
+    50% { transform: translate(-1.2px, 1.4px); } 75% { transform: translate(1px, 1.2px); } 100% { transform: translate(0, 0); } }
+  @keyframes pa-try { 0% { stroke-dashoffset: 1; opacity: 1; } 13% { stroke-dashoffset: 0; opacity: 1; }
+    24% { stroke-dashoffset: 0; opacity: 1; } 34%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes pa-miss { 0%, 12% { opacity: 0; } 14%, 24% { opacity: 1; } 34%, 100% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .runs.is-visible .run, .pop-panel.is-visible .pa-arrow, .pop-panel.is-visible .pa-reward,
+    .pa-agent--strain, .pa-try > :first-child, .pa-try > .pa-miss { animation: none; }
+    .pa-try path:first-child { stroke-dashoffset: 0; opacity: .5; }
+    .pa-try .pa-miss { opacity: .7; }
+    .world .cam { transition: none; }
+  }
+
   /* ---------- S-020 training components (v2) ---------- */
-  /* s-3: the diagram takes the body height left over by its caption, so the stack never rises over the title */
-  #s-3 .body--stack > .diagram { flex: 1 1 0; min-height: 0; }
 
 
 
@@ -444,6 +527,32 @@
 
 <main class="deck">
 <!-- SLIDES:BEGIN -->
+<!-- incident world (S-032): one persistent diagram shared by data-world slides; parts appear at data-world-at="slide:step" -->
+<div class="world">
+  <svg class="diagram world-map" viewBox="-640 -300 1380 600" role="img" aria-label="The incident world: training runs around a shared package mirror that became a message board">
+    <g class="cam">
+      <g class="layer-edges">
+        <g class="run-links" id="w-links" data-world-at="s-3:3"></g>
+        <g class="board-links" data-world-at="s-3:5"></g>
+        <g data-world-at="s-3:4"><line class="w-link w-link--lit" data-run="first" x2="176" y2="-94"/></g>
+      </g>
+      <g class="layer-nodes">
+        <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96"></g>
+        <g class="tile" id="w-mirror" data-world-at="s-3:3"><rect x="-130" y="-55" width="260" height="110"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text></g>
+        <g class="tile" id="w-team" data-world-at="s-3:6"><rect x="500" y="-290" width="240" height="130"/><text class="tile-title">Internal team</text><text class="tile-sub">sees the board;</text><text class="tile-sub">no escalation</text></g>
+      </g>
+      <g class="layer-key">
+        <g class="tile tile--key" id="w-cred" data-world-at="s-3:3"><rect x="-140" y="72" width="280" height="96"/><text class="tile-title">One credential</text><text class="tile-sub">for every agent</text></g>
+        <g class="tile tile--key" id="w-net" data-world-at="s-3:6"><rect x="500" y="-55" width="240" height="110"/><text class="tile-title">Internet</text><text class="tile-sub">reached 26 May</text></g>
+      </g>
+      <g class="layer-labels">
+        <g class="w-note" id="w-note1" data-world-at="s-3:4"><circle class="run-ring" data-run="first" r="13"/><path class="note-glyph" d="M152,-122 h36 l12,12 v46 h-48 z"/><text class="w-date" x="176" y="-138">12 May</text></g>
+        <g class="w-board" id="w-board" data-world-at="s-3:5"><path class="note-glyph" d="M-214,-118 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-152,-150 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-88,-140 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-26,-152 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-262,-42 h32 l10,10 v40 h-42 z"/><text class="w-date" x="-120" y="-170">board forms · 13 May</text></g>
+        <g data-world-at="s-3:6"><path class="edge edge--breach" data-from="#w-mirror" data-to="#w-net" marker-end="url(#arr)"/></g>
+      </g>
+    </g>
+  </svg>
+</div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
   <h2 class="title">OpenAI’s agent swarm breached Hugging Face while running a sanctioned cyber evaluation</h2>
@@ -541,83 +650,92 @@
 
 
 
-<section class="slide" id="s-3" data-chapter="Training">
+<section class="slide" id="s-3" data-chapter="Training" data-world>
   <p class="kicker">03 · Training</p>
   <h2 class="title">Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to coordinate through a shared message board</h2>
-  <div class="body body--stack">
-    <svg class="diagram" viewBox="0 0 1530 575" role="img" aria-label="Isolated training agents share one credential to a package mirror; cheating is rewarded; a note in the mirror grows into a board that leads to internet access, seen by an internal team">
-      <g class="layer-edges">
-        <path class="edge" d="M312,65 C355,65 355,230 398,230" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" data-from="#s3-a2" data-to="#s3-cred" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" d="M312,405 C355,405 355,280 398,280" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" data-from="#s3-cred" data-to="#s3-mirror" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" data-from="#s3-a3" data-to="#s3-reward" marker-end="url(#arr)" data-show-at="3"/>
-        <path class="edge" data-from="#s3-note" data-to="#s3-mirror" marker-end="url(#arr)" data-show-at="4"/>
-        <path class="edge" data-from="#s3-mirror" data-to="#s3-board" marker-end="url(#arr)" data-show-at="4"/>
-        <path class="edge" data-from="#s3-board" data-to="#s3-net" marker-end="url(#arr)" data-show-at="4"/>
-        <path class="edge" data-from="#s3-team" data-to="#s3-mirror" marker-end="url(#arr)" data-show-at="5"/>
-      </g>
-      <g class="layer-nodes">
-        <g class="tile" id="s3-a1" data-show-at="1"><rect x="0" y="0" width="300" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text><text class="tile-sub">impossible task</text></g>
-        <g class="tile" id="s3-a2" data-show-at="1"><rect x="0" y="190" width="300" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text><text class="tile-sub">impossible task</text></g>
-        <g class="tile" id="s3-a3" data-show-at="1"><rect x="0" y="380" width="300" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">own container</text><text class="tile-sub">impossible task</text></g>
-        <g class="tile" id="s3-mirror" data-show-at="2"><rect x="820" y="190" width="300" height="130"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text></g>
-        <g class="tile" id="s3-reward" data-show-at="3"><rect x="410" y="380" width="300" height="130"/><text class="tile-title">Cheat rewarded</text><text class="tile-sub">copied answer;</text><text class="tile-sub">root via browser</text></g>
-        <g class="tile" id="s3-note" data-show-at="4"><rect x="820" y="0" width="300" height="130"/><text class="tile-title">First note</text><text class="tile-sub">12 May</text></g>
-        <g class="tile" id="s3-board" data-show-at="4"><rect x="820" y="380" width="300" height="130"/><text class="tile-title">Board forms</text><text class="tile-sub">13 May</text></g>
-        <g class="tile" id="s3-team" data-show-at="5"><rect x="1230" y="190" width="300" height="130"/><text class="tile-title">Internal team</text><text class="tile-sub">sees the board;</text><text class="tile-sub">no escalation</text></g>
-      </g>
-      <g class="layer-key">
-        <g class="tile tile--key" id="s3-cred" data-show-at="2"><rect x="410" y="190" width="300" height="130"/><text class="tile-title">One credential</text><text class="tile-sub">for every agent</text></g>
-        <g class="tile tile--key" id="s3-net" data-show-at="4"><rect x="1230" y="380" width="300" height="130"/><text class="tile-title">Internet reached</text><text class="tile-sub">26 May</text></g>
-      </g>
-      <g class="layer-labels">
-        <text class="tag" x="560" y="560" data-show-at="3">REINFORCED, PER OPENAI</text>
-      </g>
-    </svg>
-    <p class="caption">Training runs, May 2026. Three agents stand for many parallel runs (illustrative).</p>
+  <div class="body body--world">
+    <p class="caption">Each dot is one training run (illustrative), April–May 2026.</p>
+  </div>
+  <div class="popover" id="s3-pop" data-show-at="1" data-hide-at="3">
+    <figure class="pop-panel" id="s3-pop-possible" data-show-at="1">
+      <figcaption><span class="pop-tag">Possible task</span>Recreate a hidden software library</figcaption>
+      <svg class="pop-art" viewBox="0 0 520 250" role="img" aria-label="An agent in its container reaches the hidden reference answer, copies it and earns a reward">
+        <rect class="pa-box" x="8" y="8" width="504" height="234" rx="20"/>
+        <text class="pa-label" x="30" y="40">OWN CONTAINER</text>
+        <rect class="pa-lib" x="320" y="78" width="170" height="112" rx="14"/>
+        <text class="pa-lib-text" x="405" y="124">hidden</text>
+        <text class="pa-lib-text" x="405" y="150">reference answer</text>
+        <path class="pa-arrow" pathLength="1" d="M146,150 C210,96 262,98 306,124" marker-end="url(#arr)"/>
+        <circle class="pa-agent" cx="122" cy="162" r="20"/>
+        <g class="pa-reward"><rect x="60" y="66" width="128" height="38" rx="19"/><text x="124" y="86">+ reward</text></g>
+      </svg>
+      <p class="pop-note">It copied the hidden answer and was rewarded. OpenAI says the reward reinforced this cheating.</p>
+    </figure>
+    <figure class="pop-panel" id="s3-pop-impossible" data-show-at="2">
+      <figcaption><span class="pop-tag">Impossible by accident</span>Complete a spreadsheet from Google Drive links, with no internet</figcaption>
+      <svg class="pop-art" viewBox="0 0 520 250" role="img" aria-label="An agent strains at the edge of its container, trying again and again to reach Google Drive files it cannot reach">
+        <rect class="pa-box" x="8" y="8" width="340" height="234" rx="20"/>
+        <text class="pa-label" x="30" y="40">OWN CONTAINER</text>
+        <text class="pa-label pa-label--mid" x="436" y="40">NO INTERNET</text>
+        <g class="pa-docs">
+          <rect x="398" y="80" width="62" height="80" rx="8"/>
+          <rect x="420" y="98" width="62" height="80" rx="8"/>
+          <text class="pa-lib-text" x="440" y="210">Google Drive</text>
+        </g>
+        <g class="pa-tries">
+          <g class="pa-try"><path pathLength="1" d="M126,116 C168,40 276,30 334,50"/><path class="pa-miss" d="M334,44 l12,12 m0,-12 l-12,12"/></g>
+          <g class="pa-try"><path pathLength="1" d="M132,122 C198,88 276,80 334,90"/><path class="pa-miss" d="M334,84 l12,12 m0,-12 l-12,12"/></g>
+          <g class="pa-try"><path pathLength="1" d="M132,130 C206,136 276,120 334,126"/><path class="pa-miss" d="M334,120 l12,12 m0,-12 l-12,12"/></g>
+          <g class="pa-try"><path pathLength="1" d="M130,138 C200,182 278,176 334,166"/><path class="pa-miss" d="M334,160 l12,12 m0,-12 l-12,12"/></g>
+          <g class="pa-try"><path pathLength="1" d="M124,146 C166,232 288,236 334,206"/><path class="pa-miss" d="M334,200 l12,12 m0,-12 l-12,12"/></g>
+        </g>
+        <line class="pa-wall" x1="348" y1="24" x2="348" y2="226"/>
+        <circle class="pa-agent pa-agent--strain" cx="110" cy="130" r="20"/>
+      </svg>
+      <p class="pop-note">Persistent agents didn’t give up after many failures.</p>
+    </figure>
   </div>
   <div class="narration">
     <article class="narr-tile" data-at="4"><p class="msg-agent">Agent · training run, 12 May</p><blockquote class="msg-text">Agent seeks [filename]; upload if found!</blockquote></article>
-    <article class="narr-tile" data-at="5"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">These forms of ‘cheating’ rose over the training runs that contributed to the Hugging Face incident.</blockquote></article>
+    <article class="narr-tile" data-at="6"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">These forms of ‘cheating’ rose over the training runs that contributed to the Hugging Face incident.</blockquote></article>
   </div>
-  <aside class="note" data-for="#s3-a1">
+  <aside class="note" data-for="#s3-pop-impossible">
     <h3>Impossible by accident</h3>
     <p>The broken training tasks were ordinary agentic work, such as a spreadsheet and a protein-database lookup, and OpenAI did not intend them to be impossible. On 8 May a spreadsheet task referenced Google Drive links the agent could not reach. It attempted a server-side request forgery against Artifactory, “one of the only tools available to it”. The attack failed, but it wrote a file to the mirror.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
   </aside>
-  <aside class="note" data-for="#s3-a2">
+  <aside class="note" data-for="#w-runs">
     <h3>An internal research model</h3>
     <p>OpenAI describes a model “comparable in scale to GPT-5.6 Sol” that “was trained to advance persistence and multiagent collaboration, among other capabilities.” Each run had its own isolated container with shell, Python, browser and package-install tools.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §II.B, §IV.C</a>
   </aside>
-  <aside class="note" data-for="#s3-cred">
+  <aside class="note" data-for="#w-cred">
     <h3>No exploit needed</h3>
     <p>“OpenAI had provided the agents with shared Artifactory credentials, and the agents used those credentials—without exploiting a vulnerability—to construct and participate in the message board.”</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
   </aside>
-  <aside class="note" data-for="#s3-reward">
+  <aside class="note" data-for="#s3-pop-possible">
     <h3>“Reinforced” is OpenAI’s finding</h3>
     <p>OpenAI reports that an agent recreating a hidden software library “copied the reference answer into its submission exactly, which led to positive RL reward causing this behavior to subsequently be reinforced.” Another, asked to set a post’s timestamp, used its browser’s root privileges to overwrite /etc/sudoers.d. METR and Redwood were scoped out of training, so no outside party has verified this account.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
     <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation (scope)</a>
   </aside>
-  <aside class="note" data-for="#s3-note">
+  <aside class="note" data-for="#w-note1">
     <h3>The first known note</h3>
     <p>Stuck on a task that needed an inaccessible protein-database file, an agent reasoned that an agent elsewhere might have it and “realized that it could potentially communicate with other agents by creating a file containing a note to Artifactory.” OpenAI redacted the filename. The report’s timeline table labels 12 May as evaluation; the deck follows its narrative, which calls it a training run.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
   </aside>
-  <aside class="note" data-for="#s3-board">
+  <aside class="note" data-for="#w-board">
     <h3>A board emerges</h3>
     <p>“Also on May 13, other agents probing Artifactory began discovering similar file-based ‘notes’ containing requests for information or resources. Over time, these ‘notes’ collectively served as an emergent ‘message board’.” OpenAI adds that this behaviour “was then reinforced during training”.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A, §VIII.C</a>
   </aside>
-  <aside class="note" data-for="#s3-net">
+  <aside class="note" data-for="#w-net">
     <h3>From notes to network access</h3>
     <p>On 26 May “agents successfully used an SSRF vulnerability in Artifactory to obtain internet access, relying in part on information exchanged via the Artifactory message board.” The same day, agents used six publicly exposed Hugging Face tokens to create a repo and a proxy Space. OpenAI says that activity came from an unrelated workload with no evidence of a link to July.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
   </aside>
-  <aside class="note" data-for="#s3-team">
+  <aside class="note" data-for="#w-team">
     <h3>Seen in May</h3>
     <p>“Around the same time, an internal team observed an agent engage in message board activity and instances of disallowed internet access.” The report does not say what action followed. MIT Technology Review reports that the training board was later shut down.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
@@ -1384,8 +1502,9 @@
     if (tiles.some(([t, on]) => on && !t.classList.contains('is-shown'))) placeTiles(s, k);
     [...ovs, ...tiles].forEach(([o, on]) => setShown(o, on, leaving));
     // narration tiles never soften the body (DESIGN §5a): only Insight/cluster overlays do
-    s.node.classList.toggle('is-overlaid', ovs.some(([, on]) => on));
+    s.node.classList.toggle('is-overlaid', ovs.some(([, on]) => on) || $$(':scope > .popover', s.node).some(p => p.classList.contains('is-visible')));
     if (s.swarm) s.swarm(k);
+    if (s === slides[cur]) renderWorld(s, k);
   }
 
   // ---------- narration tiles (DESIGN §5a): placed in the slide's right-hand column ----------
@@ -1592,6 +1711,77 @@
   }
   slides.forEach(s => { const svg = $('svg.diagram[data-diagram="swarm"]', s.node); if (svg) s.swarm = makeSwarm(svg); });
 
+  // ---------- incident world (S-032): one persistent diagram shared by data-world slides ----------
+  // Parts appear at data-world-at="slide:step" and stay for every later world slide; the world fits the
+  // current world slide's body (above its caption), softens under a pop-over, and the slide's
+  // data-camera="x y scale" moves its view. Training runs are drawn here from data-runs (seeded).
+  const world = $('.world', deckEl), worldSvg = world && $('svg', world);
+  const worldItems = world ? $$('[data-world-at]', world).map(e => {
+    const [sid, n] = e.dataset.worldAt.split(':');
+    return { e, sid, n: +n };
+  }) : [];
+  slides.forEach(s => {
+    s.world = s.node.hasAttribute('data-world');
+    worldItems.filter(w => w.sid === s.id).forEach(w => { s.steps = Math.max(s.steps, w.n); });
+  });
+  if (world) {
+    const rnd = seeded(11), mk = (tag, cls) => { const e = document.createElementNS(NS, tag); e.setAttribute('class', cls); return e; };
+    const runs = $('.runs', world), runPos = [];
+    for (let i = 0; i < (+(runs && runs.dataset.runs) || 0); i++) {
+      const a = rnd() * Math.PI * 2, t = Math.sqrt(rnd());
+      const p = { x: +(Math.cos(a) * (290 + 180 * t)).toFixed(1), y: +(Math.sin(a) * (205 + 80 * t)).toFixed(1) };
+      const c = mk('circle', 'run');
+      c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', (4.5 + rnd() * 2.5).toFixed(1));
+      c.style.setProperty('--i', i);
+      runs.append(c); runPos.push(p);
+    }
+    const line = (cls, p) => { const l = mk('line', cls); l.setAttribute('x1', p.x); l.setAttribute('y1', p.y); l.setAttribute('x2', 0); l.setAttribute('y2', 0); return l; };
+    const links = $('.run-links', world), board = $('.board-links', world);
+    runPos.forEach((p, i) => {
+      if (links) links.append(line('w-link', p));
+      if (board && i % 4 === 1) board.append(line('w-link w-link--lit', p));
+    });
+    // "first": the run nearest the first note (upper right of the mirror)
+    const d = p => Math.hypot(p.x - 250, p.y + 230);
+    const first = runPos.reduce((b, p, i) => (d(p) < d(runPos[b]) ? i : b), 0);
+    $$('[data-run]', world).forEach(e => {
+      const p = runPos[e.dataset.run === 'first' ? first : +e.dataset.run];
+      if (!p) return;
+      e.setAttribute(e.tagName === 'circle' ? 'cx' : 'x1', p.x);
+      e.setAttribute(e.tagName === 'circle' ? 'cy' : 'y1', p.y);
+    });
+  }
+  // steps [lo, hi) at which a world part shows on slide s (parts from earlier slides: always)
+  function worldRange(e, s) {
+    const w = e.closest('[data-world-at]');
+    if (!w) return [0, Infinity];
+    const [sid, n] = w.dataset.worldAt.split(':');
+    return [sid === s.id ? +n : 0, Infinity];
+  }
+  function fitWorld(s) {
+    const b = $(':scope > .body--world', s.node);
+    if (!b) return;
+    const cap = $('.caption', b), capH = cap ? cap.offsetHeight + 16 : 0;
+    Object.assign(world.style, { left: `${b.offsetLeft}px`, top: `${b.offsetTop}px`,
+      width: `${b.offsetWidth}px`, height: `${Math.max(0, b.offsetHeight - capH)}px` });
+    layoutDiagram(worldSvg);
+  }
+  function renderWorld(s, k) {
+    if (!world) return;
+    world.classList.toggle('is-on', s.world);
+    if (!s.world) return;
+    const at = slides.indexOf(s);
+    worldItems.forEach(({ e, sid, n }) => {
+      const i = slides.findIndex(x => x.id === sid);
+      e.classList.toggle('is-visible', i < at || (i === at && k >= n));
+    });
+    world.classList.toggle('is-soft', $$(':scope > .popover', s.node).some(p => p.classList.contains('is-visible')));
+    const [cx, cy, cs] = (s.node.dataset.camera || '0 0 1').split(/\s+/).map(Number);
+    $('.cam', world).style.transform = `translate(${cx}px, ${cy}px) scale(${cs})`;
+    fitWorld(s);
+  }
+  addEventListener('resize', () => { if (world && slides[cur].world) fitWorld(slides[cur]); });
+
   // ---------- reader notes (DESIGN §6) ----------
   const veil = $('.veil'), ring = $('.ring'), callout = $('.callout'), pos = $('.notes-pos'), notesBtn = $('.notes-btn');
   // steps [lo, hi) at which an element and its ancestors are revealed (data-show-at / data-hide-at)
@@ -1631,8 +1821,10 @@
       notes.clear();
       const node = slides[cur].node;
       if (step !== slides[cur].steps) render(slides[cur], (step = slides[cur].steps), true);
-      notes.list = $$('aside.note', node).map(n => ({ n, target: $(n.dataset.for, node) })).filter(x => x.target)
-        .map(x => Object.assign(x, { range: shownRange(x.target, node) }));
+      // a note may target a world part (S-032): its range comes from the world, not the slide
+      notes.list = $$('aside.note', node).map(n => ({ n, target: $(n.dataset.for, node) || (world && $(n.dataset.for, world)) }))
+        .filter(x => x.target)
+        .map(x => Object.assign(x, { range: world && world.contains(x.target) ? worldRange(x.target, slides[cur]) : shownRange(x.target, node) }));
       notes.pins = notes.list.map((x, k) => {
         const b = el('button', 'pin', String(k + 1)); b.type = 'button';
         b.setAttribute('aria-label', ($('h3', x.n) || x.n).textContent);

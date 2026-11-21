@@ -112,7 +112,7 @@ def test_key_tiles_are_tinted_and_keep_ink_text(page):
       const keys = [...document.querySelectorAll('.diagram .tile.tile--key')];
       const plain = document.querySelector('.diagram .tile:not(.tile--key) rect');
       const ink = getComputedStyle(document.querySelector('.diagram .tile:not(.tile--key) .tile-title')).fill;
-      return { n: keys.length, slides: new Set(keys.map(k => k.closest('section').id)).size,
+      return { n: keys.length, slides: new Set(keys.map(k => (k.closest('section') || k.closest('.world')).id || 'world')).size,
         plainFill: getComputedStyle(plain).fill,
         keys: keys.map(k => [getComputedStyle(k.querySelector('rect')).fill, getComputedStyle(k.querySelector('rect')).stroke,
                              getComputedStyle(k.querySelector('.tile-title')).fill, ink]) }; }""")

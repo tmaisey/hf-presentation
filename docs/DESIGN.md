@@ -277,6 +277,21 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `ol.steps > li[data-show-at]` per step. Extra tiles (e.g. a scorer key tile) and tags may join
   `.layer-key` / `.layer-labels` with `data-show-at`, outside the gathered ring (|x| ≤ ~370 units).
 
+- Incident world (S-032; built in situ, judged by eye per step, PRD *Decisions*): one
+  `div.world > svg.diagram` sits once at the top of the slide region; parts carry
+  `data-world-at="<slide>:<step>"` and stay for every later world slide. A world slide is
+  `section.slide[data-world]` with an empty `div.body.body--world` (optional `p.caption`): the
+  engine fits the world to that body above its caption, so it never rises over the title or
+  under the narration column. Optional `data-camera="x y scale"` on the slide moves the view
+  (animated). Runs (`g.runs[data-runs=N]`) are drawn by the engine in P4 line-drawn style, ringed
+  around the mirror at the origin; `[data-run]` elements snap to a run (`first` = the first-note
+  agent). Notes may target world parts by id.
+- Pop-over: `div.popover[data-show-at][data-hide-at]` > `figure.pop-panel` cards (opaque `--tile`,
+  `--shadow-overlay`), each `figcaption` (`span.pop-tag` + task) + `svg.pop-art` (small P4-style
+  scene) + `p.pop-note`. While shown the world and caption soften (as under an Insight); exit is the
+  overlay rack focus. Motion in pop-art (quivering agent, attempts that curve at the wall from
+  several directions, fail and fade) stops under `prefers-reduced-motion`.
+
 **Engine API** (tests and tooling): `window.deck = {ready, state(), goto(id, step), next(), prev(),
 plan()}`; `plan()` returns `[[slideId, maxStep], …]`.
 

@@ -13,9 +13,9 @@ from helper_deck import goto_slide, open_deck
 
 pytestmark = pytest.mark.deck("v2")
 
-# element and every ancestor up to the slide: rendered, not visibility:hidden, opacity > .5
+# element (on the slide or in the shared incident world) and every ancestor: rendered, not hidden, opacity > .5
 TARGET_VISIBLE = """sel => {
-  let e = document.querySelector('.slide ' + sel); if (!e) return false;
+  let e = document.querySelector('.slide ' + sel) || document.querySelector('.world ' + sel); if (!e) return false;
   const r = e.getBoundingClientRect(); if (!r.width || !r.height) return false;
   for (; e && !e.matches('section.slide'); e = e.parentElement) {
     const cs = getComputedStyle(e);
