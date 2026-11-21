@@ -69,6 +69,16 @@ they serve.
 - Depth through blur/bokeh: Insight overlays float above softened content for key takeaways.
 - **Dynamic diagrams on most slides:** a proper step-built diagram illustrating the slide's core
   concept (like v1's swarm/message-board diagram).
+- **One incident world (s-3 Training → s-6 Breakout, likely s-7 Takeover):** a single persistent,
+  illustrative diagram in prototype 04's line-drawn style (not box-and-arrow) that evolves with the
+  timeline. Each slide picks up where the last ended, and moving between slides animates the scene
+  like a camera (presenter chose this over per-slide diagrams, 21 Nov). At Breakout the focus
+  moves outside OpenAI: the internal scene simplifies and shrinks to make room for the path to
+  Hugging Face.
+- **Pop-over illustrations:** a concept that needs a different context (e.g. what one training
+  run is) appears as an illustration on a shadowed tile over the world diagram, which blurs while
+  the pop-over has focus. Quotes may pop up beside or over it. Once the point is made, all of it
+  dissolves and focus returns to the world diagram.
 - **Narration tiles (v2; replace end-of-slide message clusters):** agent-message tiles placed
   tastefully in the free space right of / above the diagram (upper right, right edge), staggered
   and slightly organic like the prototype scatter, never a rigid column. They narrate the swarm's
@@ -126,7 +136,7 @@ scoped out of training, so the deck attributes it.
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
 | 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | First draft built (10 slides), **rejected on quality** 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs reopened; draft markup is raw material. **Reusable:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
-| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); narration tiles and hero diagrams next | `design/prototypes/`, `docs/DESIGN.md` |
+| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); incident-world diagram + pop-overs being prototyped slide by slide, Training first (P6); narration tiles next | `design/prototypes/`, `docs/DESIGN.md` |
 
 ## Exclusions
 
