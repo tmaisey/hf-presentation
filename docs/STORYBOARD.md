@@ -59,16 +59,18 @@ approval · ✎ = new for v2, needs approval.
 
 ✓ *Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to
 coordinate through a shared message board*
-- **Diagram (training sandbox → mirror):** 1 isolated agent containers, each on an impossible
-  (non-CTF) task · 2 package mirror (Artifactory) appears; **one shared credential** key tile on
-  every agent's path · 3 cheat earns positive reward (copied reference answer; browser root →
-  `/etc/sudoers.d`) · 4 first note in the mirror (12 May) → board forms (13 May) → internet
-  reached using board information (26 May, key tile) · 5 an internal team sees the board; no
-  escalation.
+- **Diagram (opens the incident world, S-032; built in situ):** 0 many training runs pop in as
+  dots, no lines · 1 pop-over (world blurs), *possible task*: an agent recreating a hidden
+  software library copies the reference answer → reward ("reinforced", per OpenAI) · 2 beside it,
+  *impossible by accident*: a spreadsheet needing Google Drive links, no internet; the agent
+  quivers and its attempts curve at the wall from many directions, fail and dissolve ("persistent
+  agents didn't give up after many failures") · 3 pop-over dissolves; package mirror appears with
+  **one shared credential** (key tile), every run linked · 4 12 May first note · 5 13 May board
+  forms · 6 26 May internet reached (key tile); an internal team sees the board, no escalation.
 - **Narr ⚠ thin** (the TR quotes one training-phase agent message; May is outside METR's scope):
-  - step 3: none (as built: the task-instruction tile is on s-2 step 4).
+  - steps 1–3: none (the pop-over carries the point; the task-instruction tile is on s-2).
   - step 4 ★: Agent · training run, 12 May: "Agent seeks [filename]; upload if found!" (Q 2.3 #1)
-  - step 5: OpenAI (TR §VIII.A, neutral label): "These forms of 'cheating' rose over the training
+  - step 6: OpenAI (TR §VIII.A, neutral label): "These forms of 'cheating' rose over the training
     runs that contributed to the Hugging Face incident."
 - Notes: "reinforced in training" is **OpenAI's finding**; METR/Redwood were scoped out of
   training (notes/forensics.md). Model ≈ GPT-5.6 Sol scale (TR §IV.C). May 8 SSRF attempt on

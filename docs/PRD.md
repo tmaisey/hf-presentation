@@ -136,7 +136,7 @@ scoped out of training, so the deck attributes it.
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
 | 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | First draft built (10 slides), **rejected on quality** 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs reopened; draft markup is raw material. **Reusable:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
-| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); incident-world diagram + pop-overs being prototyped slide by slide, Training first (P6); narration tiles next | `design/prototypes/`, `docs/DESIGN.md` |
+| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); incident-world diagram + pop-overs being built in situ slide by slide, Training first (S-032, S-020); narration tiles next | `design/prototypes/`, `docs/DESIGN.md` |
 
 ## Exclusions
 
@@ -147,6 +147,10 @@ scoped out of training, so the deck attributes it.
 
 ## Decisions
 
+- **Incident-world diagrams are prototyped in situ** in `deck/deck-v2.html` (presenter, 21 Nov),
+  one slide at a time, Training first; each step is judged by eye before the next slide starts.
+  Pop-overs use real tasks: a possible one cheated (library answer copied → rewarded) and an
+  accidentally impossible one (Drive links, no internet) with a visibly persistent agent.
 - The 22% of ExploitGym tasks are called **"unsolvable"** on-slide (presenter, Nov 2026). Grounding,
   carried in the 3.1 reader note: OpenAI itself blames "the presence of impossible tasks in the
   ExploitGym evaluation", and the hard figure is 198 of 898 tasks no model has ever solved.

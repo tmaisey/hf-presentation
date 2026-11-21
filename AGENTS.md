@@ -68,7 +68,7 @@ Optional phases run only when justified or requested.
 1 · **MUST** · `docs/PRD.md` — PRD: capture intent (what/why); keep it living, updated to match code/docs.
 2 · default · PRD/docs — Grill-me: one question at a time, inline; **NEVER** multi-option pickers, so the user can reason and redirect between answers.
 3 · optional · `docs/research/` + `RESEARCH.md` — Research prior art (web + codebase) when a decision needs grounding; captured so searches aren't repeated. Bias to do it; **MUST** confirm with the user first.
-4 · **MUST** for new visual language, else optional · `design/prototypes/` + child index — Throwaway, spec-free prototypes when options must be *seen* before spec. **MUST** precede spec/build of any new component, diagram style or layout, judged by eye with the presenter: v2's first draft skipped this and fell below v1's quality (Nov 2026).
+4 · **MUST** for new visual language, else optional · `design/prototypes/` + child index — Throwaway, spec-free prototypes when options must be *seen* before spec. **MUST** precede spec/build of any new component, diagram style or layout, judged by eye with the presenter: v2's first draft skipped this and fell below v1's quality (Nov 2026). The presenter may instead choose **in-situ prototyping** (built straight into the deck behind spec + tests, judged by eye step by step): record that choice in `PRD.md` *Decisions*.
 5 · **MUST** · `docs/SPEC.jsonl` — Decompose PRD → one `todo` spec per feature with `depends_on`; add specs as intent emerges.
 6 · **MUST** · tests + code — Build from spec, TDD (below).
 7 · **MUST** · commit — Done commit: implementation, tests and status flip together; clean tree.
