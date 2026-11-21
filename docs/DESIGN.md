@@ -46,8 +46,15 @@ everything else binds both. Slide authors need only §10.
 - One chapter = one viewport; scroll **snaps** and stops per chapter. [P2:38–39](../design/prototypes/02-chapters-depth.html#L38)
 - One input = one step: →/↓/space/PgDn/click/wheel advance; in-chapter steps (Insight, diagram
   builds) run before leaving the chapter. Wheel is throttled to one step per gesture. [P2 `next()`](../design/prototypes/02-chapters-depth.html#L201), [wheel lock](../design/prototypes/02-chapters-depth.html#L227)
-- Persistent frosted title bar; top-right agenda dots (active = accent dot + label pill, done =
-  darker dot) and accent progress hairline. [P2:22–35](../design/prototypes/02-chapters-depth.html#L22)
+- Persistent frosted title bar + accent progress hairline. [P2:22–35](../design/prototypes/02-chapters-depth.html#L22)
+  Title: Title Case serif, then a muted `·` and a softer *italic* subtitle (ink-2, weight 400). [P5:34–36](../design/prototypes/05-header-bar.html#L34)
+- Agenda (v2): every chapter always labelled, **no dots**; current = `--accent-ink` label. Hover lifts
+  the pointed-at chapter (tile pill, small scale, lift shadow) while the rest soften slightly
+  (blur ≈0.6px, ~72% opacity, still readable). [P5:41–53](../design/prototypes/05-header-bar.html#L41)
+- Compact agenda: when the row would come within 32px of the title (measured, not a breakpoint),
+  show only the current chapter's name + chevron; hover, focus or click drops a frosted vertical
+  panel (`--shadow-soft`) listing every chapter, same current/hover treatment. [P5:55–70](../design/prototypes/05-header-bar.html#L55), [fit](../design/prototypes/05-header-bar.html#L131)
+  v1 keeps its dots + label pill.
 - Content settles in on chapter entry (rise + fade, staggered). [P2:48](../design/prototypes/02-chapters-depth.html#L48)
 
 ## 4 · Depth & ambient
