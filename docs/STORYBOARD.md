@@ -287,13 +287,12 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 
 ## s-8 · Investigation (1:30) · M2
 
-✎ *Independent investigators could reconstruct the swarm in six days because the agents left
-readable traces* (proposed, needs approval; replaces the funnel-era title)
+✓ *Independent investigators could reconstruct the swarm in six days because the agents left
+readable traces* (presenter approved, 22 Nov; replaces the funnel-era title)
 - **Agreed design (presenter, 22 Nov; S-026):** text-led. The incident world stays, frozen at its
   last state and **heavily blurred and faded** behind (backdrop, not content; stronger than the
   pop-over softening). Over it, a **row of three text tiles** across the page under the title, built
-  one per step (a new component, shared with s-9; built in situ unless the presenter asks for a
-  prototype first). Each tile: heading, 2–3 short lines, optional quote and source link. No timeline,
+  one per step (a new component, shared with s-9; built in situ, PRD *Decisions*). Each tile: heading, 2–3 short lines, optional quote and source link. No timeline,
   no narration column. Replaces the funnel diagram.
 - **Steps (3):**
   - **1 · A small, fast, AI-assisted investigation:** METR (Wijk, Cotra) and Redwood Research
@@ -320,8 +319,8 @@ readable traces* (proposed, needs approval; replaces the funnel-era title)
 
 ## s-9 · Insights (2:00) · M1, M2
 
-✎ *Misalignment grew from ordinary training choices, and the obvious fixes risk making it harder to
-see* (proposed, needs approval; the old s-9 title on readable reasoning is now s-8 tile 2)
+✓ *Misalignment grew from ordinary training choices, and the obvious fixes risk making it harder to
+see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now s-8 tile 2)
 - **Agreed design (presenter, 22 Nov; S-027):** same layout as s-8 (blurred world behind, three
   text tiles built one per step). The tiles are the insights: no separate Insight overlay. The v1
   loop diagram is dropped; its evidence moves into tile 2's links.
@@ -373,10 +372,9 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
   instance" entry: the presenter judged the slide representative enough.
 - s-5 (before build): check "We should build [a way to delegate]…" and the spoofing quote (M p48)
   against the METR PDF.
-- s-7: needs a world redesign session with the presenter before S-025 is built (s-6 hands over to it;
-  s-8/s-9 freeze the world at its end state).
-- s-8, s-9: both ✎ titles need presenter approval. The tile row is a new component: build in situ
-  (record the choice in PRD *Decisions*) unless the presenter asks for a prototype first.
+- s-7: not yet redesigned on the world. The presenter delegated the design (22 Nov): design it in
+  situ following s-6 (which hands over to it) and DESIGN rules, write it here and into S-025, then
+  build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
 - S-030 (layout guard) is not built: every visual spec's Definition of done needs it; s-3/s-4 have
