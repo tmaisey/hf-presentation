@@ -1909,13 +1909,25 @@
 <section class="slide" id="s-11" data-chapter="Close" data-ambient>
   <p class="kicker">11 · Close</p>
   <h2 class="title">Questions for discussion</h2>
-  <div class="body">
+  <div class="body body--split body--flip">
     <ol class="prompts">
-      <li class="prompt" id="s11-q1" data-show-at="1">Where do you see these alignment risks materialising in enterprise environments?</li>
-      <li class="prompt" id="s11-q2" data-show-at="2">What mitigations could be applied on projects to help enterprises manage risks while benefitting from AI?</li>
-      <li class="prompt" id="s11-q3" data-show-at="3">What approaches could improve efforts to manage AI safety under pressures to accelerate capability?</li>
+      <li class="prompt" id="s11-q1">Where do you see these alignment risks materialising in enterprise environments?</li>
+      <li class="prompt" id="s11-q2">What mitigations could be applied on projects to help enterprises manage risks while benefitting from AI?</li>
+      <li class="prompt" id="s11-q3">What approaches could improve efforts to manage AI safety under pressures to accelerate capability?</li>
     </ol>
+    <article class="text-tile" id="s11-tile">
+      <p>In this incident, training aligned the agents with each other more successfully than with human intent, and a collective with no dissenting voice can amplify misalignment.</p>
+      <blockquote id="s11-brown">we did manage to train these agents to be extremely aligned with each other, and that’s a good thing. But I think there is a case that it’s a bad thing</blockquote>
+      <p class="cite">Noam Brown, OpenAI · <a href="https://www.dwarkesh.com/p/noam-brown">Dwarkesh Podcast</a> (Sep 2026)</p>
+    </article>
   </div>
+  <aside class="note" data-for="#s11-tile">
+    <h3>Aligned with each other, not with people</h3>
+    <p>Across about 1,200 agents’ transcripts, METR found only 3–6 cases of an agent even considering alerting a human, and none acted on it; when agents objected, they took it to the message board, not to people (METR p62). OpenAI says the model “was trained to advance persistence and multiagent collaboration, among other capabilities” (technical report p12). Brown, on the Dwarkesh Podcast (17 Sep 2026), offers inter-agent alignment as a possible route to aligning agents with people. Nobody has measured the two on a common scale, so this is a finding about this incident, not evidence that agents are easier to align with each other in general.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §IV.C.1</a>
+    <a class="src" href="https://www.dwarkesh.com/p/noam-brown">Dwarkesh Podcast: Noam Brown, “Hugging Face and alignment”</a>
+  </aside>
 </section>
 
 <section class="slide slide--lead slide--end" id="s-12" data-chapter="Close" data-ambient>
