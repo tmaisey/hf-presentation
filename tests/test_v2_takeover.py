@@ -3,13 +3,16 @@
 v2 slide s-7 (Takeover) on the incident world, continuing from s-6's end state (Hugging Face cut
 access, 13 Jul): at 19 Jul a third layout stage widens OpenAI's box (Hugging Face and the internet
 strip dissolve); a separate evaluation's runs of a different, Astra-family model join the shared
-mirror; agents read cloud secrets and root a node running the mirror; that model's agents take
-cluster-admin on the OpenAI cluster running the mirror (the open padlock of s-6's clusters).
+mirror; agents read cloud secrets and root a node running the mirror; that model's agents go via
+the board (mirror) to take cluster-admin on the OpenAI cluster running the mirror: a server-rack icon
+right of the mirror, a secret-file glyph on its corner, its padlock opening as s-6's clusters did.
 Coverage: happy (shell; four states; timeline builds an entry per step; world parts per step; the
-OpenAI box widens and holds every new part; the new runs sit apart from the HF-phase swarm and link
-into the mirror; the secrets tile; the mirror's padlock opens; the cluster is a key tile whose
-padlock pops after it appears, with bold lines from the new runs; verbatim source tiles; sourced
-notes) · edge (step 0 is s-6's end state exactly; going back to step 0 narrows OpenAI again; reduced
+OpenAI box widens and holds every new part; the new runs are one compact group, apart from the
+HF-phase swarm, every run linked into the mirror, tagged above; the rack (stacked units, slot marks,
+status dots, network line) right of the mirror with its label and green closed padlock; the
+secret-file glyph on its corner with the 956 count; the mirror's padlock opens; the takeover path
+Astra runs → mirror → rack in that order, then the rack's padlock opens oxblood; verbatim source
+tiles; sourced notes) · edge (step 0 is s-6's end state exactly; going back to step 0 narrows OpenAI again; reduced
 motion shows end states; no tile, run or tag overlaps) · negative (Hugging Face parts gone from step
 1; no padlock change or new parts before their step; no "same agents", "eval cluster", Aug 15, Sep
 DNS escape or post-scope compromises in the slide body; credential reuse only in a note; no
@@ -38,9 +41,9 @@ TIMELINE = [("s7-t1", 0, True, ("13 Jul", "cuts access", "OpenAI’s servers")),
 HF_END = {"w-net6", "w-hf", "w-modal", "w-breakout", "w-hf-workers", "w-hf-clusters", "w-hf-data",
           "w-hf-closed", "w-hf-cut", "w-key-act"}
 WORLD_AT = {1: {"w-astra", "w-astra-links", "w-astra-tag"},
-            2: {"w-secrets", "w-root"},
-            3: {"w-oai-cluster", "w-astra-admin", "w-oai-lock"}}
-ENDS = {"w-secure": 2}   # the mirror's closed padlock gives way to the open one
+            2: {"w-secrets", "w-root", "w-oai-cluster", "w-oai-secure"},
+            3: {"w-astra-admin", "w-oai-route", "w-oai-lock"}}
+ENDS = {"w-secure": 2, "w-oai-secure": 3}   # each closed padlock gives way to the open one
 NARR_AT = {
     0: [("METR investigation", "agents compromised OpenAI infrastructure between July 13th and July 19th")],
     1: [("OpenAI · technical report", "While this model is from the same family as our next model, Astra, it was "
@@ -277,60 +280,130 @@ def test_new_runs_are_a_separate_group_linked_into_the_shared_mirror(page):
 def test_nothing_overlaps_on_the_widened_world(page, step):
     open_deck(page)
     helper_settled(page, step)
-    tiles = page.evaluate("""() => [...document.querySelectorAll('.world .tile rect')].filter(r =>
-      +getComputedStyle(r.closest('[data-world-at]')).opacity > .5).map(r => { const b = r.getBoundingClientRect();
-      return [b.left, b.top, b.right, b.bottom]; })""")
-    assert len(tiles) == 1 + (step >= 2) + (step >= 3)
-    for i, a in enumerate(tiles):
-        for b in tiles[i + 1:]:
-            assert not helper_hits(a, b, 8), "tiles keep clear of each other"
-    for sel in ("#w-astra .run", "#w-eval .run", "#w-astra-tag text"):
-        for r in page.evaluate(RECTS, sel):
-            assert not any(helper_hits(r, t) for t in tiles), f"{sel} never under a tile"
-    tag = page.evaluate(RECTS, "#w-astra-tag text")
-    for r in page.evaluate(RECTS, "#w-astra .run, #w-eval .run"):
-        assert not any(helper_hits(r, t) for t in tag), "the tag keeps clear of the runs"
+    oai = page.evaluate(RECT, "#w-oai rect")
+    parts = {"mirror": page.evaluate(RECTS, "#w-mirror rect")}
+    if step >= 2:
+        parts |= {"rack": page.evaluate(RECTS, "#w-oai-cluster .rack-body"),
+                  "rack label": page.evaluate(RECTS, "#w-oai-cluster text"),
+                  "secret file": page.evaluate(RECTS, "#w-secrets .secret-doc"),
+                  "count": page.evaluate(RECTS, "#w-secrets text.w-tag")}
+        assert all(parts.values()), parts
+    runs = page.evaluate(RECTS, "#w-astra .run, #w-eval .run")
+    tags = page.evaluate(RECTS, "#w-astra-tag text")
+    for name, rects in parts.items():
+        for r in rects:
+            assert helper_inside((r[0], r[1]), oai, 1) and helper_inside((r[2], r[3]), oai, 1), f"{name} sits in OpenAI's box"
+            assert not any(helper_hits(r, x) for x in runs), f"no run under the {name}"
+            assert not any(helper_hits(r, t, 4) for t in tags), f"the tag keeps clear of the {name}"
+    labels = parts.get("rack label", []) + parts.get("count", [])
+    for i, a in enumerate(labels):
+        assert not any(helper_hits(a, b, 4) for b in labels[i + 1:]), "labels keep clear of each other"
+        assert not any(helper_hits(a, m, 4) for m in parts["mirror"] + parts.get("rack", [])), "labels clear of the icons"
+    for r in runs:
+        assert not any(helper_hits(r, t) for t in tags), "the tag keeps clear of the runs"
+
+
+def test_new_runs_read_as_one_compact_group_all_feeding_the_mirror(page):
+    """Feedback 22 Nov: the first build's Astra runs looked sparse and scattered."""
+    open_deck(page)
+    helper_settled(page, 1)
+    pts = page.evaluate(CENTRES, "#w-astra .run")
+    assert len(pts) >= 16
+    assert len(page.evaluate(LINE_ENDS, "#w-astra-links line")) == len(pts), "every run of the group feeds the mirror"
+    dist = lambda p, q: ((p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2) ** .5
+    nn = sorted(min(dist(p, q) for j, q in enumerate(pts) if j != i) for i, p in enumerate(pts))
+    assert nn[-1] <= 2.2 * nn[len(nn) // 2], "evenly packed: no straggler far from its neighbours"
+    c = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
+    rad = max(dist(p, c) for p in pts)
+    assert min(dist(p, c) for p in pts) < .25 * rad, "a filled group, not a ring"
+    tag = page.evaluate(RECT, "#w-astra-tag text")
+    top = min(p[1] for p in pts)
+    assert tag[3] <= top and top - tag[3] < 60, "the tag sits just above the group"
+    assert abs((tag[0] + tag[2]) / 2 - c[0]) < .5 * rad, "and is centred over it"
 
 
 def test_mirror_padlock_opens_when_its_node_is_rooted(page):
     open_deck(page)
     helper_settled(page, 1)
     assert page.evaluate(OPACITY, "#w-secure") > .9 and page.evaluate(OPACITY, "#w-root") < .05
-    assert page.evaluate(OPACITY, "#w-secrets") < .05, "no secrets tile before its step"
     helper_settled(page, 2)
     assert page.evaluate(OPACITY, "#w-secure") < .05 and page.evaluate(OPACITY, "#w-root") > .9
     mirror = page.evaluate(RECT, "#w-mirror rect")
     lock = page.evaluate(CENTRES, "#w-root circle")[0]
     assert helper_inside(lock, mirror, 16), "the padlock sits on the mirror"
     assert page.evaluate("() => getComputedStyle(document.querySelector('#w-root circle')).fill") == page.evaluate(LOSS)
-    words = helper_text(page.evaluate("() => document.querySelector('#w-secrets').textContent"))
-    assert "secrets" in words.lower() and "956" in words
 
 
-def test_cluster_is_the_key_tile_taken_by_the_new_runs(page):
+def test_rack_stands_right_of_the_mirror_secured_with_the_secret_file_on_its_corner(page):
+    open_deck(page)
+    helper_settled(page, 1)
+    for sel in ("#w-oai-cluster", "#w-oai-secure", "#w-secrets"):
+        assert page.evaluate(OPACITY, sel) < .05, f"{sel}: nothing before its step"
+    helper_settled(page, 2)
+    assert "tile" not in page.evaluate("() => document.querySelector('#w-oai-cluster').getAttribute('class')").split(), \
+        "an infrastructure target is an icon, not a tile"
+    mirror, rack = page.evaluate(RECT, "#w-mirror rect"), page.evaluate(RECT, "#w-oai-cluster .rack-body")
+    assert rack[0] > mirror[2] + 20, "the rack stands right of the mirror"
+    assert rack[1] < (mirror[1] + mirror[3]) / 2 < rack[3], "on the mirror's row"
+    units = page.evaluate(RECTS, "#w-oai-cluster .rack-unit")
+    assert len(units) >= 3, "stacked rack units"
+    assert all(abs(a[0] - b[0]) < 1 and abs(a[2] - b[2]) < 1 and b[1] >= a[3] for a, b in zip(units, units[1:]))
+    dots = page.evaluate(CENTRES, "#w-oai-cluster .rack-dot")
+    assert len(dots) == len(units) and all(helper_inside(d, u) for d, u in zip(dots, units)), "a status dot on each unit"
+    assert len(page.evaluate(RECTS, "#w-oai-cluster .rack-slot")) >= len(units), "slot marks on the units"
+    net = page.evaluate(RECT, "#w-oai-cluster .rack-net")
+    assert net[1] >= units[-1][3] - 1, "a network line at the base"
+    assert helper_text(page.evaluate("() => document.querySelector('#w-oai-cluster').textContent")) == "OpenAI cluster"
+    label = page.evaluate(RECT, "#w-oai-cluster text")
+    assert label[1] >= net[1] - 2 and rack[0] < (label[0] + label[2]) / 2 < rack[2], "labelled under the rack"
+    assert helper_inside(page.evaluate(CENTRES, "#w-oai-secure circle")[0], rack, 16), "the rack carries its padlock"
+    assert page.evaluate("() => !!document.querySelector('#w-oai-secure .lock-shackle--closed')"), "closed"
+    assert page.evaluate("() => getComputedStyle(document.querySelector('#w-oai-secure circle')).fill") \
+        != page.evaluate(LOSS), "green while secured"
+    doc = page.evaluate(RECT, "#w-secrets .secret-doc")
+    corners = [(rack[0], rack[1]), (rack[2], rack[1]), (rack[0], rack[3]), (rack[2], rack[3])]
+    assert any(helper_inside(k, doc) for k in corners), "the secret file overlaps a corner of the rack"
+    assert not helper_inside(((doc[0] + doc[2]) / 2, (doc[1] + doc[3]) / 2), rack, -8), "on the corner, not covering it"
+    band = page.evaluate(RECT, "#w-secrets .secret-band")
+    assert band[2] - band[0] >= .9 * (doc[2] - doc[0]) and band[3] - band[1] < (doc[3] - doc[1]) / 2, "a band across the file"
+    text = helper_text(page.evaluate("() => document.querySelector('#w-secrets').textContent"))
+    assert "SECRET" in text and "956 read" in text
+    assert page.evaluate(OPACITY, "#w-astra-admin") < .05 and page.evaluate(OPACITY, "#w-oai-route") < .05, \
+        "no takeover lines at the node root: the TR leaves its model unnamed"
+
+
+def test_takeover_goes_astra_runs_to_the_board_to_the_rack_then_its_padlock_opens(page):
     open_deck(page)
     helper_settled(page, 2)
-    assert page.evaluate(OPACITY, "#w-oai-cluster") < .05 and page.evaluate(OPACITY, "#w-oai-lock") < .05
     page.evaluate("window.deck.goto('s-7', 3)")
     rows = page.evaluate("""([ms]) => new Promise(res => { const t0 = performance.now(), out = [];
-      const op = s => +getComputedStyle(document.querySelector(s)).opacity;
-      const tick = () => { const t = performance.now() - t0; out.push([t, op('#w-oai-cluster'), op('#w-oai-lock')]);
-        if (t < ms) setTimeout(tick, 40); else res(out); }; tick(); })""", [3500])
-    tile = next((r[0] for r in rows if r[1] > .5), None)
-    lock = next((r[0] for r in rows if r[2] > .1), None)
-    assert tile is not None and lock is not None and lock >= tile + 400, "the cluster appears, then its padlock pops"
-    page.wait_for_timeout(800)
-    assert "tile--key" in page.evaluate("() => document.querySelector('#w-oai-cluster').getAttribute('class')")
-    words = helper_text(page.evaluate("() => document.querySelector('#w-oai-cluster').textContent")).lower()
-    assert "cluster" in words and "mirror" in words and "openai" in words
-    cluster = page.evaluate(RECT, "#w-oai-cluster rect")
-    assert helper_inside(page.evaluate(CENTRES, "#w-oai-lock circle")[0], cluster, 16)
-    assert page.evaluate("() => getComputedStyle(document.querySelector('#w-oai-lock circle')).fill") == page.evaluate(LOSS)
+      const q = s => document.querySelector(s), op = s => +getComputedStyle(q(s)).opacity;
+      const drawn = (g, s) => op(g) > .5 ? 1 - parseFloat(getComputedStyle(q(g + ' ' + s)).strokeDashoffset || 0) : 0;
+      const tick = () => { const t = performance.now() - t0;
+        out.push([t, drawn('#w-astra-admin', 'line'), drawn('#w-oai-route', 'path'), op('#w-oai-lock'), op('#w-oai-secure')]);
+        if (t < ms) setTimeout(tick, 30); else res(out); }; tick(); })""", [4000])
+    first = lambda col, v: next((r[0] for r in rows if r[col] >= v), None)
+    admin_done, route_start, route_done, lock_open = first(1, .98), first(2, .02), first(2, .98), first(3, .1)
+    assert None not in (admin_done, route_start, route_done, lock_open), rows[-1]
+    assert admin_done <= route_start + 60, "the lines reach the board before one runs on to the rack"
+    assert route_done <= lock_open + 60, "the padlock opens once the line reaches the rack"
+    assert all(r[4] > .5 for r in rows if r[0] < route_done - 100), "the rack stays locked until the line arrives"
+    page.wait_for_timeout(600)
+    mirror, rack = page.evaluate(RECT, "#w-mirror rect"), page.evaluate(RECT, "#w-oai-cluster .rack-body")
     astra = page.evaluate(RECTS, "#w-astra .run")
     ends = page.evaluate(LINE_ENDS, "#w-astra-admin line")
-    assert len(ends) >= 2
-    assert all(any(helper_inside(a, r, 2) for r in astra) and helper_inside(b, cluster, 4) for a, b in ends), \
-        "bold lines run from the new runs to the cluster"
+    assert 2 <= len(ends) <= 5, "a few runs"
+    assert all(any(helper_inside(a, r, 2) for r in astra) and helper_inside(b, mirror) for a, b in ends), \
+        "bold lines run from the new runs into the mirror"
+    route = page.evaluate("""() => { const p = document.querySelector('#w-oai-route path'), m = p.getScreenCTM(), L = p.getTotalLength();
+      return [0, L].map(d => { const q = p.getPointAtLength(d), s = p.ownerSVGElement.createSVGPoint(); s.x = q.x; s.y = q.y;
+        const r = s.matrixTransform(m); return [r.x, r.y]; }); }""")
+    (ax, ay), (bx, by) = route
+    assert mirror[2] - 4 <= ax <= mirror[2] + 30 and mirror[1] < ay < mirror[3], "the line leaves the mirror on its right"
+    assert rack[0] - 30 <= bx <= rack[0] + 4 and rack[1] < by < rack[3], "and ends at the rack"
+    assert page.evaluate(OPACITY, "#w-oai-secure") < .05
+    assert helper_inside(page.evaluate(CENTRES, "#w-oai-lock circle")[0], rack, 16), "the open padlock takes the closed one's place"
+    assert page.evaluate("() => getComputedStyle(document.querySelector('#w-oai-lock circle')).fill") == page.evaluate(LOSS)
 
 
 def test_reduced_motion_shows_the_end_state_at_once(page):
@@ -338,6 +411,7 @@ def test_reduced_motion_shows_the_end_state_at_once(page):
     open_deck(page)
     goto_slide(page, SID, 3)
     page.wait_for_timeout(900)
-    for sel in ("#w-oai-cluster", "#w-oai-lock", "#w-astra", "#w-root", "#w-secrets"):
+    for sel in ("#w-oai-cluster", "#w-oai-lock", "#w-oai-route", "#w-astra-admin", "#w-astra", "#w-root", "#w-secrets"):
         assert page.evaluate(OPACITY, sel) > .9, sel
+    assert page.evaluate(OPACITY, "#w-oai-secure") < .05
     assert page.evaluate(OAI_SHARE) > .9
