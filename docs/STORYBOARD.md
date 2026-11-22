@@ -377,6 +377,5 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
   build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
-- S-030 (layout guard) is not built: every visual spec's Definition of done needs it; s-3/s-4 have
-  per-slide layout tests meanwhile.
+- S-030 layout guard is built (22 Nov). It found faults: s-5, s-6 and s-10 overlap or run off at 1288×598, and s-7 at all sizes (s-10 step 3: the controls table sits over the title; fix in S-027).
 - s-10: letter signatory count + date; Anthropic pause weakly sourced (omit unless confirmed).
