@@ -268,9 +268,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   strengthened by training; thicken a route at step n by a swap (Steps).
 - Labels: `text.label` (dates, axis words) and `text.tag` / `text.tag.tag--loss` (state captions).
 - Zone: `g.zone#id > rect + text.label`, painted first in `.layer-edges` (soft context region);
-  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (the s-7
-  "agents running on OpenAI's servers" band; s-6 no longer uses it since S-023 moved it onto the
-  incident world, where a `g.domain` box does that job).
+  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context. *Unused* since s-6/s-7 moved onto the incident world, where a
+  `g.domain` box does that job.
 - *Retired* (unused since S-026 went text-led; CSS left in the deck, **NEVER** reuse without
   re-prototyping): scope fence `rect.fence`, flagged tile `g.tile.tile--flag`.
 - Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
@@ -342,9 +341,14 @@ pins for targets not on screen at that step hide (v1: always the last step).
   key (shared credential), oxblood open padlock (admin taken), green closed padlock (secured); the
   same badges mark any other part's access (s-6: a leaked key on the Hugging Face box edge; clusters
   taken = open padlocks that pop (`.hf-lock`) after the rings reach them; closed padlocks at the cut). A cut connection is an unplugged plug and socket (`g.unplug`, line
-  art, pulled apart on the path), never a bare cut mark. An infrastructure target is an icon, not a
-  tile: a server rack (`g.rack`: stacked units, network line) with its access badge, and what was
-  read off it overlaps a corner as a glyph (s-7: a file with a "SECRET" band, `text.w-tag` count).
+  art: each head in a positioned `g` carries its own cable, and the heads slide apart from touching;
+  placed across where the path ran), never a bare cut mark. An infrastructure target is an icon, not a
+  tile: a server rack (`g.rack`: `.rack-body`, `.rack-unit` with slots and a status dot, `.rack-net`;
+  a `text.w-tag` label) with its access badge, and what was read off it overlaps a corner as a glyph
+  (s-7: `g.secret-file`, a folded-corner doc with an oxblood "SECRET" band, plus a `text.w-tag`
+  count). Glyph strokes scale with `--k`. A group that arrives as a body of runs, not a fan, may
+  fill a disc (`g.runs[data-shape="disc"]`; s-7 Astra). Attacking runs among many links get the
+  bold ring (`run-ring--bold`) so their lines read.
   A checker silenced earlier rests as `.bell-quiet` (slashed, `--ink-3`; its ringing never replays)
   when a layout stage moves it. Signed board messages: `g.seal` (accent disc + `path.seal-tick`) pops
   onto some of the board's glyphs, staggered. **Activity, not runs:** where agents act in a domain

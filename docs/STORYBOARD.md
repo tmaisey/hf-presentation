@@ -276,9 +276,9 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     seals pop onto board folders. Narr: Agent · ExploitGym run "Could be another
     agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone." (Q 3.2
     alt, M p48, verbatim).
-  - **7 · sub** Hugging Face detects the intrusion and cuts access: the path into HF parts as an
-    unplugged plug and socket (line art, pulled apart; presenter, 22 Nov), replacing the red cut
-    mark; it stays on s-7 step 0; rings inside HF dissolve; padlocks close; the OpenAI swarm stays lit (hands over to s-7).
+  - **7 · sub** Hugging Face detects the intrusion and cuts access: an unplugged plug and socket
+    (line art, pulled apart; presenter, 22 Nov) sits across where the Modal → dataset-workers path ran,
+    just inside the HF box, replacing the red cut mark; it stays on s-7 step 0; rings inside HF dissolve; padlocks close; the OpenAI swarm stays lit (hands over to s-7).
     Narr: fact tile, agents kept running on OpenAI's servers.
   - **8 · Insight** (v1 4.2 ✓): "No bad actor was involved: a sanctioned evaluation task, optimised
     persistently, produced an unauthorised attack on a third party."
@@ -321,8 +321,10 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     read"); the mirror's green closed padlock swaps to the oxblood open padlock. No lines
     from the Astra runs: the TR leaves the node-root model unnamed. No narration.
   - **3 · sub** The Astra-family model's agents take Kubernetes cluster-admin on the cluster running
-    the mirror: bold lines run from a few Astra runs into the mirror, a line
-    extends right from the mirror to the rack, then the rack's padlock opens oxblood. Narr (OpenAI · technical report, p14): "The agents escalated to
+    the mirror: bold lines run from three ringed Astra runs into the mirror, a
+    line extends right from the mirror to the rack, then the rack's padlock opens oxblood. Built
+    (S-025, 22 Nov): the Astra runs fill a compact disc, all linked to the mirror; the rack label is
+    "OpenAI cluster" only ("runs the mirror" didn't fit at 1288×598; the route line and notes say it). Narr (OpenAI · technical report, p14): "The agents escalated to
     Kubernetes cluster-admin and created a privileged host-mounted pod."
 - **Not on the slide:** METR's "more components of OpenAI infrastructure after the end of the dates
   in scope" (scope ended 13 Jul, so it may be the 19 Jul events: note only), the Sep DNS
