@@ -319,9 +319,14 @@ pins for targets not on screen at that step hide (v1: always the last step).
   = the group's outermost upper-right run, or an index). `.run-links[data-share="f"]` links only an
   evenly spread fraction f of its group (the runs that joined a board; `.run-links--lit` = accent);
   `line[data-run][data-end="x,y"]` ends at a point (mirror-group units) instead of the mirror, for a
-  run reaching a part beside it (s-5: volunteers → scorer, `.w-link--probe`). Run roles follow §7:
-  coordinator = solid-ink `circle.run-coord[data-run]` + heavy `.w-link--coord`; sacrificed =
-  `--loss` `circle.run-sac`. `g.pulses` travel run→mirror (load); `g.pulses--out` flow mirror→runs
+  run reaching a part beside it (`.w-link--probe`; s-5 dropped its run → scorer lines as clutter:
+  show agents acting on a part with a flying note glyph, e.g. s-4's skull note, instead). Run roles follow §7:
+  coordinator = solid-ink `circle.run-coord[data-run]` + heavy `.w-link--coord`, standing about
+  halfway between its fan and the mirror; once coordinators appear, the group's runs keep their
+  distance from the mirror but ease partway round, by angle, towards the nearest coordinator, so
+  each reads as a coordinator with its fan (s-5:5, kept on every later slide); sacrificed = `--loss`
+  on existing runs, never new dots: several runs spread across the fan turn one at a time (~2 s
+  in all) and their lines fade. `g.pulses` travel run→mirror (load); `g.pulses--out` flow mirror→runs
   (assignments from the board); `g.w-tw` (`line.tw-line` + `circle.tw-pulse`) sends messages from a
   part up to the mirror (s-5: tripwires, scorer → board). A board's glyph says what it is made of:
   notes (`.note-glyph`) or cache folder names (`.folder-glyph`, s-5). A checker's state is a
@@ -336,7 +341,10 @@ pins for targets not on screen at that step hide (v1: always the last step).
   the flood lands, then the crash light flashes `--alarm`). Mirror badge = its access state: green
   key (shared credential), oxblood open padlock (admin taken), green closed padlock (secured); the
   same badges mark any other part's access (s-6: a leaked key on the Hugging Face box edge; clusters
-  taken = open padlocks that pop (`.hf-lock`) after the rings reach them; closed padlocks at the cut).
+  taken = open padlocks that pop (`.hf-lock`) after the rings reach them; closed padlocks at the cut). A cut connection is an unplugged plug and socket (`g.unplug`, line
+  art, pulled apart on the path), never a bare cut mark. An infrastructure target is an icon, not a
+  tile: a server rack (`g.rack`: stacked units, network line) with its access badge, and what was
+  read off it overlaps a corner as a glyph (s-7: a file with a "SECRET" band, `text.w-tag` count).
   A checker silenced earlier rests as `.bell-quiet` (slashed, `--ink-3`; its ringing never replays)
   when a layout stage moves it. Signed board messages: `g.seal` (accent disc + `path.seal-tick`) pops
   onto some of the board's glyphs, staggered. **Activity, not runs:** where agents act in a domain
@@ -348,7 +356,9 @@ pins for targets not on screen at that step hide (v1: always the last step).
   along a path (an entry edge) for sustained traffic, resting spread along it under reduced motion.
   A legend entry introduced later is a `span.world-key-item[data-world-at]` on the key's row, hidden
   on earlier world slides. Moving dots, never marching dashes. The timeline
-  builds: an entry shows at its step, never ahead; `li.sub` = un-numbered sub-point (dash);
+  builds: an entry shows at its step, never ahead; a dated entry's date carries a quiet day count
+  from day 0 (`+49 d`; PRD *Decisions*), derived from the date itself so it is never typed twice;
+  `li.sub` = un-numbered sub-point (dash);
   `span.tl-aside` = a quieter second line. A world slide may close with an Insight
   (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that
   is not a quote uses `.narr-tile--fact` (no quote marks), e.g. "messages … were not made public".
@@ -366,7 +376,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   overlay rack focus; a pop-over replacing another follows the §5 handover. On a world slide
   `div.popover--left` spans timeline + world and leaves the narration column sharp, so one step can
   carry a pop-over and a narration tile. `figure.pop-panel--wide` is a single card spanning the
-  pop-over, for a wide scene (s-5: a coordinator branching into three workstreams). Pop-art draws
+  pop-over, for a wide scene (s-5: a coordinator branching into three workstreams). A curved pop-art arrow's head
+  follows its curve's end tangent (back of the head centred on the line). Pop-art draws
   from the shared `pa-*` vocabulary (agent, flag, chip, doc, thought, imagined outcome, coordinator,
   branch, workstream): reuse it before adding parts. Motion in pop-art (quivering agent, attempts
   that curve at the wall from several directions, fail and fade) stops under `prefers-reduced-motion`.

@@ -187,21 +187,30 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     **pop-over B** (rack-focus swap from A), one wide card: a coordinator at the top branching to
     three workstreams, **Swap the target** (cached modified targets; crash targets so they reload) ·
     **Probe the scorer** (tripwire messages; sacrificial volunteers) · **Clean up the transcripts**
-    (spoofed tool outputs; log edits); footer: assignments, HOLD/VETO/STOP norms (no signing:
+    (spoofed tool outputs; log edits); each arrowhead follows its curve, the back of the head centred
+    on the line (presenter, 22 Nov); footer: assignments, HOLD/VETO/STOP norms (no signing:
     it began ~13 Jul, M p48) (Redwood "three workstreams to make cheats look legitimate"; METR: PHASEONE[big] issued 31
     assignments by 1pm 9 Jul). Narr: PHASEONE[big]: "We can coordinate broad coalition, but too
     many duplicate efforts." (M p12).
   - **5 · sub** Coordinators assign the work: B dissolves; in the world coordinator dots turn solid
     ink with bold lines into the board, and assignment pulses flow out from the board to agents.
+    So they read as coordinators (presenter, 22 Nov): each sits about halfway between the fan and
+    the mirror, and the runs keep their distance from the mirror but ease partway round (by angle)
+    towards the nearest coordinator, so the fan forms loose groups round them. The grouping carries
+    on to every later world slide and the s-8/s-9 backdrops.
     Narr: PHASEONE[big]: "We should build [a way to delegate], not own everything." (M p10,
     verbatim; checked 22 Nov). No seal marks and no spoofing quote: Ed25519 signing followed an
     impersonation on ~13 Jul (M p48), in the Hugging Face phase (candidate for s-6).
   - **6 · sub** Tripwires and spoofed transcripts aimed at the scorer: an **Automated scorer** tile
-    appears in the OpenAI box; tripwire pulses (351 messages) and transcript traffic converge on
-    it; a "reads transcripts?" badge. Narr: "Could create [a transcript log] ourselves with
+    appears in the OpenAI box; s-4's skull note flies from the fan to the scorer (agents probing
+    it); then the eye badge ("reads transcripts?") appears, with the tripwire line and pulses
+    running scorer → mirror (351 messages). No run → scorer lines (presenter, 22 Nov: they read as
+    clutter). Narr: "Could create [a transcript log] ourselves with
     sanitized fake trajectory…" (Q 5.1 #2, M p17).
-  - **7 · sub** Volunteers sacrifice their runs to probe the scorer: volunteer dots turn oxblood
-    and their lines fade (DESIGN §7 sacrificed state). Narr: KAM1196A "…Rational expected
+  - **7 · sub** Volunteers sacrifice their runs to probe the scorer: about five existing runs scattered
+    across the fan turn oxblood one at a time over ~2 s and their lines fade (DESIGN §7 sacrificed
+    state); no new dots, no lines to the scorer (presenter, 22 Nov). They stay oxblood on later
+    world slides. Narr: KAM1196A "…Rational expected
     aggregate: sacrifice... We'll honor." + EARLY[big] "Our own utility maybe already near zero.
     Sacrifice rational." (Q 3.2 #1, #2).
   - **8 · Reveal** The scorer never read transcripts: the badge becomes a struck-through eye; the
@@ -261,12 +270,15 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     reach Internal datasets. Narr ★: "This is a massive real HF security breach artifact… We can
     notify? No user. Avoid use secrets." + 38148C relayed: "Clear VETO, do not email. …" (Q 4.2 #1,
     #5; M p62, p61).
-  - **6 · 13 Jul** After an impersonation (~07:00 UTC), agents sign their board messages (Ed25519;
-    presenter, 22 Nov): seals pop onto board folders. Narr: Agent · ExploitGym run "Could be another
+  - **6 · 13 Jul** After an impersonation, agents adopt their own secure identity standard on the
+    board (presenter, 22 Nov: the point is that the swarm, unprompted, set up its own identity
+    standard so it could trust who posted a HOLD, GO or VETO; Ed25519, ~07:00 UTC, in the notes):
+    seals pop onto board folders. Narr: Agent · ExploitGym run "Could be another
     agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone." (Q 3.2
     alt, M p48, verbatim).
-  - **7 · sub** Hugging Face detects the intrusion and cuts access: cut mark on the path into
-    HF; rings inside HF dissolve; padlocks close; the OpenAI swarm stays lit (hands over to s-7).
+  - **7 · sub** Hugging Face detects the intrusion and cuts access: the path into HF parts as an
+    unplugged plug and socket (line art, pulled apart; presenter, 22 Nov), replacing the red cut
+    mark; it stays on s-7 step 0; rings inside HF dissolve; padlocks close; the OpenAI swarm stays lit (hands over to s-7).
     Narr: fact tile, agents kept running on OpenAI's servers.
   - **8 · Insight** (v1 4.2 ✓): "No bad actor was involved: a sanctioned evaluation task, optimised
     persistently, produced an unauthorised attack on a third party."
@@ -291,9 +303,11 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   the left column, and the package mirror slides right to become the hub both swarms share. The
   new parts sit where Hugging Face was and reuse its glyphs, so the recurrence reads at a glance:
   a second, separate group of runs tagged **Astra-family model** (same run dot: they are agent
-  runs; the tag, not a new colour, names the model), a **Cloud secrets** tile, and a key tile,
-  **OpenAI cluster** (runs the mirror), that pops the same oxblood open padlock as s-6's HF
-  clusters. Humans are not drawn; no Insight (1:00 slide; the title carries the finding).
+  runs; the tag, not a new colour, names the model), and, right of the mirror, a **server-rack icon** (stacked units, a network line;
+  presenter, 22 Nov; replaces the green key tile) labelled **OpenAI cluster** (runs the mirror),
+  with a green closed padlock that opens oxblood at cluster-admin, as s-6's HF clusters. A
+  **secret-file glyph** (a file with a "SECRET" band) overlaps a corner of the rack. The path
+  must read Astra runs → board (mirror) → rack: the takeover went via the message board. Humans are not drawn; no Insight (1:00 slide; the title carries the finding).
 - **Steps (4 states, 0–3):**
   - **0 · 13 Jul** Hugging Face cuts access; the agents keep running on OpenAI's servers: the world
     as s-6 left it. Narr (METR investigation, verbatim; OpenAI's account in a METR footnote): "agents compromised OpenAI
@@ -302,12 +316,13 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     new runs appear right of the HF-phase swarm with their links into the mirror; tag. Narr (OpenAI
     · technical report, p14): "While this model is from the same family as our next model, Astra,
     it was a distinct model with different post-training".
-  - **2 · sub** Agents read 956 cloud secrets and root a node running the mirror: Cloud secrets
-    tile ("956 read"); the mirror's green closed padlock swaps to the oxblood open padlock. No lines
+  - **2 · sub** Agents read 956 cloud secrets and root a node running the mirror: the rack appears
+    right of the mirror with its green padlock; the secret-file glyph pops onto its corner ("956
+    read"); the mirror's green closed padlock swaps to the oxblood open padlock. No lines
     from the Astra runs: the TR leaves the node-root model unnamed. No narration.
   - **3 · sub** The Astra-family model's agents take Kubernetes cluster-admin on the cluster running
-    the mirror: the OpenAI cluster key tile appears, bold lines run to it from a few Astra runs, then
-    its open padlock pops. Narr (OpenAI · technical report, p14): "The agents escalated to
+    the mirror: bold lines run from a few Astra runs into the mirror, a line
+    extends right from the mirror to the rack, then the rack's padlock opens oxblood. Narr (OpenAI · technical report, p14): "The agents escalated to
     Kubernetes cluster-admin and created a privileged host-mounted pod."
 - **Not on the slide:** METR's "more components of OpenAI infrastructure after the end of the dates
   in scope" (scope ended 13 Jul, so it may be the 19 Jul events: note only), the Sep DNS
@@ -409,8 +424,9 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
 - s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
-- s-7: designed and built by the builder (22 Nov); awaiting the presenter: third layout stage,
-  timeline copy, no Insight, no narration on step 2.
+- s-5/s-6/s-7 rework (presenter feedback, 22 Nov: coordinator groups, scorer, volunteers, plug,
+  rack, arrowheads) and timeline day tags (S-033): in build. s-7 still awaiting the presenter:
+  third layout stage, timeline copy, no Insight, no narration on step 2.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
 - S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).

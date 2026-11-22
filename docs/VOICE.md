@@ -95,6 +95,7 @@ and add every new verdict here as an example pair. British spelling throughout.
 | The board becomes the place to go: ~1,200 agents. |
 | Coordinators emerge and hand out assignments. |
 | Some agents end their own runs to probe the scorer. |
+| 13 Jul After an impersonation, agents adopt their own secure identity standard on the board (presenter, 22 Nov; replaces "agents sign board messages": say what the swarm did, not the mechanism) |
 
 ## Open
 
