@@ -46,10 +46,12 @@ def test_diagrams_declare_layers_in_importance_order():
 def test_edges_use_shared_arrow_and_tiles_have_no_stroke(page):
     open_deck(page)
     res = page.evaluate("""() => ({
-      edges: [...document.querySelectorAll('.diagram .edge[marker-end]')].map(e => e.getAttribute('marker-end')),
+      edges: [...document.querySelectorAll('.diagram .edge[marker-end]')].map(e => {
+        const m = e.getAttribute('marker-end'), id = (m.match(/^url\\(#([\\w-]+)\\)$/) || [])[1];
+        return id && document.querySelector('svg.defs #' + id + '[id^="arr"]') ? 'shared' : m; }),
       tileStrokes: [...document.querySelectorAll('.diagram .tile rect')].map(r => getComputedStyle(r).stroke),
       dashes: [...document.querySelectorAll('.diagram .edge')].map(e => getComputedStyle(e).strokeDasharray) })""")
-    assert all(m == "url(#arr)" for m in res["edges"])
+    assert all(m == "shared" for m in res["edges"]), "heads come from the shared #arr marker family in the defs host"
     assert all(s == "none" for s in res["tileStrokes"])
     assert all(d == "none" for d in res["dashes"]), "never dashed edges"
 
