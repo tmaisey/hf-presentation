@@ -492,11 +492,12 @@ Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's fire
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
 - s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
+- s-7 accepted by the presenter (22 Nov: third layout stage, timeline copy, no Insight, no
+  narration on step 2).
 - Round 3 (22 Nov: two-line timelines, short copy, one-row key, signing on s-7, s-1/s-2 rework, tile
   bullets on s-8–s-10) built, merged and accepted. Next: s-11/s-12 Close (S-035) and the notes callout
   fixes at 1288×598 (a long callout can cover its own target or the Prev/Next bar, e.g. s-5 note 5,
-  s-8 note 1; the s-6 timeline sub-item spotlight is tight). s-7 still awaiting the presenter:
-  third layout stage, timeline copy, no Insight, no narration on step 2.
+  s-8 note 1; the s-6 timeline sub-item spotlight is tight).
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
 - S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).
