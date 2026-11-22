@@ -2095,7 +2095,7 @@
       const active = slides[cur];
       orbs.forEach(({ o, slide, z, amp, ph }) => {
         if (slide !== active) return;
-        const dx = Math.sin(t / 6000 + ph) * amp, dy = Math.cos(t / 7300 + ph * 1.3) * amp * .8;
+        const dx = Math.sin(t / 4000 + ph) * amp, dy = Math.cos(t / 4870 + ph * 1.3) * amp * .8;
         o.style.transform = `translate(${mx * z + dx}px, ${my * z + dy}px)`;
       });
       requestAnimationFrame(frame);

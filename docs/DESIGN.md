@@ -62,7 +62,7 @@ everything else binds both. Slide authors need only §10.
 ## 4 · Depth & ambient
 
 - Bokeh: three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs (5 / 6 / 6), slow
-  drift (peak ~9px/s: perceptible, still subtle; presenter, 22 Nov) + slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
+  drift (peak ~13px/s: perceptible, still subtle; presenter, 22 Nov) + slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
 - Ambient **only** on title / summary / Insight pages; **NEVER** on detail or diagram pages. [P2 detail chapter](../design/prototypes/02-chapters-depth.html#L123)
 - Respect `prefers-reduced-motion` (no drift, no rise). [P2:93](../design/prototypes/02-chapters-depth.html#L93)
 
