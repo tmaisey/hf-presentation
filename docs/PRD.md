@@ -180,7 +180,12 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   **Layout:** `skills/twm-presentation-builder/` holds only what ships (`SKILL.md`, parts, reusable
   code, rubrics, examples); its own development docs (PRD, SPEC.jsonl, indexes) and tests live in
   the sibling `skills/twm-presentation-builder-docs/`, indexed from root `AGENTS.md`. The deck's
-  `docs/` and `tests/` **NEVER** hold skill specs. Eval targets the narrow case
+  `docs/` and `tests/` **NEVER** hold skill specs.
+  **Judge calibration:** no presenter-scored calibration set initially (may come later). Anchors
+  come from recorded presenter verdicts (`VOICE.md` pairs, PRD decisions, the v2 first-draft
+  rejection) plus deliberately flawed decks; eval reports **MUST** state that agreement with the
+  presenter is unmeasured until a calibration set exists. Research basis:
+  `skills/twm-presentation-builder-docs/research/`. Eval targets the narrow case
   (presenter-driven editorial talks) but **MUST** be DRY and adaptable to other deck types
   (pitch, data review, internal update).
 - **s-1 and s-2 rebuilt in situ (presenter, 22 Nov):** new title and subtitle; s-2's reward-loop
