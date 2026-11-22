@@ -686,8 +686,8 @@
   .unplug-slot { fill: none; stroke: var(--ink-2); stroke-width: 3; stroke-linecap: butt; }
   .unplug.is-visible .unplug-plug { animation: unplug-l .9s var(--ease) .6s both; }
   .unplug.is-visible .unplug-socket { animation: unplug-r .9s var(--ease) .6s both; }
-  @keyframes unplug-l { from { transform: translateX(12px); } to { transform: none; } }
-  @keyframes unplug-r { from { transform: translateX(-12px); } to { transform: none; } }
+  @keyframes unplug-l { from { transform: translateX(8px); } to { transform: none; } }
+  @keyframes unplug-r { from { transform: translateX(-8px); } to { transform: none; } }
   @media (prefers-reduced-motion: reduce) { .unplug.is-visible :is(.unplug-plug, .unplug-socket) { animation: none; } }
   /* s-7 (S-025): the third layout stage (1 s) lands before the new runs pop in and link to the mirror; at
      cluster-admin the bold lines draw into the mirror (timing of the rack and its padlock: below) */
@@ -867,7 +867,7 @@
         <g id="w-astra-admin" data-world-at="s-7:3" data-of="w-astra"><line class="w-link w-link--admin" pathLength="1" data-run="17"/><line class="w-link w-link--admin" pathLength="1" data-run="22"/><line class="w-link w-link--admin" pathLength="1" data-run="19"/></g>
         <g id="w-oai-route" data-world-at="s-7:3"><path class="w-link w-link--admin" pathLength="1" d="M-80,118 H-4"/></g>
         <!-- s-6 (S-023): HF cuts access: the path Modal → dataset workers parts as an unplugged plug and socket (g.unplug) -->
-        <g class="unplug" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><g transform="translate(16 -40)"><g class="unplug-plug"><path class="unplug-cable" d="M-60,0 H-34"/><g transform="scale(1.35)"><rect class="unplug-body" x="-26" y="-5.5" width="8" height="11" rx="2"/><rect class="unplug-body" x="-18" y="-12" width="19" height="24" rx="4"/><path class="unplug-prong" d="M1,-5.5 h11 M1,5.5 h11"/></g></g></g><g transform="translate(56 -40)"><g class="unplug-socket"><path class="unplug-cable" d="M38,0 H48 Q60,0 60,12 V100"/><g transform="scale(1.35)"><rect class="unplug-body" x="0" y="-14" width="22" height="28" rx="4"/><rect class="unplug-body" x="21" y="-5.5" width="8" height="11" rx="2"/><path class="unplug-slot" d="M3.5,-5.5 h5 M3.5,5.5 h5"/></g></g></g></g>
+        <g class="unplug" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><g transform="translate(16 -40)"><g class="unplug-plug"><path class="unplug-cable" d="M-60,0 H-17"/><g transform="scale(.68)"><rect class="unplug-body" x="-26" y="-5.5" width="8" height="11" rx="2"/><rect class="unplug-body" x="-18" y="-12" width="19" height="24" rx="4"/><path class="unplug-prong" d="M1,-5.5 h11 M1,5.5 h11"/></g></g></g><g transform="translate(48 -40)"><g class="unplug-socket"><path class="unplug-cable" d="M19,0 H56 Q68,0 68,12 V100"/><g transform="scale(.68)"><rect class="unplug-body" x="0" y="-14" width="22" height="28" rx="4"/><rect class="unplug-body" x="21" y="-5.5" width="8" height="11" rx="2"/><path class="unplug-slot" d="M3.5,-5.5 h5 M3.5,5.5 h5"/></g></g></g></g>
         <g id="w-hf-entry" data-world-at="s-6:2" data-world-until="s-6:7"><path class="edge edge--breach" id="w-entry-path" d="M-12,-40 C74,-40 74,-40 74,42" marker-end="url(#arr)"/></g>
       </g>
       <g class="layer-nodes">
