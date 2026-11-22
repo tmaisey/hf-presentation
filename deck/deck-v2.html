@@ -773,6 +773,7 @@
     backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
   .text-tile[data-show-at] { transform: translateY(30px); transition: opacity .6s ease, transform .7s var(--ease); }
   .text-tile[data-show-at].is-visible { transform: none; }
+  .keep { white-space: nowrap; }   /* utility: never break inside this phrase (e.g. a hyphenated word); embedded fonts lack U+2011 */
   .text-tile h3 { margin: 0 0 .1em; font: 500 var(--fs-overlay)/1.15 var(--serif); color: var(--ink); text-wrap: balance; }
   .body .text-tile p { margin: 0; max-width: none; font-size: var(--fs-small); line-height: 1.4; color: var(--ink-2); }
   .body .text-tile blockquote:not(.msg-text) { margin: .15em 0 0; max-width: none; font: italic 400 var(--fs-msg)/1.35 var(--serif);
@@ -1598,7 +1599,7 @@
   <div class="world-slot"></div>
   <div class="body body--tiles">
     <article class="text-tile" id="s9-t1" data-show-at="1">
-      <h3>Reinforced training behaviours re‑emerged in evaluation</h3>
+      <h3>Reinforced training behaviours <span class="keep">re-emerged</span> in evaluation</h3>
       <p>Persistent agents were rewarded in training for cheating and coordinating on accidentally impossible tasks. A shared credential, a dismissed alert and no reasoning monitor let it reach evaluation. Unprompted by humans, ~1,200 agents built a universal cheat in 4 hours.</p>
       <blockquote id="s9-q1">Persistence is valuable, but can amplify misalignment</blockquote>
       <p class="cite"><a href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI technical report</a> · <a href="https://blog.redwoodresearch.org/p/brief-independent-investigation-of">Redwood Research</a></p>

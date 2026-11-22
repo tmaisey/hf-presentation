@@ -114,7 +114,8 @@ S9_HEADINGS = ["Reinforced training behaviours re-emerged in evaluation",   # pr
 def test_s9_tile_headings_are_the_approved_findings():
     """VOICE: one specific finding per heading; the presenter rejected two-clause, metaphor-led drafts."""
     sec = helper_section("s-9")
-    got = [helper_norm(re.search(r"<h3>(.*?)</h3>", sec[sec.index(f'id="{t}"'):], re.S).group(1)) for t in TILES]
+    got = [helper_norm(re.sub(r"<[^>]+>", "", re.search(r"<h3>(.*?)</h3>", sec[sec.index(f'id="{t}"'):], re.S).group(1)))
+           for t in TILES]
     assert got == S9_HEADINGS
     voice = helper_norm((ROOT / "docs" / "VOICE.md").read_text(encoding="utf-8"))
     assert all(helper_norm(h) in voice for h in S9_HEADINGS), "approved headings are recorded in VOICE"
@@ -322,10 +323,11 @@ def test_s9_headings_wrap_on_whole_words_within_two_lines(page, size):
     goto_slide(page, "s-9", 3)
     settle(page, "#s9-t3")
     res = page.evaluate("""ids => ids.map(id => { const h = document.querySelector('#' + id + ' h3'),
-        lh = parseFloat(getComputedStyle(h).lineHeight), node = h.firstChild, txt = node.textContent;
-      const split = [...txt.matchAll(/\\S+/g)].filter(m => /[-\u2010\u2011]/.test(m[0])).filter(m => {
+        lh = parseFloat(getComputedStyle(h).lineHeight), w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), split = [];
+      for (let node; (node = w.nextNode());) for (const m of node.textContent.matchAll(/\\S+/g)) {
+        if (!/[-\u2010\u2011]/.test(m[0])) continue;
         const r = document.createRange(); r.setStart(node, m.index); r.setEnd(node, m.index + m[0].length);
-        return new Set([...r.getClientRects()].map(b => Math.round(b.top))).size > 1; }).map(m => m[0]);
+        if (new Set([...r.getClientRects()].map(b => Math.round(b.top))).size > 1) split.push(m[0]); }
       return { id, lines: Math.round(h.getBoundingClientRect().height / lh), split }; })""", TILES)
     for r in res:
         assert r["lines"] <= 2, f"{r['id']} heading takes {r['lines']} lines"
