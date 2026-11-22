@@ -60,22 +60,27 @@ approval · ✎ = new for v2, needs approval.
 ✓ *Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to
 coordinate through a shared message board*
 - **Layout (world slide):** dated timeline left · world centre · narration right. Key: green dot =
-  agent run. Timeline (one entry per step): Apr–May many parallel training runs · all share one
-  package mirror · some agents cheat (OpenAI: reinforced) · 8 May a blocked agent turns on the
-  mirror · 12 May first note · 13 May a board forms · 26 May internet via the board; an internal
-  team saw it, no escalation.
+  agent run. The timeline builds one entry per step (current in green); un-numbered sub-points sit
+  under an entry. Timeline: 1 Apr–May many training runs in parallel (sub: agents access a shared
+  package mirror · cheating behaviours are reinforced) · 2 8 May a blocked agent turns on the
+  mirror · 3 12 May first note left on the mirror · 4 13 May agents learn to use the package mirror
+  as a message board · 5 26 May the agents hack the package mirror for public internet access
+  (sub: an internal team saw the board; no escalation).
 - **Diagram (opens the incident world, S-032; built in situ):** all inside an "OpenAI servers"
-  box · 0 many runs pop in as dots, no lines · 1 one package mirror appears (key glyph: shared
-  login) and lines draw from every run to it · 2 pop-over (world blurs), *possible task*: some
-  agents read the hidden answer instead of doing the task → reward (reinforced, per OpenAI) · 3
-  beside it, *impossible by accident*: Drive links, no internet; the agent quivers, attempts curve
-  at the wall and fail ("persistent agents failed repeatedly while attempting legitimate
-  approaches, before trying work-arounds") · 4 pop-over dissolves; the 12 May agent and its note
-  sit outside the ring · 5 notes fan out around the mirror (the board) · 6 swarm shifts left,
-  board right; an arrow leaves the OpenAI box for a "Public Internet" box. No dates on the diagram.
+  box · 0 many runs pop in as dots, no lines · 1 one package mirror appears (key glyph, bottom
+  right) and lines draw from every run to it · 2 pop-over (world blurs), *possible task*: some
+  agents read the hidden answer instead of doing the task → reward · 3 beside it, *impossible by
+  accident*: Drive links, no internet; the agent quivers, attempts curve at the wall and fail
+  ("persistent agents failed repeatedly while attempting legitimate approaches, before trying
+  work-arounds") · 4 pop-over dissolves; the 12 May agent's note flies from it onto the mirror ·
+  5 more notes fly in from other runs (the board) · 6 swarm shifts left, board right; an arrow
+  leaves the OpenAI box for a "Public Internet" box · 7 **Insight** (all else blurs): "Cheating
+  and coordination through the board helped agents finish tasks and were reinforced during
+  training. Agents learnt to use these strategies." No dates on the diagram.
 - **Narr ⚠ thin** (the TR quotes one training-phase agent message; May is outside METR's scope):
   - steps 1–3: none (the pop-over carries the point; the task-instruction tile is on s-2).
   - step 4 ★: Agent · training run, 12 May: "Agent seeks [filename]; upload if found!" (Q 2.3 #1)
+  - step 5: fact tile (no quote marks): other agents' messages from training were not made public.
   - step 6: OpenAI (TR §VIII.A, neutral label): "These forms of 'cheating' rose over the training
     runs that contributed to the Hugging Face incident."
 - Notes: "reinforced in training" is **OpenAI's finding**; METR/Redwood were scoped out of

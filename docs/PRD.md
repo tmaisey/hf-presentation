@@ -130,7 +130,9 @@ Research is complete; detail and sources in the
    (not "the eval cluster"; not the HF agents' model).
 
 The claim that the behaviour was **reinforced in training** is OpenAI's alone: METR/Redwood were
-scoped out of training, so the deck attributes it.
+scoped out of training. Slide copy may state it plainly (presenter, 22 Nov); the reader notes
+attribute it to OpenAI and say no outside party verified it. Training-board messages beyond the
+12 May note were never published: the deck says so rather than borrowing eval-phase messages.
 
 ## Workstreams
 

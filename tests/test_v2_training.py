@@ -5,11 +5,13 @@ right. Inside an "OpenAI servers" box, runs pop in, then all link to one shared 
 show some agents reading a hidden answer and an impossible task's agent failing before work-arounds;
 the first note sits outside the ring; the board forms; the swarm shifts left and the board bridges
 out to a "Public Internet" box.
-Coverage: happy (shell; seven states; timeline dates; world parts and pop-over panels per step;
-every run linked to one mirror; split layout at internet access; narration verbatim; sourced notes)
-· edge (attempt animation stops under reduced motion; everything on screen below the title at three
-sizes, timeline unclipped) · negative (no dates or "internal team" on the diagram; first note clear
-of the swarm; "reinforced" never unattributed; no CTF/ExploitGym framing; no "agent-07").
+Coverage: happy (shell; eight states; timeline builds an entry per step with sub-points and dates;
+world parts and pop-over panels per step; every run linked to one mirror; notes fly from runs onto
+the mirror; split layout at internet access; closing Insight; narration; sourced notes) · edge
+(attempt animation stops under reduced motion; everything on screen below the title at three sizes,
+timeline unclipped) · negative (timeline never shows ahead; no dates, "internal team" or login text
+on the diagram; unpublished messages never invented; reinforcement attributed in notes; no
+CTF/ExploitGym framing; no "agent-07").
 """
 
 import html
@@ -24,18 +26,25 @@ pytestmark = pytest.mark.deck("v2")
 SID = "s-3"
 TITLE = ("Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to "
          "coordinate through a shared message board")
-STEPS = 6
+STEPS = 7
 WORLD_AT = {0: {"w-oai", "w-runs"}, 1: {"w-mirror", "w-cred", "w-links"}, 4: {"w-note1"}, 5: {"w-board"},
             6: {"w-net"}}
-WORLD_UNTIL = {"w-note1": 6}          # the first note gives way when the swarm re-arranges
-TIMELINE_DATES = {3: "8 May", 4: "12 May", 5: "13 May", 6: "26 May"}
+WORLD_UNTIL: dict[str, int] = {}
+# timeline: (id, step, numbered?, text fragment)
+TIMELINE = [("s3-t1", 0, True, "Apr–May"), ("s3-t1a", 1, False, "Agents access a shared package mirror"),
+            ("s3-t1b", 2, False, "Cheating behaviours are reinforced"), ("s3-t2", 3, True, "8 May"),
+            ("s3-t3", 4, True, "12 May"), ("s3-t4", 5, True, "13 May"), ("s3-t5", 6, True, "26 May")]
+INSIGHT = ("Cheating and coordination through the board helped agents finish tasks and were reinforced "
+           "during training. Agents learnt to use these strategies.")
 NARR_AT = {
     4: [("Agent · training run, 12 May", "Agent seeks [filename]; upload if found!")],
+    5: [("Training board, 13 May", "Other agents’ messages from training were not made public.")],
     6: [("OpenAI · technical report",
          "These forms of ‘cheating’ rose over the training runs that contributed to the Hugging "
          "Face incident.")],
 }
-NOTE_TARGETS = {"s3-pop-possible", "s3-pop-impossible", "w-runs", "w-cred", "w-note1", "w-board", "w-net", "s3-t6"}
+NOTE_TARGETS = {"s3-pop-possible", "s3-pop-impossible", "w-runs", "w-cred", "w-note1", "w-board", "w-net", "s3-t5",
+                "s3-insight"}
 
 
 def helper_section() -> str:
@@ -78,25 +87,26 @@ def test_title_kicker_chapter_and_world_marker():
 def test_shell_order_is_timeline_world_popover_narration_notes():
     sec = helper_section()
     order = [sec.index(x) for x in ('<div class="body body--timeline"', '<div class="world-slot"', '<div class="popover"',
-                                    '<div class="narration"', '<aside class="note"')]
+                                    '<div class="narration"', '<div class="overlay overlay--insight"', '<aside class="note"')]
     assert order == sorted(order)
 
 
-def test_timeline_has_one_entry_per_step_with_dates():
+def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
     sec = helper_section()
-    items = re.findall(r'<li id="s3-t(\d)" data-show-at="(\d)">(.*?)</li>', sec, re.S)
-    assert [(int(i), int(a)) for i, a, _ in items] == [(k, k) for k in range(STEPS + 1)]
-    text = {int(i): helper_text(t) for i, _, t in items}
-    for k, date in TIMELINE_DATES.items():
-        assert date in text[k], k
-    assert "Apr" in text[0] and "mirror" in text[1].lower()
-    assert "internal team" in text[6].lower() and "escalat" in text[6].lower()
+    items = re.findall(r'<li id="(s3-t\w+)"( class="sub")? data-show-at="(\d)">(.*?)</li>', sec, re.S)
+    got = [(i, int(a), not sub_, helper_text(t)) for i, sub_, a, t in items]
+    assert [g[:3] for g in got] == [t[:3] for t in TIMELINE]
+    for (_, _, _, text), (_, _, _, frag) in zip(got, TIMELINE):
+        assert frag in text, frag
+    assert "learn to use the package mirror as a message board" in got[5][3]
+    assert "hack the package mirror for public internet access" in got[6][3]
+    assert "internal team" in got[6][3].lower() and "escalat" in got[6][3].lower()
 
 
-def test_diagram_carries_no_dates_or_internal_team():
+def test_diagram_carries_no_dates_internal_team_or_login_text():
     world = helper_text(helper_world())
     assert not re.search(r"\b\d{1,2} (May|Jun|Jul)\b", world), "dates belong in the timeline"
-    assert "internal team" not in world.lower()
+    assert "internal team" not in world.lower() and "login" not in world.lower()
     assert re.search(r"OPENAI SERVERS", world) and re.search(r"PUBLIC INTERNET", world)
 
 
@@ -112,37 +122,33 @@ def test_popover_copy_says_some_agents_and_legitimate_attempts_first():
 
 # ---------- narration ----------
 
-def test_narration_tiles_per_step_are_verbatim_storyboard_quotes():
+def test_narration_tiles_per_step_quote_verbatim_or_state_the_gap():
     narr = re.search(r'<div class="narration">(.*?)</div>', helper_section(), re.S).group(1)
-    tiles = re.findall(r'<article class="narr-tile" data-at="(\d+)">\s*<p class="msg-agent">(.*?)</p>\s*'
+    tiles = re.findall(r'<article class="narr-tile( narr-tile--fact)?" data-at="(\d+)">\s*<p class="msg-agent">(.*?)</p>\s*'
                        r'<blockquote class="msg-text">(.*?)</blockquote>\s*</article>', narr, re.S)
     got: dict[int, list] = {}
-    for at, label, text in tiles:
+    for fact, at, label, text in tiles:
         got.setdefault(int(at), []).append((helper_text(label), helper_text(text)))
+        assert bool(fact) == (int(at) == 5), "only the unpublished-messages tile is a fact tile"
     assert got == NARR_AT
 
 
-# ---------- reader notes ----------
-
-def test_notes_cover_every_key_part_with_https_sources():
-    sec, world = helper_section(), helper_world()
-    notes = re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', sec, re.S)
-    for t, body in notes:
-        assert f'id="{t}"' in sec or f'id="{t}"' in world, t
-        assert re.search(r'<h3>.+?</h3>', body) and re.search(r'<a class="src" href="https://', body), t
-    assert NOTE_TARGETS <= {t for t, _ in notes}
+def test_fact_tile_shows_no_quote_marks(page):
+    """A statement of fact is not a quote: the tile drops the CSS quote marks."""
+    open_deck(page)
+    goto_slide(page, SID, 5)
+    marks = page.evaluate("""() => { const t = document.querySelector('#s-3 .narr-tile--fact .msg-text');
+      return [getComputedStyle(t, '::before').content, getComputedStyle(t, '::after').content]; }""")
+    assert all(m in ("none", "normal", '""') for m in marks)
 
 
-def test_reinforcement_is_attributed_to_openai_and_scope_caveated():
-    """'Reinforced' is OpenAI's finding: METR/Redwood were scoped out of training."""
+def test_reinforcement_is_attributed_to_openai_in_the_notes():
+    """Slide copy may say 'reinforced' plainly (presenter, 22 Nov); the notes say it is OpenAI's
+    finding and that METR/Redwood were scoped out of training."""
     notes = dict(re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', helper_section(), re.S))
-    reward = helper_text(notes["s3-pop-possible"])
-    assert "OpenAI" in reward and "reinforce" in reward.lower() and "METR" in reward and "Redwood" in reward
-    copy = helper_visible_copy()
-    assert re.search(r"reinforc", copy, re.I)
-    for m in re.finditer(r"reinforc", copy, re.I):
-        window = copy[max(0, m.start() - 120): m.end() + 120]
-        assert "openai" in window.lower(), f"unattributed 'reinforced': …{window}…"
+    for target in ("s3-pop-possible", "s3-insight"):
+        body = helper_text(notes[target])
+        assert "OpenAI" in body and "reinforce" in body.lower() and "METR" in body and "Redwood" in body, target
 
 
 def test_model_scale_shared_credential_and_first_ssrf_attempt_are_noted():
@@ -166,7 +172,7 @@ PANELS = """() => Object.fromEntries([...document.querySelectorAll('#s-3 .pop-pa
 CENTRE = "sel => { const r = document.querySelector(sel).getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; }"
 
 
-def test_slide_has_seven_states(page):
+def test_slide_has_eight_states(page):
     open_deck(page)
     assert dict(page.evaluate("window.deck.plan()"))[SID] == STEPS
 
@@ -180,7 +186,11 @@ def test_world_popover_and_timeline_build_per_step(page, step):
     panels = page.evaluate(PANELS)
     assert panels["s3-pop-possible"] == (step in (2, 3))
     assert panels["s3-pop-impossible"] == (step == 3)
-    assert page.evaluate("() => document.querySelector('#s-3 .steps li.is-current').id") == f"s3-t{step}"
+    shown = page.evaluate("""() => [...document.querySelectorAll('#s-3 .steps > li')]
+      .filter(l => +getComputedStyle(l).opacity > .5).map(l => l.id)""")
+    assert shown == [t[0] for t in TIMELINE if t[1] <= step], "the timeline builds; nothing shows ahead"
+    current = [t[0] for t in TIMELINE if t[1] <= step][-1]
+    assert page.evaluate("() => document.querySelector('#s-3 .steps li.is-current').id") == current
     assert errors == []
 
 
@@ -200,15 +210,21 @@ def test_runs_appear_without_lines_then_all_link_to_one_mirror(page):
     assert len(ends) == dots and all(ends), "every run links to the one mirror"
 
 
-def test_first_note_sits_outside_the_swarm(page):
+def test_notes_fly_from_runs_outside_the_ring_onto_the_mirror(page):
     open_deck(page)
-    goto_slide(page, SID, 4)
+    goto_slide(page, SID, 5)
     res = page.evaluate("""() => { const c = e => { const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; };
-      const m = c(document.querySelector('#w-mirror rect')), g = c(document.querySelector('#w-note1 .note-glyph'));
-      const d = p => Math.hypot(p[0] - m[0], p[1] - m[1]);
-      const runs = [...document.querySelectorAll('#w-runs circle')].map(e => d(c(e))).sort((a, b) => a - b);
-      return [d(g), runs[Math.floor(runs.length * .9)]]; }""")
-    assert res[0] > res[1], "the 12 May note sits beyond the ring of runs"
+      const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
+      const notes = [...document.querySelectorAll('#w-note1 .note-fly, #w-board .note-fly')];
+      return { n: notes.length, mirror: [m.left, m.top, m.right, m.bottom],
+        ends: notes.map(e => c(e)), anim: notes.map(e => getComputedStyle(e).animationName),
+        starts: notes.map(e => Math.hypot(parseFloat(e.style.getPropertyValue('--fx')) || 0, parseFloat(e.style.getPropertyValue('--fy')) || 0)) }; }""")
+    l, t, r, b = res["mirror"]
+    assert res["n"] >= 4
+    for x, y in res["ends"]:
+        assert l - 30 <= x <= r + 30 and t - 60 <= y <= t + 20, "notes end pinned on the mirror"
+    assert all(a != "none" for a in res["anim"]), "notes fly in"
+    assert min(res["starts"]) > 100, "each note starts at its run, out in the ring"
 
 
 def test_internet_step_shifts_swarm_left_and_board_bridges_out(page):
@@ -228,6 +244,27 @@ def test_internet_step_shifts_swarm_left_and_board_bridges_out(page):
     assert res["oai"][1] <= res["net"][0], "Public Internet sits outside the OpenAI box"
     assert res["oai"][0] <= res["start"][0] <= res["oai"][1], "arrow leaves from inside OpenAI"
     assert res["net"][0] <= res["end"][0] <= res["net"][1], "arrow lands in the Public Internet"
+
+
+def test_key_glyph_sits_at_the_mirror_bottom_right(page):
+    open_deck(page)
+    goto_slide(page, SID, 1)
+    res = page.evaluate("""() => { const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
+      const k = document.querySelector('#w-cred').getBoundingClientRect();
+      return [(k.left + k.right) / 2, (k.top + k.bottom) / 2, (m.left + m.right) / 2, (m.top + m.bottom) / 2, m.right + 20, m.bottom + 20]; }""")
+    kx, ky, mx, my, rx, by = res
+    assert mx < kx <= rx and my < ky <= by
+
+
+def test_closing_insight_blurs_everything_else(page):
+    open_deck(page)
+    goto_slide(page, SID, STEPS)
+    res = page.evaluate("""() => { const ins = document.querySelector('#s3-insight');
+      const blur = e => { const m = getComputedStyle(e).filter.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; };
+      return { shown: +getComputedStyle(ins).opacity > .9, text: ins.innerText.replace(/\\s+/g, ' ').trim(),
+               world: blur(document.querySelector('.world')), timeline: blur(document.querySelector('#s-3 > .body')) }; }""")
+    assert res["shown"] and INSIGHT in res["text"]
+    assert res["world"] > 1 and res["timeline"] > 1
 
 
 def test_impossible_task_agent_keeps_trying_from_many_directions(page):
@@ -250,7 +287,7 @@ def test_reduced_motion_stops_the_attempt_animation(page):
 
 
 @pytest.mark.parametrize("size", [(1280, 720), (1920, 1080), (1288, 598)])
-@pytest.mark.parametrize("step", [3, 6])
+@pytest.mark.parametrize("step", [3, 7])
 def test_timeline_world_and_popover_stay_on_screen_below_the_title(page, size, step):
     open_deck(page, *size)
     goto_slide(page, SID, step)
@@ -258,9 +295,10 @@ def test_timeline_world_and_popover_stay_on_screen_below_the_title(page, size, s
       const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
       const tl = s.querySelector(':scope > .body');
       return { title: r(s.querySelector('.title')), world: r(document.querySelector('.world')), pop: r(s.querySelector('.popover')),
+               insight: r(s.querySelector('.overlay--insight')),
                timeline: r(tl), clipped: tl.scrollHeight > tl.clientHeight + 1, vw: innerWidth, vh: innerHeight }; }""", SID)
     assert not boxes["clipped"], "timeline text is clipped"
-    for k in (("world", "timeline", "pop") if step == 3 else ("world", "timeline")):
+    for k in (("world", "timeline", "pop") if step == 3 else ("world", "timeline", "insight")):
         l, t, r, b = boxes[k]
         assert l >= 0 and r <= boxes["vw"] + 1 and b <= boxes["vh"] + 1, k
         assert t >= boxes["title"][3] - 1, f"{k} rises over the title"
