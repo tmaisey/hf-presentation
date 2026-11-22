@@ -386,6 +386,8 @@
   .steps li.sub { counter-increment: none; padding-top: .15em; padding-bottom: .15em; }
   .steps li.sub::before { content: ""; width: .6em; height: 3px; border: 0; border-radius: 2px; left: .45em; top: .8em; background: var(--ink-3); }
   .tl-aside { display: block; margin-top: .2em; font-size: .92em; color: var(--ink-2); }
+  /* S-033 day tag: engine-derived day count beside a timeline date (8 May = day 0); quieter than the date (--ink-2: --ink-3 is for labels >= 24px) */
+  .tl-day { margin-left: .45em; font-size: .78em; font-weight: 400; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: .01em; }
   .narr-tile--fact .msg-text::before, .narr-tile--fact .msg-text::after { content: none; }
   /* an Insight on a world slide spans world + narration */
   .slide[data-world] > .overlay { grid-column: world-start / narr-end; grid-row: 3; }
@@ -1791,6 +1793,18 @@
     swarm: null,
   }));
   let cur = 0, step = 0, lastEngineScroll = 0;
+
+  // ---------- timeline day tags (S-033): "+49 d" from 8 May 2026 = day 0, derived from each entry's date ----------
+  // a single date ("26 Jun") or a range ("5–6 Jul", counted from its first day); anything else ("Apr–May") gets none
+  {
+    const MON = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' '), DAY0 = Date.UTC(2026, 4, 8);
+    $$('section.slide[data-world] .body--timeline ol.steps > li > strong:first-child').forEach(d => {
+      const m = d.textContent.trim().match(/^(\d{1,2})(?:[–-]\d{1,2})?\s+([A-Z][a-z]{2})$/), mi = m ? MON.indexOf(m[2]) : -1;
+      if (mi < 0) return;
+      const n = Math.round((Date.UTC(2026, mi, +m[1]) - DAY0) / 864e5);
+      d.after(el('span', 'tl-day', n === 0 ? 'day 0' : (n > 0 ? '+' : '−') + Math.abs(n) + ' d'));
+    });
+  }
 
   // ---------- title bar: agenda derived from slides' data-chapter (DESIGN §3, P5) ----------
   const bar = $('.bar'), barTitle = $('.bar-title'), nav = $('.nav'), navCurrent = $('.nav-current');
