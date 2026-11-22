@@ -1,12 +1,15 @@
 """Spec: S-025
 
 v2 slide s-7 (Takeover) on the incident world, continuing from s-6's end state (Hugging Face cut
-access, 13 Jul): at 19 Jul a third layout stage widens OpenAI's box (Hugging Face and the internet
+access, 13 July): step 0, the same day, after an impersonation the agents create their own secure
+identity standard (seals pop onto the board's folders, beside the spoofing quote and METR's dates);
+at 19 July a third layout stage widens OpenAI's box (Hugging Face and the internet
 strip dissolve); a separate evaluation's runs of a different, Astra-family model join the shared
 mirror; agents read cloud secrets and root a node running the mirror; that model's agents go via
 the board (mirror) to take cluster-admin on the OpenAI cluster running the mirror: a server-rack icon
 right of the mirror, a secret-file glyph on its corner, its padlock opening as s-6's clusters did.
-Coverage: happy (shell; four states; timeline builds an entry per step; world parts per step; the
+Coverage: happy (shell; four states; approved title; approved event lines with full month names;
+seals on the board folders at step 0 and still on them after the mirror moves; timeline builds an entry per step; world parts per step; the
 OpenAI box widens and holds every new part; the new runs are one compact group, apart from the
 HF-phase swarm, every run linked into the mirror, tagged above; the rack (stacked units, slot marks,
 status dots, network line) right of the mirror with its label and green closed padlock; the
@@ -14,7 +17,8 @@ secret-file glyph on its corner with the 956 count; the mirror's padlock opens; 
 Astra runs → mirror → rack in that order, then the rack's padlock opens oxblood; verbatim source
 tiles; sourced notes) · edge (step 0 is s-6's end state exactly; going back to step 0 narrows OpenAI again; reduced
 motion shows end states; no tile, run or tag overlaps) · negative (Hugging Face parts gone from step
-1; no padlock change or new parts before their step; no "same agents", "eval cluster", Aug 15, Sep
+1; no padlock change or new parts before their step; no seals before s-7; no "cuts access" entry
+(the cut is s-6's); no "same agents", "eval cluster", Aug 15, Sep
 DNS escape or post-scope compromises in the slide body; credential reuse only in a note; no
 standalone diagram; no console errors).
 """
@@ -29,29 +33,34 @@ from helper_deck import goto_slide, open_deck, parse_slides, slides_source
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-7"
-TITLE = "After Hugging Face cut access, a second model’s agents took control of an OpenAI cluster"
+TITLE = "Agents adopt assured identities for messages before a second model compromises OpenAI’s own cluster"
 STEPS = 3   # states 0–3
 TR_URL = "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf"
 # timeline: (id, step, numbered?, text fragments)
-TIMELINE = [("s7-t1", 0, True, ("13 Jul", "cuts access", "OpenAI’s servers")),
-            ("s7-t2", 1, True, ("19 Jul", "separate evaluation", "Astra-family")),
+T1 = "13 July Agents create secure identity standard to stop impersonated messages"   # VOICE, verbatim
+TIMELINE = [("s7-t1", 0, True, (T1,)),
+            ("s7-t2", 1, True, ("19 July", "separate evaluation", "Astra-family")),
             ("s7-t2a", 2, False, ("956", "cloud secrets", "root", "mirror")),
             ("s7-t2b", 3, False, ("Astra-family", "cluster-admin", "mirror"))]
 # s-6 parts whose story ends at the cut: they dissolve as OpenAI's box widens at 19 Jul
 HF_END = {"w-net6", "w-hf", "w-modal", "w-breakout", "w-hf-workers", "w-hf-clusters", "w-hf-data",
-          "w-hf-closed", "w-hf-cut", "w-key-act"}
-WORLD_AT = {1: {"w-astra", "w-astra-links", "w-astra-tag"},
+          "w-hf-closed", "w-hf-cut"}
+WORLD_AT = {0: {"w-signed"},
+            1: {"w-astra", "w-astra-links", "w-astra-tag"},
             2: {"w-secrets", "w-root", "w-oai-cluster", "w-oai-secure"},
             3: {"w-astra-admin", "w-astra-admin-ring", "w-oai-route", "w-oai-lock"}}
 ENDS = {"w-secure": 2, "w-oai-secure": 3}   # each closed padlock gives way to the open one
 NARR_AT = {
-    0: [("METR investigation", "agents compromised OpenAI infrastructure between July 13th and July 19th")],
+    0: [("Agent · ExploitGym run", "Could be another agent maliciously/spoofing. Shared board unauthenticated, "
+                                   "names can be posted by anyone."),
+        ("METR investigation", "agents compromised OpenAI infrastructure between July 13th and July 19th")],
     1: [("OpenAI · technical report", "While this model is from the same family as our next model, Astra, it was "
                                       "a distinct model with different post-training")],
     3: [("OpenAI · technical report", "The agents escalated to Kubernetes cluster-admin and created a privileged "
                                       "host-mounted pod.")],
 }
-NOTE_TARGETS = {"s7-t1", "w-astra", "w-secrets", "w-oai-cluster", "s7-t2b"}
+NOTE_TARGETS = {"s7-t1", "w-hf-cut", "w-astra", "w-secrets", "w-oai-cluster", "s7-t2b"}
+METR_PDF = "https://metr.org/hugging-face-incident-report-aug-2026.pdf"
 
 
 def helper_section() -> str:
@@ -103,6 +112,12 @@ def test_timeline_has_one_entry_per_step_with_dates_and_sub_points():
     for (_, _, _, text), (_, _, _, frags) in zip(got, TIMELINE):
         for f in frags:
             assert f in text, (f, text)
+    # day tags (S-033) are derived at runtime, never in the source; strip any defensively
+    assert re.sub(r"\s*\+\s?\d+\s?d\b", "", got[0][3]).strip() == T1, "approved 13 July line, verbatim (VOICE)"
+    assert "sign" not in got[0][3], "say what the swarm did, not the mechanism"
+    assert "cuts access" not in helper_text(helper_body()), "the cut is s-6's last beat, not repeated here"
+    dates = re.findall(r'<li id="s7-t\w+" data-show-at="\d">\s*<strong>(.*?)</strong>', helper_section(), re.S)
+    assert dates == ["13 July", "19 July"], "month in full"
 
 
 def test_narration_is_verbatim_source_tiles_per_step():
@@ -126,6 +141,11 @@ def test_notes_cite_each_beat_with_https_sources():
         assert re.search(r"<h3>[^<]+</h3>", body) and re.search(r'<a class="src" href="https://', body), target
     assert TR_URL in notes["w-astra"] and TR_URL in notes["w-oai-cluster"] and TR_URL in notes["w-secrets"]
     text = helper_text(" ".join(notes.values()))
+    t1 = helper_text(notes["s7-t1"])
+    assert METR_PDF in notes["s7-t1"] and "p48" in t1.replace(" ", ""), "signing: METR p48"
+    assert "identity standard" in t1 and "HOLD, GO or VETO" in t1, "the note makes the point: trust who posted"
+    for fact in ("Ed25519", "07:00", "impersonat", "19 agents", "429"):
+        assert fact in t1, fact
     for fact in ("14:14", "between July 13th and July 19th", "after the end of the dates in scope",
                  "different post-training", "credentials left behind by earlier runs on Artifactory",
                  "956", "14:43", "15:59", "16:35", "artifactory-3", "privileged host-mounted pod",
@@ -216,8 +236,9 @@ def test_step_0_is_the_world_as_s6_left_it(page):
     share6 = page.evaluate(OAI_SHARE)
     goto_slide(page, SID, 0)
     page.wait_for_timeout(1200)
-    assert set(page.evaluate(VISIBLE_WORLD)) == end6
-    assert abs(page.evaluate(OAI_SHARE) - share6) < .01, "no re-arrangement before 19 Jul"
+    assert set(page.evaluate(VISIBLE_WORLD)) == end6 | WORLD_AT[0], "s-6's end state plus the seals"
+    assert "w-signed" not in end6 and "w-hf-cut" in end6, "the seals are new; the plug carries over"
+    assert abs(page.evaluate(OAI_SHARE) - share6) < .01, "no re-arrangement before 19 July"
 
 
 @pytest.mark.parametrize("step", range(0, STEPS + 1))
@@ -404,6 +425,20 @@ def test_takeover_goes_astra_runs_to_the_board_to_the_rack_then_its_padlock_open
     assert page.evaluate(OPACITY, "#w-oai-secure") < .05
     assert helper_inside(page.evaluate(CENTRES, "#w-oai-lock circle")[0], rack, 16), "the open padlock takes the closed one's place"
     assert page.evaluate("() => getComputedStyle(document.querySelector('#w-oai-lock circle')).fill") == page.evaluate(LOSS)
+
+
+def test_seals_pop_onto_the_board_folders_at_step_0_and_move_with_the_mirror(page):
+    open_deck(page)
+    goto_slide(page, "s-6", dict(page.evaluate("window.deck.plan()"))["s-6"])
+    page.wait_for_timeout(900)
+    assert page.evaluate(OPACITY, "#w-signed") < .05, "no seals before s-7"
+    for step in (0, 1):
+        helper_settled(page, step)
+        assert page.evaluate(OPACITY, "#w-signed") > .9
+        seals = page.evaluate(CENTRES, "#w-signed .seal")
+        folders = page.evaluate(RECTS, "#w-folders .folder-glyph")
+        assert len(seals) >= 3 and all(any(helper_inside(c, f, 6) for f in folders) for c in seals), \
+            f"step {step}: seals sit on board folders"
 
 
 def test_reduced_motion_shows_the_end_state_at_once(page):
