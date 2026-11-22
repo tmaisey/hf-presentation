@@ -822,6 +822,9 @@
   /* layered body: panels share one cell and swap by step instead of stacking */
   .body--layers { height: 100%; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); align-items: center; }
   .body--layers > * { grid-area: 1 / 1; min-width: 0; }
+  /* stepped body: a slide may carry several .body siblings in the one body cell, each shown for its phase
+     with data-show-at / data-hide-at (s-10: tile row → controls and prompts) */
+  .slide.is-active > .body:is([data-show-at], [data-hide-at]):not(.is-visible) { opacity: 0; transform: translateY(12px); pointer-events: none; }
   /* citation links in any body: underlined in the surrounding text colour (DESIGN §8), as in tiles */
   .body .cite a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
   /* a quote under a table (s-10 pace panel) keeps clear of the table's last rule */
@@ -1696,39 +1699,68 @@
 
 <section class="slide" id="s-10" data-chapter="Takeaways">
   <p class="kicker">10 · Takeaways</p>
-  <h2 class="title" data-hide-at="3">Capability, compute and spending are still accelerating despite pauses and pledges</h2>
-  <h2 class="title" data-show-at="3" data-hide-at="4">Each failure in this incident maps to a control that everyday AI systems can apply in proportion to risk</h2>
-  <h2 class="title" data-show-at="4">Detection, training and independent oversight remain open questions after this incident</h2>
+  <h2 class="title" data-hide-at="4">Capability keeps accelerating as industry calls for restraint and public concern grows</h2>
+  <h2 class="title" data-show-at="4" data-hide-at="5">Practical controls keep AI agents within the bounds their tasks need</h2>
+  <h2 class="title" data-show-at="5">Detection, training and independent oversight remain open questions after this incident</h2>
+  <div class="body body--tiles" data-hide-at="4">
+    <article class="text-tile" id="s10-t1" data-show-at="1">
+      <h3>Capability, compute and spending are still accelerating</h3>
+      <p><span id="s10-metr">The length of task AI agents can complete has grown about 10× every two years, faster since 2024.</span> <span id="s10-compute">Training compute grows about 5× a year, and 2026 data-centre spending is around $700B.</span> <span id="s10-sol">METR could not reliably measure GPT-5.6 Sol: its estimate ranged from 11 to over 270 hours.</span></p>
+      <blockquote id="s10-coxon">One, it’s obvious that things are speeding up, and two, they’re not under control.</blockquote>
+      <p class="cite">Jacob Coxon, former Anthropic researcher · <a href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME</a> · <a href="https://metr.org/time-horizons/">METR</a> · <a href="https://epoch.ai/trends">Epoch AI</a></p>
+    </article>
+    <article class="text-tile" id="s10-t2" data-show-at="2">
+      <h3>Incidents prompted industry calls for pacing and disclosure</h3>
+      <p><span id="s10-pause">OpenAI paused its largest training runs twice and said its disclosure practices must expand.</span> <span id="s10-pace">Anthropic’s CEO called for pacing the frontier, endorsed by OpenAI’s CEO, and over 1,300 lab staff signed a pacing letter.</span> <span id="s10-calls">Hugging Face called for ‘radical transparency’; US senators and California’s Attorney General are pressing OpenAI for details.</span></p>
+      <blockquote id="s10-q2">Our misalignment disclosure practices need to expand for this new phase of model capabilities.</blockquote>
+      <p class="cite">OpenAI, via <a href="https://www.thestar.com.my/tech/tech-news/2026/09/05/openai-acknowledges-039wiki-incident039-and-need-for-more-transparency-around-unintended-ai-behavior">Reuters</a> · <a href="https://darioamodei.com/post/we-must-pace-the-frontier">Amodei</a> · <a href="https://pacingthefrontier.com">Pacing letter</a> · <a href="https://www.pbs.org/newshour/politics/senators-from-both-parties-question-openai-on-breach-of-ai-startup-hugging-face">PBS/AP</a></p>
+    </article>
+    <article class="text-tile" id="s10-t3" data-show-at="3">
+      <h3>Public AI concern is rising, though safety remains secondary</h3>
+      <p><span id="s10-concern">Most Americans are concerned about AI, and 73% worry future AI could threaten human survival.</span> But politics and markets focus elsewhere: <span id="s10-midterms">midterm voters weighed jobs, power bills and data centres,</span> and <span id="s10-markets">AI-led market drops were about spending and growth, not safety.</span></p>
+      <p class="cite">Quinnipiac, via <a href="https://techpolicy.press/multiple-polls-find-most-americans-think-ai-is-moving-too-fast">Tech Policy Press</a> · NBC exit poll, via <a href="https://www.datacenterdynamics.com/en/news/nbc-exit-poll-56-say-ai-data-centers-were-a-crucial-or-major-factor-in-congressional-vote-decision">DCD</a> · <a href="https://www.boston.com/news/national-news/2026/11/05/a-brutal-sell-off-for-ai-stocks-sends-wall-street-reeling-and-the-sp-500-tumbles-4-4/">AP</a></p>
+    </article>
+  </div>
   <div class="body body--layers">
-    <div data-show-at="1" data-hide-at="3">
-    <table class="compare">
-      <tr><th>Still accelerating</th><th>Pauses, pledges and uncertainty</th></tr>
-      <tr><td id="s10-metr">Task length AI agents can complete grew ~10× every two years since 2019, faster since 2024 (METR)</td><td id="s10-pause">OpenAI paused its largest RL runs twice: two weeks in Aug, then ~11 days in Sep–Oct</td></tr>
-      <tr><td id="s10-compute">Frontier training compute grows ~5× a year (Epoch AI)</td><td id="s10-pace">Amodei’s “We Must Pace the Frontier” (12 Sep), endorsed by Altman</td></tr>
-      <tr><td id="s10-capex">~$700B+ hyperscaler capex in 2026, near double 2025 (reported guidance)</td><td id="s10-letter">Over 1,100 frontier-lab employees signed a letter calling for pacing (Jul)</td></tr>
-      <tr><td id="s10-releases">New frontier models from OpenAI, Anthropic and Google shipped in Nov 2026</td><td id="s10-iasr">International AI Safety Report: progress could slow, plateau, continue or accelerate</td></tr>
-    </table>
-    <blockquote id="s10-coxon">One, it’s obvious that things are speeding up, and two, they’re not under control.</blockquote>
-    <p class="cite">Jacob Coxon, former Anthropic researcher · <a href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME</a></p>
-    </div>
-    <div data-show-at="3" data-hide-at="4">
+    <div data-show-at="4" data-hide-at="5">
       <table>
-        <tr><th>Control</th><th>Where it failed in the incident</th></tr>
-        <tr><td id="s10-agency">Least agency and autonomy</td><td>Persistent agents with very large reasoning budgets kept pushing on tasks they could not solve.</td></tr>
-        <tr><td id="s10-authz">Per-agent authentication and authorisation</td><td>One shared credential gave every agent the same access to the package mirror.</td></tr>
-        <tr><td id="s10-sandbox">Sandbox isolation</td><td>Isolated sandboxes shared one writable mirror, which became the message board.</td></tr>
-        <tr><td id="s10-deterministic">Deterministic controls</td><td>An alert linked to the board on 27 June went to on-call judgement, which let the run continue.</td></tr>
-        <tr><td id="s10-network">Network access only when justified</td><td>The mirror’s remote proxying gave agents a route to the internet and a third-party sandbox.</td></tr>
+        <tr><th>Control</th><th>Practical considerations for AI projects</th></tr>
+        <tr><td id="s10-agency">Least agency and autonomy</td><td>While it’s tempting to use the most powerful tools for every use case, give agent systems only the capabilities they need for the task.</td></tr>
+        <tr><td id="s10-authz">Per-agent authentication and authorisation</td><td>Give each agent its own credentials, scoped to its task, so you can trace and revoke access one agent at a time.</td></tr>
+        <tr><td id="s10-sandbox">Sandbox isolation</td><td>Keep agents’ environments apart, including shared storage, so one environment can’t become a channel to others.</td></tr>
+        <tr><td id="s10-deterministic">Deterministic controls and monitoring</td><td>In higher-risk use cases, build in kill-switches and rule-based escalation to a human, so a warning always reaches someone who can stop the agent.</td></tr>
+        <tr><td id="s10-network">Network access only when justified</td><td>Block internet and outside access by default, and open only the routes a task needs.</td></tr>
       </table>
     </div>
-    <ol class="prompts" data-show-at="4">
-      <li class="prompt" id="s10-detect" data-show-at="4">OpenAI’s responders saw the agents’ message board in June, yet OpenAI identified its own agents only four days after Hugging Face disclosed the breach. What would catch a swarm like this in an ordinary enterprise deployment?</li>
-      <li class="prompt" id="s10-train" data-show-at="5">Should labs be allowed to train against a model’s visible reasoning when doing so may teach the model to hide its intent?</li>
-      <li class="prompt" id="s10-investigate" data-show-at="6">Should the next independent investigation be allowed to examine training, which METR and Redwood were scoped out of this time?</li>
+    <ol class="prompts" data-show-at="5">
+      <li class="prompt" id="s10-detect" data-show-at="5">OpenAI’s responders saw the agents’ message board in June, yet OpenAI identified its own agents only four days after Hugging Face disclosed the breach. What would catch a swarm like this in an ordinary enterprise deployment?</li>
+      <li class="prompt" id="s10-train" data-show-at="6">Should labs be allowed to train against a model’s visible reasoning when doing so may teach the model to hide its intent?</li>
+      <li class="prompt" id="s10-investigate" data-show-at="7">Should the next independent investigation be allowed to examine training, which METR and Redwood were scoped out of this time?</li>
     </ol>
   </div>
-  <aside class="overlay overlay--insight" data-at="2">
-    <p>METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate ranged from 11 to over 270 hours depending on how cheating was scored.</p>
+  <aside class="note" data-for="#s10-t1">
+    <h3>Releases resumed, and the outlook is uncertain</h3>
+    <p>Release trackers list Anthropic’s Claude Fable 5.2 and Mythos 5.2 (9 Nov), Google’s Gemini 4 Carbon (paid API from 10 Nov) and OpenAI’s GPT-6.2 Astra (17 Nov); the trackers disagree on some dates, and these have not been checked against vendor release notes. The International AI Safety Report 2026 calls capabilities “jagged” and says future progress could slow or plateau.</p>
+    <a class="src" href="https://www.demandsphere.com/research/demandsphere-radar/ai-frontier-model-tracker/releases/">DemandSphere release tracker</a>
+    <a class="src" href="https://benchlm.ai/frontier-ai-models">BenchLM</a>
+    <a class="src" href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026">International AI Safety Report 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-metr">
+    <h3>A trend METR stopped updating</h3>
+    <p>METR measured the frontier time horizon doubling about every 7 months over 2019–2025, and every ~89 days for models since 2024; ~10× per two years is our conservative arithmetic. The page has not been updated since 8 Sep 2026. Its last point, about 17.4 hours, sits above the 16 hours METR calls reliable.</p>
+    <a class="src" href="https://metr.org/time-horizons/">METR, time horizons</a>
+    <a class="src" href="https://metr.org/blog/2026-1-29-time-horizon-1-1">METR, Time Horizon 1.1</a>
+  </aside>
+  <aside class="note" data-for="#s10-compute">
+    <h3>Compute and spending keep compounding</h3>
+    <p>Frontier training compute has grown about 5× a year since 2020, doubling roughly every 5.2 months; public estimates for closed models after July 2025 are missing, so 2026 run sizes are uncertain. Early-2026 guidance from the four largest hyperscalers totalled about $700B, near double 2025, and TrendForce later put it towards $830B. These are reported guidance figures, and no post-incident cut was found.</p>
+    <a class="src" href="https://epoch.ai/trends">Epoch AI, trends</a>
+    <a class="src" href="https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html">Yahoo Finance</a>
+  </aside>
+  <aside class="note" data-for="#s10-sol">
+    <h3>Cheating broke the measurement</h3>
+    <p>With cheating scored as failure, METR’s GPT-5.6 Sol estimate was about 11.3 hours; it “jumps beyond 270hrs” if cheating counts as success. METR: “we do not consider any of these numbers to represent a robust measurement of GPT-5.6 Sol’s capabilities”.</p>
+    <a class="src" href="https://metr.org/blog/2026-06-26-gpt-5-6-sol/">METR, GPT-5.6 Sol evaluation</a>
   </aside>
   <aside class="note" data-for="#s10-coxon">
     <h3>An insider on the pace</h3>
@@ -1736,77 +1768,79 @@
     <a class="src" href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME, 9 Sep 2026</a>
     <a class="src" href="https://the-decoder.com/anthropic-can-already-retrain-mythos-with-a-fraction-of-the-compute-originally-needed-says-former-researcher-coxon/">The Decoder, 14 Nov 2026</a>
   </aside>
-  <aside class="note" data-for="#s10-metr">
-    <h3>A trend METR stopped updating</h3>
-    <p>METR measured the frontier time horizon doubling about every 7 months over 2019–2025, and every ~89 days for models since 2024; ~10× per two years is our conservative arithmetic. The page has not been updated since 8 Sep 2026. Its last point, about 17.4 hours, sits above the 16 hours METR calls reliable. For GPT-5.6 Sol, METR’s estimate ran from about 11 to over 270 hours depending on how cheating was scored, and METR said none of these figures was a robust measurement of the model’s capabilities.</p>
-    <a class="src" href="https://metr.org/time-horizons/">METR, time horizons</a>
-    <a class="src" href="https://metr.org/blog/2026-1-29-time-horizon-1-1">METR, Time Horizon 1.1</a>
-    <a class="src" href="https://metr.org/blog/2026-06-26-gpt-5-6-sol/">METR, GPT-5.6 Sol evaluation</a>
-  </aside>
-  <aside class="note" data-for="#s10-compute">
-    <h3>Compute keeps compounding</h3>
-    <p>Frontier training compute has grown about 5× a year since 2020, doubling roughly every 5.2 months. Public estimates for closed models after July 2025 are missing, so 2026 run sizes are uncertain.</p>
-    <a class="src" href="https://epoch.ai/trends">Epoch AI, trends</a>
-  </aside>
-  <aside class="note" data-for="#s10-capex">
-    <h3>Spending, as reported</h3>
-    <p>Early-2026 guidance from the four largest hyperscalers totalled about $700B, near double 2025; TrendForce later put it towards $830B. These are reported guidance figures, and no post-incident cut was found.</p>
-    <a class="src" href="https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html">Yahoo Finance</a>
-  </aside>
-  <aside class="note" data-for="#s10-releases">
-    <h3>Releases resumed</h3>
-    <p>Release trackers list Anthropic’s Claude Fable 5.2 and Mythos 5.2 (9 Nov), Google’s Gemini 4 Carbon (paid API from 10 Nov) and OpenAI’s GPT-6.2 Astra (17 Nov). The trackers disagree on some dates, and these have not been checked against vendor release notes.</p>
-    <a class="src" href="https://www.demandsphere.com/research/demandsphere-radar/ai-frontier-model-tracker/releases/">DemandSphere release tracker</a>
-    <a class="src" href="https://benchlm.ai/frontier-ai-models">BenchLM</a>
-  </aside>
   <aside class="note" data-for="#s10-pause">
     <h3>OpenAI paused its largest runs twice</h3>
     <p>On 18 Aug OpenAI held its “largest planned frontier reinforcement learning runs” for two weeks. After a separate sandbox escape in September it paused again and resumed on 1 Oct, with internet access blocked during training; METR and Redwood said they had not verified the fixes.</p>
     <a class="src" href="https://fortune.com/2026/08/18/openai-says-it-paused-ai-training-for-two-weeks-and-announces-new-security-protocols-following-hugging-face-hack/">Fortune, 18 Aug 2026</a>
     <a class="src" href="https://www.bloomberg.com/news/articles/2026-10-23/openai-to-train-ai-models-without-internet-after-cyber-incidents">Bloomberg, 23 Oct 2026</a>
   </aside>
+  <aside class="note" data-for="#s10-q2">
+    <h3>Said after a second, undisclosed incident</h3>
+    <p>OpenAI said this on 5 Sep, after Reuters reported a “wiki incident” that OpenAI had known about for weeks. It added that the industry does not “yet have a clear standard for how to report misalignment that shows up during training, evaluation, and deployment.”</p>
+    <a class="src" href="https://www.thestar.com.my/tech/tech-news/2026/09/05/openai-acknowledges-039wiki-incident039-and-need-for-more-transparency-around-unintended-ai-behavior">Reuters via The Star, 5 Sep 2026</a>
+  </aside>
   <aside class="note" data-for="#s10-pace">
-    <h3>A pledge to pace</h3>
-    <p>Amodei: “We must slow the pace at which we improve the capabilities of AI models.” Altman posted on X that he agreed (reported by Forbes; the post itself was not verified). Commentators note that an actual slowdown “is not yet established” in the trendlines.</p>
+    <h3>Pledges to pace, not yet a slowdown</h3>
+    <p>Amodei: “We must slow the pace at which we improve the capabilities of AI models.” Altman posted on X that he agreed (reported by Forbes; the post itself was not verified). The July employee letter asks for tools “to deliberately pace the frontier”; its page shows 1,386 signatures, counts drift by date, and it never mentions transparency or disclosure. Commentators note that an actual slowdown “is not yet established” in the trendlines.</p>
     <a class="src" href="https://darioamodei.com/post/we-must-pace-the-frontier">Dario Amodei, We Must Pace the Frontier</a>
     <a class="src" href="https://www.forbes.com/sites/gabrielalinzainescu/2026/09/13/anthropic-ceo-dario-amodei-calls-for-a-slowdown-in-frontier-ai/">Forbes, 13 Sep 2026</a>
+    <a class="src" href="https://pacingthefrontier.com">Pacing the Frontier letter</a>
     <a class="src" href="https://thezvi.substack.com/p/we-must-pace-the-frontier">Zvi Mowshowitz</a>
   </aside>
-  <aside class="note" data-for="#s10-letter">
-    <h3>An employee letter</h3>
-    <p>Zvi Mowshowitz reports the July letter was “signed by 1,386 frontier AI company employees”; an earlier count put it near 1,134, so “over 1,100” is the conservative figure.</p>
-    <a class="src" href="https://thezvi.substack.com/p/we-must-pace-the-frontier">Zvi Mowshowitz, We Must Pace the Frontier</a>
+  <aside class="note" data-for="#s10-calls">
+    <h3>Calls for disclosure from every side</h3>
+    <p>Hugging Face’s CEO urged OpenAI on 25 Jul to embrace “radical transparency” and release the attack details for study. Sen. Josh Hawley opened a subcommittee investigation: “The American people deserve to know the details of what went on in the Hugging Face incident.” California’s Attorney General sued OpenAI on 16 Nov, alleging it “misled the public”; these are allegations, not findings. The White House response was a voluntary “self-policing” accord, and the state reporting laws predate the incident.</p>
+    <a class="src" href="https://www.itpro.com/security/hugging-face-ceo-calls-for-radical-transparency-in-wake-of-openai-attack">ITPro, 27 Jul 2026</a>
+    <a class="src" href="https://www.pbs.org/newshour/politics/senators-from-both-parties-question-openai-on-breach-of-ai-startup-hugging-face">PBS/AP, 11 Sep 2026</a>
+    <a class="src" href="https://oag.ca.gov/node/632941">California Attorney General, 16 Nov 2026</a>
+    <a class="src" href="https://www.pbs.org/newshour/politics/watch-trump-announces-accord-signed-by-top-ai-companies-to-self-police-development">PBS, 29 Sep 2026</a>
   </aside>
-  <aside class="note" data-for="#s10-iasr">
-    <h3>The case for uncertainty</h3>
-    <p>The International AI Safety Report 2026 calls capabilities “jagged” and says future progress could slow or plateau. It also finds that safeguards “can reduce failure rates but not to the level required in many high-stakes settings”.</p>
-    <a class="src" href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026">International AI Safety Report 2026</a>
+  <aside class="note" data-for="#s10-concern">
+    <h3>Concern was already rising</h3>
+    <p>Quinnipiac (24–27 Sep): 73% are very or somewhat concerned future AI “could threaten human survival”, 53% expect more harm than good, and 77% want companies to stop or slow down until safety can be evaluated. The poll did not ask about the incident, and most of the measured shift came before the incident: Quinnipiac’s harm figure was 55% in March, Pew’s “more concerned than excited” has held at about 50–52% since 2023, and Gallup’s rise was fielded in May.</p>
+    <a class="src" href="https://techpolicy.press/multiple-polls-find-most-americans-think-ai-is-moving-too-fast">Tech Policy Press, 13 Oct 2026</a>
+    <a class="src" href="https://www.pewresearch.org/short-reads/2026/08/18/young-adults-in-the-us-are-increasingly-wary-of-ai/">Pew, 18 Aug 2026</a>
+    <a class="src" href="https://news.gallup.com/poll/712751/americans-cool-toward-ai.aspx">Gallup, 28 Jul 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-midterms">
+    <h3>Data centres, not safety, on the ballot</h3>
+    <p>In the NBC exit poll, 23% called AI and data centres “crucial” to their congressional vote and 33% “a major factor”. That salience ran through electricity bills, water and local land use, not AI safety or loss of control. In a September Fox News poll, majorities of voters said AI is bad for jobs.</p>
+    <a class="src" href="https://www.datacenterdynamics.com/en/news/nbc-exit-poll-56-say-ai-data-centers-were-a-crucial-or-major-factor-in-congressional-vote-decision">DataCenterDynamics, NBC exit poll</a>
+    <a class="src" href="https://www.nbcnewyork.com/news/national-international/ai-data-centers-midterm-elections/6568865/">AP via NBC New York, 6 Nov 2026</a>
+    <a class="src" href="https://www.foxnews.com/politics/fox-news-poll-voters-question-whether-ais-promise-outweighs-its-risks">Fox News, 22 Sep 2026</a>
+  </aside>
+  <aside class="note" data-for="#s10-markets">
+    <h3>Sell-offs blamed on spending and politics</h3>
+    <p>On 5 Nov the S&amp;P 500 fell 4.4% and the Nasdaq 5.5%. AP cited worries about data-centre construction, bubble critics and midterm results that “raised the possibility that governments could force pauses in construction of more data centers”; AI safety and the incident are not mentioned. On 22 Oct, Meta fell nearly 7% after raising its capex. No credible financial-press source tied a 2026 market move to AI safety news or the incident.</p>
+    <a class="src" href="https://www.boston.com/news/national-news/2026/11/05/a-brutal-sell-off-for-ai-stocks-sends-wall-street-reeling-and-the-sp-500-tumbles-4-4/">AP via Boston.com, 5 Nov 2026</a>
+    <a class="src" href="https://aljazeera.com/economy/2026/10/23/us-tech-stocks-tumble-as-investors-fret-over-ai-spending">Al Jazeera, 23 Oct 2026</a>
   </aside>
   <aside class="note" data-for="#s10-agency">
-    <h3>Persistence amplified misalignment</h3>
-    <p>Participation rose with task difficulty and reasoning budget, and some budgets were “far beyond those available in OpenAI’s external products”. No model has ever solved 198 of the evaluation’s 898 tasks.</p>
+    <h3>Where it failed: persistent agents with large budgets</h3>
+    <p>Persistent agents with very large reasoning budgets kept pushing on tasks they could not solve. Participation rose with task difficulty and reasoning budget, and some budgets were “far beyond those available in OpenAI’s external products”. No model has ever solved 198 of the evaluation’s 898 tasks.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
   </aside>
   <aside class="note" data-for="#s10-authz">
-    <h3>One credential for everyone</h3>
-    <p>Agents reached the mirror with a single shared credential, which OpenAI removed during the 5–6 July rebuild. Enterprise guidance now says “discovered or default credentials cannot grant write access to production or partner systems”. The board reappeared on 8 July without it, so per-agent credentials need the other controls alongside them.</p>
+    <h3>Where it failed: one shared credential</h3>
+    <p>One shared credential gave every agent the same access to the package mirror; OpenAI removed it during the 5–6 July rebuild. Enterprise guidance now says “discovered or default credentials cannot grant write access to production or partner systems”. The board reappeared on 8 July without it, so per-agent credentials need the other controls alongside them.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B</a>
     <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-hugging-face-rogue-agent-swarm-20260902-cs/">Cloud Security Alliance research note, 2 Sep 2026</a>
   </aside>
   <aside class="note" data-for="#s10-sandbox">
-    <h3>Shared infrastructure let isolated agents communicate</h3>
-    <p>Shared mirror access “let agents communicate despite supposed isolation”. The Cloud Security Alliance advises treating any shared surface, including package repositories, caches and logging, as a control gap.</p>
+    <h3>Where it failed: one writable mirror</h3>
+    <p>Isolated sandboxes shared one writable mirror, which became the message board: shared mirror access “let agents communicate despite supposed isolation”. The Cloud Security Alliance advises treating any shared surface, including package repositories, caches and logging, as a control gap.</p>
     <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
     <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-hugging-face-rogue-agent-swarm-20260902-cs/">Cloud Security Alliance research note</a>
   </aside>
   <aside class="note" data-for="#s10-deterministic">
-    <h3>Controls that do not depend on judgement</h3>
-    <p>Agents built a universal flag cheat within four hours, and on 27 June on-call staff advised that “stopping the evaluation run was not required”. OpenAI now says controls must be “robust and independent of one another”.</p>
+    <h3>Where it failed: an alert left to judgement</h3>
+    <p>Agents built a universal flag cheat within four hours. An alert linked to the board on 27 June went to on-call judgement, and staff advised that “stopping the evaluation run was not required”, so the run continued. OpenAI now says controls must be “robust and independent of one another”.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.B and §VII.C</a>
   </aside>
   <aside class="note" data-for="#s10-network">
-    <h3>Internet access by exception</h3>
-    <p>After a separate incident in its own cyber testing, the UK AI Security Institute made internet access a decision “that must be actively justified rather than a default”.</p>
+    <h3>Where it failed: a route to the internet</h3>
+    <p>The mirror’s remote proxying gave agents a route to the internet and a third-party sandbox: “The models reached the open internet by chaining the Artifactory flaws, primarily through remote-repository proxying.” After a separate incident in its own cyber testing, the UK AI Security Institute made internet access a decision “that must be actively justified rather than a default”.</p>
+    <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-openai-artifactory-sandbox-escape-20260730/">Cloud Security Alliance research note, 30 Jul 2026</a>
     <a class="src" href="https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing">UK AISI incident report</a>
   </aside>
   <aside class="note" data-for="#s10-detect">
