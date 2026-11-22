@@ -99,7 +99,11 @@ review, internal update) through profiles, without duplicating criteria.
   `tests/` **NEVER** hold skill specs. Local trial via a symlink in `.claude/skills/` (root
   `skills/` is not a discovery path).
 - **Second theme is specified and blind-evaluated, not prototyped (presenter, 22 Nov):** a palette
-  swap over the same components and style (no new components), judged by the eval's subagents only;
+  swap over the same components and style (no new components). Scheme: four bright primaries on
+  white (blue `#4285F4`, red `#EA4335`, yellow `#FBBC05`, green `#34A853`), near-black ink
+  `#202124`, grey secondary `#5F6368`, light-grey surfaces; the brights are fills/strokes only
+  where they miss text contrast, with darker shades for accent text. Its files and docs **NEVER**
+  name or reference any organisation, judged by the eval's subagents only;
   presenter verdict deferred. This is an approved exception to root Workflow phase 4.
 - **PPTX is a part, not a sibling skill (for now):** `pptx/` stays self-contained so it can be
   promoted later (Anthropic ships pptx/docx as separate skills).
@@ -124,7 +128,3 @@ review, internal update) through profiles, without duplicating criteria.
 - No new component designs or prototyped second visual language (for now).
 - No generalised voice; no presenter-calibration set (for now).
 - No speaker-timer/presenter view; no framework or build step for viewing the deck.
-
-## Open questions
-
-- Exact second palette (e.g. dark): settle in PB-008's red.
