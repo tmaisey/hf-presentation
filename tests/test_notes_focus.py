@@ -5,11 +5,16 @@ its slide to the target's step with every transition, animation and timed sequen
 end state; a focused pop-over is drawn in front of other notes' pins, and round any other target
 no other pin sits on the current focus frame (spotlight window + ring). The callout never covers its
 own target, the title bar or the static Prev/Next bar, and stays on screen (scrolling inside itself
-only as a last resort); the spotlight window never shows a neighbouring line of text as a sliver.
+only as a last resort, with a soft fade at each edge that has more to scroll); the spotlight window
+never shows a neighbouring line of text as a sliver. A target that would run under the Prev/Next bar
+on a short screen is scrolled clear (only when needed; one too tall for the space between the bars
+is aligned under the title bar instead).
 Coverage: happy (every note on every slide, at 1920×1080, 1280×720 and short-wide 1288×598) · edge
 (opening notes mid-slide, world targets, pop-over targets, tall callouts on short screens, tightly
-stacked timeline sub-items) · negative (no animation still running on arrival; leaving notes mode
-restores normal motion; no callout over target or bar; no partial line in the window).
+stacked timeline sub-items, targets taller than the space between the bars) · negative (no animation
+still running on arrival; leaving notes mode restores normal motion; no callout over target or bar;
+no partial line in the window; no target or ring under the Prev/Next bar; no shift when nothing
+needs it; no fade on a callout that fits).
 """
 
 import pytest
@@ -123,7 +128,7 @@ def test_leaving_notes_restores_normal_motion(page):
     assert moving > 0, "stepping after notes mode should animate, not jump"
 
 
-NOTES_UI = ".callout, .pin, .ring, .veil"   # the notes layer, not the slide's own timed beats
+NOTES_UI = ".callout, .pin, .ring, .veil, .notes-nav"   # the notes layer, not the slide's own timed beats
 SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 
 # the callout keeps clear of its own target, the title bar and the static Prev/Next bar, inside the viewport
@@ -193,3 +198,143 @@ def test_spotlight_window_shows_no_slivers_of_neighbouring_text(page, size):
     open_deck(page, *size)
     bad = helper_each_note(page, SLIVERS)
     assert bad == [], "partial lines in the spotlight window:\n" + "\n".join(bad)
+
+
+# the spotlit target and its ring keep clear of the static Prev/Next bar and the title bar; a target too tall for the
+# space between the bars instead has its top just under the title bar (the documented exception: its bottom clips)
+TARGET_CLEAR = """() => {
+  """ + FOCUSED + """
+  if (!t) return [label + ': no focused target'];
+  const bad = [], r = t.getBoundingClientRect(), ring = document.querySelector('.ring').getBoundingClientRect();
+  const nav = document.querySelector('.notes-nav').getBoundingClientRect(), bar = document.querySelector('.bar').getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && a.right > b.left + 1 && a.top < b.bottom - 1 && a.bottom > b.top + 1;
+  if (r.height + 28 > nav.top - bar.bottom - 12) {   // target + its 14px window pad: no room for the ring between the bars
+    if (r.top < bar.bottom - 1 || r.top > bar.bottom + 40) bad.push(label + ': too-tall target not aligned under the title bar (top ' + Math.round(r.top) + ')');
+    return bad;
+  }
+  if (hit(r, nav)) bad.push(label + ': target runs under the Prev/Next bar');
+  if (hit(ring, nav)) bad.push(label + ': spotlight ring runs under the Prev/Next bar');
+  // the Notes toggle shares the bar's line (s-8's right-hand tile ran into it)
+  if (hit(ring, document.querySelector('.notes-btn').getBoundingClientRect())) bad.push(label + ': spotlight ring runs under the Notes toggle');
+  if (r.top < bar.bottom - 1) bad.push(label + ': target under the title bar');
+  return bad; }"""
+
+
+@pytest.mark.parametrize("size", SIZES, ids=[f"{w}x{h}" for w, h in SIZES])
+def test_spotlit_target_clears_the_prev_next_bar(page, size):
+    """At 1288×598 s-5's pop-over, s-6's late timeline items and s-8's tiles ran under the static bar."""
+    open_deck(page, *size)
+    bad = helper_each_note(page, TARGET_CLEAR)
+    assert bad == [], "spotlit targets under the bars:\n" + "\n".join(bad)
+
+
+TITLE_TOP = "() => document.querySelector('section.slide.is-active > .title').getBoundingClientRect().top"
+
+
+# after a shift the ring sits just above the Prev/Next bar (moved no further than needed), unless the target is too
+# tall for the space between the bars and is aligned under the title bar instead
+JUST_ENOUGH = """() => {
+  const ring = document.querySelector('.ring').getBoundingClientRect(), nav = document.querySelector('.notes-nav').getBoundingClientRect();
+  const bar = document.querySelector('.bar').getBoundingClientRect();
+  return ring.bottom >= nav.top - 24 || ring.top <= bar.bottom + 24; }"""
+
+
+@pytest.mark.parametrize("size", SIZES, ids=[f"{w}x{h}" for w, h in SIZES])
+def test_slide_moves_only_as_far_as_a_target_needs(page, size):
+    """Most notes leave the slide where it is; a note that moves it moves it up, just far enough."""
+    open_deck(page, *size)
+    bad, still = [], 0
+    for sid in page.evaluate(NOTED_SLIDES):
+        goto_slide(page, sid)
+        settle_animations(page)
+        home = page.evaluate(TITLE_TOP)
+        for k in range(helper_note_count(page, sid)):
+            page.keyboard.press("n" if k == 0 else "ArrowRight")
+            settle_animations(page, NOTES_UI, still=".callout, .ring")
+            d = home - page.evaluate(TITLE_TOP)
+            if d < -1:
+                bad.append(f"{sid} note {k + 1}: slide moved down")
+            elif d > 1 and not page.evaluate(JUST_ENOUGH):
+                bad.append(f"{sid} note {k + 1}: slide moved up further than its target needs")
+            elif abs(d) <= 1:
+                still += 1
+        page.keyboard.press("Escape")
+    assert bad == [], "notes mode moves slides wrongly:\n" + "\n".join(bad)
+    assert still > 20, "nearly every note should leave its slide in place"
+
+
+def test_closing_notes_puts_a_moved_slide_back(page):
+    """s-5's pop-over runs under the Prev/Next bar at 1288×598, so its note moves the slide; Esc restores it."""
+    open_deck(page, 1288, 598)
+    goto_slide(page, "s-5")
+    settle_animations(page)
+    home = page.evaluate(TITLE_TOP)
+    shifted = False
+    for k in range(helper_note_count(page, "s-5")):
+        page.keyboard.press("n" if k == 0 else "ArrowRight")
+        settle_animations(page, NOTES_UI, still=".callout, .ring")
+        shifted = shifted or page.evaluate(TITLE_TOP) < home - 1
+    assert shifted, "s-5's pop-over note should move the slide up at 1288×598"
+    page.keyboard.press("Escape")
+    settle_animations(page)
+    assert abs(page.evaluate(TITLE_TOP) - home) <= 1, "closing notes mode must restore the slide's position"
+
+
+# a callout that scrolls inside itself fades at each edge with more content (mask gradient: first stop transparent =
+# top fade, last stop transparent = bottom fade), updating as it scrolls; a callout that fits has no fade
+FADES = """() => {
+  const c = document.querySelector('.callout'), cs = getComputedStyle(c);
+  const m = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : (cs.webkitMaskImage || 'none');
+  if (m === 'none') return [false, false];
+  const args = [], body = m.slice(m.indexOf('(') + 1, m.lastIndexOf(')'));
+  let depth = 0, cur = '';
+  for (const ch of body) {
+    if (ch === '(') depth++;
+    if (ch === ')') depth--;
+    if (ch === ',' && !depth) { args.push(cur.trim()); cur = ''; } else cur += ch;
+  }
+  args.push(cur.trim());
+  const clear = a => /^(transparent|rgba\\(0, 0, 0, 0\\))/.test(a);
+  const stops = args.filter(a => !/^(to |\\d+deg)/.test(a));
+  return [clear(stops[0]), clear(stops[stops.length - 1])]; }"""
+
+
+def helper_scroll_callout(page, where):
+    """Scroll the callout to its top, middle or end and let the fade update."""
+    page.evaluate("""w => { const c = document.querySelector('.callout'), max = c.scrollHeight - c.clientHeight;
+      c.scrollTop = w === 'end' ? max : w === 'mid' ? max / 2 : 0; }""", where)
+    page.evaluate("() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))")
+
+
+FADE_SIZES = SIZES + [(1100, 470)]
+
+
+@pytest.mark.parametrize("size", FADE_SIZES, ids=[f"{w}x{h}" for w, h in FADE_SIZES])
+def test_scrolling_callout_fades_at_its_scrollable_edges(page, size):
+    """1100×470 is smaller than any review size, so some callouts must scroll and the fade is exercised."""
+    open_deck(page, *size)
+    bad, scrolled = [], 0
+    for sid in page.evaluate(NOTED_SLIDES):
+        goto_slide(page, sid)
+        for k in range(helper_note_count(page, sid)):
+            page.keyboard.press("n" if k == 0 else "ArrowRight")
+            settle_animations(page, NOTES_UI, still=".callout, .ring")
+            label = f"{sid} note {k + 1}"
+            scrolls = page.evaluate("() => { const c = document.querySelector('.callout'); return c.scrollHeight > c.clientHeight + 1; }")
+            if not scrolls:
+                if page.evaluate(FADES) != [False, False]:
+                    bad.append(label + ": callout fits but shows a fade")
+                continue
+            scrolled += 1
+            if page.evaluate(FADES) != [False, True]:
+                bad.append(label + ": at the top, only the bottom edge should fade")
+            helper_scroll_callout(page, "mid")
+            if page.evaluate(FADES) != [True, True]:
+                bad.append(label + ": mid-scroll, both edges should fade")
+            helper_scroll_callout(page, "end")
+            if page.evaluate(FADES) != [True, False]:
+                bad.append(label + ": at the end, only the top edge should fade")
+        page.keyboard.press("Escape")
+    assert bad == [], "callout fade cues wrong:\n" + "\n".join(bad)
+    if size == (1100, 470):
+        assert scrolled, "at 1100×470 some callout should scroll (else this edge case tests nothing)"
