@@ -238,7 +238,7 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   activity on Hugging Face, with a second key entry ("agent activity on Hugging Face") to the right
   of the filled-dot "agent run" entry, on the same row (presenter, 22 Nov): the models
   kept running on OpenAI's servers throughout, so the solid runs stay in the OpenAI box, lit.
-- **Built (S-023, 22 Nov):** s-5's scorer, eye, transcripts and assignment pulses end at step 0; the
+- **Built (S-023, 22 Nov; accepted by the presenter: compressed-swarm "fountain" kept, clusters as key tiles, fact tile "Hugging Face, 13 Jul"):** s-5's scorer, eye, transcripts and assignment pulses end at step 0; the
   folder board, lit run links, coordinators and sacrificed runs carry on, compressed with the mirror
   (OpenAI column ~22%, internet strip ~24%, HF ~50%: the strip and column are as narrow as their
   labels allow at 1288×598); the silenced s-4 bell moves to the foot of the OpenAI column.
@@ -393,7 +393,7 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
   build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
-- S-030 layout guard is built (22 Nov). s-5 and s-10 faults are fixed; s-6 (1288×598) and s-7
+- S-030 layout guard is built (22 Nov). s-5, s-6 and s-10 faults are fixed; s-7
   (all sizes) are still pending (S-023, S-025).
 - s-10: the employee letter stays "Over 1,100 … (Jul)"; exact date and signatory count still
   unconfirmed. Anthropic pause omitted (weakly sourced; a test guards against it).
