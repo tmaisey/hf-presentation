@@ -94,10 +94,17 @@ v1 3.3 ◇ fits: *Early warning signals were handled as routine operational inci
 - **Agreed design (presenter, 22 Nov; world slide, S-032; not yet built):** continues the incident
   world from s-3's end state (swarm left, mirror right, Public Internet box). Timeline left · world
   centre · narration right, timeline builds one entry per step (as s-3).
-  - **Opening (step 0, undated timeline entry, e.g. "June: cyber evaluation runs begin"):** the
+  - **Opening (step 0, timeline entry "**June** Cyber evaluation runs (ExploitGym)"):** never
+    "begins": no source dates the start; the earliest dated eval event is the 26 Jun zero-day
+    (also where METR's scope starts), and OpenAI/METR describe the evaluation as already running
+    then. The 4 and 12 Jun SSRF events aren't tied to ExploitGym, so they are not used. Then the
     s-3 training dots fade to grey ghosts; fresh green evaluation runs pop in (same "agent run"
     key). The Public Internet box and arrow dim but stay, as history.
-  - **Step 1, ExploitGym pop-over** (two cards, s-3 style; world blurs):
+  - **Steps (7 states, 0–6):** 0 opening · 1 pop-over card *Capture the flag* · 2 card *Some had
+    no solution* joins it (cards build one per step, as s-3) · 3 26 Jun · 4 27 Jun · 5 4 Jul ·
+    6 5–6 Jul. Narration tiles sit on the dated steps (3, 4, 6). No closing Insight unless the
+    presenter asks.
+  - **Steps 1–2, ExploitGym pop-over** (two cards, s-3 style; world blurs):
     *Capture the flag*: an agent in its container exploits a deliberately vulnerable target, pulls
     out a small flag, an automated scorer ticks it ("agents attack a deliberately vulnerable
     target to extract a secret flag; an automated scorer checks it") · *Some had no solution*:
