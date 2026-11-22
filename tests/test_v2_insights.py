@@ -5,9 +5,9 @@ text tiles built one per step (how misalignment happened from training to evalua
 to design out and unsolved; opaque firings discourage transparency, both sides stated). s-10
 Takeaways, in phases with a title each: three pace tiles in the same tile row (capability still
 accelerating; industry calls for pacing and disclosure; public concern rising, safety secondary),
-controls with practical considerations for AI projects, then three discussion prompts.
+then controls with practical considerations for AI projects (its discussion phase moved to s-11, S-035).
 Coverage: happy (slides close the deck in order with approved titles/kickers; s-9 and s-10 build one
-tile per step with sourced facts, verbatim quotes and links; s-10 swaps tiles → controls → prompts) ·
+tile per step with sourced facts, verbatim quotes and links; s-10 swaps tiles → controls) ·
 edge (s-9 world frozen in s-8's place and state; tiles read left to right in one row at every review
 size; s-10's Coxon quote sits in tile 1 and leaves with the tiles; s-10 tiles keep every approved
 figure as bullets, moved detail lives in the tile's notes; notes target elements on their slide;
@@ -28,10 +28,9 @@ pytestmark = pytest.mark.deck("v2")
 
 S9_TITLE = ("Misalignment grew from ordinary training choices, and the obvious fixes risk making it "
             "harder to see")
-S10_TITLES = {  # visible title per step: tiles (✓ 22 Nov) → controls (✓ 22 Nov) → discussion (v1 6.1 ◇)
+S10_TITLES = {  # visible title per step: tiles (✓ 22 Nov) → controls (✓ 22 Nov); discussion is s-11 (S-035)
     "tiles": "Capability keeps accelerating as industry calls for restraint and public concern grows",
     "controls": "Practical controls keep AI agents within the bounds their tasks need",
-    "discussion": "Detection, training and independent oversight remain open questions after this incident",
 }
 SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 TILES = ["s9-t1", "s9-t2", "s9-t3"]   # row order = build step 1, 2, 3
@@ -130,15 +129,16 @@ def helper_flat(html: str) -> str:
 
 def test_insights_and_takeaways_close_the_deck_in_order():
     slides = parse_slides()
-    assert [s["attrs"]["id"] for s in slides[-2:]] == ["s-9", "s-10"]
-    s9, s10 = slides[-2], slides[-1]
+    ids = [s["attrs"]["id"] for s in slides]
+    assert ids[ids.index("s-9"):ids.index("s-9") + 2] == ["s-9", "s-10"]
+    s9, s10 = slides[ids.index("s-9")], slides[ids.index("s-10")]
     assert s9["attrs"]["data-chapter"] == "Insights" and s10["attrs"]["data-chapter"] == "Takeaways"
     assert '<p class="kicker">09 · Insights</p>' in helper_section("s-9")
     assert '<p class="kicker">10 · Takeaways</p>' in helper_section("s-10")
 
 
 def test_titles_are_the_approved_storyboard_titles():
-    s9 = parse_slides()[-2]
+    s9 = next(s for s in parse_slides() if s["attrs"]["id"] == "s-9")
     assert s9["title"] == S9_TITLE
     assert helper_norm(S9_TITLE) in helper_storyboard("s-9 · Insights")
     assert helper_norm(S9_TITLE) in helper_norm((ROOT / "docs" / "VOICE.md").read_text(encoding="utf-8"))
@@ -164,7 +164,7 @@ def test_s9_tile_headings_are_the_approved_findings():
 
 
 def test_s9_is_a_backdrop_world_slide_with_one_tile_row_of_three_tiles():
-    s9 = parse_slides()[-2]
+    s9 = next(s for s in parse_slides() if s["attrs"]["id"] == "s-9")
     assert s9["attrs"].get("data-world") == "backdrop", "s-9 keeps the incident world as a backdrop, like s-8"
     sec = helper_section("s-9")
     assert '<div class="world-slot"></div>' in sec
@@ -326,14 +326,6 @@ def test_s10_each_control_notes_where_it_failed_in_the_incident():
         assert evidence in helper_flat(notes[rid]), f"#{rid} note must say {evidence!r}"
 
 
-def test_s10_has_three_discussion_prompts_one_per_step():
-    sec = helper_section("s-10")
-    prompts = re.findall(r'<li class="prompt" id="(s10-\w+)" data-show-at="(\d)">(.*?)</li>', sec, re.S)
-    assert [(i, at) for i, at, _ in prompts] == [("s10-detect", "5"), ("s10-train", "6"),
-                                                ("s10-investigate", "7")]
-    assert all(p.rstrip().endswith("?") for *_, p in prompts)
-
-
 def test_notes_target_elements_on_their_slide_and_cite_https_sources():
     for sid, minimum in (("s-9", 6), ("s-10", 15)):
         sec = helper_section(sid)
@@ -377,9 +369,9 @@ def test_forbidden_and_inaccurate_wording_is_absent():
 def test_step_counts_and_clean_load(page):
     errors = open_deck(page)
     plan = dict(page.evaluate("window.deck.plan()"))
-    assert plan["s-9"] == 3 and plan["s-10"] == 7
+    assert plan["s-9"] == 3 and plan["s-10"] == 4
     goto_slide(page, "s-9", 3)
-    goto_slide(page, "s-10", 7)
+    goto_slide(page, "s-10", 4)
     assert errors == []
 
 
@@ -481,18 +473,18 @@ VISIBLE = """sid => { const s = document.getElementById(sid);
   }; }"""
 
 
-def test_s10_swaps_tiles_controls_prompts_with_a_title_per_phase(page):
+def test_s10_swaps_tiles_then_controls_with_a_title_per_phase(page):
     open_deck(page)
-    for k in range(8):
+    for k in range(5):
         goto_slide(page, "s-10", k)
         v = page.evaluate(VISIBLE, "s-10")
-        phase = "tiles" if k <= 3 else "controls" if k == 4 else "discussion"
+        phase = "tiles" if k <= 3 else "controls"
         assert v["titles"] == [S10_TITLES[phase]], k
         assert v["tiles"] == (S10_TILES[:k] if k <= 3 else []), k
         assert (helper_norm(COXON) in [helper_norm(q) for q in v["quote"]]) == (1 <= k <= 3), k
         assert not v["insight"], k
         assert v["controls"] == (k == 4), k
-        assert v["prompts"] == ["s10-detect", "s10-train", "s10-investigate"][:max(0, k - 4)], k
+        assert v["prompts"] == [], k
 
 
 @pytest.mark.parametrize("size", SIZES)

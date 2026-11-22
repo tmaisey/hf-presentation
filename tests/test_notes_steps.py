@@ -1,9 +1,9 @@
 """Spec: S-029
 
 v2 notes mode shows each note's slide at a step where the note's target is actually visible, so
-notes on content a later step hides or swaps out (s-10 tables, stepped titles) still spotlight it.
+notes on content a later step hides or swaps out (s-10 tiles, stepped titles) still spotlight it.
 Coverage: happy (every note on every slide spotlights a visible target) · edge (targets hidden at
-the slide's last step, e.g. s-10's comparison table) · negative (no visible pin points at content
+the slide's last step, e.g. s-10's tiles) · negative (no visible pin points at content
 that isn't on screen at the current step).
 """
 
@@ -51,17 +51,17 @@ def test_every_note_spotlights_a_visible_target(page):
     assert hidden == [], "notes spotlight content that isn't on screen:\n" + "\n".join(hidden)
 
 
-def test_s10_table_notes_show_the_table_not_the_last_step(page):
-    """s-10's last step shows only the prompts; a note on the comparison table must bring it back."""
+def test_s10_tile_notes_show_the_tiles_not_the_last_step(page):
+    """s-10's last step shows only the controls table; a note on a tile must bring the tiles back."""
     open_deck(page)
     goto_slide(page, "s-10")
     page.keyboard.press("n")
     targets = helper_note_targets(page, "s-10")
-    first_table = next(k for k, sel in enumerate(targets)
-                       if page.evaluate("s => !!document.querySelector('#s-10 ' + s).closest('table')", sel))
-    for _ in range(first_table):
+    first_tile = next(k for k, sel in enumerate(targets)
+                      if page.evaluate("s => !!document.querySelector('#s-10 ' + s).closest('.text-tile')", sel))
+    for _ in range(first_tile):
         page.keyboard.press("ArrowRight")
-    page.wait_for_function(TARGET_VISIBLE, arg=targets[first_table], timeout=VISIBLE_TIMEOUT, polling=100)
+    page.wait_for_function(TARGET_VISIBLE, arg=targets[first_tile], timeout=VISIBLE_TIMEOUT, polling=100)
 
 
 def test_no_visible_pin_points_at_offscreen_content(page):
