@@ -73,8 +73,10 @@ def test_step_list_marks_current_and_done(page):
     open_deck(page)
     sid = page.evaluate("() => document.querySelector('section.slide .steps').closest('section').id")
     goto_slide(page, sid, 2)
-    cur = page.evaluate("id => [...document.querySelectorAll('#'+id+' .steps > li')].map(l => l.className)", sid)
-    assert "is-current" in cur[1] and "is-done" in cur[0]
+    items = page.evaluate("id => [...document.querySelectorAll('#'+id+' .steps > li')].map(l => [+l.dataset.showAt, l.className])", sid)
+    current = max(i for i, (at, _) in enumerate(items) if at <= 2)   # last item reached by step 2
+    assert "is-current" in items[current][1]
+    assert all("is-done" in c for _, c in items[:current]) and current >= 1
 
 
 def test_wheel_gesture_moves_one_step_only(page):

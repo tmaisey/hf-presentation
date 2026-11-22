@@ -358,27 +358,51 @@
   .world.is-on { opacity: 1; visibility: visible; transition: opacity .8s ease .25s, visibility 0s, filter .8s var(--ease-rack); }
   /* a pop-over has focus: the world softens beneath it, as content does under an Insight (DESIGN §5) */
   .world.is-on.is-soft { filter: blur(3px); opacity: .55; transition-delay: 0s; }
-  .world > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .world { display: flex; flex-direction: column; }
+  .world > svg { display: block; flex: 1 1 0; min-height: 0; width: 100%; overflow: visible; }
+  /* key: persists with the world on every world slide */
+  .world-key { flex: none; margin: 10px 0 0; display: flex; gap: .5em; align-items: center; font-size: var(--fs-small); color: var(--ink-2); }
+  .world-key svg { width: .9em; height: .9em; overflow: visible; }
   .world .cam { transition: transform 1.4s var(--ease); }
   .world [data-world-at] { opacity: 0; transition: opacity .7s ease; }
   .world [data-world-at].is-visible { opacity: 1; }
-  .body--world { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
-  .body--world > .caption { margin: 0; }
+  /* world slide: dated timeline (~30%) · world (~40%) · narration (~30%); title spans the top */
+  .slide[data-world] { grid-template: "kicker kicker kicker" auto "title title title" auto "time world narr" minmax(0, 1fr)
+      / minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr); column-gap: clamp(20px, 2.6vw, 52px); }
+  .slide[data-world] > .title { max-width: none; }
+  .slide[data-world] > .body { grid-area: time; align-self: center; min-height: 0; }
+  .slide[data-world] > .world-slot { grid-area: world; min-height: 0; }
+  .slide[data-world] > .popover { grid-column: world-start / narr-end; grid-row: 3; }
+  .body--timeline .steps li { font-size: var(--fs-small); line-height: 1.3; padding: .3em 0 .3em 2.1em; }
+  .body--timeline .steps li::before { top: .3em; }
+  .body--timeline strong { font-weight: 600; color: var(--ink); }
+  /* domains: soft-toned boxes naming where things run */
+  .domain rect { fill: color-mix(in srgb, var(--paper-deep) 55%, var(--paper)); stroke: none; }
+  .domain--out rect { fill: color-mix(in srgb, var(--paper-deep) 30%, var(--paper)); }
+  .domain-label { font: 600 17px var(--sans); font-size: max(17px, calc(var(--k) * var(--fs-kicker))); letter-spacing: .12em; fill: var(--ink-2); }
+  .globe > * { fill: none; stroke: var(--ink-3); stroke-width: 2; }
+  .cred-badge circle { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 2; }
+  .cred-badge path { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+  .cred-label { font: 500 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--ink-2); dominant-baseline: central; text-anchor: middle; }
   /* runs: P4 line-drawn agents, lit; they pop in staggered when their group appears */
   .run { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 1.6;
     transform-box: fill-box; transform-origin: center; }
   .runs.is-visible .run { animation: run-pop .6s var(--ease) both; animation-delay: calc(var(--i) * 12ms); }
   @keyframes run-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
   .w-link { stroke: var(--ink-3); stroke-width: 1; opacity: .4; }
+  /* lines draw from each run to the mirror when their group appears */
+  .run-links.is-visible .w-link, .board-links.is-visible .w-link { stroke-dasharray: 1; animation: link-draw .9s var(--ease) both;
+    animation-delay: calc(var(--i) * 7ms); }
+  @keyframes link-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   .w-link--lit { stroke: var(--accent-ink); stroke-width: 1.6; opacity: .85; }
-  .run-ring { fill: none; stroke: var(--accent-ink); stroke-width: 2.5; }
-  .note-glyph { fill: var(--tile); stroke: var(--ink-2); stroke-width: 1.8; stroke-linejoin: round; filter: url(#lift); }
+  .run-ring { fill: none; stroke: var(--accent-ink); stroke-width: 2; }
+  .note-glyph { fill: var(--tile); stroke: var(--ink-2); stroke-width: 1.4; stroke-linejoin: round; filter: url(#lift); }
   .w-date { font: 600 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--accent-ink); text-anchor: middle; }
   .edge--breach { stroke: var(--accent-ink); }
 
   /* pop-over: illustration cards over the world for a step range; exit = rack focus like an overlay */
   .slide > .popover { grid-area: body; }
-  .slide:has(> .narration) > .popover { grid-column: body-start / narr-end; }
+  .slide:has(> .narration):not([data-world]) > .popover { grid-column: body-start / narr-end; }
   .popover { z-index: 5; align-self: center; min-height: 0; max-height: 100%; pointer-events: none;
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 40px);
     margin-bottom: max(0px, 78px - 7vh);
@@ -428,7 +452,7 @@
     24% { stroke-dashoffset: 0; opacity: 1; } 34%, 100% { stroke-dashoffset: 0; opacity: 0; } }
   @keyframes pa-miss { 0%, 12% { opacity: 0; } 14%, 24% { opacity: 1; } 34%, 100% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) {
-    .runs.is-visible .run, .pop-panel.is-visible .pa-arrow, .pop-panel.is-visible .pa-reward,
+    .runs.is-visible .run, .run-links.is-visible .w-link, .board-links.is-visible .w-link, .pop-panel.is-visible .pa-arrow, .pop-panel.is-visible .pa-reward,
     .pa-agent--strain, .pa-try > :first-child, .pa-try > .pa-miss { animation: none; }
     .pa-try path:first-child { stroke-dashoffset: 0; opacity: .5; }
     .pa-try .pa-miss { opacity: .7; }
@@ -527,31 +551,31 @@
 
 <main class="deck">
 <!-- SLIDES:BEGIN -->
-<!-- incident world (S-032): one persistent diagram shared by data-world slides; parts appear at data-world-at="slide:step" -->
-<div class="world">
-  <svg class="diagram world-map" viewBox="-640 -300 1380 600" role="img" aria-label="The incident world: training runs around a shared package mirror that became a message board">
+<!-- incident world (S-032): one persistent diagram shared by data-world slides; parts appear at data-world-at="slide:step" (until data-world-until). Units ≈ screen px at 1920 wide, so diagram text floors stay in proportion -->
+<div class="world" data-split="s-3:6">
+  <svg class="diagram world-map" viewBox="-320 -260 640 520" role="img" aria-label="The incident world: agent runs on OpenAI's servers share one package mirror, which becomes a message board and then a bridge to the internet">
     <g class="cam">
       <g class="layer-edges">
-        <g class="run-links" id="w-links" data-world-at="s-3:3"></g>
+        <g class="domain" id="w-oai" data-world-at="s-3:0"><rect x="-312" y="-252" width="624" height="504" rx="24"/><text class="domain-label" x="-292" y="-224">OPENAI SERVERS</text></g>
+        <g class="domain domain--out" id="w-net" data-world-at="s-3:6"><rect x="146" y="-252" width="166" height="504" rx="24"/><text class="domain-label" x="162" y="-224">PUBLIC</text><text class="domain-label" x="162" y="-200">INTERNET</text><g class="globe"><circle cx="229" cy="0" r="32"/><ellipse cx="229" cy="0" rx="13" ry="32"/><line x1="197" y1="0" x2="261" y2="0"/></g><path class="edge edge--breach" d="M120,0 H187" marker-end="url(#arr)"/></g>
+        <g class="run-links" id="w-links" data-world-at="s-3:1"></g>
         <g class="board-links" data-world-at="s-3:5"></g>
-        <g data-world-at="s-3:4"><line class="w-link w-link--lit" data-run="first" x2="176" y2="-94"/></g>
+        <g data-world-at="s-3:4" data-world-until="s-3:6"><line class="w-link w-link--lit" data-run="first"/></g>
       </g>
       <g class="layer-nodes">
         <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96"></g>
-        <g class="tile" id="w-mirror" data-world-at="s-3:3"><rect x="-130" y="-55" width="260" height="110"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text></g>
-        <g class="tile" id="w-team" data-world-at="s-3:6"><rect x="500" y="-290" width="240" height="130"/><text class="tile-title">Internal team</text><text class="tile-sub">sees the board;</text><text class="tile-sub">no escalation</text></g>
-      </g>
-      <g class="layer-key">
-        <g class="tile tile--key" id="w-cred" data-world-at="s-3:3"><rect x="-140" y="72" width="280" height="96"/><text class="tile-title">One credential</text><text class="tile-sub">for every agent</text></g>
-        <g class="tile tile--key" id="w-net" data-world-at="s-3:6"><rect x="500" y="-55" width="240" height="110"/><text class="tile-title">Internet</text><text class="tile-sub">reached 26 May</text></g>
+        <g class="mirror-group">
+          <g class="tile" id="w-mirror" data-world-at="s-3:1"><rect x="-70" y="-46" width="140" height="92"/><text class="tile-title">Package</text><text class="tile-title">mirror</text></g>
+          <g class="w-board" id="w-board" data-world-at="s-3:5"><path class="note-glyph" d="M-80,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-48,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-16,-84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M16,-92 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M48,-80 h20 l7,7 v27 h-27 z"/></g>
+          <g class="cred-badge" id="w-cred" data-world-at="s-3:1"><circle cx="0" cy="78" r="13"/><path d="M-7,78 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M-3.5,78 H9 M6,78 v4 M2,78 v3.5"/><text class="cred-label" x="0" y="106">shared login</text></g>
+        </g>
       </g>
       <g class="layer-labels">
-        <g class="w-note" id="w-note1" data-world-at="s-3:4"><circle class="run-ring" data-run="first" r="13"/><path class="note-glyph" d="M152,-122 h36 l12,12 v46 h-48 z"/><text class="w-date" x="176" y="-138">12 May</text></g>
-        <g class="w-board" id="w-board" data-world-at="s-3:5"><path class="note-glyph" d="M-214,-118 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-152,-150 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-88,-140 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-26,-152 h32 l10,10 v40 h-42 z"/><path class="note-glyph" d="M-262,-42 h32 l10,10 v40 h-42 z"/><text class="w-date" x="-120" y="-170">board forms · 13 May</text></g>
-        <g data-world-at="s-3:6"><path class="edge edge--breach" data-from="#w-mirror" data-to="#w-net" marker-end="url(#arr)"/></g>
+        <g class="w-note" id="w-note1" data-world-at="s-3:4" data-world-until="s-3:6"><circle class="run-ring" data-run="first" r="10"/><path class="note-glyph" data-note-for="first"/></g>
       </g>
     </g>
   </svg>
+  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run</p>
 </div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
@@ -653,11 +677,20 @@
 <section class="slide" id="s-3" data-chapter="Training" data-world>
   <p class="kicker">03 · Training</p>
   <h2 class="title">Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to coordinate through a shared message board</h2>
-  <div class="body body--world">
-    <p class="caption">Each dot is one training run (illustrative), April–May 2026.</p>
+  <div class="body body--timeline">
+    <ol class="steps">
+      <li id="s3-t0" data-show-at="0"><strong>Apr–May</strong> Many training runs in parallel</li>
+      <li id="s3-t1" data-show-at="1">Every run uses one shared package mirror</li>
+      <li id="s3-t2" data-show-at="2">Some agents cheat; OpenAI says it was reinforced</li>
+      <li id="s3-t3" data-show-at="3"><strong>8 May</strong> A blocked agent turns on the mirror</li>
+      <li id="s3-t4" data-show-at="4"><strong>12 May</strong> First note left on the mirror</li>
+      <li id="s3-t5" data-show-at="5"><strong>13 May</strong> Other agents reply; a board forms</li>
+      <li id="s3-t6" data-show-at="6"><strong>26 May</strong> The board helps agents reach the internet. An internal team saw it; no escalation</li>
+    </ol>
   </div>
-  <div class="popover" id="s3-pop" data-show-at="1" data-hide-at="3">
-    <figure class="pop-panel" id="s3-pop-possible" data-show-at="1">
+  <div class="world-slot"></div>
+  <div class="popover" id="s3-pop" data-show-at="2" data-hide-at="4">
+    <figure class="pop-panel" id="s3-pop-possible" data-show-at="2">
       <figcaption><span class="pop-tag">Possible task</span>Recreate a hidden software library</figcaption>
       <svg class="pop-art" viewBox="0 0 520 250" role="img" aria-label="An agent in its container reaches the hidden reference answer, copies it and earns a reward">
         <rect class="pa-box" x="8" y="8" width="504" height="234" rx="20"/>
@@ -669,9 +702,9 @@
         <circle class="pa-agent" cx="122" cy="162" r="20"/>
         <g class="pa-reward"><rect x="60" y="66" width="128" height="38" rx="19"/><text x="124" y="86">+ reward</text></g>
       </svg>
-      <p class="pop-note">It copied the hidden answer and was rewarded. OpenAI says the reward reinforced this cheating.</p>
+      <p class="pop-note">Some agents read the hidden answer instead of doing the task, and were rewarded. OpenAI says this reinforced the cheating.</p>
     </figure>
-    <figure class="pop-panel" id="s3-pop-impossible" data-show-at="2">
+    <figure class="pop-panel" id="s3-pop-impossible" data-show-at="3">
       <figcaption><span class="pop-tag">Impossible by accident</span>Complete a spreadsheet from Google Drive links, with no internet</figcaption>
       <svg class="pop-art" viewBox="0 0 520 250" role="img" aria-label="An agent strains at the edge of its container, trying again and again to reach Google Drive files it cannot reach">
         <rect class="pa-box" x="8" y="8" width="340" height="234" rx="20"/>
@@ -692,7 +725,7 @@
         <line class="pa-wall" x1="348" y1="24" x2="348" y2="226"/>
         <circle class="pa-agent pa-agent--strain" cx="110" cy="130" r="20"/>
       </svg>
-      <p class="pop-note">Persistent agents didn’t give up after many failures.</p>
+      <p class="pop-note">Persistent agents failed repeatedly while attempting legitimate approaches, before trying work-arounds.</p>
     </figure>
   </div>
   <div class="narration">
@@ -735,7 +768,7 @@
     <p>On 26 May “agents successfully used an SSRF vulnerability in Artifactory to obtain internet access, relying in part on information exchanged via the Artifactory message board.” The same day, agents used six publicly exposed Hugging Face tokens to create a repo and a proxy Space. OpenAI says that activity came from an unrelated workload with no evidence of a link to July.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
   </aside>
-  <aside class="note" data-for="#w-team">
+  <aside class="note" data-for="#s3-t6">
     <h3>Seen in May</h3>
     <p>“Around the same time, an internal team observed an agent engage in message board activity and instances of disallowed internet access.” The report does not say what action followed. MIT Technology Review reports that the training board was later shut down.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
@@ -1712,70 +1745,110 @@
   slides.forEach(s => { const svg = $('svg.diagram[data-diagram="swarm"]', s.node); if (svg) s.swarm = makeSwarm(svg); });
 
   // ---------- incident world (S-032): one persistent diagram shared by data-world slides ----------
-  // Parts appear at data-world-at="slide:step" and stay for every later world slide; the world fits the
-  // current world slide's body (above its caption), softens under a pop-over, and the slide's
-  // data-camera="x y scale" moves its view. Training runs are drawn here from data-runs (seeded).
+  // Parts appear at data-world-at="slide:step" (and go at data-world-until) and stay for later world
+  // slides. The world fits the slide's .world-slot (timeline · world · narration), softens under a
+  // pop-over, and re-arranges at data-split (swarm left, mirror right) with a tween so the lines
+  // between runs and the mirror stay attached. Runs are drawn here from data-runs (seeded).
   const world = $('.world', deckEl), worldSvg = world && $('svg', world);
-  const worldItems = world ? $$('[data-world-at]', world).map(e => {
-    const [sid, n] = e.dataset.worldAt.split(':');
-    return { e, sid, n: +n };
-  }) : [];
+  const parsePt = v => { const [sid, n] = (v || '').split(':'); return sid ? { sid, n: +n } : null; };
+  const worldItems = world ? $$('[data-world-at]', world).map(e => ({ e, at: parsePt(e.dataset.worldAt), until: parsePt(e.dataset.worldUntil) })) : [];
   slides.forEach(s => {
     s.world = s.node.hasAttribute('data-world');
-    worldItems.filter(w => w.sid === s.id).forEach(w => { s.steps = Math.max(s.steps, w.n); });
+    worldItems.forEach(({ at, until }) => [at, until].forEach(pt => {
+      if (pt && pt.sid === s.id) s.steps = Math.max(s.steps, pt.n);
+    }));
   });
+  // has the deck reached slide-point pt when showing slide s at step k?
+  const reached = (pt, s, k) => {
+    if (!pt) return false;
+    const i = slides.findIndex(x => x.id === pt.sid), at = slides.indexOf(s);
+    return i < at || (i === at && k >= pt.n);
+  };
+  const lay = { t: 0, target: 0, raf: 0, runs: [], lines: [], rings: [], notes: [] };
+  const SPLIT = { cx: -176, sx: .51, sy: .75, mx: 40, oaiW: 440 };   // swarm left, mirror right, OpenAI box narrows
   if (world) {
     const rnd = seeded(11), mk = (tag, cls) => { const e = document.createElementNS(NS, tag); e.setAttribute('class', cls); return e; };
-    const runs = $('.runs', world), runPos = [];
-    for (let i = 0; i < (+(runs && runs.dataset.runs) || 0); i++) {
+    const g = $('.runs', world);
+    for (let i = 0; i < (+(g && g.dataset.runs) || 0); i++) {
       const a = rnd() * Math.PI * 2, t = Math.sqrt(rnd());
-      const p = { x: +(Math.cos(a) * (290 + 180 * t)).toFixed(1), y: +(Math.sin(a) * (205 + 80 * t)).toFixed(1) };
+      const p = { x: Math.cos(a) * (140 + 110 * t), y: Math.sin(a) * (135 + 80 * t) };
       const c = mk('circle', 'run');
-      c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', (4.5 + rnd() * 2.5).toFixed(1));
+      c.setAttribute('r', (3.2 + rnd() * 1.8).toFixed(1));
       c.style.setProperty('--i', i);
-      runs.append(c); runPos.push(p);
+      g.append(c); lay.runs.push({ c, a: p });
     }
-    const line = (cls, p) => { const l = mk('line', cls); l.setAttribute('x1', p.x); l.setAttribute('y1', p.y); l.setAttribute('x2', 0); l.setAttribute('y2', 0); return l; };
+    const addLine = (parent, cls, i) => {
+      const l = mk('line', cls); l.setAttribute('pathLength', 1); l.style.setProperty('--i', i);
+      parent.append(l); lay.lines.push({ l, i });
+    };
     const links = $('.run-links', world), board = $('.board-links', world);
-    runPos.forEach((p, i) => {
-      if (links) links.append(line('w-link', p));
-      if (board && i % 4 === 1) board.append(line('w-link w-link--lit', p));
+    lay.runs.forEach((r, i) => {
+      if (links) addLine(links, 'w-link', i);
+      if (board && i % 4 === 1) addLine(board, 'w-link w-link--lit', i);
     });
-    // "first": the run nearest the first note (upper right of the mirror)
-    const d = p => Math.hypot(p.x - 250, p.y + 230);
-    const first = runPos.reduce((b, p, i) => (d(p) < d(runPos[b]) ? i : b), 0);
-    $$('[data-run]', world).forEach(e => {
-      const p = runPos[e.dataset.run === 'first' ? first : +e.dataset.run];
-      if (!p) return;
-      e.setAttribute(e.tagName === 'circle' ? 'cx' : 'x1', p.x);
-      e.setAttribute(e.tagName === 'circle' ? 'cy' : 'y1', p.y);
-    });
+    // "first": the outermost run up and to the right, where its note can sit clear of the swarm
+    const cand = lay.runs.map((r, i) => [i, Math.atan2(r.a.y / 215, r.a.x / 250), Math.hypot(r.a.x / 250, r.a.y / 215)])
+      .filter(([, ang]) => ang > -0.95 && ang < -0.3);
+    const first = cand.length ? cand.sort((p, q) => q[2] - p[2])[0][0] : 0;
+    const runOf = e => { const v = e.dataset.run || e.dataset.noteFor; return v === 'first' ? first : +v; };
+    $$('line[data-run]', world).forEach(l => lay.lines.push({ l, i: runOf(l) }));
+    $$('circle[data-run]', world).forEach(c => lay.rings.push({ c, i: runOf(c) }));
+    $$('[data-note-for]', world).forEach(n => lay.notes.push({ n, i: runOf(n) }));
   }
+  const runAt = (r, t) => ({ x: r.a.x + ((SPLIT.cx + r.a.x * SPLIT.sx) - r.a.x) * t, y: r.a.y + (r.a.y * SPLIT.sy - r.a.y) * t });
+  function applyLayout(t) {
+    const pos = lay.runs.map(r => runAt(r, t)), mx = SPLIT.mx * t;
+    lay.runs.forEach((r, i) => { r.c.setAttribute('cx', pos[i].x.toFixed(1)); r.c.setAttribute('cy', pos[i].y.toFixed(1)); });
+    lay.lines.forEach(({ l, i }) => {
+      l.setAttribute('x1', pos[i].x.toFixed(1)); l.setAttribute('y1', pos[i].y.toFixed(1));
+      l.setAttribute('x2', mx.toFixed(1)); l.setAttribute('y2', 0);
+    });
+    lay.rings.forEach(({ c, i }) => { c.setAttribute('cx', pos[i].x.toFixed(1)); c.setAttribute('cy', pos[i].y.toFixed(1)); });
+    lay.notes.forEach(({ n, i }) => {   // the note sits just beyond its run, away from the mirror
+      const p = pos[i], d = Math.hypot(p.x - mx, p.y) || 1;
+      const x = p.x + (p.x - mx) / d * 30 - 14, y = p.y + p.y / d * 30 - 18;
+      n.setAttribute('d', `M${x.toFixed(1)},${y.toFixed(1)} h20 l8,8 v28 h-28 z`);
+    });
+    const mg = $('.mirror-group', world);
+    if (mg) mg.setAttribute('transform', `translate(${mx.toFixed(1)} 0)`);
+    const oai = $('#w-oai rect', world);
+    if (oai) oai.setAttribute('width', (624 + (SPLIT.oaiW - 624) * t).toFixed(1));
+    lay.t = t;
+  }
+  function setLayout(target) {
+    if (!world || target === lay.target) return;
+    lay.target = target;
+    cancelAnimationFrame(lay.raf);
+    const from = lay.t, t0 = performance.now(), dur = reduce ? 0 : 1000;
+    const ease = x => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+    const tick = now => {
+      const f = dur ? Math.min(1, (now - t0) / dur) : 1;
+      applyLayout(from + (target - from) * ease(f));
+      if (f < 1) lay.raf = requestAnimationFrame(tick);
+    };
+    lay.raf = requestAnimationFrame(tick);
+  }
+  if (world) applyLayout(0);
   // steps [lo, hi) at which a world part shows on slide s (parts from earlier slides: always)
   function worldRange(e, s) {
     const w = e.closest('[data-world-at]');
     if (!w) return [0, Infinity];
-    const [sid, n] = w.dataset.worldAt.split(':');
-    return [sid === s.id ? +n : 0, Infinity];
+    const at = parsePt(w.dataset.worldAt), until = parsePt(w.dataset.worldUntil);
+    return [at.sid === s.id ? at.n : 0, until && until.sid === s.id ? until.n : Infinity];
   }
   function fitWorld(s) {
-    const b = $(':scope > .body--world', s.node);
+    const b = $(':scope > .world-slot', s.node);
     if (!b) return;
-    const cap = $('.caption', b), capH = cap ? cap.offsetHeight + 16 : 0;
-    Object.assign(world.style, { left: `${b.offsetLeft}px`, top: `${b.offsetTop}px`,
-      width: `${b.offsetWidth}px`, height: `${Math.max(0, b.offsetHeight - capH)}px` });
+    Object.assign(world.style, { left: `${b.offsetLeft}px`, top: `${b.offsetTop}px`, width: `${b.offsetWidth}px`, height: `${b.offsetHeight}px` });
     layoutDiagram(worldSvg);
   }
   function renderWorld(s, k) {
     if (!world) return;
     world.classList.toggle('is-on', s.world);
     if (!s.world) return;
-    const at = slides.indexOf(s);
-    worldItems.forEach(({ e, sid, n }) => {
-      const i = slides.findIndex(x => x.id === sid);
-      e.classList.toggle('is-visible', i < at || (i === at && k >= n));
-    });
+    worldItems.forEach(({ e, at, until }) => e.classList.toggle('is-visible', reached(at, s, k) && !reached(until, s, k)));
     world.classList.toggle('is-soft', $$(':scope > .popover', s.node).some(p => p.classList.contains('is-visible')));
+    setLayout(reached(parsePt(world.dataset.split), s, k) ? 1 : 0);
     const [cx, cy, cs] = (s.node.dataset.camera || '0 0 1').split(/\s+/).map(Number);
     $('.cam', world).style.transform = `translate(${cx}px, ${cy}px) scale(${cs})`;
     fitWorld(s);
