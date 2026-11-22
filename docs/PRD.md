@@ -146,7 +146,7 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 | 5 | Storyboard v2 (12 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | **Superseded** by the accepted rebuild (workstream 7, 22 Nov). History: first draft (10 slides) rejected on quality 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs were reopened and rebuilt. **Carried into the rebuild:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
 | 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **Done** (22 Nov): every v2 slide built in situ behind the S-030 layout guard and accepted by the presenter step by step; Close chapter, reader-notes and title-bar refinements built; README published. S-028 closed on the presenter's acceptance (22 Nov) | `design/prototypes/`, `docs/DESIGN.md` |
-| 8 | Generalise the deck into a reusable skill (`skills/twm-presentation-builder/`): HTML slide builder, HTML → PPTX sub-skill, LLM-as-judge eval of process and output | **Scoping** (22 Nov): interviewing the presenter; decisions below | `skills/twm-presentation-builder/` (not yet created) |
+| 8 | Generalise the deck into a reusable skill (`skills/twm-presentation-builder/`): HTML slide builder, HTML → PPTX sub-skill, LLM-as-judge eval of process and output | **Scoping** (22 Nov): interviewing the presenter; decisions below | `skills/twm-presentation-builder/` + `-docs/` (not yet created) |
 
 ## Exclusions
 
@@ -176,7 +176,11 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   choose its scope (which briefs/decks, which concerns, output and/or process). Process evidence =
   repo artefacts (git history, docs, SPEC states, outputs incl. screenshots); Claude Code session
   transcripts **only** with the user's approval for that run. The skill **NEVER** makes the agent
-  keep a self-reported process log. Eval targets the narrow case
+  keep a self-reported process log.
+  **Layout:** `skills/twm-presentation-builder/` holds only what ships (`SKILL.md`, parts, reusable
+  code, rubrics, examples); its own development docs (PRD, SPEC.jsonl, indexes) and tests live in
+  the sibling `skills/twm-presentation-builder-docs/`, indexed from root `AGENTS.md`. The deck's
+  `docs/` and `tests/` **NEVER** hold skill specs. Eval targets the narrow case
   (presenter-driven editorial talks) but **MUST** be DRY and adaptable to other deck types
   (pitch, data review, internal update).
 - **s-1 and s-2 rebuilt in situ (presenter, 22 Nov):** new title and subtitle; s-2's reward-loop
