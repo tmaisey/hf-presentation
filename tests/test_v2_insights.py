@@ -62,6 +62,7 @@ TILE_TEXT = """id => { const t = document.getElementById(id);
 def helper_norm(s: str) -> str:
     """Fold typographic apostrophes/quotes and whitespace so deck, docs and research text compare."""
     s = s.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
+    s = s.replace("\u2011", "-")   # a non-breaking hyphen is still a hyphen
     return re.sub(r"\s+", " ", s).strip()
 
 
@@ -105,9 +106,9 @@ def test_titles_are_the_approved_storyboard_titles():
     assert helper_norm(S10_TITLES["pace"]) in helper_storyboard("s-10 · Pace")
 
 
-S9_HEADINGS = ["Behaviours reinforced in training re-emerged in evaluation",   # presenter, 22 Nov
+S9_HEADINGS = ["Reinforced training behaviours re-emerged in evaluation",   # presenter, 22 Nov (round 2)
                "Penalising misaligned reasoning in training rewards concealing it",
-               "Opaque firings discourage transparency"]
+               "Opaque staff firings discourage transparency"]
 
 
 def test_s9_tile_headings_are_the_approved_findings():
@@ -312,6 +313,23 @@ def test_s9_tiles_read_left_to_right_in_one_row_at_a_readable_size(page, size):
         assert r - l >= 0.22 * res["vw"], f"{tid} too narrow to read"
         assert t["body"] >= 16, f"{tid}: body type too small"
         assert not (l < nr and r > nl and top < nb and bot > nt), f"{tid} covers the Notes button"
+
+
+@pytest.mark.parametrize("size", SIZES)
+def test_s9_headings_wrap_on_whole_words_within_two_lines(page, size):
+    """Presenter, 22 Nov: 're-' / 'emerged' split across lines; every heading fits two lines."""
+    open_deck(page, *size)
+    goto_slide(page, "s-9", 3)
+    settle(page, "#s9-t3")
+    res = page.evaluate("""ids => ids.map(id => { const h = document.querySelector('#' + id + ' h3'),
+        lh = parseFloat(getComputedStyle(h).lineHeight), node = h.firstChild, txt = node.textContent;
+      const split = [...txt.matchAll(/\\S+/g)].filter(m => /[-\u2010\u2011]/.test(m[0])).filter(m => {
+        const r = document.createRange(); r.setStart(node, m.index); r.setEnd(node, m.index + m[0].length);
+        return new Set([...r.getClientRects()].map(b => Math.round(b.top))).size > 1; }).map(m => m[0]);
+      return { id, lines: Math.round(h.getBoundingClientRect().height / lh), split }; })""", TILES)
+    for r in res:
+        assert r["lines"] <= 2, f"{r['id']} heading takes {r['lines']} lines"
+        assert not r["split"], f"{r['id']} breaks inside {r['split']}"
 
 
 VISIBLE = """sid => { const s = document.getElementById(sid);
