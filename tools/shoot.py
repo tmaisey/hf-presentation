@@ -1,7 +1,7 @@
 """Screenshot one slide of the v2 deck at every step, at the agreed review sizes.
 
 Usage:
-    uv run python tools/shoot.py s-3 [OUT_DIR] [--sizes 1920x1080,1280x720,1288x598]
+    uv run python tools/shoot.py s-3 [OUT_DIR] [--sizes 1920x1080,1280x720,1288x598] [--settle 2600]
 
 Writes ``<OUT_DIR>/<slide>-<WxH>-<step>.png`` (default OUT_DIR: tests/artifacts/shots) so the
 assembled deck can be looked at step by step (AGENTS.md *Definition of done*, item 4). Uses the
@@ -57,9 +57,10 @@ def main() -> None:
     ap.add_argument("slide")
     ap.add_argument("out", nargs="?", default=str(ROOT / "tests" / "artifacts" / "shots"))
     ap.add_argument("--sizes", default="1920x1080,1280x720,1288x598")
+    ap.add_argument("--settle", type=int, default=2600, help="ms to wait after each step (timed beats need longer)")
     a = ap.parse_args()
     sizes = [tuple(int(v) for v in s.split("x")) for s in a.sizes.split(",")]
-    for path in shoot(a.slide, Path(a.out), sizes):
+    for path in shoot(a.slide, Path(a.out), sizes, a.settle):
         print(path)
 
 

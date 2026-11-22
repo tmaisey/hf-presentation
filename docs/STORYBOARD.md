@@ -91,7 +91,7 @@ coordinate through a shared message board*
 ## s-4 · Early evaluation and the wipe (2:00) · M1
 
 ✓ *Early warning signals were handled as routine operational incidents* (v1 3.3; presenter approved, 22 Nov)
-- **Agreed design (presenter, 22 Nov; world slide, S-032; not yet built):** continues the incident
+- **Agreed design (presenter, 22 Nov; world slide, S-032; built in situ 22 Nov, S-021):** continues the incident
   world from s-3's end state (swarm left, mirror right, Public Internet box). Timeline left · world
   centre · narration right, timeline builds one entry per step (as s-3).
   - **Opening (step 0, timeline entry "**June** Cyber evaluation runs (ExploitGym)"):** never
@@ -103,7 +103,9 @@ coordinate through a shared message board*
   - **Steps (7 states, 0–6):** 0 opening · 1 pop-over card *Capture the flag* · 2 card *Some had
     no solution* joins it (cards build one per step, as s-3) · 3 26 Jun · 4 27 Jun · 5 4 Jul ·
     6 5–6 Jul. Narration tiles sit on the dated steps (3, 4, 6). No closing Insight unless the
-    presenter asks.
+    presenter asks. As built, steps 1–2 add timeline sub-points ("Agents attack deliberately
+    vulnerable targets to capture flags" · "Some tasks have no solution") so the timeline builds
+    every step, as on s-3.
   - **Steps 1–2, ExploitGym pop-over** (two cards, s-3 style; world blurs):
     *Capture the flag*: an agent in its container exploits a deliberately vulnerable target, pulls
     out a small flag, an automated scorer ticks it ("agents attack a deliberately vulnerable
@@ -125,7 +127,8 @@ coordinate through a shared message board*
   - **5–6 Jul · security responders rebuild the mirror; the board is wiped without being
     recognised:** the greyed notes dissolve; the mirror returns to its live state (no red light,
     no padlock, no notes). **No person glyphs**: the timeline and voiceover say who did it.
-    Ends on a clean mirror with the swarm still running (s-5 picks up on 8 Jul).
+    Ends on a clean mirror with the swarm still running (s-5 picks up on 8 Jul). As built, the
+    key glyph does not return: OpenAI removed the shared credential on 5–6 Jul (TR §III.B).
 - **Narr ⚠ thin** (METR saw "no message board activity between June 26th and July 6th", fn 61):
   - 26 Jun: Agent · ExploitGym run, 26 Jun · paraphrased by METR (first to gain Artifactory admin):
     {Agents doing different tasks are abusing properties to make a bulletin board! They found

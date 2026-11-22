@@ -157,6 +157,15 @@ def helper_rgb(page, token):
     return page.evaluate(TOKEN, token)
 
 
+def helper_until(page, js, arg=None, timeout=6000):
+    """Wait until ``js(arg)`` is truthy (transitions race fixed sleeps under parallel load); False on timeout."""
+    try:
+        page.wait_for_function(js, arg=arg, timeout=timeout, polling=100)
+        return True
+    except Exception:
+        return False
+
+
 def test_slide_has_seven_states(page):
     open_deck(page)
     assert dict(page.evaluate("window.deck.plan()"))[SID] == STEPS
@@ -168,6 +177,8 @@ def test_world_popover_and_timeline_build_per_step(page, step):
     goto_slide(page, SID, step)
     expected = {w for w in CARRIED | {"w-cred"} if step < WORLD_UNTIL.get(w, 99)}
     expected |= {w for k, v in WORLD_AT.items() if k <= step for w in v if step < WORLD_UNTIL.get(w, 99)}
+    helper_until(page, f"want => {{ const got = ({VISIBLE_WORLD})(); return got.length === want.length && want.every(w => got.includes(w)); }}",
+                 sorted(expected))
     assert set(page.evaluate(VISIBLE_WORLD)) == expected
     panels = page.evaluate(PANELS)
     assert panels["s4-pop-flag"] == (step in (1, 2)) and panels["s4-pop-nosol"] == (step == 2)
@@ -183,6 +194,7 @@ def test_training_runs_become_grey_ghosts_and_eval_runs_are_green(page):
     """The s-3 runs stay as history, greyed; the fresh evaluation runs use the same 'agent run' key."""
     open_deck(page)
     goto_slide(page, SID, 0)
+    helper_until(page, f"() => ['#w-runs', '#w-links', '#w-net'].every(s => ({OPACITY})(s) < .5)")
     res = page.evaluate("""() => { const run = s => document.querySelector(s); const cs = e => getComputedStyle(e);
       return { ghost: +cs(run('#w-runs')).opacity, ghostStroke: cs(run('#w-runs .run')).stroke,
                evalN: document.querySelectorAll('#w-eval .run').length, evalStroke: cs(run('#w-eval .run')).stroke,
@@ -207,6 +219,7 @@ def test_eval_runs_each_link_to_the_mirror(page):
 def test_zero_day_rings_one_eval_agent_and_opens_a_padlock_on_oxblood(page):
     open_deck(page)
     goto_slide(page, SID, 3)
+    helper_until(page, f"() => ({OPACITY})('#w-admin-ring') > .9 && ({OPACITY})('#w-lock') > .9 && ({OPACITY})('#w-cred') < .05")
     res = page.evaluate("""() => { const q = s => document.querySelector(s), cs = e => getComputedStyle(e);
       const ring = q('#w-admin-ring circle').getBoundingClientRect(), m = q('#w-mirror rect').getBoundingClientRect();
       const lock = q('#w-lock').getBoundingClientRect(), line = q('#w-admin line');
@@ -237,15 +250,16 @@ def test_alert_sweeps_radar_rings_and_the_bell_is_silenced(page):
     assert (l + r) / 2 < x < r and t < y < (t + b) / 2 and y < t + 0.2 * (b - t), "bell sits at the box's top right"
     assert len(res["rings"]) >= 2 and all(a != "none" for a in res["rings"]), "radar rings sweep"
     assert res["clip"] not in ("none", ""), "rings stay inside the OpenAI box"
-    page.wait_for_timeout(1500)
-    assert page.evaluate(OPACITY, "#w-bell .bell-slash") > 0.9, "bell greys to a silenced bell"
-    assert page.evaluate("() => getComputedStyle(document.querySelector('#w-bell .bell-body')).stroke") == \
-        helper_rgb(page, "--ink-3")
+    assert helper_until(page, f"() => ({OPACITY})('#w-bell .bell-slash') > .9"), "bell greys to a silenced bell"
+    ink3 = helper_rgb(page, "--ink-3")
+    helper_until(page, "c => getComputedStyle(document.querySelector('#w-bell .bell-body')).stroke === c", ink3)
+    assert page.evaluate("() => getComputedStyle(document.querySelector('#w-bell .bell-body')).stroke") == ink3
 
 
 def test_load_pulses_accelerate_and_notes_flood_onto_the_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 5)
+    page.wait_for_timeout(2600)   # the last notes of the flood have landed
     res = page.evaluate("""() => { const c = e => { const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2, r.width, r.height]; };
       const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
       const pulses = [...document.querySelectorAll('#w-load .pulse')];

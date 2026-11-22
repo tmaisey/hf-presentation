@@ -30,6 +30,7 @@ everything else binds both. Slide authors need only §10.
 | `--accent` | `#86BC25` (2.0:1) | Glows, fills, strokes, progress. **NEVER** text | [P2:35](../design/prototypes/02-chapters-depth.html#L35) |
 | `--accent-ink` | `#4B6E10` (5.4:1) | Accent *as text* (chapter kickers) | [P2:41](../design/prototypes/02-chapters-depth.html#L41) |
 | `--loss` | `#7A1F2B` | Deep oxblood: sacrifice, irreversible loss. Sparingly | [P4:15](../design/prototypes/04-diagram-swarm.html#L15) |
+| `--alarm` | `#D2392C` | Signal red: a status light that something is down (s-4 crash). Only for alarm lights, never text or fills | in situ (S-021, `deck-v2.html` s-4) |
 | `--serif` / `--sans` | Newsreader / Inter | Titles / everything else | [P1 pairing A](../design/prototypes/01-palette-type.html#L19) |
 
 - **NEVER** name or brand the accent after any organisation; no corporate branding anywhere.
@@ -287,10 +288,16 @@ pins for targets not on screen at that step hide (v1: always the last step).
   stay in proportion; keep tile labels short (stack words) as the world shrinks. Soft-toned
   `g.domain` boxes (label top-left, uppercase) name where things run ("OpenAI servers", "Public
   Internet"). `data-split` on `.world` re-arranges the scene (swarm left, mirror right, OpenAI box
-  narrows) with a tween that keeps run–mirror lines attached. Runs (`g.runs[data-runs=N]`) are drawn
-  by the engine in P4 line-drawn style; `[data-run]` follows a run (`first` = the first-note
-  agent, outermost upper right). `.note-fly[data-note-for="first"|"lit-k"]` glyphs sit at their
-  target (pinned on the mirror) and fly in from their run when their group appears. The timeline
+  narrows) with a tween that keeps run–mirror lines attached. Runs (`g.runs[data-runs=N][data-seed]`,
+  one seeded swarm per group) are drawn by the engine in P4 line-drawn style; `[data-of="<runs id>"]`
+  on a part (or an ancestor) picks its group (default: the first); `[data-run]` follows a run (`first`
+  = the group's outermost upper-right run, or an index). `.note-fly[data-note-for="first"|"lit-k"]`
+  glyphs sit at their target (pinned on the mirror) and fly in from their run, where it stands when
+  their group appears. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
+  `ghost` (a past swarm greys, kept as history), `dim` (a box fades back), `down` (mirror and notes
+  grey after the 4 s flood). Timed beats within one step (s-4: bell rings then is silenced, load
+  pulses travel run→mirror faster and faster, the flood lands, then the crash light flashes
+  `--alarm`) show their end state under reduced motion. Moving dots, never marching dashes. The timeline
   builds: an entry shows at its step, never ahead; `li.sub` = un-numbered sub-point (dash);
   `span.tl-aside` = a quieter second line. A world slide may close with an Insight
   (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that
