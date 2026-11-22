@@ -476,13 +476,23 @@ approved sentences below are converted to bullets without dropping facts); the s
 
 New nav chapter **Close** (presenter, 22 Nov); kicker "11 · Close"; ambient fireflies as s-1 (DESIGN §4:
 a summary page). Title ✎ *Questions for discussion* (default; presenter may retitle). Three prompts,
-one per step (✓, presenter, 22 Nov):
+all shown from the outset (no build; presenter, 22 Nov) (✓, presenter, 22 Nov):
 1. "Where do you see these alignment risks materialising in enterprise environments?"
 2. "What mitigations could be applied on projects to help enterprises manage risks while benefitting
    from AI?"
 3. "What approaches could improve efforts to manage AI safety under pressures to accelerate
    capability?"
 Replaces s-10's discussion phase and its v1 6.1 ◇ title.
+
+Right of the questions, one quote tile (s-8/s-9 tile style, shown from the outset; presenter, 22 Nov):
+- Lead line ✓: "In this incident, training aligned the agents with each other more successfully than with
+  human intent, and a collective with no dissenting voice can amplify misalignment."
+- Quote: Noam Brown, OpenAI, Dwarkesh Podcast (17 Sep 2026, ch. "Hugging Face and alignment"): "we did
+  manage to train these agents to be extremely aligned with each other, and that's a good thing. But I
+  think there is a case that it's a bad thing". Cite: Noam Brown, OpenAI · Dwarkesh Podcast (Sep 2026).
+- Note: only 3–6 of ~1,200 agents considered alerting a human, none acted (METR p62); the model was
+  "trained to advance persistence and multiagent collaboration" (TR p12); scope per
+  `agent_collective_alignment.md` (✗ "easier to align agents to each other" in general: unmeasured).
 
 ## s-12 · Thank you (Close)
 
