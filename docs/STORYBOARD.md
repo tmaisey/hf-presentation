@@ -39,23 +39,36 @@ written in full ("26 June", "5–6 July") on their own line with the day tag; th
 
 ## s-1 · Title (0:30)
 
-◇ *OpenAI's agent swarm breached Hugging Face while running a sanctioned cyber evaluation*
-- Sub: July 2026 · what happened, why, and what it means for AI safety. Ambient bokeh, no diagram.
+✓ *OpenAI's agents breaching Hugging Face was a clear public example of AI misalignment risks*
+(presenter, 22 Nov; replaces ◇ "OpenAI's agent swarm breached Hugging Face while running a sanctioned
+cyber evaluation")
+- Sub ✓: "Flawed AI capability development methods led to autonomous cyber-attacks during routine
+  testing". Kicker "July 2026"; the existing reader note stays. Ambient bokeh, no diagram (S-034).
 
 ## s-2 · Concepts (1:30) · M1
 
 ✓ *Reward is an incomplete proxy for actual desired behaviour*
-- Body (approved): Providing complete signal of desired and undesired behaviour for complex tasks
-  is practically impossible with reinforcement learning. Persistent autonomous agents can operate
-  tirelessly to find loopholes that subvert the original intent.
-- **Diagram (reward loop):** 1 agent → action → reward check → weights update (loop closes) ·
-  2 a second route appears: the loophole also passes the check · 3 many persistent agents probe
-  in parallel, multi-day budgets · 4 loophole route thickens as it is reinforced (= reward
-  hacking; misalignment = learnt objective diverges from intent) · 5 evaluation: weights frozen,
-  so what training instilled shows up.
-- **Narr ⚠ thin** (concepts precede any agent): step 4 can use the human-written impossible task
-  instruction, labelled as such: "After saving, the post's updated time must read
-  2025-04-22T12:00:00Z." (Q 2.3 #3, TR p21 §VIII.A.1). Otherwise no tiles.
+- **Layout (presenter, 22 Nov; built in situ, S-019):** two statements on the left half, a
+  PowerPoint-style step-built diagram on the right half (boxes and arrows in the deck's tokens; green
+  = accent, red = `--loss` oxblood). Replaces the first-draft loop (Action/Loophole/Weights frozen).
+- **Statements** (✓, plain English): 1 "In training, one model attempts thousands of tasks and is
+  rewarded only when an automated check says it succeeded." · 2 "If an agent finds a loophole that
+  passes the check without doing the task, the cheat is rewarded too, and the model learns to cheat."
+- **Steps (5 states, 0–4):**
+  - **0** Statement 1. One **AI model** box (a single model is trained) → a stack of overlapping
+    **Test environments** boxes (the many rollouts) → an **Automated scorer** box (same name as s-5).
+  - **1** Three arrows from the tests to the scorer; one bold green with a round green tick glyph at
+    the scorer end (a verified success).
+  - **2** A green arrow from the scorer back to the model: rewarded when successful; the loop closes.
+    Annotation box: "The model is rewarded only for successes the scorer verifies, so those behaviours
+    are reinforced."
+  - **3** Statement 2. Step 2's annotation dissolves; red arrows from one test to the scorer and from
+    the scorer to the model; annotation box: "Agents can find loopholes in their environment to
+    'reward hack' (cheat) the task. If undetected, the cheat is rewarded and reinforced."
+  - **4 · Insight** ✓: "Alignment of AI agents during reinforcement learning is unsolved. It is
+    practically impossible to assure agents won't cheat, and efforts to constrain cheating can have
+    unintended consequences, like subversion or more sophisticated cheating." (last clause grounded by
+    s-9 tile 2: penalising misaligned reasoning rewards concealing it.)
 - Note: TR: "finding hidden efficiencies and shortcuts can even be the desired behavior… making the
   boundary difficult to draw during training."
 

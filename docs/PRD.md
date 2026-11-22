@@ -155,6 +155,9 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 
 ## Decisions
 
+- **s-1 and s-2 rebuilt in situ (presenter, 22 Nov):** new title and subtitle; s-2's reward-loop
+  diagram is PowerPoint-style boxes and arrows, built straight into the deck and judged by eye step
+  by step, no throwaway prototype (Workflow phase 4 exception).
 - **Timeline day tags (presenter, 22 Nov):** every dated timeline entry carries its day count
   from **8 May = day 0** (the first dated event, "A blocked agent turns on the mirror"), in days
   throughout ("+49 d"; weeks would merge the dense 8–19 Jul entries), so the room keeps the overall
