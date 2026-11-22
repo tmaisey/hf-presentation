@@ -24,8 +24,7 @@ from helper_deck import deck_source, goto_slide, open_deck, parse_slides, settle
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-3"
-TITLE = ("Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to "
-         "coordinate through a shared message board")
+TITLE = "The incident began when persistent agents were trained on accidentally impossible tasks, reinforcing misaligned behaviours"  # presenter, 22 Nov: the title marks the start of the incident
 STEPS = 7
 WORLD_AT = {0: {"w-oai", "w-runs"}, 1: {"w-mirror", "w-cred", "w-links"}, 4: {"w-note1"}, 5: {"w-board"},
             6: {"w-net"}}
