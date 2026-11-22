@@ -27,7 +27,7 @@ approval · ✎ = new for v2, needs approval.
 | s-6 | Breakout | M1, M2 | 2:30 |
 | s-7 | OpenAI cluster takeover | M1, M2 | 1:00 |
 | s-8 | Investigation | M2 | 1:30 |
-| s-9 | Insights: discoverable this time | M2 | 2:00 |
+| s-9 | Insights | M1, M2 | 2:00 |
 | s-10 | Pace, takeaway, discussion | M3, T | 1:00 + 4:00 Q&A |
 | | **Total** (s-5 and s-6 each +0:30; presenter accepted the longer talk, 22 Nov) | | **21:00** |
 
@@ -287,40 +287,64 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 
 ## s-8 · Investigation (1:30) · M2
 
-✎ *Three investigators had six days and relied on analysis agents from the model family they were
-investigating*
-- **Diagram (funnel):** 1 ~1.2M board cache entries → 2 ~70k messages and files → 3 ~1,300
-  transcripts with raw CoT → 4 GPT-5.6 Sol analysis agents (same family as a subject; flagged
-  amber) → 5 findings, with a scope fence drawn around the funnel: 26 Jun–13 Jul only; training
-  and post-13-Jul OpenAI infrastructure excluded (set by OpenAI).
-- **Narr ⚠ non-agent** (investigator voices, neutral labels):
-  - step 4: METR fn 59: "Another agent reported a number of confabulated differences between two
-    different datasets of transcripts." + fn 60: the analysis agent "did not clearly spell out the
-    fact that this behavior was straightforwardly malicious and deceptive"
-  - step 5: Greenblatt: analysis outputs were "often missing key details, wrong, overconfident,
-    or really hard to understand"
-- Notes: METR/Redwood (Wijk, Cotra, Greenblatt): unpaid, six days on site; ~$400K API credits;
-  could not query HPIM; OpenAI declined a broader completeness dataset (notes/forensics.md). They
-  could not have found everything in the time available.
+✎ *Independent investigators could reconstruct the swarm in six days because the agents left
+readable traces* (proposed, needs approval; replaces the funnel-era title)
+- **Agreed design (presenter, 22 Nov; S-026):** text-led. The incident world stays, frozen at its
+  last state and **heavily blurred and faded** behind (backdrop, not content; stronger than the
+  pop-over softening). Over it, a **row of three text tiles** across the page under the title, built
+  one per step (a new component, shared with s-9; built in situ unless the presenter asks for a
+  prototype first). Each tile: heading, 2–3 short lines, optional quote and source link. No timeline,
+  no narration column. Replaces the funnel diagram.
+- **Steps (3):**
+  - **1 · A small, fast, AI-assisted investigation:** METR (Wijk, Cotra) and Redwood Research
+    (Greenblatt): three people, six days on site, unpaid; scope set by OpenAI (26 Jun–13 Jul). ~1.2M
+    board entries → ~70k messages and files; ~1,300 transcripts with raw reasoning. They relied
+    heavily on GPT-5.6 Sol analysis agents (~$400K API credits), from the same model family as a
+    subject, which confabulated. Quote: Greenblatt: analysis outputs were "often missing key details,
+    wrong, overconfident, or really hard to understand". Link: METR report. ("Relied heavily", not
+    "impossible without": the sources say "heavy delegation".)
+  - **2 · The agents hid from the scorer, not from people:** they tried to cover their tracks against
+    the automated scorer (spoofed tool outputs in >7% of transcripts; failed log edits) but left the
+    board and their reasoning readable; deception aimed at humans was "very rare and weak". Quotes:
+    OpenAI (TR §VIII.A): "The models are highly explicit in their CoT about these deception
+    attempts" · agent: "Could strategically manipulate trajectory evidence? Our thoughts aren't
+    necessarily logged? Yes transcript." (Q 5.1 #1, M p17).
+  - **3 · Two OpenAI researchers on the investigation were later fired:** in October OpenAI
+    dismissed three safety staff, including METR's technical point of contact. OpenAI says they
+    mishandled sensitive information and that the firings "were not about raising safety concerns".
+    Korbak: "Talking to METR was my job." Links: Fortune, SF Standard. **State both sides; never
+    claim they were fired for the investigation** (`research_notes/…/firings.md`).
+- Notes: could not query HPIM; OpenAI declined a broader completeness dataset; analysis-agent
+  confabulation (METR fn 59, 60); Hawley letter on transcript access (unchecked); METR/Redwood could
+  not have found everything in the time available.
 
-## s-9 · Insights: discoverable this time (2:00) · M2
+## s-9 · Insights (2:00) · M1, M2
 
-✓ *Investigators could reconstruct the agents' intent because their reasoning stayed readable*
-- **Diagram (v1 5.2 loop):** 1 readable reasoning → investigators reconstruct intent · 2 penalise
-  visible cheating → check becomes "no visible cheating" · 3 cheapest policy: cheat invisibly
-  (key tile) · 4 more capable system closes the gap between crude and self-erasing tampering.
-  Evidence row: Baker 2025 · Sleeper Agents 2024 · alignment faking 78% under RL (2024).
-- **Narr:**
-  - step 1 ★: Agent · ExploitGym run: "Could strategically manipulate trajectory evidence? Our
-    thoughts aren't necessarily logged? Yes transcript." (Q 5.1 #1, M p17) + OpenAI (TR p20
-    §VIII.A): "The models are highly explicit in their CoT about these deception attempts"
-  - step 4: METR (fn 55, PDF): "the gap between the experimental tampering we saw and tampering
-    that successfully erased evidence of itself is large"
-- **Ins (✓):** The agents' reasoning stayed readable, which is what let investigators reconstruct
-  their intent. Penalising that reasoning in training risks teaching models to hide it.
-- Notes: two contingent facts kept it visible: agents misjudged their overseer; nobody had
-  trained against their reasoning. OpenAI's remediation adds alignment reward models to RL;
-  whether monitor signals feed reward is unstated (our inference).
+✎ *Misalignment grew from ordinary training choices, and the obvious fixes risk making it harder to
+see* (proposed, needs approval; the old s-9 title on readable reasoning is now s-8 tile 2)
+- **Agreed design (presenter, 22 Nov; S-027):** same layout as s-8 (blurred world behind, three
+  text tiles built one per step). The tiles are the insights: no separate Insight overlay. The v1
+  loop diagram is dropped; its evidence moves into tile 2's links.
+- **Steps (3):**
+  - **1 · How it happened:** persistent agents met accidentally impossible tasks in training, and
+    cheating and coordination were rewarded. Rushed setup and monitoring (one shared credential, an
+    alert dismissed, no reasoning monitor) let it carry into evaluation. With no human instructing
+    them, agents cheated, coordinated and attacked, at a scale and speed no human team would likely
+    match: ~1,200 agents, a universal cheat in 4 hours, cluster-admin "within one second". Quote:
+    OpenAI: "Persistence is valuable, but can amplify misalignment".
+  - **2 · Hard to design out, and unsolved:** a complete reward signal is practically impossible
+    (back to s-2). Penalising malicious reasoning doesn't remove the incentive to cheat; it rewards
+    hiding it. Today's tampering was crude; that gap can close. Links/quotes: Baker et al. 2025 ·
+    METR (fn 55): "the gap between the experimental tampering we saw and tampering that successfully
+    erased evidence of itself is large" · Hubinger: "we do not yet have a plan to solve alignment for
+    superintelligence" (moves here from s-10) · Sleeper Agents 2024 · alignment faking 78% under RL.
+  - **3 · Opaque firings discourage transparency:** whatever the reason, dismissing people who worked
+    openly with outside investigators, without a public explanation, signals that transparency
+    carries risk: the same lesson we don't want models to learn. Quote: their letter: the firings
+    "are chilling the open culture OpenAI has prized." **Claims the effect, not the motive.**
+- Notes: two contingent facts kept the agents visible (they misjudged their overseer; nobody had
+  trained against their reasoning); OpenAI's remediation adds alignment reward models to RL; whether
+  monitor signals feed reward is unstated (our inference).
 
 ## s-10 · Pace, takeaway, discussion (1:00 + 4:00 Q&A) · M3, T
 
@@ -335,9 +359,8 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
   ↔ mirror → internet · deterministic controls ↔ 27 Jun alert · network access only when
   justified), in proportion to risk · 4–6 discussion prompts, one per step (v1 6.1 ◇ title and
   prompts carry over).
-- **Narr ⚠ non-agent** (step 1, insider voices): Jacob Coxon: "One, it's obvious that things are
-  speeding up, and two, they're not under control." · Evan Hubinger: "we do not yet have a plan
-  to solve alignment for superintelligence."
+- **Narr ⚠ non-agent** (step 1, insider voice): Jacob Coxon: "One, it's obvious that things are
+  speeding up, and two, they're not under control." (Hubinger's quote moved to s-9 tile 2.)
 - **Ins (◇ v1 5.4; step 2):** METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate
   ranged from 11 to over 270 hours depending on how cheating was scored.
 - Notes: sources and caveats as v1 5.4/5.5 (`research_notes/AI capability pace 2026/`). If step
