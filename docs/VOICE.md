@@ -98,7 +98,8 @@ and add every new verdict here as an example pair. British spelling throughout.
   s-7 "After Hugging Face cut access, a second model's agents took control of an OpenAI cluster" ✓
   (✗ credential-reuse detail in the title: not salient at this level; ✗ "the same agents": wrong) ·
   s-3 "…and they learnt to coordinate through a shared message board" ✓ (✗ "…built a message board
-  to do it": overclaims intent).
+  to do it": overclaims intent) · s-4 "Early warning signals were handled as routine operational
+  incidents" ✓ (22 Nov).
 - **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight; v2 title s-8.
   Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
   carries over as-is.

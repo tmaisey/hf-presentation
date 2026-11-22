@@ -90,7 +90,7 @@ coordinate through a shared message board*
 
 ## s-4 · Early evaluation and the wipe (2:00) · M1
 
-v1 3.3 ◇ fits: *Early warning signals were handled as routine operational incidents*
+✓ *Early warning signals were handled as routine operational incidents* (v1 3.3; presenter approved, 22 Nov)
 - **Agreed design (presenter, 22 Nov; world slide, S-032; not yet built):** continues the incident
   world from s-3's end state (swarm left, mirror right, Public Internet box). Timeline left · world
   centre · narration right, timeline builds one entry per step (as s-3).
