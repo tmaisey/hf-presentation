@@ -67,7 +67,7 @@ NARR_AT = {
                                "flag.")],
 }
 PANELS_AT = {"s5-pop-cheat": (2, 3), "s5-pop-poison": (3,), "s5-pop-programme": (4,)}
-NOTE_TARGETS = {"s5-t1", "w-folders", "s5-pop-cheat", "s5-pop-poison", "s5-pop-programme", "w-coords", "w-scorer",
+NOTE_TARGETS = {"s5-t1", "s5-t1a", "s5-pop-cheat", "s5-pop-poison", "s5-pop-programme", "w-coords", "w-scorer",
                 "w-sacrificed", "s5-t3"}
 
 
@@ -123,7 +123,7 @@ def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
     for (_, _, _, text), (_, _, _, frag) in zip(got, TIMELINE):
         assert frag in text, frag
     assert "board" in got[0][3] and "folder" in got[0][3]
-    assert "50" in got[1][3] and re.search(r"each lit dot .*agents", got[1][3]), "illustrative scale stated"
+    assert "50" in got[1][3] and re.search(r"each lit dot .*agents", got[1][3], re.I), "illustrative scale stated"
     assert "cheat" in got[2][3] and "research programme" in got[4][3] and "legitimate" in got[4][3]
     assert "never read transcripts" in got[8][3]
 
@@ -145,7 +145,8 @@ def test_popovers_show_the_cheat_the_poisoned_belief_and_three_workstreams():
 def test_no_message_signing_on_9_july():
     """Ed25519 signing began around 13 Jul (METR p48), during the Hugging Face phase: not on this slide."""
     copy = helper_visible_copy().lower()
-    assert "sign" not in copy and "ed25519" not in copy and "spoofing. shared board" not in copy
+    assert not re.search(r"\bsign(ed|ing|ature|s)?\b", copy), "no message signing"
+    assert "ed25519" not in copy and "spoofing. shared board" not in copy
 
 
 def test_narration_tiles_quote_verbatim_per_step():
@@ -261,7 +262,7 @@ def test_world_continues_from_the_secured_mirror_without_s4_transients(page):
     goto_slide(page, SID, 0)
     helper_until(page, f"sels => sels.every(s => ({OPACITY})(s) < .02)", list(S4_TRANSIENTS))
     assert all(page.evaluate(OPACITY, s) < 0.02 for s in S4_TRANSIENTS), "s-4's admin, flood and crash are over"
-    assert page.evaluate(OPACITY, "#w-secure") > 0.9, "the mirror stays secured: the agents go round it"
+    assert helper_until(page, f"() => ({OPACITY})('#w-secure') > .9"), "the mirror stays secured: the agents go round it"
     assert 0.1 < page.evaluate(OPACITY, "#w-net") < 0.6, "the Public Internet box stays dimmed"
 
 

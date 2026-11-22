@@ -54,8 +54,12 @@ def test_edges_use_shared_arrow_and_tiles_have_no_stroke(page):
     assert all(d == "none" for d in res["dashes"]), "never dashed edges"
 
 
+@pytest.mark.deck("v1")
 def test_swarm_builds_with_steps_and_coordinators_paint_on_top(page):
-    """Engine stages follow steps 1–5 by default; an optional data-stages list remaps step → stage."""
+    """Engine stages follow steps 1–5 by default; an optional data-stages list remaps step → stage.
+
+    v1 only: v2 has no standalone swarm diagram since s-5 moved onto the incident world (S-022).
+    """
     open_deck(page)
     sid, stages = page.evaluate("""() => { const svg = document.querySelector('.diagram[data-diagram=swarm]');
       return [svg.closest('section').id, svg.dataset.stages || '']; }""")
