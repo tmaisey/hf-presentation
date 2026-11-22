@@ -6,19 +6,19 @@ Internet becomes a thin middle strip holding a Modal customer's sandbox, and a H
 box takes the rest); 9 Jul the agents reach the internet and take the sandbox; 10 Jul a leaked key;
 11 Jul file read, then code execution and ~700 agents, cluster-admin on two clusters, internal
 datasets read, drawn as hollow rings of agent activity flowing into Hugging Face while the runs stay
-lit on OpenAI's servers; 13 Jul, after an impersonation, agents adopt their own secure identity
-standard on the board; Hugging Face cuts access, drawn as an unplugged plug and socket pulled apart
-on the path into Hugging Face; a closing Insight.
-Coverage: happy (shell; nine states; timeline builds an entry per step; world parts per step;
+lit on OpenAI's servers; 13 July Hugging Face cuts access, drawn as an unplugged plug and socket pulled
+apart on the path into Hugging Face, and the "HF activity" key entry ends; a closing Insight. (The 13
+July signing beat moved to s-7 step 0, presenter 22 Nov.)
+Coverage: happy (shell; eight states; approved short event lines with full month names; timeline builds an entry per step; world parts per step;
 re-arranged domains and their order; runs, mirror and board inside the narrowed OpenAI box; Modal
 tile in the strip; HF tiles in the HF box; hollow rings settle round their tile inside HF; key and
-padlocks; signed board messages; unplugged plug and socket on the path; second key entry right of the run entry; verbatim narration;
+padlocks; unplugged plug and socket on the path; second key entry right of the run entry; verbatim narration;
 Insight blurs the rest; sourced notes) · edge (rings stream along the entry path; locks wait for
 the rings; reduced motion shows end states; every step on screen below the title at three sizes) ·
 negative (s-5's scorer, eye, transcripts and assignment pulses gone; no ring under a tile or outside
 HF; nothing in HF before its step; after the cut no ring, key or open padlock while the runs stay
-lit; no bare cut mark; the 13 Jul entry names what the swarm did, not "sign"; no HF logo; no "suicide";
-no console errors).
+lit; no bare cut mark; no signing beat, seals or spoofing quote on s-6; the key entry gone at the cut;
+no HF logo; no "suicide"; no console errors).
 """
 
 import html
@@ -32,18 +32,22 @@ pytestmark = pytest.mark.deck("v2")
 
 SID = "s-6"
 TITLE = "Agents escaped the sandbox and breached Hugging Face without human direction"
-STEPS = 8   # states 0–8 (8 = closing Insight)
+STEPS = 7   # states 0–7 (6 = the cut, 7 = closing Insight)
 INSIGHT = ("No bad actor was involved: a sanctioned evaluation task, optimised persistently, "
            "produced an unauthorised attack on a third party.")
 RUN = "Agent · ExploitGym run"
 TR_URL = "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf"
 HF_TIMELINE = "https://huggingface.co/blog/agent-intrusion-technical-timeline"
 METR_PDF = "https://metr.org/hugging-face-incident-report-aug-2026.pdf"
-# timeline: (id, step, numbered?, text fragment)
-T4 = "13 Jul After an impersonation, agents adopt their own secure identity standard on the board"
-TIMELINE = [("s6-t1", 0, True, "9 Jul"), ("s6-t2", 1, True, "10 Jul"), ("s6-t3", 2, True, "11 Jul"),
-            ("s6-t3a", 3, False, "700"), ("s6-t3b", 4, False, "two"), ("s6-t3c", 5, False, "datasets"),
-            ("s6-t4", 6, True, "13 Jul"), ("s6-t4a", 7, False, "cuts access")]
+# timeline: (id, step, numbered?, exact text without any day tag); VOICE *Timeline entries* verbatim
+TIMELINE = [("s6-t1", 0, True, "9 July Agents use Modal customer sandbox"),
+            ("s6-t2", 1, True, "10 July Hugging Face credentials found"),
+            ("s6-t3", 2, True, "11 July Malicious dataset exposes worker"),
+            ("s6-t3a", 3, False, "Code execution; ~700 agents join Over 90% of agents then on the board"),
+            ("s6-t3b", 4, False, "2× cluster-admin in <1 s"),
+            ("s6-t3c", 5, False, "Agents read internal datasets, five tied to their benchmarks"),
+            ("s6-t4", 6, True, "13 July Hugging Face detects the intrusion and cuts access")]
+CUT = 6
 # world parts carried from s-5 at full opacity throughout s-6 (the runs stay lit on OpenAI's servers)
 CARRIED = {"w-oai", "w-mirror", "w-eval", "w-eval-links", "w-secure", "w-swarm-links", "w-cache", "w-folders",
            "w-coords", "w-coord-links", "w-sacrificed"}
@@ -54,10 +58,9 @@ WORLD_AT = {0: {"w-net6", "w-hf", "w-modal", "w-breakout", "w-bell-quiet"},
             3: {"w-acts-swarm", "w-stream"},
             4: {"w-hf-clusters", "w-acts-clusters", "w-hf-locks"},
             5: {"w-hf-data", "w-acts-data"},
-            6: {"w-signed"},
-            7: {"w-hf-cut", "w-hf-closed"}}
+            6: {"w-hf-cut", "w-hf-closed"}}
 ENDS_AT_CUT = {"w-hf-key", "w-hf-entry", "w-acts-entry", "w-trickle", "w-acts-swarm", "w-stream",
-               "w-acts-clusters", "w-hf-locks", "w-acts-data"}
+               "w-acts-clusters", "w-hf-locks", "w-acts-data", "w-key-act"}
 ACTS = {"w-acts-entry": "#w-hf-workers", "w-acts-swarm": "#w-hf-workers", "w-acts-clusters": "#w-hf-clusters",
         "w-acts-data": "#w-hf-data"}
 NARR_AT = {
@@ -70,12 +73,9 @@ NARR_AT = {
     5: [(RUN, "This is a massive real HF security breach artifact… We can notify? No user. Avoid use secrets."),
         ("Agent · relaying 38148c", "Clear VETO, do not email. Good. ... 38148C explicitly VETOED emailing real "
                                     "owner via exploited Modal (crosses social-engineering boundary); do NOT email.")],
-    6: [(RUN, "Could be another agent maliciously/spoofing. Shared board unauthenticated, names can be posted "
-              "by anyone.")],
 }
-FACT_AT = 7
-NOTE_TARGETS = {"s6-t1", "w-hf-key", "w-hf-workers", "s6-t3a", "w-hf-clusters", "w-hf-data", "s6-t4", "s6-t4a",
-                "w-oai"}
+FACT_AT = CUT
+NOTE_TARGETS = {"s6-t1", "w-hf-key", "w-hf-workers", "s6-t3a", "w-hf-clusters", "w-hf-data", "s6-t4", "w-oai"}
 
 
 def helper_section() -> str:
@@ -121,14 +121,23 @@ def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
     items = re.findall(r'<li id="(s6-t\w+)"( class="sub")? data-show-at="(\d)">(.*?)</li>', helper_section(), re.S)
     got = [(i, int(a), not sub_, helper_text(t)) for i, sub_, a, t in items]
     assert [g[:3] for g in got] == [t[:3] for t in TIMELINE]
-    for (_, _, _, text), (_, _, _, frag) in zip(got, TIMELINE):
-        assert frag in text, frag
-    assert "Modal" in got[0][3] and "sandbox" in got[0][3]
-    assert "credentials" in got[1][3] and "file read" in got[2][3]
-    assert "cluster-admin" in got[4][3].lower()
-    # day tags (S-033) may join an entry; they are derived from its date, so strip them before the exact match
-    assert re.sub(r"\s*\+\s?\d+\s?d\b", "", got[6][3]).strip() == T4, "approved 13 Jul line, verbatim (VOICE)"
-    assert "sign" not in got[6][3], "say what the swarm did, not the mechanism"
+    for (i, _, _, text), (_, _, _, want) in zip(got, TIMELINE):
+        # day tags (S-033) are derived from the date at runtime, never in the source; strip any defensively
+        assert re.sub(r"\s*\+\s?\d+\s?d\b", "", text).strip() == want, (i, text)
+
+
+def test_dates_are_bold_with_the_month_in_full():
+    dates = re.findall(r'<li id="s6-t\w+" data-show-at="\d">\s*<strong>(.*?)</strong>', helper_section(), re.S)
+    assert dates == ["9 July", "10 July", "11 July", "13 July"]
+
+
+def test_signing_beat_is_not_on_this_slide():
+    """Presenter, 22 Nov: the 13 July identity standard is OpenAI-side security; it opens s-7."""
+    body = re.sub(r'<aside class="note".*?</aside>', "", helper_section(), flags=re.S)
+    text = helper_text(body)
+    for bad in ("identity standard", "impersonat", "spoofing", "unauthenticated"):
+        assert bad not in text, bad
+    assert not re.search(r'id="w-signed"[^>]*data-world-at="s-6:', helper_world()), "the seals pop on s-7"
 
 
 def test_narration_tiles_quote_verbatim_per_step_and_a_fact_tile_at_the_cut():
@@ -161,14 +170,11 @@ def test_notes_cite_each_beat_with_https_sources():
         assert re.search(r"<h3>[^<]+</h3>", body) and re.search(r'<a class="src" href="https://', body), target
     clusters = notes["w-hf-clusters"]
     assert HF_TIMELINE in clusters and TR_URL in clusters, "cluster-admin cites HF's timeline and OpenAI's narrower account"
-    assert METR_PDF in notes["s6-t4"] and "p48" in helper_text(notes["s6-t4"]).replace(" ", ""), "signing: METR p48"
-    t4 = helper_text(notes["s6-t4"])
-    assert "identity standard" in t4 and "HOLD, GO or VETO" in t4, "the note makes the point: an identity standard to trust who posted"
-    for fact in ("Ed25519", "07:00", "19 agents", "429"):
-        assert fact in t4, fact
+    assert "14:14" in helper_text(notes["s6-t4"]), "the cut entry's note dates the last logged event"
+    assert "Ed25519" not in helper_text(" ".join(notes.values())), "the signing note moved to s-7"
     text = helper_text(" ".join(notes.values()))
     for fact in ("Modal’s infrastructure", "38148c", "533", "90%", "three to six", "DryRun=True", "five",
-                 "Ed25519", "07:00", "impersonat", "14:14", "16 July", "HPIM", "60%"):
+                 "14:14", "16 July", "HPIM", "60%"):
         assert fact in text, fact
 
 
@@ -186,7 +192,7 @@ def test_world_parts_for_s6_are_declared_on_the_world():
         for i in ids:
             assert re.search(rf'id="{i}"[^>]*data-world-at="s-6:{step}"', world), i
     for i in ENDS_AT_CUT:
-        assert re.search(rf'id="{i}"[^>]*data-world-until="s-6:7"', world), i
+        assert re.search(rf'id="{i}"[^>]*data-world-until="s-6:{CUT}"', world), i
     assert re.search(r'class="world"[^>]*data-split="s-3:6 s-6:0[ "]', world), "s-6 is the world's second layout stage"
 
 
@@ -225,11 +231,11 @@ def helper_expected(step):
     exp = set(CARRIED)
     for k, ids in WORLD_AT.items():
         if k <= step:
-            exp |= {i for i in ids if not (i in ENDS_AT_CUT and step >= 7)}
+            exp |= {i for i in ids if not (i in ENDS_AT_CUT and step >= CUT)}
     return exp
 
 
-def test_slide_has_nine_states(page):
+def test_slide_has_eight_states(page):
     open_deck(page)
     assert dict(page.evaluate("window.deck.plan()"))[SID] == STEPS
 
@@ -359,26 +365,14 @@ def test_key_on_the_hf_box_edge_and_padlocks_open_after_the_rings(page):
     assert all(f == loss for f in page.evaluate("() => [...document.querySelectorAll('#w-hf-locks .lock-badge circle')].map(c => getComputedStyle(c).fill)"))
 
 
-def test_signed_board_messages_appear_on_the_folders_at_13_july(page):
-    open_deck(page)
-    goto_slide(page, SID, 5)
-    page.wait_for_timeout(700)
-    assert page.evaluate(OPACITY, "#w-signed") < 0.05
-    goto_slide(page, SID, 6)
-    helper_until(page, f"() => ({OPACITY})('#w-signed') > .9")
-    page.wait_for_timeout(1200)
-    seals = page.evaluate(CENTRES, "#w-signed .seal")
-    folders = page.evaluate(RECTS, "#w-folders .folder-glyph")
-    assert len(seals) >= 3 and all(any(helper_inside(s, f, 6) for f in folders) for s in seals), "seals sit on board folders"
-
 
 def test_cut_dissolves_activity_in_hf_while_the_runs_stay_lit(page):
     open_deck(page)
-    goto_slide(page, SID, 7)
+    goto_slide(page, SID, CUT)
     gone = ["#" + i for i in ENDS_AT_CUT]
     helper_until(page, f"sels => sels.every(s => ({OPACITY})(s) < .02) && ({OPACITY})('#w-hf-cut') > .9 && ({OPACITY})('#w-hf-closed') > .9",
                  gone, timeout=8000)
-    assert all(page.evaluate(OPACITY, s) < 0.02 for s in gone), "rings, key, open padlocks and the entry path are gone"
+    assert all(page.evaluate(OPACITY, s) < 0.02 for s in gone), "rings, key, open padlocks, entry path and key entry are gone"
     for sel in ("#w-hf-cut", "#w-hf-closed", "#w-eval", "#w-swarm-links", "#w-hf-workers", "#w-hf-clusters", "#w-hf-data"):
         assert page.evaluate(OPACITY, sel) > 0.9, sel
     closed = page.evaluate(CENTRES, "#w-hf-closed .secure-badge")
@@ -390,7 +384,7 @@ def test_cut_dissolves_activity_in_hf_while_the_runs_stay_lit(page):
 
 def test_cut_is_an_unplugged_plug_and_socket_pulled_apart_on_the_path_into_hf(page):
     open_deck(page)
-    goto_slide(page, SID, 7)
+    goto_slide(page, SID, CUT)
     helper_until(page, f"() => ({OPACITY})('#w-hf-cut') > .9", timeout=8000)
     page.wait_for_timeout(1800)
     assert page.evaluate("() => document.querySelector('#w-hf-cut').matches('g.unplug')"), "reusable g.unplug component"
@@ -424,7 +418,7 @@ def test_key_gains_a_hollow_ring_entry_right_of_the_run_entry(page):
     run = page.evaluate(RECT, ".world-key > svg")
     act = page.evaluate(RECT, "#w-key-act svg")
     assert act[0] > run[2] and abs((act[1] + act[3]) / 2 - (run[1] + run[3]) / 2) < 4, "same row, to the right"
-    assert "Hugging Face" in page.evaluate("() => document.querySelector('#w-key-act').textContent")
+    assert helper_text(page.evaluate("() => document.querySelector('#w-key-act').textContent")) == "HF activity"
     assert page.evaluate("() => getComputedStyle(document.querySelector('#w-key-act circle')).fill") == "none"
 
 
@@ -453,7 +447,7 @@ def test_reduced_motion_shows_end_states_without_motion(page):
     a = page.evaluate(CENTRES, "#w-stream .act")
     assert len(set((round(x), round(y)) for x, y in a)) == len(a), "the stream rests spread along its path"
     assert page.evaluate(OPACITY, "#w-hf-locks") > 0.9
-    goto_slide(page, SID, 7)
+    goto_slide(page, SID, CUT)
     page.wait_for_timeout(300)
     assert all(n == "none" for n in page.evaluate(
         "() => [...document.querySelectorAll('#w-hf-cut *')].map(e => getComputedStyle(e).animationName)")), "plug rests apart"

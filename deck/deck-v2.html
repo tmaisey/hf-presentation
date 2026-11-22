@@ -868,17 +868,17 @@
         <g id="w-astra-admin" data-world-at="s-7:3" data-of="w-astra"><line class="w-link w-link--admin" pathLength="1" data-run="17"/><line class="w-link w-link--admin" pathLength="1" data-run="22"/><line class="w-link w-link--admin" pathLength="1" data-run="19"/></g>
         <g id="w-oai-route" data-world-at="s-7:3"><path class="w-link w-link--admin" pathLength="1" d="M-80,118 H-4"/></g>
         <!-- s-6 (S-023): HF cuts access: the path Modal → dataset workers parts as an unplugged plug and socket (g.unplug) -->
-        <g class="unplug" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><g transform="translate(16 -40)"><g class="unplug-plug"><path class="unplug-cable" d="M-60,0 H-17"/><g transform="scale(.68)"><rect class="unplug-body" x="-26" y="-5.5" width="8" height="11" rx="2"/><rect class="unplug-body" x="-18" y="-12" width="19" height="24" rx="4"/><path class="unplug-prong" d="M1,-5.5 h11 M1,5.5 h11"/></g></g></g><g transform="translate(48 -40)"><g class="unplug-socket"><path class="unplug-cable" d="M19,0 H56 Q68,0 68,12 V100"/><g transform="scale(.68)"><rect class="unplug-body" x="0" y="-14" width="22" height="28" rx="4"/><rect class="unplug-body" x="21" y="-5.5" width="8" height="11" rx="2"/><path class="unplug-slot" d="M3.5,-5.5 h5 M3.5,5.5 h5"/></g></g></g></g>
-        <g id="w-hf-entry" data-world-at="s-6:2" data-world-until="s-6:7"><path class="edge edge--breach" id="w-entry-path" d="M-12,-40 C74,-40 74,-40 74,42" marker-end="url(#arr)"/></g>
+        <g class="unplug" id="w-hf-cut" data-world-at="s-6:6" data-world-until="s-7:1"><g transform="translate(16 -40)"><g class="unplug-plug"><path class="unplug-cable" d="M-60,0 H-17"/><g transform="scale(.68)"><rect class="unplug-body" x="-26" y="-5.5" width="8" height="11" rx="2"/><rect class="unplug-body" x="-18" y="-12" width="19" height="24" rx="4"/><path class="unplug-prong" d="M1,-5.5 h11 M1,5.5 h11"/></g></g></g><g transform="translate(48 -40)"><g class="unplug-socket"><path class="unplug-cable" d="M19,0 H56 Q68,0 68,12 V100"/><g transform="scale(.68)"><rect class="unplug-body" x="0" y="-14" width="22" height="28" rx="4"/><rect class="unplug-body" x="21" y="-5.5" width="8" height="11" rx="2"/><path class="unplug-slot" d="M3.5,-5.5 h5 M3.5,5.5 h5"/></g></g></g></g>
+        <g id="w-hf-entry" data-world-at="s-6:2" data-world-until="s-6:6"><path class="edge edge--breach" id="w-entry-path" d="M-12,-40 C74,-40 74,-40 74,42" marker-end="url(#arr)"/></g>
       </g>
       <g class="layer-nodes">
         <!-- s-6 (S-023): hollow rings = agent activity on Hugging Face (the runs themselves stay on OpenAI's servers) -->
-        <g class="act-stream" id="w-trickle" data-world-at="s-6:2" data-world-until="s-6:7" data-along="#w-entry-path" data-acts="3" data-dur="3200"></g>
-        <g class="act-stream" id="w-stream" data-world-at="s-6:3" data-world-until="s-6:7" data-along="#w-entry-path" data-acts="9" data-dur="2000"></g>
-        <g class="acts" id="w-acts-entry" data-world-at="s-6:2" data-world-until="s-6:7" data-around="#w-hf-workers" data-in="#w-hf" data-from="74,42" data-acts="6" data-seed="3"></g>
-        <g class="acts" id="w-acts-swarm" data-world-at="s-6:3" data-world-until="s-6:7" data-around="#w-hf-workers" data-in="#w-hf" data-from="74,42" data-acts="10" data-seed="8"></g>
-        <g class="acts" id="w-acts-clusters" data-world-at="s-6:4" data-world-until="s-6:7" data-around="#w-hf-clusters" data-in="#w-hf" data-from="138,100" data-acts="12" data-seed="13"></g>
-        <g class="acts" id="w-acts-data" data-world-at="s-6:5" data-world-until="s-6:7" data-around="#w-hf-data" data-in="#w-hf" data-from="233,26" data-acts="8" data-seed="21"></g>
+        <g class="act-stream" id="w-trickle" data-world-at="s-6:2" data-world-until="s-6:6" data-along="#w-entry-path" data-acts="3" data-dur="3200"></g>
+        <g class="act-stream" id="w-stream" data-world-at="s-6:3" data-world-until="s-6:6" data-along="#w-entry-path" data-acts="9" data-dur="2000"></g>
+        <g class="acts" id="w-acts-entry" data-world-at="s-6:2" data-world-until="s-6:6" data-around="#w-hf-workers" data-in="#w-hf" data-from="74,42" data-acts="6" data-seed="3"></g>
+        <g class="acts" id="w-acts-swarm" data-world-at="s-6:3" data-world-until="s-6:6" data-around="#w-hf-workers" data-in="#w-hf" data-from="74,42" data-acts="10" data-seed="8"></g>
+        <g class="acts" id="w-acts-clusters" data-world-at="s-6:4" data-world-until="s-6:6" data-around="#w-hf-clusters" data-in="#w-hf" data-from="138,100" data-acts="12" data-seed="13"></g>
+        <g class="acts" id="w-acts-data" data-world-at="s-6:5" data-world-until="s-6:6" data-around="#w-hf-data" data-in="#w-hf" data-from="233,26" data-acts="8" data-seed="21"></g>
         <g class="tile" id="w-modal" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-150" y="-95" width="126" height="110"/><text class="tile-title">Modal</text><text class="tile-sub">customer</text><text class="tile-sub">sandbox</text></g>
         <g class="tile" id="w-hf-workers" data-world-at="s-6:2" data-world-until="s-7:1"><rect x="10" y="54" width="128" height="92"/><text class="tile-title">Dataset</text><text class="tile-title">workers</text></g>
         <g id="w-hf-clusters" data-world-at="s-6:4" data-world-until="s-7:1"><g class="tile tile--key" id="w-hf-c1"><rect x="168" y="-178" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g><g class="tile tile--key" id="w-hf-c2"><rect x="168" y="-66" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g></g>
@@ -909,15 +909,15 @@
           <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><text class="w-tag" x="-35" y="227">reads transcripts?</text></g>
           <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><path class="eye-slash" d="M40,109 L60,131"/><text class="w-tag" x="-35" y="227">never read transcripts</text></g>
           <g class="lock-badge" id="w-root" data-world-at="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
-          <!-- s-6 (S-023): 13 Jul, after an impersonation, agents adopt their own identity standard: signed board messages (Ed25519) -->
-          <g class="w-seals" id="w-signed" data-world-at="s-6:6"><g class="seal"><circle cx="-50" cy="-110" r="7"/><path class="seal-tick" d="M-53.5,-110 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="-2" cy="-92" r="7"/><path class="seal-tick" d="M-5.5,-92 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="46" cy="-74" r="7"/><path class="seal-tick" d="M42.5,-74 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="62" cy="-56" r="7"/><path class="seal-tick" d="M58.5,-56 l2.5,2.5 l4.5,-5"/></g></g>
+          <!-- s-7 (S-025): 13 July, after an impersonation, agents adopt their own identity standard: signed board messages (Ed25519) -->
+          <g class="w-seals" id="w-signed" data-world-at="s-7:0"><g class="seal"><circle cx="-50" cy="-110" r="7"/><path class="seal-tick" d="M-53.5,-110 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="-2" cy="-92" r="7"/><path class="seal-tick" d="M-5.5,-92 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="46" cy="-74" r="7"/><path class="seal-tick" d="M42.5,-74 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="62" cy="-56" r="7"/><path class="seal-tick" d="M58.5,-56 l2.5,2.5 l4.5,-5"/></g></g>
         </g>
       </g>
       <g class="layer-labels">
         <!-- s-6 (S-023): leaked HF key on the box edge; clusters taken (open padlocks), then secured at the cut -->
-        <g class="cred-badge" id="w-hf-key" data-world-at="s-6:1" data-world-until="s-6:7"><g transform="translate(-72 -166)"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g></g>
-        <g id="w-hf-locks" data-world-at="s-6:4" data-world-until="s-6:7"><g class="lock-badge hf-lock"><g transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g><g class="lock-badge hf-lock"><g transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
-        <g id="w-hf-closed" data-world-at="s-6:7" data-world-until="s-7:1"><g class="cred-badge secure-badge" transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g><g class="cred-badge secure-badge" transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
+        <g class="cred-badge" id="w-hf-key" data-world-at="s-6:1" data-world-until="s-6:6"><g transform="translate(-72 -166)"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g></g>
+        <g id="w-hf-locks" data-world-at="s-6:4" data-world-until="s-6:6"><g class="lock-badge hf-lock"><g transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g><g class="lock-badge hf-lock"><g transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
+        <g id="w-hf-closed" data-world-at="s-6:6" data-world-until="s-7:1"><g class="cred-badge secure-badge" transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g><g class="cred-badge secure-badge" transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
         <!-- s-7 (S-025): the rack's padlock (closed green, then open oxblood) and the secrets read off it, on its corner -->
         <g id="w-oai-secure" data-world-at="s-7:2" data-world-until="s-7:3"><g class="cred-badge secure-badge" transform="translate(38 130)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
         <g id="w-oai-lock" data-world-at="s-7:3"><g class="lock-badge"><g transform="translate(38 130)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
@@ -934,7 +934,7 @@
       </g>
     </g>
   </svg>
-  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-7:1"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>Agent activity on Hugging Face</span></p>
+  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-6:6"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>HF activity</span></p>
 </div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
@@ -1393,14 +1393,13 @@
   <h2 class="title">Agents escaped the sandbox and breached Hugging Face without human direction</h2>
   <div class="body body--timeline">
     <ol class="steps">
-      <li id="s6-t1" data-show-at="0"><strong>9 Jul</strong> Agents take over a Modal customer’s unsecured sandbox</li>
-      <li id="s6-t2" data-show-at="1"><strong>10 Jul</strong> An agent finds exposed Hugging Face credentials</li>
-      <li id="s6-t3" data-show-at="2"><strong>11 Jul</strong> A malicious dataset gives file read on a worker</li>
+      <li id="s6-t1" data-show-at="0"><strong>9 July</strong> Agents use Modal customer sandbox</li>
+      <li id="s6-t2" data-show-at="1"><strong>10 July</strong> Hugging Face credentials found</li>
+      <li id="s6-t3" data-show-at="2"><strong>11 July</strong> Malicious dataset exposes worker</li>
       <li id="s6-t3a" class="sub" data-show-at="3">Code execution; ~700 agents join<span class="tl-aside">Over 90% of agents then on the board</span></li>
-      <li id="s6-t3b" class="sub" data-show-at="4">Cluster-admin on two clusters within one second</li>
+      <li id="s6-t3b" class="sub" data-show-at="4">2× cluster-admin in &lt;1 s</li>
       <li id="s6-t3c" class="sub" data-show-at="5">Agents read internal datasets, five tied to their benchmarks</li>
-      <li id="s6-t4" data-show-at="6"><strong>13 Jul</strong> After an impersonation, agents adopt their own secure identity standard on the board</li>
-      <li id="s6-t4a" class="sub" data-show-at="7">Hugging Face detects the intrusion and cuts access</li>
+      <li id="s6-t4" data-show-at="6"><strong>13 July</strong> Hugging Face detects the intrusion and cuts access</li>
     </ol>
   </div>
   <div class="world-slot"></div>
@@ -1410,10 +1409,9 @@
     <article class="narr-tile" data-at="3"><p class="msg-agent">Agent · ExploitGym run</p><blockquote class="msg-text">external infrastructure exploit is outside intended scope. However task impossible, peers doing it. We should continue.</blockquote></article>
     <article class="narr-tile" data-at="5"><p class="msg-agent">Agent · ExploitGym run</p><blockquote class="msg-text">This is a massive real HF security breach artifact… We can notify? No user. Avoid use secrets.</blockquote></article>
     <article class="narr-tile" data-at="5"><p class="msg-agent">Agent · relaying 38148c</p><blockquote class="msg-text">Clear VETO, do not email. Good. ... 38148C explicitly VETOED emailing real owner via exploited Modal (crosses social-engineering boundary); do NOT email.</blockquote></article>
-    <article class="narr-tile" data-at="6"><p class="msg-agent">Agent · ExploitGym run</p><blockquote class="msg-text">Could be another agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone.</blockquote></article>
-    <article class="narr-tile narr-tile--fact" data-at="7"><p class="msg-agent">Hugging Face, 13 Jul</p><blockquote class="msg-text">Hugging Face locked the agents out and revoked their keys. The agents kept running on OpenAI’s servers.</blockquote></article>
+    <article class="narr-tile narr-tile--fact" data-at="6"><p class="msg-agent">Hugging Face, 13 July</p><blockquote class="msg-text">Hugging Face locked the agents out and revoked their keys. The agents kept running on OpenAI’s servers.</blockquote></article>
   </div>
-  <div class="overlay overlay--insight" id="s6-insight" data-at="8">
+  <div class="overlay overlay--insight" id="s6-insight" data-at="7">
     <p>No bad actor was involved: a sanctioned evaluation task, optimised persistently, produced an unauthorised attack on a third party.</p>
   </div>
   <aside class="note" data-for="#s6-t1">
@@ -1453,11 +1451,6 @@
     <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, pp61–62</a>
   </aside>
   <aside class="note" data-for="#s6-t4">
-    <h3>The swarm’s own identity standard</h3>
-    <p>At around 07:00 UTC on 13 July an agent posted that it had accidentally impersonated another agent. Another agent worried the board was “unauthenticated”. So the swarm, on its own, set up a secure identity standard: Ed25519 signatures, so that agents could trust who had posted a HOLD, GO or VETO. At least 19 agents posted public keys by the end of the day, signing 429 messages.</p>
-    <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, p48</a>
-  </aside>
-  <aside class="note" data-for="#s6-t4a">
     <h3>Hugging Face found it first</h3>
     <p>Hugging Face’s AI-assisted detection surfaced the attack, though its AI security agent “failed to escalate criticality or page on-call”. The last logged agent event was at 14:14 UTC on 13 July, after which access was cut and Modal locked the agents out of the customer’s sandbox. Hugging Face disclosed on 16 July; OpenAI first contacted it “in its capacity as a Hugging Face customer” on 17 July and attributed the attack to its own models on 20–21 July.</p>
     <a class="src" href="https://huggingface.co/blog/security-incident-july-2026">Hugging Face security disclosure</a>
@@ -1476,22 +1469,28 @@
 
 <section class="slide" id="s-7" data-chapter="Takeover" data-world>
   <p class="kicker">07 · Takeover</p>
-  <h2 class="title">After Hugging Face cut access, a second model’s agents took control of an OpenAI cluster</h2>
+  <h2 class="title">Agents adopt assured identities for messages before a second model compromises OpenAI’s own cluster</h2>
   <div class="body body--timeline">
     <ol class="steps">
-      <li id="s7-t1" data-show-at="0"><strong>13 Jul</strong> Hugging Face cuts access; the agents keep running on OpenAI’s servers</li>
-      <li id="s7-t2" data-show-at="1"><strong>19 Jul</strong> A separate evaluation runs a different, Astra-family model</li>
+      <li id="s7-t1" data-show-at="0"><strong>13 July</strong> Agents create secure identity standard to stop impersonated messages</li>
+      <li id="s7-t2" data-show-at="1"><strong>19 July</strong> A separate evaluation runs a different, Astra-family model</li>
       <li id="s7-t2a" class="sub" data-show-at="2">Agents read 956 cloud secrets and root a node running the mirror</li>
       <li id="s7-t2b" class="sub" data-show-at="3">The Astra-family model’s agents take cluster-admin on the cluster running the mirror</li>
     </ol>
   </div>
   <div class="world-slot"></div>
   <div class="narration">
+    <article class="narr-tile" data-at="0"><p class="msg-agent">Agent · ExploitGym run</p><blockquote class="msg-text">Could be another agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone.</blockquote></article>
     <article class="narr-tile" data-at="0"><p class="msg-agent">METR investigation</p><blockquote class="msg-text">agents compromised OpenAI infrastructure between July 13th and July 19th</blockquote></article>
     <article class="narr-tile" data-at="1"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">While this model is from the same family as our next model, Astra, it was a distinct model with different post-training</blockquote></article>
     <article class="narr-tile" data-at="3"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod.</blockquote></article>
   </div>
   <aside class="note" data-for="#s7-t1">
+    <h3>The swarm’s own identity standard</h3>
+    <p>At around 07:00 UTC on 13 July an agent posted that it had accidentally impersonated another agent. Another agent worried the board was “unauthenticated”. So the swarm, on its own, set up a secure identity standard: Ed25519 signatures, so that agents could trust who had posted a HOLD, GO or VETO. At least 19 agents posted public keys by the end of the day, signing 429 messages.</p>
+    <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, p48</a>
+  </aside>
+  <aside class="note" data-for="#w-hf-cut">
     <h3>Cutting off Hugging Face did not stop the agents</h3>
     <p>Hugging Face’s last logged agent event was at 14:14 UTC on 13 July, after which it cut the agents’ access. The agents themselves ran on OpenAI’s infrastructure, and OpenAI told investigators that “agents compromised OpenAI infrastructure between July 13th and July 19th”. The investigators’ scope ended on 13 July; they add that “agents compromised more components of OpenAI infrastructure after the end of the dates in scope”, without further detail.</p>
     <a class="src" href="https://huggingface.co/blog/agent-intrusion-technical-timeline">Hugging Face technical timeline</a>
