@@ -268,12 +268,14 @@ pins for targets not on screen at that step hide (v1: always the last step).
   strengthened by training; thicken a route at step n by a swap (Steps).
 - Labels: `text.label` (dates, axis words) and `text.tag` / `text.tag.tag--loss` (state captions).
 - Zone: `g.zone#id > rect + text.label`, painted first in `.layer-edges` (soft context region);
-  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (the s-6/s-7
-  "agents running on OpenAI's servers" band: one component on both slides).
+  `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (the s-7
+  "agents running on OpenAI's servers" band; s-6 no longer uses it since S-023 moved it onto the
+  incident world, where a `g.domain` box does that job).
 - *Retired* (unused since S-026 went text-led; CSS left in the deck, **NEVER** reuse without
   re-prototyping): scope fence `rect.fence`, flagged tile `g.tile.tile--flag`.
 - Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
-  right-aligns), for a share-of-total split.
+  right-aligns), for a share-of-total split. *Unused* since S-023 moved s-6 onto the incident world
+  (CSS left in the deck for reuse).
 - Cut: `g.cut > path.cut-mark[d] + text.tag.tag--loss`, paired with `data-hide-at` on the severed
   edge at the same step.
 - SVG units: tile text is 26/20 units, but the engine raises it (and edge width) to the §7
@@ -300,8 +302,12 @@ pins for targets not on screen at that step hide (v1: always the last step).
   screens (≤ 660px high) timeline entries tighten so the longest timeline fits its row. World units ≈ screen px at 1920 (viewBox ~640 × 520), so text floors
   stay in proportion; keep tile labels short (stack words) as the world shrinks. Soft-toned
   `g.domain` boxes (label top-left, uppercase) name where things run ("OpenAI servers", "Public
-  Internet"). `data-split` on `.world` re-arranges the scene (swarm left, mirror right, OpenAI box
-  narrows) with a tween that keeps run–mirror lines attached. Runs (`g.runs[data-runs=N][data-seed]`,
+  Internet"). `data-split` on `.world` lists layout stage points (e.g. `"s-3:6 s-6:0"`); reaching
+  each re-arranges the scene with a tween that keeps run–mirror lines, `data-end` points, pulses and
+  note flights attached. Stage 1: swarm left, mirror right, OpenAI box narrows. Stage 2 (s-6): OpenAI
+  narrows to a column (swarm compressed above the mirror group, which moves and scales into it), the
+  internet becomes a middle strip and a new domain takes the rest (s-6: ~22 / 24 / 50% of the world,
+  set by label fit at 1288×598). Parts that arrive with a stage fade in after the tween lands. Runs (`g.runs[data-runs=N][data-seed]`,
   one seeded swarm per group) are drawn by the engine in P4 line-drawn style; `[data-of="<runs id>"]`
   on a part (or an ancestor) picks its group (default: the first); `[data-run]` follows a run (`first`
   = the group's outermost upper-right run, or an index). `.run-links[data-share="f"]` links only an
@@ -322,7 +328,20 @@ pins for targets not on screen at that step hide (v1: always the last step).
   beats within one step start after a pop-over has gone (+0.5 s) and show their end state under reduced motion (s-4: ring → skull note → open
   padlock pops; bell rings ~2 s then is silenced; load pulses travel run→mirror faster and faster,
   the flood lands, then the crash light flashes `--alarm`). Mirror badge = its access state: green
-  key (shared credential), oxblood open padlock (admin taken), green closed padlock (secured). Moving dots, never marching dashes. The timeline
+  key (shared credential), oxblood open padlock (admin taken), green closed padlock (secured); the
+  same badges mark any other part's access (s-6: a leaked key on the Hugging Face box edge; clusters
+  taken = open padlocks that pop (`.hf-lock`) after the rings reach them; closed padlocks at the cut).
+  A checker silenced earlier rests as `.bell-quiet` (slashed, `--ink-3`; its ringing never replays)
+  when a layout stage moves it. Signed board messages: `g.seal` (accent disc + `path.seal-tick`) pops
+  onto some of the board's glyphs, staggered. **Activity, not runs:** where agents act in a domain
+  their runs don't live in (s-6: Hugging Face; the runs stay on OpenAI's servers), draw hollow
+  `--accent-ink` rings (`.act`), never new runs. `g.acts[data-acts=N][data-seed][data-around="#tile or
+  group"][data-in="#domain"][data-from="x,y"]` scatters N seeded rings just outside the target tile(s),
+  inside the domain below its label, clear of every tile and of each other, flying in from the point
+  where the activity entered; `g.act-stream[data-acts][data-along="#path"][data-dur=ms]` loops rings
+  along a path (an entry edge) for sustained traffic, resting spread along it under reduced motion.
+  A legend entry introduced later is a `span.world-key-item[data-world-at]` on the key's row, hidden
+  on earlier world slides. Moving dots, never marching dashes. The timeline
   builds: an entry shows at its step, never ahead; `li.sub` = un-numbered sub-point (dash);
   `span.tl-aside` = a quieter second line. A world slide may close with an Insight
   (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that
