@@ -369,5 +369,16 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 ## Open items
 
 - s-10 capability-pace placement. ◇ approvals listed in PRD.
-- s-4: board continuity into early eval rests on one METR paraphrase; word it carefully.
+- s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
+  instance" entry: the presenter judged the slide representative enough.
+- s-5 (before build): check "We should build [a way to delegate]…" and the spoofing quote (M p48)
+  against the METR PDF.
+- s-7: needs a world redesign session with the presenter before S-025 is built (s-6 hands over to it;
+  s-8/s-9 freeze the world at its end state).
+- s-8, s-9: both ✎ titles need presenter approval. The tile row is a new component: build in situ
+  (record the choice in PRD *Decisions*) unless the presenter asks for a prototype first.
+- S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
+  its tests and Definition of done before relying on it; flip or finish it.
+- S-030 (layout guard) is not built: every visual spec's Definition of done needs it; s-3/s-4 have
+  per-slide layout tests meanwhile.
 - s-10: letter signatory count + date; Anthropic pause weakly sourced (omit unless confirmed).
