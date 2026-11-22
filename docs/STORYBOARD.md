@@ -394,6 +394,6 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
 - S-030 layout guard is built (22 Nov). s-5, s-6 and s-10 faults are fixed; s-7
-  (all sizes) are still pending (S-023, S-025).
+  (all sizes) is still pending (S-025).
 - s-10: the employee letter stays "Over 1,100 … (Jul)"; exact date and signatory count still
   unconfirmed. Anthropic pause omitted (weakly sourced; a test guards against it).
