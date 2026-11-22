@@ -36,9 +36,9 @@ SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 TILES = ["s9-t1", "s9-t2", "s9-t3"]   # row order = build step 1, 2, 3
 FACTS = {   # per tile: what its visible text must state
     "s9-t1": ["impossible", "training", "rewarded", "shared credential", "alert", "reasoning monitor",
-              "evaluation", "no human", "1,200", "4 hours"],
+              "evaluation", "unprompted by humans", "1,200", "4 hours"],
     "s9-t2": ["reward", "penalising", "reasoning", "hid", "crude", "plan to solve alignment"],
-    "s9-t3": ["OpenAI says", "were not about raising safety concerns", "METR", "whatever the reason",
+    "s9-t3": ["OpenAI says", "were not about raising safety concerns", "dispute", "METR", "whatever the reason",
               "public explanation", "transparency"],
 }
 QUOTES = {  # verbatim, and each must appear in the research notes
@@ -159,7 +159,7 @@ def test_s10_insider_quote_sits_in_the_pace_panel_and_hubinger_moved_to_s9():
     sec = helper_section("s-10")
     assert 'class="narration"' not in sec, "s-10's one quote lives in the body, so the body keeps the full width"
     body = re.search(r'<div class="body.*?(?=<aside)', sec, re.S).group(0)
-    quote = re.search(r"<blockquote>(.*?)</blockquote>\s*<p class=\"cite\">(.*?)</p>", body, re.S)
+    quote = re.search(r"<blockquote[^>]*>(.*?)</blockquote>\s*<p class=\"cite\">(.*?)</p>", body, re.S)
     assert quote and helper_norm(quote.group(1)) == helper_norm(COXON) and "Coxon" in quote.group(2)
     assert helper_norm(COXON) in helper_research()
     assert "plan to solve alignment" not in sec, "Hubinger's quote moved to s-9 tile 2"
@@ -258,7 +258,7 @@ def test_s9_firings_tile_states_both_sides_and_claims_the_effect_not_the_motive(
     open_deck(page)
     goto_slide(page, "s-9", 3)
     text = helper_norm(page.evaluate(TILE_TEXT, "s9-t3")["text"]).lower()
-    assert "openai says" in text and "staff say" in text, "both sides are given"
+    assert "openai says" in text and "staff dispute" in text, "both sides are given"
     for claim in (r"fired (for|because|over|after) (their|the) (work|investigation|role)", r"retaliat",
                   r"because (of )?(they|their) (worked|work|talked)", r"punish", r"in order to"):
         assert not re.search(claim, text), f"causal claim on the firings: {claim}"
@@ -285,19 +285,23 @@ def test_s9_tiles_read_left_to_right_in_one_row_at_a_readable_size(page, size):
     open_deck(page, *size)
     goto_slide(page, "s-9", 3)
     settle(page, "#s9-t3")
-    res = page.evaluate("""ids => ({ vw: innerWidth, tiles: ids.map(id => { const t = document.getElementById(id),
+    res = page.evaluate("""ids => { const nb = document.querySelector('.notes-btn').getBoundingClientRect();
+      return { vw: innerWidth, notes: [nb.left, nb.top, nb.right, nb.bottom], tiles: ids.map(id => { const t = document.getElementById(id),
         b = t.getBoundingClientRect(); return { box: [b.left, b.top, b.right, b.bottom],
-        body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize) }; }) })""", TILES)
+        body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize) }; }) }; }""", TILES)
     tiles = res["tiles"]
     for a, b in zip(tiles, tiles[1:]):
         assert a["box"][2] <= b["box"][0] + 1 and abs(a["box"][1] - b["box"][1]) <= 2, "one row, left to right"
+    nl, nt, nr, nb = res["notes"]
     for tid, t in zip(TILES, tiles):
-        assert t["box"][2] - t["box"][0] >= 0.22 * res["vw"], f"{tid} too narrow to read"
+        l, top, r, bot = t["box"]
+        assert r - l >= 0.22 * res["vw"], f"{tid} too narrow to read"
         assert t["body"] >= 16, f"{tid}: body type too small"
+        assert not (l < nr and r > nl and top < nb and bot > nt), f"{tid} covers the Notes button"
 
 
 VISIBLE = """sid => { const s = document.getElementById(sid);
-  const on = e => +getComputedStyle(e).opacity > 0.5;
+  const on = e => { for (; e && e !== s; e = e.parentElement) if (+getComputedStyle(e).opacity <= 0.5) return false; return true; };
   return {
     titles: [...s.querySelectorAll('h2.title')].filter(on).map(e => e.textContent.trim()),
     compare: [...s.querySelectorAll('table.compare')].some(on),
