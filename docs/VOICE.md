@@ -26,9 +26,9 @@ and add every new verdict here as an example pair. British spelling throughout.
 | Questions for discussion | Detection, training and independent oversight remain open questions after this incident | Label → finding; the discussion slide follows title rules too |
 | A small, fast, AI-assisted investigation | A small investigation, fast and AI-assisted | s-8 tile heading (22 Nov); avoids an "AI-/assisted" line break |
 | The agents hid from the scorer, not from people | The agents hid from the scorer and left their reasoning readable | s-8 tile heading (22 Nov); "X, not Y" antithesis → two findings |
-| Training rewarded cheating, and evaluation let it spread | Behaviours reinforced in training re-emerged in evaluation | s-9 tile heading (22 Nov); "X, and Y" pair + metaphor read as AI → one finding in precise vocabulary |
+| Training rewarded cheating, and evaluation let it spread · Behaviours reinforced in training re-emerged in evaluation (wrapped to 3 lines) | Reinforced training behaviours re-emerged in evaluation | s-9 tile heading (22 Nov); "X, and Y" pair + metaphor read as AI → one finding in precise vocabulary |
 | The obvious fix can teach models to hide, and alignment is unsolved | Penalising misaligned reasoning in training rewards concealing it | s-9 tile heading (22 Nov); framing ("the obvious fix") + two clauses → one sourced finding; "unsolved" left to the quote |
-| — | Opaque firings discourage transparency | s-9 tile heading (22 Nov), accepted for now |
+| Opaque firings discourage transparency | Opaque staff firings discourage transparency | s-9 tile heading (presenter, 22 Nov) |
 
 ## Insight overlays
 

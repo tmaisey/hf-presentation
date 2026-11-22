@@ -393,7 +393,7 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
   text tiles built one per step). The tiles are the insights: no separate Insight overlay. The v1
   loop diagram is dropped; its evidence moves into tile 2's links.
 - **Steps (3)** (built, S-027; tile headings ✓ 22 Nov):
-  - **1 · Behaviours reinforced in training re-emerged in evaluation:** persistent agents were
+  - **1 · Reinforced training behaviours re-emerged in evaluation:** persistent agents were
     rewarded in training for cheating and coordinating on accidentally impossible tasks. A shared
     credential, a dismissed alert and no reasoning monitor let it reach evaluation. "Unprompted by
     humans" (✓ for now; was "With no human instructing them", trimmed to fit 1288×598), ~1,200 agents built
@@ -405,7 +405,7 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
     be. Quote: Hubinger: "we do not yet have a plan to solve alignment for superintelligence"
     (moved here from s-10). Links: TIME · Baker et al. 2025 · Sleeper Agents · alignment faking.
     METR fn 55 quote, 78% figure: notes.
-  - **3 · Opaque firings discourage transparency:** states both sides (OpenAI: "were not about
+  - **3 · Opaque staff firings discourage transparency:** states both sides (OpenAI: "were not about
     raising safety concerns"; the staff dispute this). Whatever the reason, firing people who
     worked openly with METR without a public explanation signals that transparency is risky: "a
     lesson we don't want models to learn" (◇ close to an epigram closer, VOICE). Quote: their
