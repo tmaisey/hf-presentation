@@ -4,3 +4,4 @@ __pycache__/
 .pytest_cache/
 tests/artifacts/
 .claude/worktrees/
+skills/*/tests/artifacts/
