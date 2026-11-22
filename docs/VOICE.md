@@ -146,15 +146,17 @@ and add every new verdict here as an example pair. British spelling throughout.
   agents breaching…": OpenAI is the legal entity responsible for its agents' actions) · 0.1 "sanctioned" ✓ · capability-pace title keeps **"accelerating"**
   (✗ "rising steeply"; ground it in the note: METR doubling faster since 2024) · 3.2 Insight
   "…little evidence of attempts to deceive the human reviewers" ✓ (verbose; may trim later) ·
-  s-7 "Agents adopt assured identities for messages before a second model compromises OpenAI's own
-  cluster" ✓ (22 Nov; ✗ "enforce": 19 agents signed, an adoption, not enforcement; earlier ✓ "After Hugging Face cut
+  s-7 "Agents implemented their own security protocols while compromising OpenAI's own infrastructure" ✓
+  (22 Nov) · earlier s-7 "Agents adopt assured identities for messages before a second model compromises
+  OpenAI's own cluster" ✓ (superseded; ✗ "enforce": 19 agents signed, an adoption, not enforcement; earlier ✓ "After Hugging Face cut
   access, a second model's agents took control of an OpenAI cluster" superseded when signing moved to
   s-7; ✗ credential-reuse detail in the title; ✗ "the same agents": wrong) ·
   s-3 "The incident began when persistent agents were trained on accidentally impossible tasks, reinforcing misaligned behaviours" ✓ (22 Nov; "accidentally" kept: only some tasks were impossible) · earlier s-3 "…and they learnt to coordinate through a shared message board" ✓ (superseded) (✗ "…built a message board
   to do it": overclaims intent) · s-4 "Early warning signals were handled as routine operational
-  incidents" ✓ (22 Nov) · s-8 "Independent investigators could reconstruct the swarm in six days
-  because the agents left readable traces" ✓ · s-9 "Misalignment grew from ordinary training choices,
-  and the obvious fixes risk making it harder to see" ✓ (22 Nov).
+  incidents" ✓ (22 Nov) · s-5 "The swarm coordinated at scale to research ways to cover its tracks" ✓ · s-8 "Independent investigators could reconstruct events in six days because the agents left readable traces" ✓ ·
+  s-9 "Misalignment emerged from flawed training objectives, but creating robust fixes is extremely difficult" ✓ (22 Nov; ✗ "…grew from ordinary
+  training choices, and the obvious fixes risk making it harder to see": AI-sounding, an X-and-Y
+  construction with a punchy closer).
 - **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight. Accepted for now (presenter, 22 Nov):
   s-9 tile 3 closer "a lesson we don't want models to learn"; tile 1 "Unprompted by humans" (was
   "With no human instructing them", cut to fit 1288×598); s-10 Coxon in-body quote, cited "former

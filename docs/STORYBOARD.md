@@ -189,7 +189,7 @@ the incident; replaces "Training rewarded agents that cheated… coordinate thro
 
 ## s-5 · Evaluation swarm (3:00) · M1
 
-v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it misunderstood*
+✓ title: *The swarm coordinated at scale to research ways to cover its tracks* (presenter, 22 Nov; replaces v1 3.2 "The swarm organised itself to defeat an automated scorer it misunderstood")
 - **Agreed design (presenter, 22 Nov; world slide, S-032; to build in situ, S-022):** continues
   the incident world from s-4's end state, in the same place on screen: evaluation swarm running,
   clean mirror with the **closed padlock** (secured; the agents get round it, not through it), Public
@@ -314,8 +314,9 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 
 ## s-7 · OpenAI cluster takeover (1:00) · M1, M2
 
-✓ *Agents adopt assured identities for messages before a second model compromises OpenAI's own cluster*
-(presenter, 22 Nov; replaces "After Hugging Face cut access, a second model's agents took control of an
+✓ *Agents implemented their own security protocols while compromising OpenAI's own infrastructure* (presenter,
+22 Nov; METR: agents "compromised OpenAI infrastructure between July 13th and July 19th"; replaces "Agents adopt
+assured identities for messages before a second model compromises OpenAI's own cluster", which replaced "After Hugging Face cut access, a second model's agents took control of an
 OpenAI cluster" now the signing beat opens s-7)
 - **Design (builder, delegated by the presenter, 22 Nov; world slide, S-032; built in situ,
   S-025):** continues the incident world from s-6's end state, in the same place on screen.
@@ -366,8 +367,7 @@ OpenAI cluster" now the signing beat opens s-7)
 
 ## s-8 · Investigation (1:30) · M2
 
-✓ *Independent investigators could reconstruct the swarm in six days because the agents left
-readable traces* (presenter approved, 22 Nov; replaces the funnel-era title)
+✓ *Independent investigators could reconstruct events in six days because the agents left readable traces* (presenter, 22 Nov: "events" for "the swarm")
 - **Agreed design (presenter, 22 Nov; S-026):** text-led. The incident world stays, frozen at its
   last state and **heavily blurred and faded** behind (backdrop, not content; stronger than the
   pop-over softening). Over it, a **row of three text tiles** across the page under the title, built
@@ -398,8 +398,8 @@ readable traces* (presenter approved, 22 Nov; replaces the funnel-era title)
 
 ## s-9 · Insights (2:00) · M1, M2
 
-✓ *Misalignment grew from ordinary training choices, and the obvious fixes risk making it harder to
-see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now s-8 tile 2)
+✓ *Misalignment emerged from flawed training objectives, but creating robust fixes is extremely difficult* (presenter, 22 Nov; replaces "Misalignment grew from ordinary training choices, and the obvious fixes
+risk making it harder to see": rejected as AI-sounding)
 - **Agreed design (presenter, 22 Nov; S-027):** same layout as s-8 (blurred world behind, three
   text tiles built one per step). The tiles are the insights: no separate Insight overlay. The v1
   loop diagram is dropped; its evidence moves into tile 2's links.
