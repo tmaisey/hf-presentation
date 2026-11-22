@@ -124,8 +124,9 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   is removed in v2), placed so it never covers an overlay or narration tile. Notes mode: whole page veils (blur 7px) except a rounded window over
   the target; accent ring + glow marks it. [P3:38–48](../design/prototypes/03-notes-spotlight.html#L38)
 - Numbered pins just outside each annotated element's top-right corner (never on its text);
-  current pin turns accent; pins the callout would cover hide; other pins sit **behind** the
-  focused target (pop-over, tile, part), only the current pin is above it (presenter, 22 Nov). The callout never rises under the
+  current pin turns accent; pins the callout would cover hide; pins stay on top, but placement
+  keeps other pins off the current focus frame (mainly pop-overs): nudge to the nearest free spot or
+  hide while that frame shows; pragmatic, never pushed behind a diagram (presenter, 22 Nov). The callout never rises under the
   title bar. [P3:51](../design/prototypes/03-notes-spotlight.html#L51)
 - Prev / position / Next / Close live in a **static** bar on the lower periphery, never in the
   moving callout. [P3:69](../design/prototypes/03-notes-spotlight.html#L69)
