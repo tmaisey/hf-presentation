@@ -719,3 +719,10 @@ def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, 
         goto_slide(page, sid, st)
         assert helper_until(page, f"() => ({KEY_ITEMS})().some(k => k.text === {text!r} && k.shown)"), f"{text} kept on {sid}"
         helper_key_fits(page, text, f"on {sid} at 1288x598")
+
+
+def test_research_programme_caption_is_the_approved_copy():
+    """Presenter, 22 Nov: the pop-over says what the swarm was, not just its aim."""
+    src = slides_source()
+    cap = re.search(r'<span class="pop-tag">A research programme</span>(.*?)</figcaption>', src, re.S).group(1)
+    assert cap.strip() == "A large ‘collective’ of agents organised around coordinated research to cover their tracks"
