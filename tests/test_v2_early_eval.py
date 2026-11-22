@@ -34,8 +34,8 @@ INSIGHT = ("The impossible-task conditions of training recurred in evaluation, a
            "had reinforced: agents rebuilt their coordination on the mirror and attacked it to gain more access.")
 # timeline: (id, step, numbered?, text fragment)
 TIMELINE = [("s4-t1", 0, True, "June"), ("s4-t1a", 1, False, "capture flags"),
-            ("s4-t1b", 2, False, "no solution"), ("s4-t2", 3, True, "26 Jun"), ("s4-t3", 4, True, "27 Jun"),
-            ("s4-t4", 5, True, "4 Jul"), ("s4-t5", 6, True, "5–6 Jul")]
+            ("s4-t1b", 2, False, "no solution"), ("s4-t2", 3, True, "26 June"), ("s4-t3", 4, True, "27 June"),
+            ("s4-t4", 5, True, "4 July"), ("s4-t5", 6, True, "5–6 July")]
 # world parts at full opacity on s-4, by step (the dimmed internet box is below .5 and so excluded)
 CARRIED = {"w-oai", "w-mirror"}           # from s-3 (the training runs, lines and notes do not carry)
 TRAINING = ("#w-runs", "#w-links", "#w-board", "#w-note1")
@@ -103,10 +103,12 @@ def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
     for (_, _, _, text), (_, _, _, frag) in zip(got, TIMELINE):
         assert frag in text, frag
     assert "ExploitGym" in got[0][3] and "begin" not in got[0][3].lower(), "no source dates the start"
-    assert "zero-day" in got[3][3] and "admin" in got[3][3]
+    # approved event lines (VOICE *Timeline entries*), verbatim after the date
+    assert got[3][3].endswith("Zero-day gives agents admin access")
     assert "routine" in got[4][3] and "not stopped" in got[4][3]
-    assert "load" in got[5][3]
-    assert "rebuild" in got[6][3] and "without being recognised" in got[6][3]
+    assert got[5][3].endswith("Agent load crashes the mirror")
+    assert got[6][3].endswith("Security response rebuilds mirror, inadvertently wiping messages")
+    assert "tl-aside" not in "".join(t for *_, t in items[6:7]), "the wipe is in the event line, not an aside"
 
 
 def test_popover_explains_flags_and_unsolvable_tasks_without_the_scorer_reveal():

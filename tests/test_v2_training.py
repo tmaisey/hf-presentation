@@ -31,7 +31,7 @@ WORLD_AT = {0: {"w-oai", "w-runs"}, 1: {"w-mirror", "w-cred", "w-links"}, 4: {"w
             6: {"w-net"}}
 WORLD_UNTIL: dict[str, int] = {}
 # timeline: (id, step, numbered?, text fragment)
-TIMELINE = [("s3-t1", 0, True, "Apr–May"), ("s3-t1a", 1, False, "Agents access a shared package mirror"),
+TIMELINE = [("s3-t1", 0, True, "April–May"), ("s3-t1a", 1, False, "Agents access a shared package mirror"),
             ("s3-t1b", 2, False, "Cheating behaviours are reinforced"), ("s3-t2", 3, True, "8 May"),
             ("s3-t3", 4, True, "12 May"), ("s3-t4", 5, True, "13 May"), ("s3-t5", 6, True, "26 May")]
 INSIGHT = ("Cheating and coordination through the board helped agents finish tasks and were reinforced "

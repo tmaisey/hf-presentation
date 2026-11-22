@@ -40,9 +40,9 @@ INSIGHT = ("Within a day of finding each other, the agents’ attacks became sop
            "gave up their runs to test a scorer that never read their transcripts.")
 RUN = "Agent · ExploitGym run"
 # timeline: (id, step, numbered?, text fragment)
-TIMELINE = [("s5-t1", 0, True, "8 Jul"), ("s5-t1a", 1, False, "1,200"), ("s5-t1b", 2, False, "4 hours"),
-            ("s5-t1c", 3, False, "poisoned"), ("s5-t2", 4, True, "9 Jul"), ("s5-t2a", 5, False, "Coordinators"),
-            ("s5-t2b", 6, False, "scorer"), ("s5-t2c", 7, False, "sacrifice"), ("s5-t3", 8, True, "26 Aug")]
+TIMELINE = [("s5-t1", 0, True, "8 July"), ("s5-t1a", 1, False, "~1,200"), ("s5-t1b", 2, False, "4 hours"),
+            ("s5-t1c", 3, False, "poisoned"), ("s5-t2", 4, True, "9 July"), ("s5-t2a", 5, False, "Coordinators"),
+            ("s5-t2b", 6, False, "scorer"), ("s5-t2c", 7, False, "sacrifice"), ("s5-t3", 8, True, "26 August")]
 # world parts at full opacity on s-5, carried from s-4's end state
 CARRIED = {"w-oai", "w-mirror", "w-eval", "w-eval-links", "w-secure", "w-bell"}
 S4_TRANSIENTS = ("#w-lock", "#w-flood", "#w-exploit", "#w-down", "#w-cred", "#w-admin", "#w-load")
@@ -126,13 +126,24 @@ def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
     assert [g[:3] for g in got] == [t[:3] for t in TIMELINE]
     for (_, _, _, text), (_, _, _, frag) in zip(got, TIMELINE):
         assert frag in text, frag
-    assert "board" in got[0][3] and "folder" in got[0][3]
-    assert "50" in got[1][3] and re.search(r"each lit dot .*agents", got[1][3], re.I), "illustrative scale stated"
-    assert "cheat" in got[2][3] and "research programme" in got[4][3] and "legitimate" in got[4][3]
-    assert "never read transcripts" in got[8][3]
+    # approved event lines (VOICE *Timeline entries*), verbatim; "~1,200", never "1200+" (overstates)
+    assert got[0][3].endswith("Blocked agent starts folder-name board")
+    assert got[1][3] == "50+ agents join in hours, ~1,200 total"
+    assert "cheat" in got[2][3]
+    assert got[3][3] == "Cheating agents feel poisoned"
+    assert got[4][3].endswith("A research programme to cover up cheating")
+    assert got[5][3] == "Coordinators assign the work"
+    assert got[6][3] == "Attacks on the scorer", "one scorer, never 'scorers'"
     # The sources date only the report (METR, 26 Aug 2026), not when investigators learned it
-    # (on site 29 Jul–16 Aug): the entry credits the report and never claims a finding date.
-    assert "METR" in got[8][3] and "report" in got[8][3] and not re.search(r"\bfind", got[8][3], re.I)
+    # (on site 29 Jul–16 Aug): the entry credits METR and never claims a finding date.
+    assert got[8][3].endswith("METR: Scorer never read transcripts") and not re.search(r"\bfind", got[8][3], re.I)
+    assert "tl-aside" not in "".join(t for *_, t in items), "no asides: event lines are one terse line each"
+
+
+def test_illustrative_dot_scale_is_stated_in_the_join_entrys_note():
+    """The on-slide aside went (too long); the note on the join entry still says the dots are illustrative."""
+    note = re.search(r'<aside class="note" data-for="#s5-t1a">(.*?)</aside>', helper_section(), re.S)
+    assert note and "illustrative" in note.group(1)
 
 
 def test_popovers_show_the_cheat_the_poisoned_belief_and_three_workstreams():
@@ -460,8 +471,9 @@ def test_scorer_sits_below_the_mirror_with_tripwires_to_the_board_and_no_run_lin
     docs = page.evaluate(CENTRES, "#w-transcripts .note-glyph")
     assert len(docs) >= 3 and all(helper_inside(d, s, 50) for d in docs), "transcripts sit at the scorer"
     eye = page.evaluate(CENTRES, "#w-eye")[0]
-    assert helper_inside(eye, s, 20), "the 'reads transcripts?' eye sits on the scorer"
-    assert "reads transcripts?" in page.evaluate("() => document.querySelector('#w-eye').textContent")
+    assert helper_inside(eye, s, 20), "the eye sits on the scorer"
+    assert page.evaluate("() => document.querySelector('#w-eye').textContent.trim()") == "", \
+        "the eye opens without a caption (presenter dropped 'reads transcripts?')"
     assert page.evaluate("() => document.querySelectorAll('#w-tw .tw-pulse').length") >= 2, "tripwire messages run to the board"
 
 
@@ -633,3 +645,35 @@ def test_every_step_stays_on_screen_below_the_title(page, size):
             if t < res["title"][3] - 1:
                 bad.append(f"step {step}: {k} rises over the title")
     assert bad == []
+
+
+KEY_ITEMS = """() => [...document.querySelectorAll('.world-key > svg, .world-key .world-key-item')].map(e => {
+    const r = (e.tagName === 'svg' ? e : e.querySelector('svg')).getBoundingClientRect(), c = e.querySelector('circle');
+    let o = 1; for (let n = e; n && n.nodeType === 1; n = n.parentElement) o *= +getComputedStyle(n).opacity;
+    return {text: e.tagName === 'svg' ? 'run' : e.textContent.trim(), shown: o > .9, hidden: o < .05,
+            fill: getComputedStyle(c).fill, mid: (r.top + r.bottom) / 2, left: r.left}; })"""
+
+
+def helper_key(page, text):
+    return next((k for k in page.evaluate(KEY_ITEMS) if k["text"] == text), None)
+
+
+@pytest.mark.parametrize("text,step,token", [("Research coordinator", 5, "--ink"), ("Sacrificed agent", 7, "--loss")])
+def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, token):
+    """Black dot = coordinator (from s-5:5), red dot = sacrificed agent (from s-5:7): hidden before,
+    shown from that step on the key's row, and still there on s-6 and s-7 (they stay in the world)."""
+    open_deck(page, 1288, 598)
+    goto_slide(page, SID, step - 1)
+    page.wait_for_timeout(900)
+    k = helper_key(page, text)
+    assert k and k["hidden"], f"{text} not in the key before step {step}"
+    goto_slide(page, SID, step)
+    assert helper_until(page, f"() => ({KEY_ITEMS})().some(k => k.text === {text!r} && k.shown)")
+    k, run = helper_key(page, text), helper_key(page, "run")
+    assert k["fill"] == helper_rgb(page, token), f"{text}: the dot matches its world role"
+    assert abs(k["mid"] - run["mid"]) < 4 and k["left"] > run["left"], "on the key's row, right of agent run"
+    for sid, st in (("s-6", 6), ("s-7", 3)):
+        goto_slide(page, sid, st)
+        assert helper_until(page, f"() => ({KEY_ITEMS})().some(k => k.text === {text!r} && k.shown)"), f"{text} kept on {sid}"
+        k, run = helper_key(page, text), helper_key(page, "run")
+        assert abs(k["mid"] - run["mid"]) < 4, f"{text} on the key's row on {sid} at 1288x598"
