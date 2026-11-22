@@ -163,7 +163,7 @@ def test_s9_tile_headings_are_the_approved_findings():
     assert all(helper_norm(h) in voice for h in S9_HEADINGS), "approved headings are recorded in VOICE"
 
 
-S9_CHEAT = "Unprompted by humans, agents built a universal cheat within 4 hours; ~1,200 joined in all"
+S9_CHEAT = "Unprompted by humans, agents built a universal cheat in 4 hours; ~1,200 in all"
 
 
 def test_s9_cheat_bullet_keeps_the_4_hour_cheat_apart_from_the_1200_total():

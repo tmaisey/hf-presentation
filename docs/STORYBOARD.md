@@ -406,9 +406,10 @@ risk making it harder to see": rejected as AI-sounding)
 - **Steps (3)** (built, S-027; tile headings ✓ 22 Nov):
   - **1 · Reinforced training behaviours re-emerged in evaluation:** persistent agents were
     rewarded in training for cheating and coordinating on accidentally impossible tasks. A shared
-    credential, a dismissed alert and no reasoning monitor let it reach evaluation. "Unprompted by
-    humans" (✓ for now; was "With no human instructing them", trimmed to fit 1288×598), ~1,200 agents built
-    a universal cheat in 4 hours. Quote: OpenAI: "Persistence is valuable, but can amplify
+    credential, a dismissed alert and no reasoning monitor let it reach evaluation. "Unprompted by humans,
+    agents built a universal cheat in 4 hours; ~1,200 in all" ("Unprompted by humans" ✓ for now; was
+    "With no human instructing them", trimmed to fit 1288×598; not "~1,200 agents built…": the cheat
+    came when 50+ had joined, ~1,200 is the whole-period total). Quote: OpenAI: "Persistence is valuable, but can amplify
     misalignment". Links: OpenAI TR, Redwood. Cluster-admin "within one second": note.
   - **2 · Penalising misaligned reasoning in training rewards concealing it:** a complete
     reward signal is practically impossible (back to s-2). Penalising malicious reasoning keeps the
