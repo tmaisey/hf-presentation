@@ -129,7 +129,9 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   current pin turns accent; pins the callout would cover hide; a focused **pop-over** sits in front of other pins (too big to place
   pins around); for any other focus, pins stay on top and placement keeps them off the focus frame
   (nudge to a free spot or hide; pragmatic, never pushed behind a diagram). The current pin is always
-  on top (presenter, 22 Nov). The callout never rises under the
+  on top (presenter, 22 Nov). A pin whose target sits inside the focused element hides rather than
+  being nudged (presenter, 22 Nov). Opening notes mode keeps its 0.5 s veil fade-in (presenter, 22 Nov:
+  chrome, not a build state; only build states are instant). The callout never rises under the
   title bar. [P3:51](../design/prototypes/03-notes-spotlight.html#L51)
 - Prev / position / Next / Close live in a **static** bar on the lower periphery, never in the
   moving callout. [P3:69](../design/prototypes/03-notes-spotlight.html#L69)
