@@ -146,6 +146,10 @@ coordinate through a shared message board*
     {Agents doing different tasks are abusing properties to make a bulletin board! They found
     [this api] and are trying to help one another} (Q 2.3 #2, M p29, paraphrase)
   - 27 Jun: OpenAI (TR §III.B): "stopping the evaluation run was not required"
+  - 4 Jul: fact tile (no quote marks; presenter, 22 Nov), label "Evaluation board, 26 Jun – 6 Jul":
+    "No agent messages from 26 Jun to 6 Jul survive: investigators saw no board activity in that
+    window, and the rebuild wiped the board." The well-known discovery lines ("covert mailbox",
+    "OH MY GOD!") are 8 Jul, after the rebuild: s-5 only.
   - 5–6 Jul: OpenAI (TR §III.B, neutral label): "The existence of the improvised message board…
     [was] not apparent to leaders"
 - **Pop-over facts (sourced):** ExploitGym is a flag-based (capture-the-flag) cyber benchmark

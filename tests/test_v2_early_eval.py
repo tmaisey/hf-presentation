@@ -49,6 +49,9 @@ NARR_AT = {
          "They found [this api] and are trying to help one another}")],
     4: [("OpenAI · technical report",
          "[…] the on-call response staff advised that stopping the evaluation run was not required.")],
+    5: [("Evaluation board, 26 Jun – 6 Jul",
+         "No agent messages from 26 Jun to 6 Jul survive: investigators saw no board activity in that window, "
+         "and the rebuild wiped the board.")],
     6: [("OpenAI · technical report",
          "The existence of the improvised message board […] [was] not apparent to leaders […]")],
 }
@@ -119,12 +122,22 @@ def test_popover_explains_flags_and_unsolvable_tasks_without_the_scorer_reveal()
 
 def test_narration_tiles_quote_verbatim_at_the_dated_steps():
     narr = re.search(r'<div class="narration">(.*?)</div>', helper_section(), re.S).group(1)
-    tiles = re.findall(r'<article class="narr-tile" data-at="(\d+)">\s*<p class="msg-agent">(.*?)</p>\s*'
+    tiles = re.findall(r'<article class="narr-tile( narr-tile--fact)?" data-at="(\d+)">\s*<p class="msg-agent">(.*?)</p>\s*'
                        r'<blockquote class="msg-text">(.*?)</blockquote>\s*</article>', narr, re.S)
     got: dict[int, list] = {}
-    for at, label, text in tiles:
+    for fact, at, label, text in tiles:
         got.setdefault(int(at), []).append((helper_text(label), helper_text(text)))
+        assert bool(fact) == (int(at) == 5), "only the 4 Jul gap is a fact tile (no quote marks); the rest are quotes"
     assert got == NARR_AT
+
+
+def test_4_jul_fact_tile_shows_no_quote_marks(page):
+    """The 4 Jul gap is our statement, not a quote: no CSS quote marks."""
+    open_deck(page)
+    goto_slide(page, SID, 5)
+    marks = page.evaluate("""() => { const t = document.querySelector('#s-4 .narr-tile--fact .msg-text');
+      return [getComputedStyle(t, '::before').content, getComputedStyle(t, '::after').content]; }""")
+    assert all(m in ("none", "normal", '""') for m in marks)
 
 
 def test_notes_cite_each_event_with_https_sources():
