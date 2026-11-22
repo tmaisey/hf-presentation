@@ -114,6 +114,8 @@ review, internal update) through profiles, without duplicating criteria.
   its `AGENTS.md` template (workflow, spec model, test authoring, definition of done incl. looking
   at assembled screenshots) into the deck project (`CLAUDE.md` = `@AGENTS.md`), so the dev approach
   persists across sessions; compliance is measured by the process eval, never enforced by hooks.
+- **Voice profile is seeded into the deck project** as its `docs/VOICE.md` and grows there with each
+  verdict (PB-013). How new verdicts flow back into the skill's profile is open (below).
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
@@ -128,3 +130,8 @@ review, internal update) through profiles, without duplicating criteria.
 - No new component designs or prototyped second visual language (for now).
 - No generalised voice; no presenter-calibration set (for now).
 - No speaker-timer/presenter view; no framework or build step for viewing the deck.
+
+## Open questions
+
+- Voice verdict sync: should the agent offer, at the end of a deck project, to copy its new
+  verdict pairs back into `voice/profiles/twm.md`?
