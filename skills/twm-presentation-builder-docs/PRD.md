@@ -87,7 +87,7 @@ review, internal update) through profiles, without duplicating criteria.
   - **Calibration:** none initially (may come later). Anchors come from recorded presenter verdicts
     (VOICE pairs, PRD decisions, the v2 first-draft rejection) plus deliberately flawed decks.
     Reports **MUST** state that agreement with the presenter is unmeasured.
-  - **Briefs:** (1) HF deck subset (gold reference), (2) the same subset in a second theme,
+  - **Briefs:** (1) HF deck subset (gold reference), (2) the same subset in a second palette,
     (3) a synthetic pitch, (4) a synthetic data review, each with a small fixed research pack.
     Together the briefs **MUST** cover every skill feature, enforced by a coverage check.
 
@@ -98,14 +98,20 @@ review, internal update) through profiles, without duplicating criteria.
   `skills/twm-presentation-builder-docs/`, indexed from root `AGENTS.md`. The deck's `docs/` and
   `tests/` **NEVER** hold skill specs. Local trial via a symlink in `.claude/skills/` (root
   `skills/` is not a discovery path).
-- **Second theme is specified and blind-evaluated, not prototyped (presenter, 22 Nov):** a palette +
-  style swap over the same components (no new components), judged by the eval's subagents only;
+- **Second theme is specified and blind-evaluated, not prototyped (presenter, 22 Nov):** a palette
+  swap over the same components and style (no new components), judged by the eval's subagents only;
   presenter verdict deferred. This is an approved exception to root Workflow phase 4.
 - **PPTX is a part, not a sibling skill (for now):** `pptx/` stays self-contained so it can be
   promoted later (Anthropic ships pptx/docx as separate skills).
 - **Python token generator over Style Dictionary/Terrazzo:** keeps the skill uv-only; the
   generator writes the CSS theme blocks and the PPTX `clrScheme`/`fontScheme` from one DTCG source.
 - **The HF deck is not migrated** onto the skill's engine: it stays the accepted reference.
+- **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
+  deck or presentation.
+- **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
+  else (same components and style); style swaps come later.
+- **Text-wrap drift in PPTX is judged visually (presenter, 22 Nov):** a screenshot-judge criterion,
+  no numeric tolerance.
 
 ## Exclusions
 
@@ -118,6 +124,4 @@ review, internal update) through profiles, without duplicating criteria.
 
 - Should the screenshot gate be enforced by a hook in `SKILL.md` frontmatter, or stay prose plus
   the process gate?
-- `SKILL.md` description wording (drives triggering); settle when PB-001 is built.
-- Exact second theme (e.g. dark palette + flat style without blur/bokeh): settle in PB-008's red.
-- Text-wrap drift between Chrome and PowerPoint: measured in PB-024, tolerance agreed then.
+- Exact second palette (e.g. dark): settle in PB-008's red.
