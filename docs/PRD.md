@@ -166,7 +166,9 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   **style/material** (fonts, bokeh, frost, depth, motion); the engine and authoring contract
   sit in an **architecture** layer beyond ADR-001. Voice ships as the presenter's personal profile
   (`VOICE.md` rules + examples), not generalised. PPTX conversion may sacrifice effects PowerPoint
-  can't render natively (e.g. backdrop blur), declared per design. Eval targets the narrow case
+  can't render natively (e.g. backdrop blur), declared per design. The PPTX is an **editable
+  hand-off** (a colleague reworks it or drops slides into a corporate template): native text,
+  placeholders and shapes beat visual fidelity. Eval targets the narrow case
   (presenter-driven editorial talks) but **MUST** be DRY and adaptable to other deck types
   (pitch, data review, internal update).
 - **s-1 and s-2 rebuilt in situ (presenter, 22 Nov):** new title and subtitle; s-2's reward-loop
