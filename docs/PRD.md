@@ -33,13 +33,14 @@ shared credential for every agent; internet access by default).
 
 ## Shape (v2)
 
-v2 is a chronological ~10-slide arc (~20 min incl. 4 min Q&A). Slide-level detail (titles, diagram
+v2 is a chronological 12-slide arc (~21 min incl. 4 min Q&A). Slide-level detail (titles, diagram
 builds, narration quotes, timings) lives in `docs/STORYBOARD.md`; v1 (18 slides) stays in
 `deck/deck.html` as reference.
 
 1 Title · 2 Concepts (RL, reward hacking, persistent agents) · 3 Training board · 4 Early
 evaluation and the wipe · 5 Evaluation swarm · 6 Breakout to Hugging Face (incl. its cluster-admin) · 7 Second model takes an OpenAI cluster ·
-8 Investigation · 9–10 Insights (M2, M3), practical takeaway, then 3 discussion prompts for open Q&A.
+8 Investigation · 9 Insights (M1, M2) · 10 Takeaways (M3, practical controls) · 11–12 Close: 3 discussion
+questions for open Q&A, then thank you.
 
 **Build:** v2 is a **new file**, `deck/deck-v2.html`; `deck/deck.html` is **NEVER** overwritten.
 v2 reuses the ADR-001 architecture (engine, tokens, components, authoring contract) copied from v1
@@ -144,7 +145,7 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
 | 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | First draft built (10 slides), **rejected on quality** 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs reopened; draft markup is raw material. **Reusable:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
-| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); incident world + pop-overs built in situ (S-032); Training (S-020) built and reviewed (22 Nov); Early evaluation (S-021) designed with the presenter, built in situ and accepted (22 Nov); designed with the presenter (22 Nov, `STORYBOARD.md`): s-5 Evaluation swarm (S-022), s-6 Breakout (S-023), s-8 Investigation (S-026) and s-9 Insights (S-027) as tile rows over the blurred world. **Build order:** S-022 → S-023 → S-025 (builder designs s-7 first, PRD *Decisions*) → S-026 → S-027 → S-028 (S-030 layout guard built 22 Nov, all slides pass; S-022, S-023, S-026, S-027 done; S-025 built (awaiting presenter); next S-028 review). Open decisions: STORYBOARD *Open items* | `design/prototypes/`, `docs/DESIGN.md` |
+| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **Done** (22 Nov): every v2 slide built in situ behind the S-030 layout guard and accepted by the presenter step by step; Close chapter, reader-notes and title-bar refinements built; README published. Remaining: S-028 independent review (optional, presenter's call) | `design/prototypes/`, `docs/DESIGN.md` |
 
 ## Exclusions
 

@@ -1,6 +1,6 @@
 # Storyboard v2
 
-Chronological ~10-slide arc, ~20 min incl. 4 min Q&A, built as `deck/deck-v2.html`. **v1** (18
+Chronological 12-slide arc, ~21 min incl. 4 min Q&A, built as `deck/deck-v2.html`. **v1** (18
 slides, chapter arc) lives in `deck/deck.html` and git history (cee382f); reuse its engine,
 components and approved copy. Copy follows `docs/VOICE.md`; visuals follow `docs/DESIGN.md`.
 
@@ -513,7 +513,6 @@ Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's fire
   (22 Nov; s-10's old discussion notes dropped with its prompts). In build (presenter: scroll clear + soft fade): at 1288×598 some spotlit
   targets themselves run under the notes Prev/Next bar (s-5 note 4 'Poisoned' pop-over, s-6 note 8,
   s-8 notes 3–4).
-- S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
-  its tests and Definition of done before relying on it; flip or finish it.
+- S-018 (narration tiles) closed 22 Nov: built, used on s-3–s-7, `tests/test_narration.py` green.
 - S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).
 - s-10: pacing-letter count settled at "over 1,300" (letter page: 1,386). Anthropic pause omitted (weakly sourced; a test guards against it).
