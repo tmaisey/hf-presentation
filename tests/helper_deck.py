@@ -149,9 +149,85 @@ def settle(page, selector: str, timeout: int = 5000) -> None:
         selector: CSS selector of the element to watch.
         timeout: Give up after this many ms (Playwright raises TimeoutError).
     """
-    page.wait_for_function(
-        """sel => new Promise(res => {
+    # wait_for_function treats a returned promise as truthy, so the old version never waited: loop in-page
+    ok = page.evaluate(
+        """([sel, timeout]) => new Promise(res => {
           const box = () => { const e = document.querySelector(sel); if (!e) return '';
             const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map(Math.round).join(); };
-          const a = box(); setTimeout(() => res(a !== '' && a === box()), 150); })""",
-        arg=selector, timeout=timeout, polling=50)
+          const t0 = performance.now();
+          const tick = () => { const a = box(); setTimeout(() => {
+            if (a !== '' && a === box()) return res(true);
+            if (performance.now() - t0 > timeout) return res(false);
+            tick(); }, 150); };
+          tick(); })""", [selector, timeout])
+    assert ok, f"{selector} kept moving for {timeout} ms"
+
+
+# Busy = a finite animation or transition (CSS or Web Animations) is running, pending, or waiting out its
+# delay, on the selector's elements and their subtrees (whole document when no selector). Infinite loops
+# (radar, pulses, fireflies) never finish, so they are ignored.
+_BUSY = """sel => (sel ? [...document.querySelectorAll(sel)].flatMap(e => e.getAnimations({subtree: true}))
+    : document.getAnimations()).filter(a => (a.playState === 'running' || a.pending)
+    && isFinite(a.effect && a.effect.getComputedTiming().endTime))"""
+
+
+def settle_animations(page, selector: str | None = None, timeout: int = 15000, quiet: int = 120,
+                      still: str | None = None) -> None:
+    """Wait until every finite animation/transition has finished, instead of sleeping a fixed time.
+
+    Fixed sleeps race CSS transitions when tests run in parallel on a loaded machine; this waits for the
+    end state the assertion is about. The page must stay calm for ``quiet`` ms, checked from the next
+    rendered frame, so a transition started by the next style change (e.g. a delayed handover) is caught
+    too. JS-driven tweens (``requestAnimationFrame``) are invisible to ``getAnimations``: name the
+    elements they move in ``still`` and their boxes must also hold still for ``quiet`` ms. A
+    ``setTimeout`` beat that starts later than ``quiet`` needs its own ``wait_for_function`` condition.
+
+    Args:
+        page: A Playwright ``Page`` with the deck loaded.
+        selector: CSS selector whose elements (and subtrees) must be calm; ``None`` = the whole document.
+        timeout: Give up after this many ms (raises AssertionError).
+        quiet: How long the page must stay calm.
+        still: CSS selector of elements whose bounding boxes must stop changing (JS tweens).
+    """
+    # page.evaluate awaits the promise; wait_for_function would not (it takes a returned promise as truthy)
+    calm = page.evaluate(
+        f"""([sel, quiet, timeout, still]) => new Promise(res => {{ const t0 = performance.now();
+          let since = null, last = null;
+          const boxes = () => still ? [...document.querySelectorAll(still)].map(e => {{
+            const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map(v => v.toFixed(1)); }}).join() : '';
+          const tick = () => {{ const now = performance.now(), sig = boxes();
+            if (({_BUSY})(sel).length || sig !== last) since = null;
+            else if (since === null) since = now;
+            else if (now - since >= quiet) return res(true);
+            last = sig;
+            if (now - t0 > timeout) return res(false);
+            setTimeout(tick, 30); }};
+          requestAnimationFrame(tick); }})""",
+        [selector, quiet, timeout, still])
+    assert calm, f"animations on {selector or 'the page'} still running after {timeout} ms"
+
+
+def sample_at(page, ms: int, probe: str, arg=None, selector: str | None = None):
+    """Evaluate ``probe`` with the running animations seeked to ``ms`` after they started.
+
+    For assertions about a mid-animation state ("at 150 ms the newcomer is still hidden"): rather than
+    sleeping ``ms`` of wall-clock time (which overshoots on a loaded machine), every finite running
+    animation is paused, set to ``currentTime = ms``, probed, then resumed. Call it straight after the
+    trigger, with earlier animations settled, so every animation it seeks started at that trigger.
+
+    Args:
+        page: A Playwright ``Page`` with the deck loaded.
+        ms: Animation time to sample at, in ms since each animation started (delays included).
+        probe: A JS function source, called as ``probe(arg)`` while the animations are held at ``ms``.
+        arg: Argument passed to ``probe``.
+        selector: Limit the seek to this selector's animations; ``None`` = the whole document.
+
+    Returns:
+        Whatever ``probe`` returns.
+    """
+    return page.evaluate(
+        f"""([sel, ms, probe, arg]) => {{ const anims = ({_BUSY})(sel);
+          anims.forEach(a => {{ a.pause(); a.currentTime = ms; }});
+          try {{ return new Function('return (' + probe + ')')()(arg); }}
+          finally {{ anims.forEach(a => a.play()); }} }}""",
+        [selector, ms, probe, arg])

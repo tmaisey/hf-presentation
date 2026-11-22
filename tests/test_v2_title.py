@@ -11,7 +11,7 @@ import re
 
 import pytest
 
-from helper_deck import open_deck, parse_slides, slides_source
+from helper_deck import open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -55,7 +55,7 @@ def test_replaced_copy_and_diagram_are_absent():
 def test_title_and_subtitle_fit_below_the_bar(page, vw, vh):
     assert open_deck(page, vw, vh) == []
     page.evaluate("() => window.deck.goto('s-1', 0)")
-    page.wait_for_timeout(1200)
+    settle_animations(page, "#s-1, .bar")
     r = page.evaluate("""() => {
       const s = document.getElementById('s-1'), box = e => e.getBoundingClientRect();
       const t = box(s.querySelector('.title')), u = box(s.querySelector('#s1-sub')), k = box(s.querySelector('.kicker'));

@@ -10,8 +10,9 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, settle, slides_source
+from helper_deck import goto_slide, open_deck, settle_animations, slides_source
 
+NOTES_UI = ".callout, .pin, .ring, .veil"   # the notes layer, not the slide's own timed beats
 NOTED = "() => document.querySelector('section.slide .note').closest('section').id"
 
 
@@ -28,7 +29,7 @@ def test_n_opens_notes_with_spotlight_pins_and_static_nav(page):
     open_deck(page)
     goto_slide(page, page.evaluate(NOTED))
     page.keyboard.press("n")
-    page.wait_for_timeout(700)
+    settle_animations(page)
     assert page.evaluate("() => document.body.classList.contains('notes-on')")
     assert page.evaluate("() => document.querySelectorAll('.pin').length") >= 1
     assert page.is_visible(".notes-nav")
@@ -40,7 +41,7 @@ def test_source_links_are_underlined_in_inherited_colour(page):
     open_deck(page)
     goto_slide(page, page.evaluate(NOTED))
     page.keyboard.press("n")
-    page.wait_for_timeout(700)
+    settle_animations(page)
     link = page.evaluate("""() => { const a = document.querySelector('.callout a.src');
       const p = a.parentElement; return [getComputedStyle(a).color, getComputedStyle(p).color,
       getComputedStyle(a).textDecorationLine]; }""")
@@ -51,15 +52,15 @@ def test_next_moves_to_following_note_and_escape_closes(page):
     open_deck(page)
     goto_slide(page, page.evaluate(NOTED))
     page.keyboard.press("n")
-    page.wait_for_timeout(500)
+    settle_animations(page)
     first = page.inner_text(".callout h3")
     page.keyboard.press("ArrowRight")
-    page.wait_for_timeout(500)
+    settle_animations(page)
     n = page.evaluate("() => document.querySelectorAll('.pin').length")
     if n > 1:
         assert page.inner_text(".callout h3") != first
     page.keyboard.press("Escape")
-    page.wait_for_timeout(500)
+    settle_animations(page)
     assert not page.evaluate("() => document.body.classList.contains('notes-on')")
 
 
@@ -69,7 +70,7 @@ def test_arrow_keys_do_not_change_slide_while_notes_open(page):
     goto_slide(page, sid)
     page.keyboard.press("n")
     page.keyboard.press("ArrowRight")
-    page.wait_for_timeout(600)
+    settle_animations(page)
     assert page.evaluate("() => window.deck.state().slide") == sid
 
 
@@ -89,11 +90,10 @@ def test_callout_and_pins_stay_clear_of_title_bar_targets_and_each_other(page):
     for sid in page.evaluate("() => [...document.querySelectorAll('section.slide')].filter(s => s.querySelector('.note')).map(s => s.id)"):
         goto_slide(page, sid)
         page.keyboard.press("n")
-        page.wait_for_timeout(300)
+        settle_animations(page, NOTES_UI, still=".callout, .pin")
         n = page.evaluate("() => document.querySelectorAll('.pin').length")
         for k in range(n):
-            page.wait_for_timeout(300)
-            settle(page, ".callout")
+            settle_animations(page, NOTES_UI, still=".callout, .pin")
             problems += [f"{sid} note {k + 1}: {p}" for p in page.evaluate("""() => {
               const bad = [], c = document.querySelector('.callout').getBoundingClientRect();
               const bar = document.querySelector('.bar').getBoundingClientRect();
@@ -109,7 +109,7 @@ def test_callout_and_pins_stay_clear_of_title_bar_targets_and_each_other(page):
               return bad; }""")]
             page.keyboard.press("ArrowRight")
         page.keyboard.press("Escape")
-        page.wait_for_timeout(300)
+        settle_animations(page, NOTES_UI)
     assert problems == [], "\n".join(problems)
 
 

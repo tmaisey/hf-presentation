@@ -23,7 +23,7 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, parse_slides, slides_source
+from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -56,7 +56,6 @@ NARR_AT = {
          "The existence of the improvised message board […] [was] not apparent to leaders […]")],
 }
 NOTE_TARGETS = {"s4-t1", "s4-pop-nosol", "s4-t2", "w-lock", "w-bell", "w-down", "s4-t5"}
-CRASH_MS = 5200   # after the step settles: the flood has landed and the crash has begun
 
 
 def helper_section() -> str:
@@ -198,8 +197,10 @@ def test_insight_claims_coordination_and_attacks_not_flag_cheating():
 def test_closing_insight_blurs_everything_else(page):
     open_deck(page)
     goto_slide(page, SID, STEPS - 1)
+    settle_animations(page, STEP_ON, still=STEP_STILL)
     assert page.evaluate(OPACITY, "#s4-insight") < 0.05, "the Insight takes its own step"
     goto_slide(page, SID, STEPS)
+    settle_animations(page, STEP_ON, still=STEP_STILL)
     res = page.evaluate("""() => { const ins = document.querySelector('#s4-insight');
       const blur = e => { const m = getComputedStyle(e).filter.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; };
       return { shown: +getComputedStyle(ins).opacity > .9, text: ins.innerText.replace(/\\s+/g, ' ').trim(),
@@ -256,6 +257,7 @@ def test_training_runs_and_notes_dissolve_and_eval_runs_start_on_an_empty_board(
 def test_eval_runs_each_link_to_the_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 0)
+    settle_animations(page, STEP_ON, still=STEP_STILL)
     ends = page.evaluate("""() => { const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
       return [...document.querySelectorAll('#w-eval-links line')].map(l => { const pt = l.ownerSVGElement.createSVGPoint();
         pt.x = +l.getAttribute('x2'); pt.y = +l.getAttribute('y2'); const s = pt.matrixTransform(l.getScreenCTM());
@@ -268,6 +270,9 @@ TIMELINE_JS = """([sels, ms]) => new Promise(res => { const t0 = performance.now
     out.push([t, ...sels.map(s => { const e = document.querySelector(s); return e ? +getComputedStyle(e).opacity : -1; })]);
     if (t < ms) setTimeout(tick, 40); else res(out); }; tick(); })"""
 
+# a step's end state (or a calm start before a timed sequence): slide and world calm, the JS layout tween landed
+STEP_ON, STEP_STILL = "#s-4, .world", "#w-mirror rect, #w-oai rect"
+
 
 def helper_first(samples, col, test):
     """Time (ms) of the first sample whose column ``col`` passes ``test``, or None."""
@@ -278,6 +283,7 @@ def test_zero_day_beats_follow_the_popover_in_order(page):
     """Pop-over gone → ≥0.5 s pause → agent ringed → skull note sent → key becomes the open padlock."""
     open_deck(page)
     goto_slide(page, SID, 2)
+    settle_animations(page, STEP_ON, still=STEP_STILL)
     page.evaluate("window.deck.goto('s-4', 3)")
     rows = page.evaluate(TIMELINE_JS, [["#s4-pop", "#w-admin-ring", "#w-exploit .note-fly", "#w-cred", "#w-lock"], 5500])
     gone = helper_first(rows, 1, lambda o: o < .05)
@@ -334,6 +340,7 @@ def test_alert_sweeps_radar_rings_and_the_bell_is_silenced(page):
 def test_bell_rings_for_about_two_seconds_before_it_is_silenced(page):
     open_deck(page)
     goto_slide(page, SID, 3)
+    settle_animations(page, STEP_ON, still=STEP_STILL)
     page.evaluate("window.deck.goto('s-4', 4)")
     rows = page.evaluate(TIMELINE_JS, [["#w-bell", "#w-bell .bell-slash"], 3600])
     shown = helper_first(rows, 1, lambda o: o > .5)
@@ -347,7 +354,7 @@ def test_bell_rings_for_about_two_seconds_before_it_is_silenced(page):
 def test_load_pulses_accelerate_and_notes_flood_onto_the_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 5)
-    page.wait_for_timeout(2600)   # the last notes of the flood have landed
+    settle_animations(page, "#w-flood", still="#w-mirror rect")   # the last notes of the flood have landed
     res = page.evaluate("""() => { const c = e => { const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2, r.width, r.height]; };
       const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
       const pulses = [...document.querySelectorAll('#w-load .pulse')];
@@ -375,7 +382,7 @@ def test_crash_comes_after_the_flood_then_mirror_and_notes_grey(page):
     goto_slide(page, SID, 5)
     assert page.evaluate(OPACITY, "#w-down .status-light") < 0.05
     live = page.evaluate(FILL, "#w-mirror rect")
-    page.wait_for_timeout(CRASH_MS)
+    settle_animations(page, ".world .mirror-group")   # the crash (greying 4 s into the step) has run
     res = page.evaluate("""() => { const q = s => document.querySelector(s), cs = e => getComputedStyle(e);
       const l = q('#w-down .status-light').getBoundingClientRect(), m = q('#w-mirror rect').getBoundingClientRect();
       return { light: Math.max(...[0, 1, 2].map(() => +cs(q('#w-down .status-light')).opacity)), lightFill: cs(q('#w-down .status-light')).fill,
@@ -395,7 +402,7 @@ def test_rebuild_wipes_the_board_and_leaves_a_clean_live_mirror(page):
     goto_slide(page, SID, 0)
     live = page.evaluate(FILL, "#w-mirror rect")
     goto_slide(page, SID, 6)
-    page.wait_for_timeout(600)
+    settle_animations(page, ".world")
     helper_until(page, f"() => ({OPACITY})('#w-secure') > .9")
     for sel in ("#w-exploit", "#w-flood", "#w-lock", "#w-down", "#w-cred"):
         assert page.evaluate(OPACITY, sel) < 0.05, f"{sel} gone after the rebuild"
@@ -427,6 +434,7 @@ def test_every_step_stays_on_screen_below_the_title(page, size):
     bad = []
     for step in range(STEPS + 1):
         goto_slide(page, SID, step)
+        settle_animations(page, "#" + SID)
         res = page.evaluate("""id => { const s = document.getElementById(id);
           const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
           const tl = s.querySelector(':scope > .body'), out = { title: r(s.querySelector('.title')), vw: innerWidth, vh: innerHeight,

@@ -10,11 +10,12 @@ before vanishing; newcomers wait for it; reduced motion drops blur/transform) ·
 diagram parts, hidden in notes mode, Notes button never fades or covers a tile/Insight).
 """
 
+import time
 from html.parser import HTMLParser
 
 import pytest
 
-from helper_deck import deck_source, slides_source
+from helper_deck import deck_source, sample_at, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")  # narration tiles are v2-only (v1 keeps clusters)
 
@@ -87,9 +88,9 @@ def helper_open_fixture(page, tmp_path, width=1920, height=1080, reduced_motion=
     return errors
 
 
-def helper_goto(page, step, wait=1300):
+def helper_goto(page, step):
     page.evaluate("([id, s]) => window.deck.goto(id, s)", [SID, step])
-    page.wait_for_timeout(wait)
+    settle_animations(page)
 
 
 def helper_shown(page):
@@ -97,9 +98,13 @@ def helper_shown(page):
     return page.evaluate(f"() => {TILES}.map((t, i) => [i, ({SHOWN_JS})(t)]).filter(x => x[1]).map(x => x[0])")
 
 
+BLUR_JS = f"""i => {{ const f = getComputedStyle({TILES}[i]).filter;
+  const m = f.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; }}"""
+RISE_JS = f"i => new DOMMatrix(getComputedStyle({TILES}[i]).transform).m42"
+
+
 def helper_blur(page, i):
-    return page.evaluate(f"""() => {{ const f = getComputedStyle({TILES}[{i}]).filter;
-      const m = f.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; }}""")
+    return page.evaluate(BLUR_JS, i)
 
 
 def helper_overlap(a, b, pad=0):
@@ -141,12 +146,10 @@ def test_previous_tiles_rack_focus_out_then_disappear_while_newcomers_wait(page,
     helper_goto(page, 1)
     assert helper_blur(page, 0) == 0
     page.evaluate("() => window.deck.next()")
-    page.wait_for_timeout(150)
-    newcomer = page.evaluate(f"() => +getComputedStyle({TILES}[1]).opacity")
+    newcomer = sample_at(page, 150, f"() => +getComputedStyle({TILES}[1]).opacity")
     assert newcomer < 0.3, f"newcomer already {newcomer:.2f} opaque during the handover"
-    page.wait_for_timeout(200)
-    assert helper_blur(page, 0) > 1, "leaving tile must defocus before it fades"
-    page.wait_for_timeout(1100)
+    assert sample_at(page, 350, BLUR_JS, 0) > 1, "leaving tile must defocus before it fades"
+    settle_animations(page)
     assert not page.evaluate(f"() => ({SHOWN_JS})({TILES}[0])")
     assert page.evaluate(f"() => getComputedStyle({TILES}[0]).visibility") == "hidden"
 
@@ -155,12 +158,11 @@ def test_entry_rises_in_sharp(page, tmp_path):
     helper_open_fixture(page, tmp_path)
     helper_goto(page, 2)
     page.evaluate("() => window.deck.next()")
-    page.wait_for_timeout(500)
-    assert helper_blur(page, 3) == 0, "entering tile is sharp from the start"
-    rising = page.evaluate(f"() => new DOMMatrix(getComputedStyle({TILES}[3]).transform).m42")
+    blur, rising = sample_at(page, 500, f"() => [({BLUR_JS})(3), ({RISE_JS})(3)]")
+    assert blur == 0, "entering tile is sharp from the start"
     assert rising > 0.5, "entering tile rises into place"
-    page.wait_for_timeout(1000)
-    assert page.evaluate(f"() => new DOMMatrix(getComputedStyle({TILES}[3]).transform).m42") == 0
+    settle_animations(page)
+    assert page.evaluate(RISE_JS, 3) == 0
     assert page.evaluate(f"() => ({SHOWN_JS})({TILES}[3])")
 
 
@@ -200,10 +202,10 @@ def test_notes_mode_hides_tiles(page, tmp_path):
     helper_open_fixture(page, tmp_path)
     helper_goto(page, 2)
     page.keyboard.press("n")
-    page.wait_for_timeout(1300)
+    settle_animations(page)
     assert helper_shown(page) == []
     page.keyboard.press("Escape")
-    page.wait_for_timeout(1300)
+    settle_animations(page)
     assert helper_shown(page) == [1, 2]
 
 
@@ -211,10 +213,10 @@ def test_reduced_motion_swaps_tiles_by_fading_only(page, tmp_path):
     helper_open_fixture(page, tmp_path, reduced_motion=True)
     helper_goto(page, 1)
     page.evaluate("() => window.deck.next()")
-    page.wait_for_timeout(120)
-    assert helper_blur(page, 0) == 0
-    assert page.evaluate(f"() => new DOMMatrix(getComputedStyle({TILES}[1]).transform).m42") == 0
-    page.wait_for_timeout(1200)
+    blur, rise = sample_at(page, 120, f"() => [({BLUR_JS})(0), ({RISE_JS})(1)]")
+    assert blur == 0
+    assert rise == 0
+    settle_animations(page)
     assert helper_shown(page) == [1, 2]
 
 
@@ -222,10 +224,11 @@ def test_reduced_motion_swaps_tiles_by_fading_only(page, tmp_path):
 def test_notes_button_stays_visible_when_idle_and_never_covers_a_tile_or_insight(page, tmp_path, w, h):
     helper_open_fixture(page, tmp_path, w, h)
     page.mouse.move(w / 2, h / 2)
+    moved = time.monotonic()
     for step in (1, 2, 3, 4):
         helper_goto(page, step)
-        if step == 1:
-            page.wait_for_timeout(2400)  # > 3 s since the last pointer move: v1 faded here
+        if step == 1:   # kept fixed: an idle timer, not an animation. > 3 s since the last pointer move: v1 faded here
+            page.wait_for_timeout(max(0, 3400 - 1000 * (time.monotonic() - moved)))
         assert page.evaluate("() => +getComputedStyle(document.querySelector('.notes-btn')).opacity") > 0.95
         btn = page.evaluate(f"() => ({RECT_JS})(document.querySelector('.notes-btn'))")
         shown = page.evaluate(f"""() => [...{TILES}.filter({SHOWN_JS}),

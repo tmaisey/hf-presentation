@@ -28,7 +28,7 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, parse_slides, slides_source
+from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -291,7 +291,7 @@ def test_founder_is_ringed_and_its_folder_lands_on_the_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 0)
     helper_until(page, f"() => ({OPACITY})('#w-founder-ring') > .9 && ({OPACITY})('#w-cache') > .9", timeout=8000)
-    page.wait_for_timeout(1600)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     ring = page.evaluate(CENTRES, "#w-founder-ring circle")[0]
     assert helper_on_run(page, ring), "the ring sits on one evaluation run"
     m = page.evaluate(RECT, "#w-mirror rect")
@@ -304,7 +304,7 @@ def test_founder_is_ringed_and_its_folder_lands_on_the_mirror(page):
 def test_swarm_finds_the_board_in_a_lit_wave_of_most_runs(page):
     open_deck(page)
     goto_slide(page, SID, 1)
-    page.wait_for_timeout(3000)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     m = page.evaluate(RECT, "#w-mirror rect")
     ends = page.evaluate(LINE_ENDS, "#w-swarm-links line")
     runs = len(page.evaluate(CENTRES, "#w-eval .run"))
@@ -352,6 +352,10 @@ GEOM = """() => { const c = e => { const r = e.getBoundingClientRect(); return [
   const q = s => [...document.querySelectorAll(s)].map(c), mr = document.querySelector('#w-mirror rect').getBoundingClientRect();
   return { m: c(document.querySelector('#w-mirror rect')), mbox: [mr.left, mr.top, mr.right, mr.bottom],
            runs: q('#w-eval .run'), coords: q('#w-coords circle'), sac: q('#w-sacrificed circle') }; }"""
+
+# a step's end state: the world's finite animations done and its JS layout/grouping tweens landed (the
+# grouping starts 1.3 s into its step, so geometry waits hold still a little longer: quiet=400)
+WORLD, GEOM_STILL = ".world", "#w-mirror rect, #w-oai rect, #w-eval .run, #w-coords circle, #w-sacrificed circle"
 
 
 def helper_geom(page) -> dict:
@@ -421,15 +425,15 @@ def helper_assert_volunteers_spread(g):
 def test_runs_group_round_coordinators_standing_halfway_to_the_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 0)
-    page.wait_for_timeout(1500)
+    settle_animations(page, WORLD, still=GEOM_STILL, quiet=400)
     g0 = helper_geom(page)
     goto_slide(page, SID, 4)
-    page.wait_for_timeout(1200)
+    settle_animations(page, WORLD, still=GEOM_STILL, quiet=400)
     g4 = helper_geom(page)
     assert all(math.dist(a, b) < 0.5 for a, b in zip(g0["runs"], g4["runs"])), "earlier steps leave the runs where they were"
     page.evaluate("window.deck.goto('s-5', 5)")
     helper_until(page, f"() => ({OPACITY})('#w-coords') > .9")
-    page.wait_for_timeout(2600)
+    settle_animations(page, WORLD, still=GEOM_STILL, quiet=400)
     g5 = helper_geom(page)
     coord_runs = {i for i, r in enumerate(g4["runs"]) if any(math.dist(r, c) < 3 for c in g4["coords"])}
     assert len(coord_runs) == len(g4["coords"]) >= 3
@@ -454,7 +458,7 @@ def test_scorer_sits_below_the_mirror_with_tripwires_to_the_board_and_no_run_lin
     goto_slide(page, SID, 6)
     helper_until(page, f"() => ({OPACITY})('#w-scorer') > .9 && ({OPACITY})('#w-eye') > .9 && ({OPACITY})('#w-tw') > .9",
                  timeout=8000)
-    page.wait_for_timeout(2500)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     s, m, o = page.evaluate(RECT, "#w-scorer rect"), page.evaluate(RECT, "#w-mirror rect"), page.evaluate(RECT, "#w-oai rect")
     assert s[1] > m[3] and o[0] < s[0] and s[2] <= o[2] + 1 and s[3] <= o[3], "scorer in the OpenAI box, below the mirror"
     runs = page.evaluate(CENTRES, "#w-eval .run")
@@ -483,7 +487,7 @@ def test_scorer_sits_below_the_mirror_with_tripwires_to_the_board_and_no_run_lin
 def test_skull_note_flies_from_the_fan_to_the_scorer_before_the_eye_opens(page):
     open_deck(page)
     goto_slide(page, SID, 5)
-    page.wait_for_timeout(2500)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     assert page.evaluate("() => !!document.querySelector('#w-probe .skull')"), "s-4's skull note, reused"
     page.evaluate("window.deck.goto('s-5', 6)")
     rows = page.evaluate(f"""([ms]) => new Promise(res => {{ const t0 = performance.now(), out = [], eff = {EFF};
@@ -506,7 +510,7 @@ def test_skull_note_flies_from_the_fan_to_the_scorer_before_the_eye_opens(page):
 def test_volunteers_are_existing_runs_turning_loss_one_at_a_time(page):
     open_deck(page)
     goto_slide(page, SID, 6)
-    page.wait_for_timeout(2500)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     n_runs = len(page.evaluate(CENTRES, "#w-eval .run"))
     before = page.evaluate(SAC_STATE)
     assert len(before) >= 4 and all(n >= 1 and lo > 0.3 for _, _, lo, n in before), "each volunteer had lit lines"
@@ -518,7 +522,7 @@ def test_volunteers_are_existing_runs_turning_loss_one_at_a_time(page):
     times = sorted(next(r[0] for r in rows if r[1 + j] > 0.5) for j in range(len(before)))
     assert all(b - a >= 120 for a, b in zip(times, times[1:])), f"one at a time: {times}"
     assert 1000 <= times[-1] - times[0] <= 3000, f"over about two seconds: {times}"
-    page.wait_for_timeout(800)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     after = page.evaluate(SAC_STATE)
     loss = helper_rgb(page, "--loss")
     assert all(f == loss and o > 0.9 for f, o, _, _ in after), "volunteers turn oxblood"
@@ -534,7 +538,7 @@ def test_volunteers_are_existing_runs_turning_loss_one_at_a_time(page):
 def test_grouping_and_volunteers_carry_to_later_world_slides(page, slide):
     open_deck(page)
     goto_slide(page, slide, 0)
-    page.wait_for_timeout(2600)
+    settle_animations(page, WORLD, still=GEOM_STILL, quiet=400)
     g = helper_geom(page)
     ratios = helper_coord_ratios(g)
     # the compressed column (s-6 on) puts the board between fan and mirror, so coordinators sit just above it
@@ -582,7 +586,7 @@ def test_scorer_label_stays_clear_of_its_skull_note_eye_and_caption(page, w, h):
     open_deck(page, w, h)
     goto_slide(page, SID, 8)
     helper_until(page, f"() => ({OPACITY})('#w-eye-off') > .9 && ({OPACITY})('#w-probe') > .9", timeout=8000)
-    page.wait_for_timeout(1500)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     res = page.evaluate("""() => { const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
       return { label: [...document.querySelectorAll('#w-scorer text')].map(r), tile: r(document.querySelector('#w-scorer rect')),
                note: r(document.querySelector('#w-probe .note-fly')), eye: r(document.querySelector('#w-eye-off circle')),
@@ -598,7 +602,7 @@ def test_scorer_label_stays_clear_of_its_skull_note_eye_and_caption(page, w, h):
 def test_popovers_leave_the_narration_free_for_that_steps_tile(page, step):
     open_deck(page)
     goto_slide(page, SID, step)
-    page.wait_for_timeout(600)
+    settle_animations(page, "#s-5, .world")
     res = page.evaluate("""k => { const s = document.getElementById('s-5'), r = e => { const b = e.getBoundingClientRect();
         return [b.left, b.top, b.right, b.bottom]; };
       const pop = [...s.querySelectorAll('.popover')].find(p => +getComputedStyle(p).opacity > .5);
@@ -648,6 +652,7 @@ def test_every_step_stays_on_screen_below_the_title(page, size):
     bad = []
     for step in range(STEPS + 1):
         goto_slide(page, SID, step)
+        settle_animations(page, "#" + SID)
         res = page.evaluate("""id => { const s = document.getElementById(id);
           const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
           const tl = s.querySelector(':scope > .body'), out = { title: r(s.querySelector('.title')), vw: innerWidth, vh: innerHeight,
@@ -703,7 +708,7 @@ def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, 
     the column under the diagram at the short-wide size."""
     open_deck(page, 1288, 598)
     goto_slide(page, SID, step - 1)
-    page.wait_for_timeout(900)
+    settle_animations(page, WORLD, still=GEOM_STILL)
     k = helper_key(page, text)
     assert k and k["hidden"], f"{text} not in the key before step {step}"
     goto_slide(page, SID, step)

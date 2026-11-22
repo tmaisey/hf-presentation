@@ -11,7 +11,7 @@ closes on outside click; slide content never shows through the open list).
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, state
+from helper_deck import goto_slide, open_deck, settle_animations, state
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -51,7 +51,7 @@ def test_bar_title_reads_hugging_face_attack_with_italic_subtitle(page):
 @pytest.mark.parametrize("w,h", [(1920, 1080), (1288, 598), (1280, 720)])
 def test_full_agenda_labels_every_chapter_clear_of_title(page, w, h):
     open_deck(page, w, h)
-    page.wait_for_timeout(300)
+    settle_animations(page, ".bar")
     assert page.evaluate(VISIBLE_LABELS) == page.evaluate(CHAPTERS)
     assert page.evaluate(GAP) >= 24
 
@@ -77,7 +77,7 @@ def test_agenda_has_no_dot_markers(page):
 def test_hover_lifts_one_chapter_and_softens_the_rest_readably(page):
     open_deck(page)
     page.hover(".agenda li:nth-child(5) button")
-    page.wait_for_timeout(500)
+    settle_animations(page, ".bar")
     looks = page.evaluate("""() => [...document.querySelectorAll('.agenda li button')].map(b => {
       const cs = getComputedStyle(b);
       return {scale: new DOMMatrix(cs.transform).a, op: +cs.opacity, blur: cs.filter.includes('blur')}; })""")
@@ -104,14 +104,14 @@ def test_compact_hover_drops_vertical_list_that_navigates(page):
     open_deck(page, 1100, 700)
     chapters = page.evaluate(CHAPTERS)
     page.hover(f".bar button:has-text('{chapters[0]}')")
-    page.wait_for_timeout(500)
+    settle_animations(page, ".bar")
     assert page.evaluate(VISIBLE_LABELS) == chapters
     tops = page.evaluate("() => [...document.querySelectorAll('.agenda li')].map(li => li.getBoundingClientRect().top)")
     assert tops == sorted(tops) and len(set(round(t) for t in tops)) == len(tops)
     colours = page.evaluate("() => [...document.querySelectorAll('.agenda li button')].map(b => getComputedStyle(b).color)")
     assert colours[0] == ACCENT_INK
     page.click(f".agenda li:nth-child(6) button")
-    page.wait_for_timeout(1200)
+    settle_animations(page, ".bar")
     target = _current_slide_of_chapter(page, 5)
     assert state(page)["slide"] == target
 
@@ -123,22 +123,22 @@ def test_compact_list_opens_on_keyboard_focus(page):
         if page.evaluate("() => document.activeElement.closest('.bar') !== null"):
             break
         page.keyboard.press("Tab")
-    page.wait_for_timeout(500)
+    settle_animations(page, ".bar")
     assert page.evaluate(VISIBLE_LABELS) == page.evaluate(CHAPTERS)
 
 
 def test_compact_list_stays_closed_until_asked_and_closes_on_outside_click(page):
     open_deck(page, 1100, 700)
     page.mouse.move(500, 400)
-    page.wait_for_timeout(300)
+    settle_animations(page, ".bar")
     assert page.evaluate(VISIBLE_LABELS) == []
     chapters = page.evaluate(CHAPTERS)
     page.click(f".bar button:has-text('{chapters[0]}')")
     page.mouse.move(1090, 690)
-    page.wait_for_timeout(500)
+    settle_animations(page, ".bar")
     assert page.evaluate(VISIBLE_LABELS) == chapters
     page.mouse.click(500, 650)
-    page.wait_for_timeout(500)
+    settle_animations(page, ".bar")
     assert page.evaluate(VISIBLE_LABELS) == []
 
 
@@ -147,7 +147,7 @@ def test_open_compact_list_hides_slide_content_beneath(page):
     bleed through, because the frosted bar stops a nested backdrop blur from applying."""
     open_deck(page, 1100, 700)
     page.click(".nav-current")
-    page.wait_for_timeout(500)
+    settle_animations(page, ".bar")
     alpha = page.evaluate("""() => { const c = getComputedStyle(document.querySelector('.agenda')).backgroundColor;
       const m = c.match(/[\\d.]+/g).map(Number); return m.length > 3 ? m[3] : 1; }""")
     assert alpha == 1

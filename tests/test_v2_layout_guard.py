@@ -15,7 +15,7 @@ listed is guarded at every size from the start.
 
 import pytest
 
-from helper_deck import open_deck, parse_slides
+from helper_deck import open_deck, parse_slides, settle_animations
 from helper_layout import CHECK, helper_layout_faults, helper_settle
 
 pytestmark = pytest.mark.deck("v2")
@@ -84,6 +84,6 @@ def test_checker_reports_a_planted_fault_on_a_clean_slide(page, fault):
     helper_settle(page)
     assert page.evaluate(CHECK, "s-3") == []
     page.evaluate(PLANT[fault], "s-3")
-    page.wait_for_timeout(50)
+    settle_animations(page, "#s-3")
     found = page.evaluate(CHECK, "s-3")
     assert any(f.startswith(fault) for f in found), found

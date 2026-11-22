@@ -11,7 +11,7 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, slides_source
+from helper_deck import goto_slide, open_deck, settle_animations, slides_source
 
 LAYERS = ["layer-edges", "layer-nodes", "layer-key", "layer-labels"]
 
@@ -32,9 +32,12 @@ def test_title_fireflies_are_numerous_and_drift_perceptibly(page):
     goto_slide(page, "s-1")
     n = page.evaluate("() => document.querySelectorAll('#s-1 .orb').length")
     assert n >= 16, f"{n} orbs"
-    pos = "() => [...document.querySelectorAll('#s-1 .orb')].map(o => new DOMMatrix(getComputedStyle(o).transform)).map(m => [m.e, m.f])"
-    a = page.evaluate(pos); page.wait_for_timeout(1000); b = page.evaluate(pos)
-    moved = max(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** .5 for (x1, y1), (x2, y2) in zip(a, b))
+    # speed over a ~1 s window, timed in the page: a loaded machine stretches the window, not the speed
+    moved = page.evaluate("""() => new Promise(res => {
+      const pos = () => [...document.querySelectorAll('#s-1 .orb')].map(o => new DOMMatrix(getComputedStyle(o).transform)).map(m => [m.e, m.f]);
+      const a = pos(), t0 = performance.now();
+      setTimeout(() => { const b = pos(), dt = (performance.now() - t0) / 1000;
+        res(Math.max(...a.map(([x1, y1], i) => Math.hypot(b[i][0] - x1, b[i][1] - y1))) / dt); }, 1000); })""")
     # drift peaks ~13 px/s (amp 53, t/4000); was ~5 then ~9 (presenter asked +50% twice, 22 Nov)
     assert 11 <= moved <= 30, f"fastest orb drifts {moved:.1f}px/s: perceptible but still subtle"
 
@@ -113,7 +116,7 @@ DIAGRAM_METRICS = """() => {
 def test_diagram_text_strokes_and_arrowheads_stay_legible_on_screen(page, vw, vh, floor):
     """Diagrams shrink to fit their column; text, edges and heads must still clear the floor."""
     open_deck(page, vw, vh)
-    page.wait_for_timeout(300)
+    settle_animations(page)
     m = page.evaluate(DIAGRAM_METRICS)
     small = [f"{sid} {cls} '{txt}' {px:.1f}px" for sid, cls, txt, px in m["text"] if px < floor - 0.05]
     assert not small, "\n".join(small)
@@ -144,7 +147,7 @@ def test_key_tiles_are_tinted_and_keep_ink_text(page):
 def test_tiles_in_one_row_share_a_title_baseline(page):
     """Timeline tiles with different line counts must not jitter their titles."""
     open_deck(page)
-    page.wait_for_timeout(300)
+    settle_animations(page)
     rows = page.evaluate("""() => {
       const out = {};
       document.querySelectorAll('section.slide svg.diagram .tile').forEach(t => {

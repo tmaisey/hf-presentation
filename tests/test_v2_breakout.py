@@ -26,7 +26,7 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, parse_slides, slides_source
+from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -248,6 +248,7 @@ def test_world_and_timeline_build_per_step(page, step):
     helper_until(page, f"want => {{ const got = ({VISIBLE_WORLD})(); return got.length === want.length && want.every(w => got.includes(w)); }}",
                  sorted(expected), timeout=8000)
     assert set(page.evaluate(VISIBLE_WORLD)) == expected
+    settle_animations(page, "#s-6 > .body")
     shown = page.evaluate("""() => [...document.querySelectorAll('#s-6 .steps > li')]
       .filter(l => +getComputedStyle(l).opacity > .5).map(l => l.id)""")
     assert shown == [t[0] for t in TIMELINE if t[1] <= step], "the timeline builds; nothing shows ahead"
@@ -264,7 +265,7 @@ def test_world_rearranges_into_three_domains_with_openai_narrowed(page):
     # jumping straight in replays s-5's folder fly-in: let it land
     helper_until(page, "() => document.getAnimations().every(a => a.playState !== 'running' || !a.effect.target.closest('#w-folders, #w-cache'))",
                  timeout=8000)
-    page.wait_for_timeout(300)
+    settle_animations(page, ".world", still="#w-oai rect, #w-net6 rect, #w-hf rect, #w-mirror rect, #w-modal rect")
     oai, net, hf = (page.evaluate(RECT, f"#{i} rect") for i in ("w-oai", "w-net6", "w-hf"))
     total = hf[2] - oai[0]
     assert oai[2] <= net[0] and net[2] <= hf[0], "OpenAI · internet strip · Hugging Face, left to right"
@@ -291,11 +292,11 @@ def test_s5_parts_end_as_the_breakout_begins(page):
 def test_hf_tiles_sit_in_the_hf_box_and_appear_at_their_steps(page):
     open_deck(page)
     goto_slide(page, SID, 1)
-    page.wait_for_timeout(900)
+    settle_animations(page, ".world")
     for sel in ("#w-hf-workers", "#w-hf-clusters", "#w-hf-data"):
         assert page.evaluate(OPACITY, sel) < 0.05, f"{sel} not before its step"
     goto_slide(page, SID, 5)
-    page.wait_for_timeout(1500)
+    settle_animations(page, ".world", still="#w-hf rect, #w-hf-workers rect, #w-hf-clusters rect, #w-hf-data rect")
     hf = page.evaluate(RECT, "#w-hf rect")
     tiles = page.evaluate(RECTS, "#w-hf-workers rect, #w-hf-clusters rect, #w-hf-data rect")
     assert len(tiles) == 4, "workers, two clusters, internal datasets"
@@ -310,7 +311,7 @@ def test_activity_rings_are_hollow_and_settle_round_their_tile_inside_hf(page, g
     step = next(k for k, ids in WORLD_AT.items() if group in ids)
     goto_slide(page, SID, step)
     helper_until(page, f"() => ({OPACITY})('#{group}') > .9", timeout=8000)
-    page.wait_for_timeout(3200)
+    settle_animations(page, f"#{group}")
     rings = page.evaluate(RECTS, f"#{group} .act")
     hf, target = page.evaluate(RECT, "#w-hf rect"), page.evaluate(RECTS, f"{ACTS[group]} rect")
     # every tile of s-6 or earlier (a later slide's tiles, e.g. s-7's after Hugging Face is gone, may reuse the space)
@@ -333,7 +334,9 @@ def test_rings_stream_along_the_entry_path_from_the_code_execution_step(page):
     goto_slide(page, SID, 3)
     helper_until(page, f"() => ({OPACITY})('#w-stream') > .9", timeout=8000)
     a = page.evaluate(CENTRES, "#w-stream .act")
-    page.wait_for_timeout(400)
+    # sample until the stream has moved (a fixed 400 ms races a loaded machine), then judge that sample
+    helper_until(page, f"""a => {{ const b = ({CENTRES})('#w-stream .act');
+      return b.filter((q, i) => a[i] && Math.abs(a[i][0] - q[0]) + Math.abs(a[i][1] - q[1]) > 2).length >= Math.floor(a.length / 2); }}""", a)
     b = page.evaluate(CENTRES, "#w-stream .act")
     assert len(a) >= 6 and sum(1 for p, q in zip(a, b) if abs(p[0] - q[0]) + abs(p[1] - q[1]) > 2) >= len(a) // 2, \
         "the flow is a moving stream"
@@ -386,7 +389,7 @@ def test_cut_is_an_unplugged_plug_and_socket_pulled_apart_on_the_path_into_hf(pa
     open_deck(page)
     goto_slide(page, SID, CUT)
     helper_until(page, f"() => ({OPACITY})('#w-hf-cut') > .9", timeout=8000)
-    page.wait_for_timeout(1800)
+    settle_animations(page, "#w-hf-cut, #w-hf-closed")
     assert page.evaluate("() => document.querySelector('#w-hf-cut').matches('g.unplug')"), "reusable g.unplug component"
     def head(sel):   # the plug or socket itself, without its cable
         rs = page.evaluate(RECTS, f"#w-hf-cut {sel} :not(.unplug-cable)")
@@ -427,8 +430,10 @@ def test_key_gains_a_hollow_ring_entry_right_of_the_run_entry(page):
 def test_closing_insight_blurs_everything_else(page):
     open_deck(page)
     goto_slide(page, SID, STEPS - 1)
+    settle_animations(page, "#s-6, .world")
     assert page.evaluate(OPACITY, "#s6-insight") < 0.05, "the Insight takes its own step"
     goto_slide(page, SID, STEPS)
+    settle_animations(page, "#s-6, .world")
     res = page.evaluate("""() => { const ins = document.querySelector('#s6-insight');
       const blur = e => { const m = getComputedStyle(e).filter.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; };
       return { shown: +getComputedStyle(ins).opacity > .9, text: ins.innerText.replace(/\\s+/g, ' ').trim(),
@@ -441,7 +446,7 @@ def test_closing_insight_blurs_everything_else(page):
 def test_reduced_motion_shows_end_states_without_motion(page):
     open_deck(page, reduced_motion=True)
     goto_slide(page, SID, 4)
-    page.wait_for_timeout(300)
+    settle_animations(page)
     names = page.evaluate("""() => [...document.querySelectorAll('#w-acts-entry .act, #w-acts-clusters .act, #w-hf-locks .lock-badge')]
       .map(e => getComputedStyle(e).animationName)""")
     assert names and all(n == "none" for n in names)
@@ -450,7 +455,7 @@ def test_reduced_motion_shows_end_states_without_motion(page):
     assert len(set((round(x), round(y)) for x, y in a)) == len(a), "the stream rests spread along its path"
     assert page.evaluate(OPACITY, "#w-hf-locks") > 0.9
     goto_slide(page, SID, CUT)
-    page.wait_for_timeout(300)
+    settle_animations(page)
     assert all(n == "none" for n in page.evaluate(
         "() => [...document.querySelectorAll('#w-hf-cut *')].map(e => getComputedStyle(e).animationName)")), "plug rests apart"
 
@@ -461,6 +466,7 @@ def test_every_step_stays_on_screen_below_the_title(page, size):
     bad = []
     for step in range(STEPS + 1):
         goto_slide(page, SID, step)
+        settle_animations(page, "#s-6")
         res = page.evaluate("""id => { const s = document.getElementById(id);
           const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
           const tl = s.querySelector(':scope > .body'), out = { title: r(s.querySelector('.title')), vw: innerWidth, vh: innerHeight,

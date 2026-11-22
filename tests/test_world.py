@@ -11,7 +11,7 @@ slide; world never over the title; pop-over exit is a rack focus, not a cut).
 
 import pytest
 
-from helper_deck import goto_slide, open_deck
+from helper_deck import goto_slide, open_deck, sample_at, settle_animations
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -21,6 +21,7 @@ VISIBLE_WORLD_IDS = """() => [...document.querySelectorAll('.world [data-world-a
   .filter(e => +getComputedStyle(e).opacity > .5).map(e => e.id)"""
 WORLD_BLUR = """() => { const f = getComputedStyle(document.querySelector('.world')).filter;
   const m = f.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; }"""
+NOTES_UI = ".callout, .pin, .ring, .veil"   # the notes layer, not the slide's own timed beats
 FIRST_WORLD = "() => document.querySelector('section.slide[data-world]').id"
 POP_SLIDE = "() => { const p = document.querySelector('section.slide .popover'); return p && [p.closest('section').id, +p.dataset.showAt, +p.dataset.hideAt]; }"
 
@@ -89,12 +90,15 @@ def test_world_builds_with_steps_and_resets_on_reentry(page):
     sid = page.evaluate(FIRST_WORLD)
     steps = dict(page.evaluate("window.deck.plan()"))[sid]
     goto_slide(page, sid, 0)
+    settle_animations(page, ".world")
     first = set(page.evaluate(VISIBLE_WORLD_IDS))
     goto_slide(page, sid, steps)
+    settle_animations(page, ".world")
     last = set(page.evaluate(VISIBLE_WORLD_IDS))
     assert first < last, "later steps add to the world, keeping what came before"
     goto_slide(page, "s-2", 0)
     goto_slide(page, sid, 0)
+    settle_animations(page, ".world")
     assert set(page.evaluate(VISIBLE_WORLD_IDS)) == first
 
 
@@ -102,16 +106,17 @@ def test_popover_softens_the_world_then_racks_focus_out(page):
     open_deck(page)
     sid, at, until = page.evaluate(POP_SLIDE)
     goto_slide(page, sid, at - 1)
+    settle_animations(page, f".world, #{sid}")
     assert page.evaluate(WORLD_BLUR) == 0
     goto_slide(page, sid, at)
+    settle_animations(page, f".world, #{sid}")
     assert page.evaluate(WORLD_BLUR) > 1
     assert page.evaluate(f"() => +getComputedStyle(document.querySelector('#{sid} .popover')).opacity") > .9
     page.evaluate(f"() => window.deck.goto('{sid}', {until})")
-    page.wait_for_timeout(250)
-    mid = page.evaluate(f"""() => {{ const f = getComputedStyle(document.querySelector('#{sid} .popover')).filter;
+    mid = sample_at(page, 250, f"""() => {{ const f = getComputedStyle(document.querySelector('#{sid} .popover')).filter;
       const m = f.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; }}""")
     assert mid > 1, "pop-over should defocus before it vanishes"
-    page.wait_for_timeout(1200)
+    settle_animations(page, f".world, #{sid}")
     assert page.evaluate(f"() => +getComputedStyle(document.querySelector('#{sid} .popover')).opacity") < .05
     assert page.evaluate(WORLD_BLUR) == 0
 
@@ -121,7 +126,7 @@ def test_reader_notes_spotlight_world_parts(page):
     sid = page.evaluate(FIRST_WORLD)
     goto_slide(page, sid, 0)
     page.keyboard.press("n")
-    page.wait_for_timeout(700)
+    settle_animations(page, NOTES_UI, still=".ring")
     hits = []
     for _ in range(page.evaluate(f"() => document.querySelectorAll('#{sid} aside.note').length")):
         hits.append(page.evaluate("""() => { const ring = document.querySelector('.ring').getBoundingClientRect();
@@ -129,7 +134,7 @@ def test_reader_notes_spotlight_world_parts(page):
             return r.width && Math.abs(r.left - 14 - ring.left) < 3 && Math.abs(r.top - 14 - ring.top) < 3; });
           return t ? t.id : null; }"""))
         page.keyboard.press("ArrowRight")
-        page.wait_for_timeout(700)
+        settle_animations(page, NOTES_UI, still=".ring")
     assert any(hits), "no note spotlighted a world element"
 
 
@@ -184,10 +189,9 @@ def test_board_glyphs_from_earlier_steps_rest_on_the_board_after_a_jump(page):
     bad = []
     for sid, k in points:
         page.evaluate("() => window.deck.goto('s-3', 0)")   # a world point before every s-5 part: a real jump from there
-        page.wait_for_timeout(100)
+        page.evaluate("() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))")   # s-3 rendered
         page.evaluate("([id, s]) => window.deck.goto(id, s)", [sid, k])
-        page.wait_for_timeout(250)
-        *glyphs, mirror = page.evaluate(BOARD_GLYPHS)
+        *glyphs, mirror = sample_at(page, 250, BOARD_GLYPHS, selector=".world .w-board")   # 250 ms into any fly-in
         l, t, r, b = mirror["mirror"]
         mw, mh = r - l, b - t
         for g in glyphs:

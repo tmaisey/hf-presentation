@@ -9,7 +9,7 @@ that isn't on screen at the current step).
 
 import pytest
 
-from helper_deck import goto_slide, open_deck
+from helper_deck import goto_slide, open_deck, settle_animations
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -22,6 +22,9 @@ TARGET_VISIBLE = """sel => {
     if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.5) return false; }
   return true; }"""
 
+NOTES_UI = ".callout, .pin, .ring, .veil"   # the notes layer, not the slide's own timed beats
+# a condition wait's patience, not a sleep: a world part fades in late (.25 s delay + .8 s) and a loaded machine stretches it
+VISIBLE_TIMEOUT = 10000
 NOTED_SLIDES = "() => [...document.querySelectorAll('section.slide')].filter(s => s.querySelector('.note')).map(s => s.id)"
 
 
@@ -40,11 +43,11 @@ def test_every_note_spotlights_a_visible_target(page):
             if k:
                 page.keyboard.press("ArrowRight")
             try:
-                page.wait_for_function(TARGET_VISIBLE, arg=sel, timeout=3000, polling=100)
+                page.wait_for_function(TARGET_VISIBLE, arg=sel, timeout=VISIBLE_TIMEOUT, polling=100)
             except Exception:
                 hidden.append(f"{sid} note {k + 1} → {sel}")
         page.keyboard.press("Escape")
-        page.wait_for_timeout(200)
+        settle_animations(page, NOTES_UI)
     assert hidden == [], "notes spotlight content that isn't on screen:\n" + "\n".join(hidden)
 
 
@@ -58,14 +61,14 @@ def test_s10_table_notes_show_the_table_not_the_last_step(page):
                        if page.evaluate("s => !!document.querySelector('#s-10 ' + s).closest('table')", sel))
     for _ in range(first_table):
         page.keyboard.press("ArrowRight")
-    page.wait_for_function(TARGET_VISIBLE, arg=targets[first_table], timeout=3000, polling=100)
+    page.wait_for_function(TARGET_VISIBLE, arg=targets[first_table], timeout=VISIBLE_TIMEOUT, polling=100)
 
 
 def test_no_visible_pin_points_at_offscreen_content(page):
     open_deck(page)
     goto_slide(page, "s-10")
     page.keyboard.press("n")
-    page.wait_for_timeout(900)
+    settle_animations(page)
     bad = page.evaluate("""() => {
       const pins = [...document.querySelectorAll('.pin')];
       const notes = [...document.querySelectorAll('#s-10 aside.note')];
