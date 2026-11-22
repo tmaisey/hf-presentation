@@ -1,12 +1,15 @@
 """Spec: S-031
 
-v2 title bar: Title-Case title with an italic subtitle; an agenda that labels every chapter
-(current in green, no dot markers) with a hover lift that softens the rest; and a compact form
-that collapses to the current chapter and drops down a vertical list when the row won't fit.
-Coverage: happy (title text, all labels at 1920, hover lift, compact list opens and navigates)
-· edge (1288×598 and 1280×720 keep the full row; keyboard focus opens the compact list)
-· negative (no dot markers; title and nav never overlap; compact list closed until asked for,
-closes on outside click; slide content never shows through the open list).
+v2 title bar: Title-Case title with an italic subtitle that links home to s-1; an agenda that
+labels every chapter (current in green on a resting pill, no dot markers) with a hover lift that
+softens the rest; and a compact form that collapses to the current chapter and drops down a
+vertical list when the row won't fit.
+Coverage: happy (title text, home link by click/Enter/Space, all labels at 1920, resting pill,
+hover lift, compact list opens and navigates) · edge (1288×598 and 1280×720 keep the full row;
+keyboard focus opens the compact list; resting pill sits below the hover lift; compact panel
+marks the current entry the same way) · negative (no dot markers; only the current item rests on
+a pill; hovering another chapter softens the current pill; title and nav never overlap; compact
+list closed until asked for, closes on outside click; slide content never shows through it).
 """
 
 import pytest
@@ -120,7 +123,7 @@ def test_compact_list_opens_on_keyboard_focus(page):
     open_deck(page, 1100, 700)
     page.keyboard.press("Tab")
     for _ in range(4):
-        if page.evaluate("() => document.activeElement.closest('.bar') !== null"):
+        if page.evaluate("() => document.activeElement.closest('.nav') !== null"):
             break
         page.keyboard.press("Tab")
     settle_animations(page, ".bar")
@@ -151,3 +154,96 @@ def test_open_compact_list_hides_slide_content_beneath(page):
     alpha = page.evaluate("""() => { const c = getComputedStyle(document.querySelector('.agenda')).backgroundColor;
       const m = c.match(/[\\d.]+/g).map(Number); return m.length > 3 ? m[3] : 1; }""")
     assert alpha == 1
+
+
+# outer (non-inset) shadows of an element as [y-offset, blur] pairs; [] when it casts none
+SHADOWS = r"""sel => { const s = getComputedStyle(document.querySelector(sel)).boxShadow;
+  if (s === 'none') return [];
+  return s.split(/,(?![^(]*\))/).filter(p => !p.includes('inset')).map(p => {
+    const n = p.replace(/rgba?\([^)]*\)/, '').trim().split(/\s+/).map(parseFloat);
+    return [n[1], n[2]]; }); }"""
+LOOK = """sel => { const b = document.querySelector(sel), cs = getComputedStyle(b);
+  return {bg: cs.backgroundColor, op: +cs.opacity, blur: cs.filter.includes('blur'),
+          scale: new DOMMatrix(cs.transform).a}; }"""
+TRANSPARENT = "rgba(0, 0, 0, 0)"
+
+
+def _focus_home(page):
+    page.mouse.move(960, 700)
+    page.evaluate("() => document.activeElement && document.activeElement.blur()")
+    for _ in range(4):
+        page.keyboard.press("Tab")
+        if page.evaluate("() => document.activeElement.closest('.bar-title') !== null"):
+            return
+    raise AssertionError("the bar's deck title never took keyboard focus")
+
+
+def test_bar_title_is_a_named_home_link_with_pointer_cursor(page):
+    open_deck(page)
+    _focus_home(page)
+    name = page.evaluate("() => { const e = document.activeElement; return e.getAttribute('aria-label') || e.innerText; }")
+    assert "title slide" in name.lower()
+    assert page.evaluate("() => getComputedStyle(document.activeElement).cursor") == "pointer"
+
+
+def test_bar_title_click_goes_home_from_a_later_slide(page):
+    open_deck(page)
+    goto_slide(page, _current_slide_of_chapter(page, 3), 1)
+    page.click(".bar-title")
+    page.wait_for_function("window.deck.state().slide === 's-1'", timeout=5000)
+    settle_animations(page)
+    assert state(page)["step"] == 0
+
+
+@pytest.mark.parametrize("key", ["Enter", " "])
+def test_bar_title_keyboard_goes_home_from_a_later_slide(page, key):
+    """Space would otherwise advance the deck: on the focused title it must go home, not step."""
+    open_deck(page)
+    goto_slide(page, _current_slide_of_chapter(page, 3), 1)
+    _focus_home(page)
+    page.keyboard.press(key)
+    page.wait_for_function("window.deck.state().slide === 's-1'", timeout=5000)
+    settle_animations(page)
+    assert state(page)["slide"] == "s-1" and state(page)["step"] == 0
+
+
+def test_current_chapter_rests_on_a_faint_pill_below_the_hover_lift(page):
+    open_deck(page)
+    goto_slide(page, _current_slide_of_chapter(page, 2), 0)
+    page.mouse.move(960, 700)
+    settle_animations(page, ".bar")
+    cur = ".agenda li:nth-child(3) button"
+    bar_bg = page.evaluate("() => getComputedStyle(document.querySelector('.bar')).backgroundColor")
+    rest = page.evaluate(LOOK, cur)
+    assert rest["bg"] not in (TRANSPARENT, bar_bg)
+    rest_shadow = page.evaluate(SHADOWS, cur)
+    assert rest_shadow, "the resting pill casts no shadow"
+    others = [page.evaluate(LOOK, f".agenda li:nth-child({k}) button") for k in (1, 2, 4, 5)]
+    assert all(o["bg"] == TRANSPARENT for o in others)
+    page.hover(cur)
+    settle_animations(page, ".bar")
+    hover, hover_shadow = page.evaluate(LOOK, cur), page.evaluate(SHADOWS, cur)
+    assert hover["scale"] > rest["scale"] == 1
+    assert max(y for y, _ in hover_shadow) > max(y for y, _ in rest_shadow)
+    assert max(b for _, b in hover_shadow) > max(b for _, b in rest_shadow)
+
+
+def test_hovering_another_chapter_softens_the_current_pill(page):
+    open_deck(page)
+    goto_slide(page, _current_slide_of_chapter(page, 2), 0)
+    page.hover(".agenda li:nth-child(5) button")
+    settle_animations(page, ".bar")
+    cur = page.evaluate(LOOK, ".agenda li:nth-child(3) button")
+    assert cur["bg"] != TRANSPARENT and page.evaluate(SHADOWS, ".agenda li:nth-child(3) button")
+    assert cur["blur"] and 0.6 <= cur["op"] < 1
+
+
+def test_compact_panel_marks_the_current_entry_with_the_resting_pill(page):
+    open_deck(page, 1100, 700)
+    goto_slide(page, _current_slide_of_chapter(page, 2), 0)
+    page.click(".nav-current")
+    page.mouse.move(1090, 690)
+    settle_animations(page, ".bar")
+    cur = page.evaluate(LOOK, ".agenda li:nth-child(3) button")
+    assert cur["bg"] != TRANSPARENT and page.evaluate(SHADOWS, ".agenda li:nth-child(3) button")
+    assert all(not page.evaluate(SHADOWS, f".agenda li:nth-child({k}) button") for k in (1, 2, 4, 5))
