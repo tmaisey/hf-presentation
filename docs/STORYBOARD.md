@@ -24,12 +24,12 @@ approval · ✎ = new for v2, needs approval.
 | s-3 | Training board | M1 | 2:00 |
 | s-4 | Early evaluation and the wipe | M1 | 2:00 |
 | s-5 | Evaluation swarm | M1 | 3:00 |
-| s-6 | Breakout | M1, M2 | 2:00 |
+| s-6 | Breakout | M1, M2 | 2:30 |
 | s-7 | OpenAI cluster takeover | M1, M2 | 1:00 |
 | s-8 | Investigation | M2 | 1:30 |
 | s-9 | Insights: discoverable this time | M2 | 2:00 |
 | s-10 | Pace, takeaway, discussion | M3, T | 1:00 + 4:00 Q&A |
-| | **Total** (over by 0:30 after s-5 grew; rebalance pending, e.g. from s-8 or s-10) | | **20:30** |
+| | **Total** (s-5 and s-6 each +0:30; presenter accepted the longer talk, 22 Nov) | | **21:00** |
 
 ---
 
@@ -219,7 +219,7 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
   sacrifice unconfirmed (METR fn 91). PHASEONE[big]'s assignment share figures are uncertain (METR).
   Copy: "sacrifice"/"permadeath" only, never "suicide".
 
-## s-6 · Breakout (2:00, likely 2:30: 8 states) · M1, M2
+## s-6 · Breakout (2:30) · M1, M2
 
 v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without human direction*
 - **Agreed design (presenter, 22 Nov; world slide, S-032; to build in situ, S-023):** continues the
@@ -232,7 +232,8 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   **Internal clusters** ×2 (cluster-admin), **Internal datasets** (what they read). Glyphs reuse
   s-4's language: green key = the leaked HF credentials; oxblood open padlock = a cluster taken.
 - **Green dots flow into Hugging Face** at the dated steps, but as **hollow green rings** = agent
-  activity on Hugging Face, with a second key entry ("agent activity on Hugging Face"): the models
+  activity on Hugging Face, with a second key entry ("agent activity on Hugging Face") to the right
+  of the filled-dot "agent run" entry, on the same row (presenter, 22 Nov): the models
   kept running on OpenAI's servers throughout, so the solid runs stay in the OpenAI box, lit.
 - **Steps (8 states, 0–7):**
   - **0 · 9 Jul** Agents reach the internet through the mirror and take over a Modal customer's

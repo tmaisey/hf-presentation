@@ -279,7 +279,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `.layer-key` / `.layer-labels` with `data-show-at`, outside the gathered ring (|x| ≤ ~370 units).
 
 - Incident world (S-032; built in situ, judged by eye per step, PRD *Decisions*): one
-  `div.world` (`svg.diagram` + `p.world-key`, green dot = agent run) sits once at the top of the
+  `div.world` (`svg.diagram` + `p.world-key`, green dot = agent run; later entries, e.g. s-6's hollow
+  ring = agent activity on Hugging Face, sit to its right on the same row) sits once at the top of the
   slide region; parts carry `data-world-at="<slide>:<step>"` (optional `data-world-until`) and
   stay for every later world slide. A world slide is `section.slide[data-world]`: title spans the
   top, then `div.body.body--timeline > ol.steps` (one dated entry per step, **dates live here, not
