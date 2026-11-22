@@ -345,7 +345,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `g.eye-badge` on its tile: open eye = it reads; `.eye-badge--off` + `path.eye-slash` = it never
   did, captioned by `text.w-tag`. `.note-fly[data-note-for="first"|"lit-k"]` glyphs sit at their target (pinned on the mirror) and fly in from their run, where it stands when
   their group appears. A new setup dissolves the old one completely (`data-world-until`), never
-  greyed ghosts. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
+  greyed ghosts. A part reached by a jump (nav, going back) shows at rest
+  (`.is-settled`): it never replays its note flight; parts arriving at their own step still animate. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
   `dim` (a box fades back, as history), `zeroday` (timed key → open-padlock swap), `down` (mirror
   and notes grey after the 4 s flood), `blind` (glyphs a checker ignored grey out, s-5). Timed
   beats within one step start after a pop-over has gone (+0.5 s) and show their end state under reduced motion (s-4: ring → skull note → open
