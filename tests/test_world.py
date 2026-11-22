@@ -1,8 +1,8 @@
 """Spec: S-032
 
 Incident world: one persistent diagram shared by world slides (s-3 onward), plus pop-over cards.
-Coverage: happy (world shows on a world slide, fits its body under the title, builds with steps;
-pop-over softens the world then sharpens it; notes spotlight world parts) · edge (going back to a
+Coverage: happy (world shows on a world slide between timeline and narration under the title, with
+a run key; builds with steps; pop-over softens the world then sharpens it; notes spotlight world parts) · edge (going back to a
 non-world slide hides it; re-entering resets to that step) · negative (world never on a non-world
 slide; world never over the title; pop-over exit is a rack focus, not a cut).
 """
@@ -35,18 +35,32 @@ def test_world_shows_only_on_world_slides(page):
 
 
 @pytest.mark.parametrize("w,h", [(1920, 1080), (1280, 720), (1288, 598)])
-def test_world_fits_its_slide_body_below_the_title(page, w, h):
+def test_world_sits_between_timeline_and_narration_below_the_title(page, w, h):
+    """World slides read left to right: timeline (~30%) · world (~40%) · narration (~30%)."""
     open_deck(page, w, h)
     sid = page.evaluate(FIRST_WORLD)
     goto_slide(page, sid, 0)
-    box = page.evaluate("""id => { const s = document.getElementById(id), r = e => e.getBoundingClientRect();
-      const w = r(document.querySelector('.world')), b = r(s.querySelector('.body')), t = r(s.querySelector('.title'));
-      return {w: [w.left, w.top, w.right, w.bottom], b: [b.left, b.top, b.right, b.bottom], tb: t.bottom, vw: innerWidth, vh: innerHeight}; }""", sid)
-    l, t, r, b = box["w"]
+    box = page.evaluate("""id => { const s = document.getElementById(id), r = e => { const b = e.getBoundingClientRect();
+        return [b.left, b.top, b.right, b.bottom]; };
+      return {w: r(document.querySelector('.world')), tl: r(s.querySelector(':scope > .body')),
+              nr: r(s.querySelector(':scope > .narration')), tb: s.querySelector('.title').getBoundingClientRect().bottom,
+              vw: innerWidth, vh: innerHeight}; }""", sid)
+    (l, t, r, b), tl, nr = box["w"], box["tl"], box["nr"]
     assert r - l > 200 and b - t > 150, "world has real size"
-    assert t >= box["tb"] - 1, "world rises over the title"
-    assert l >= box["b"][0] - 1 and r <= box["b"][2] + 1 and b <= box["b"][3] + 1, "world stays inside the body"
+    assert t >= box["tb"] - 1 and tl[1] >= box["tb"] - 1, "world and timeline stay below the title"
+    assert tl[2] <= l + 1 and r <= nr[0] + 1, "timeline · world · narration, no overlap"
+    widths = [tl[2] - tl[0], r - l, nr[2] - nr[0]]
+    assert widths[1] > widths[0] and widths[1] > widths[2], "the world gets the widest column"
     assert r <= box["vw"] and b <= box["vh"]
+
+
+def test_world_key_shows_an_agent_run_dot(page):
+    open_deck(page)
+    goto_slide(page, page.evaluate(FIRST_WORLD), 0)
+    key = page.evaluate("""() => { const k = document.querySelector('.world .world-key');
+      return k && {text: k.innerText.trim().toLowerCase(), dot: !!k.querySelector('.run'),
+                   shown: k.getBoundingClientRect().height > 0}; }""")
+    assert key == {"text": "agent run", "dot": True, "shown": True}
 
 
 def test_world_builds_with_steps_and_resets_on_reentry(page):

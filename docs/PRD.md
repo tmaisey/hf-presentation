@@ -75,6 +75,12 @@ they serve.
   like a camera (presenter chose this over per-slide diagrams, 21 Nov). At Breakout the focus
   moves outside OpenAI: the internal scene simplifies and shrinks to make room for the path to
   Hugging Face.
+  World slides use three columns: a dated timeline list on the left (~30%; dates live here, not
+  on the diagram), the world in the middle (~40%), quotes and annotations on the right (~30%).
+  Soft-toned **domain boxes** show where things happen: "OpenAI servers" from the start; at
+  internet access the swarm shifts left, the board right, and an arrow leaves for a "Public
+  Internet" box (later "Hugging Face servers", at Breakout). A small key (green dot = agent run)
+  stays with the world on every slide.
 - **Pop-over illustrations:** a concept that needs a different context (e.g. what one training
   run is) appears as an illustration on a shadowed tile over the world diagram, which blurs while
   the pop-over has focus. Quotes may pop up beside or over it. Once the point is made, all of it

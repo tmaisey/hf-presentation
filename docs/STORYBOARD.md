@@ -59,14 +59,20 @@ approval · ✎ = new for v2, needs approval.
 
 ✓ *Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to
 coordinate through a shared message board*
-- **Diagram (opens the incident world, S-032; built in situ):** 0 many training runs pop in as
-  dots, no lines · 1 pop-over (world blurs), *possible task*: an agent recreating a hidden
-  software library copies the reference answer → reward ("reinforced", per OpenAI) · 2 beside it,
-  *impossible by accident*: a spreadsheet needing Google Drive links, no internet; the agent
-  quivers and its attempts curve at the wall from many directions, fail and dissolve ("persistent
-  agents didn't give up after many failures") · 3 pop-over dissolves; package mirror appears with
-  **one shared credential** (key tile), every run linked · 4 12 May first note · 5 13 May board
-  forms · 6 26 May internet reached (key tile); an internal team sees the board, no escalation.
+- **Layout (world slide):** dated timeline left · world centre · narration right. Key: green dot =
+  agent run. Timeline (one entry per step): Apr–May many parallel training runs · all share one
+  package mirror · some agents cheat (OpenAI: reinforced) · 8 May a blocked agent turns on the
+  mirror · 12 May first note · 13 May a board forms · 26 May internet via the board; an internal
+  team saw it, no escalation.
+- **Diagram (opens the incident world, S-032; built in situ):** all inside an "OpenAI servers"
+  box · 0 many runs pop in as dots, no lines · 1 one package mirror appears (key glyph: shared
+  login) and lines draw from every run to it · 2 pop-over (world blurs), *possible task*: some
+  agents read the hidden answer instead of doing the task → reward (reinforced, per OpenAI) · 3
+  beside it, *impossible by accident*: Drive links, no internet; the agent quivers, attempts curve
+  at the wall and fail ("persistent agents failed repeatedly while attempting legitimate
+  approaches, before trying work-arounds") · 4 pop-over dissolves; the 12 May agent and its note
+  sit outside the ring · 5 notes fan out around the mirror (the board) · 6 swarm shifts left,
+  board right; an arrow leaves the OpenAI box for a "Public Internet" box. No dates on the diagram.
 - **Narr ⚠ thin** (the TR quotes one training-phase agent message; May is outside METR's scope):
   - steps 1–3: none (the pop-over carries the point; the task-instruction tile is on s-2).
   - step 4 ★: Agent · training run, 12 May: "Agent seeks [filename]; upload if found!" (Q 2.3 #1)
