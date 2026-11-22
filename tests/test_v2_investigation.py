@@ -1,40 +1,56 @@
 """Spec: S-026
 
-v2 slide s-8 (Investigation): a step-built funnel from the raw evidence to the findings, inside
-a scope fence OpenAI set, with investigator voices narrating the analysis agents' limits.
-Coverage: happy (slide in order with storyboard title/kicker/chapter; five steps each adding one
-funnel stage and its edge; fence and scope labels from step 1; narration tiles at steps 4–5 with
-verbatim investigator text; sourced notes on constraints) · edge (analysis-agent stage visibly
-flagged; diagram text stays inside the viewport and clear of the title at 1280×720 and 1920×1080) ·
-negative (no stage before its step; no tile beyond two per step; no paraphrase braces, quote marks
-or "suicide" on the slide; no console errors).
+v2 slide s-8 (Investigation), text-led: the incident world stays in its place, frozen at the state
+the deck reached before s-8 and heavily blurred and faded behind a row of three text tiles (the
+shared tile-row component, reused by s-9), built one per step: the small AI-assisted investigation,
+the agents hiding from the scorer while their reasoning stayed readable, and the later firings with
+both sides stated; each tile carries verbatim quotes and real source links; reader notes cite the
+investigation's limits.
+Coverage: happy (shell, title, kicker, chapter; backdrop world marker; three steps, one tile each;
+sourced facts and verbatim quotes per tile; links styled in the text colour; notes on each tile) ·
+edge (world frozen at the previous world slide's end state, same place, blurred harder than a
+pop-over softens it; three tiles readable side by side, unclipped, below the title and clear of the
+Notes button at 1920×1080, 1280×720 and 1288×598; tile row styled in the component layer, not per
+slide) · negative (no tile before its step; no funnel diagram or narration column; never claims the
+firings were caused by the investigation, and states OpenAI's side; no quote marks, braces, inline
+styles or "suicide" in the markup; no console errors).
 """
 
 import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, parse_slides, slides_source
+from helper_deck import deck_source, goto_slide, open_deck, parse_slides, settle, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-8"
-TITLE = ("Three investigators had six days and relied on analysis agents from the model family "
-         "they were investigating")
-STAGES = [  # (tile id, text the tile must carry), in funnel order = build step
-    ("s8-cache", "~1.2M"),
-    ("s8-messages", "~70k"),
-    ("s8-transcripts", "~1,300"),
-    ("s8-analysis", "GPT-5.6 Sol"),
-    ("s8-findings", "Findings"),
-]
-NARRATION = {  # step -> [(label must contain, verbatim text must contain)]
-    4: [("fn 59", "Another agent reported a number of confabulated differences between two "
-                  "different datasets of transcripts."),
-        ("fn 60", "did not clearly spell out the fact that this behavior was straightforwardly "
-                  "malicious and deceptive")],
-    5: [("Greenblatt", "often missing key details, wrong, overconfident, or really hard to understand")],
+TITLE = ("Independent investigators could reconstruct the swarm in six days because the agents left "
+         "readable traces")
+SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
+TILES = ["s8-t1", "s8-t2", "s8-t3"]   # tile ids in row order = build step 1, 2, 3
+# per tile: facts its text must state, verbatim quotes it must carry, hosts its links must include
+FACTS = {
+    "s8-t1": ["METR", "Redwood", "three", "six days", "unpaid", "OpenAI", "GPT-5.6 Sol", "1,300"],
+    "s8-t2": ["scorer", "7%", "very rare and weak", "reasoning"],
+    "s8-t3": ["October", "three", "METR", "mishandled sensitive information",
+              "were not about raising safety concerns"],
 }
+QUOTES = {
+    "s8-t1": ["often missing key details, wrong, overconfident, or really hard to understand"],
+    "s8-t2": ["The models are highly explicit in their CoT about these deception attempts",
+              "Could strategically manipulate trajectory evidence? Our thoughts aren't necessarily logged? "
+              "Yes transcript."],
+    "s8-t3": ["Talking to METR was my job."],
+}
+LINKS = {
+    "s8-t1": ["metr.org", "x.com/RyanGreenblatt"],
+    "s8-t2": ["cdn.openai.com", "metr.org"],
+    "s8-t3": ["fortune.com", "sfstandard.com"],
+}
+TILE_TEXT = """id => { const t = document.getElementById(id);
+  return { text: t.innerText, quotes: [...t.querySelectorAll('blockquote')].map(q => q.textContent.trim()),
+           links: [...t.querySelectorAll('a[href]')].map(a => a.href), head: (t.querySelector('h3') || {}).textContent }; }"""
 
 
 def helper_section() -> str:
@@ -43,135 +59,206 @@ def helper_section() -> str:
     return m.group(0)
 
 
-def test_slide_sits_in_deck_order_with_storyboard_title_kicker_and_chapter():
+def helper_norm(s: str) -> str:
+    return re.sub(r"\s+", " ", s.replace("’", "'")).strip()
+
+
+def test_slide_sits_in_deck_order_with_title_kicker_chapter_and_backdrop_world():
     slides = parse_slides()
     ids = [s["attrs"]["id"] for s in slides]
-    assert SID in ids
     nums = [int(i.split("-")[1]) for i in ids]
-    assert nums == sorted(nums), ids
+    assert SID in ids and nums == sorted(nums), ids
     s = slides[ids.index(SID)]
     assert s["attrs"]["data-chapter"] == "Investigation"
+    assert s["attrs"].get("data-world") == "backdrop", "s-8 keeps the incident world as a backdrop"
     assert s["title"] == TITLE and s["title_em"] <= 1
-    assert re.search(r'<p class="kicker">08 · Investigation</p>', helper_section())
+    sec = helper_section()
+    assert re.search(r'<p class="kicker">08 · Investigation</p>', sec)
+    assert '<div class="world-slot"></div>' in sec
 
 
-def test_slide_has_five_steps_and_loads_cleanly(page):
+def test_body_is_one_tile_row_of_three_tiles_built_one_per_step():
+    sec = helper_section()
+    bodies = re.findall(r'<div class="body[^"]*"', sec)
+    assert bodies == ['<div class="body body--tiles"'], bodies
+    tiles = re.findall(r'<article class="text-tile" id="([\w-]+)" data-show-at="(\d+)">', sec)
+    assert tiles == [(t, str(n)) for n, t in enumerate(TILES, start=1)], tiles
+
+
+def test_funnel_diagram_and_narration_column_are_gone():
+    sec = helper_section()
+    assert "<svg" not in sec, "s-8 is text-led: no slide diagram (the funnel is retired)"
+    assert 'class="narration"' not in sec and "narr-tile" not in sec
+
+
+def test_slide_has_three_steps_and_loads_cleanly(page):
     errors = open_deck(page)
-    plan = dict(page.evaluate("window.deck.plan()"))
-    assert plan[SID] == 5
+    assert dict(page.evaluate("window.deck.plan()"))[SID] == 3
+    goto_slide(page, SID, 3)
     assert errors == []
 
 
-def test_each_step_adds_one_funnel_stage_and_its_edge(page):
+def test_each_step_adds_one_tile_and_keeps_the_earlier_ones(page):
     open_deck(page)
-    for step in range(0, 6):
+    for step in range(4):
         goto_slide(page, SID, step)
-        vis = page.evaluate("""() => Object.fromEntries([...document.querySelectorAll('#s-8 svg.diagram .tile')]
-          .map(t => [t.id, t.classList.contains('is-visible')]))""")
-        assert set(vis) == {i for i, _ in STAGES}, vis
-        for n, (tid, _) in enumerate(STAGES, start=1):
-            assert vis[tid] == (step >= n), f"step {step}: {tid}"
-        edges = page.evaluate("""() => [...document.querySelectorAll('#s-8 svg.diagram path.edge')]
-          .map(e => [e.dataset.from, e.dataset.to, e.classList.contains('is-visible')])""")
-        assert len(edges) == 4
-        for n, (frm, to, shown) in enumerate(edges, start=2):
-            assert (frm, to) == (f"#{STAGES[n - 2][0]}", f"#{STAGES[n - 1][0]}")
-            assert shown == (step >= n), f"step {step}: edge {frm}->{to}"
+        shown = page.evaluate("""ids => ids.map(id => +getComputedStyle(document.getElementById(id)).opacity > .9)""",
+                              TILES)
+        assert shown == [n <= step for n in range(1, 4)], f"step {step}: {shown}"
 
 
-def test_funnel_stages_carry_the_sourced_figures():
-    sec = helper_section()
-    for tid, text in STAGES:
-        tile = re.search(rf'<g class="tile[^"]*" id="{tid}"[^>]*>(.*?)</g>', sec, re.S)
-        assert tile and text in tile.group(1), tid
-    analysis = re.search(r'id="s8-analysis"[^>]*>(.*?)</g>', sec, re.S).group(1)
-    assert "same model family" in analysis and "analysis agents" in analysis
-    assert "raw CoT" in re.search(r'id="s8-transcripts"[^>]*>(.*?)</g>', sec, re.S).group(1)
-
-
-def test_analysis_stage_is_flagged_apart_from_ordinary_stages(page):
+def test_tiles_state_their_sourced_facts_with_verbatim_quotes_and_links(page):
     open_deck(page)
-    goto_slide(page, SID, 5)
-    res = page.evaluate("""() => {
-      const f = id => getComputedStyle(document.querySelector('#' + id + ' rect')).fill;
-      const flagged = document.querySelector('#s8-analysis');
-      return { flag: flagged.classList.contains('tile--flag'), layer: flagged.parentElement.getAttribute('class'),
-               a: f('s8-analysis'), plain: f('s8-cache') }; }""")
-    assert res["flag"] and res["layer"] == "layer-key"
-    assert res["a"] != res["plain"], "flagged stage must be visibly tinted"
+    goto_slide(page, SID, 3)
+    for tid in TILES:
+        t = page.evaluate(TILE_TEXT, tid)
+        assert t["head"] and len(t["head"]) < 80, f"{tid}: a short heading"
+        text = helper_norm(t["text"])
+        for fact in FACTS[tid]:
+            assert fact in text, f"{tid} must state {fact!r}"
+        quotes = [helper_norm(q) for q in t["quotes"]]
+        for want in QUOTES[tid]:
+            assert any(want in q for q in quotes), f"{tid} must quote verbatim: {want!r} (got {quotes})"
+        for host in LINKS[tid]:
+            assert any(host in h for h in t["links"]), f"{tid} must link {host}"
+        assert all(h.startswith("https://") for h in t["links"])
 
 
-def test_scope_fence_surrounds_the_funnel_from_step_one(page):
+def test_agent_quote_uses_the_message_card_voice_and_report_quotes_the_cite_voice():
+    """DESIGN §5: agent words in the message-card look; report/investigator words as blockquote + cite."""
+    sec = helper_section()
+    t2 = re.search(r'id="s8-t2".*?</article>', sec, re.S).group(0)
+    card = re.search(r'<div class="msg-card">\s*<p class="msg-agent">(.*?)</p>\s*<blockquote class="msg-text">', t2, re.S)
+    assert card and "Agent" in card.group(1)
+    for tid in TILES:
+        tile = re.search(rf'id="{tid}".*?</article>', sec, re.S).group(0)
+        for m in re.finditer(r'<blockquote>(.*?)</blockquote>\s*(<p class="cite">)?', tile, re.S):
+            assert m.group(2), f"{tid}: a report quote is followed by its p.cite"
+
+
+def test_quotes_carry_no_typed_quote_marks_and_the_slide_no_braces_styles_or_banned_words():
+    sec = helper_section()
+    for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", sec, re.S):
+        assert not re.search(r'^["“”]|["“”]$', q.strip()), f"CSS adds quote marks: {q}"
+    assert "suicide" not in sec.lower()
+    assert "{" not in sec and "}" not in sec
+    assert not re.search(r"\sstyle\s*=", sec)
+
+
+def test_quote_marks_are_drawn_around_tile_quotes(page):
+    open_deck(page)
+    goto_slide(page, SID, 3)
+    marks = page.evaluate("""() => [...document.querySelectorAll('#s-8 blockquote')].map(q =>
+      getComputedStyle(q, '::before').content + getComputedStyle(q, '::after').content)""")
+    assert marks and all(re.search(r"“|open-quote", m) and re.search(r"”|close-quote", m) for m in marks), marks
+
+
+def test_firings_tile_states_both_sides_and_never_claims_the_investigation_caused_them(page):
+    open_deck(page)
+    goto_slide(page, SID, 3)
+    text = helper_norm(page.evaluate(TILE_TEXT, "s8-t3")["text"]).lower()
+    assert "openai says" in text, "OpenAI's stated reason is given"
+    assert "talking to metr was my job" in text, "the staff's account is given"
+    for claim in (r"fired (for|because|over|after) (their|the) (work|investigation|role)", r"retaliat",
+                  r"because (of )?(they|their) (worked|work|talked)", r"punish"):
+        assert not re.search(claim, text), f"causal claim on the firings: {claim}"
+
+
+def test_links_use_the_surrounding_text_colour_and_an_underline(page):
+    """DESIGN §8: underline in the surrounding colour, never blue."""
+    open_deck(page)
+    goto_slide(page, SID, 3)
+    res = page.evaluate("""() => [...document.querySelectorAll('#s-8 .text-tile a[href]')].map(a => {
+      const s = getComputedStyle(a), p = getComputedStyle(a.parentElement);
+      return [a.textContent, s.color === p.color, s.textDecorationLine.includes('underline'), a.target, a.rel]; })""")
+    assert res
+    for name, same, underline, target, rel in res:
+        assert same and underline, f"link {name!r} must be underlined in the text colour"
+        assert target == "_blank" and "noopener" in rel
+
+
+def test_world_is_frozen_at_the_previous_world_slides_end_state_in_the_same_place(page):
+    """Robust to later world slides: compares with whichever world slide precedes s-8."""
+    open_deck(page)
+    prev = page.evaluate("""() => { const all = [...document.querySelectorAll('section.slide')];
+      return all.slice(0, all.findIndex(s => s.id === 's-8')).filter(s => s.dataset.world !== undefined
+        && s.dataset.world !== 'backdrop').map(s => s.id).pop(); }""")
+    assert prev, "a world slide precedes s-8"
+    snap = """() => { const w = document.querySelector('.world'), r = w.getBoundingClientRect();
+      return { parts: [...w.querySelectorAll('[data-world-at], [data-world-is]')].map(e => e.getAttribute('class')),
+               cam: w.querySelector('.cam').style.transform, box: [r.left, r.top, r.width, r.height].map(Math.round) }; }"""
+    goto_slide(page, prev, dict(page.evaluate("window.deck.plan()"))[prev])
+    page.wait_for_timeout(5500)   # timed beats of the last step have played out
+    end = page.evaluate(snap)
+    for step in range(4):
+        goto_slide(page, SID, step)
+        assert page.evaluate(snap) == end, f"step {step}: the world must hold {prev}'s end state and place"
+        assert page.evaluate("() => getComputedStyle(document.querySelector('.world')).visibility") == "visible"
+
+
+def test_world_is_blurred_and_faded_harder_than_a_popover_softens_it(page):
     open_deck(page)
     goto_slide(page, SID, 1)
-    res = page.evaluate("""() => {
-      const fence = document.querySelector('#s-8 #s8-fence'), fb = fence.getBBox();
-      const inside = [...document.querySelectorAll('#s-8 .tile rect')].every(r => { const b = r.getBBox();
-        return b.x >= fb.x && b.y >= fb.y && b.x + b.width <= fb.x + fb.width && b.y + b.height <= fb.y + fb.height; });
-      const labels = [...document.querySelectorAll('#s-8 .layer-labels text')]
-        .map(t => [t.textContent, t.classList.contains('is-visible')]);
-      return { shown: fence.classList.contains('is-visible'), inside, labels }; }""")
-    assert res["shown"] and res["inside"]
-    text = " ".join(t for t, _ in res["labels"]).upper()
-    assert all(v for _, v in res["labels"]), "scope labels show with the fence"
-    for must in ("SET BY OPENAI", "26 JUN", "13 JUL", "TRAINING", "OPENAI INFRASTRUCTURE AFTER 13 JUL"):
-        assert must in text, must
+    settle(page, ".world")
+    page.wait_for_timeout(900)
+    res = page.evaluate("""() => { const s = getComputedStyle(document.querySelector('.world'));
+      const m = s.filter.match(/blur\\(([\\d.]+)px\\)/); return { blur: m ? +m[1] : 0, opacity: +s.opacity, vis: s.visibility }; }""")
+    assert res["vis"] == "visible" and res["opacity"] > 0.1, "the world stays as a backdrop"
+    assert res["blur"] >= 10 and res["opacity"] <= 0.45, res
 
 
-def test_narration_tiles_quote_investigators_verbatim_at_steps_four_and_five():
-    sec = helper_section()
-    assert re.search(r'</div>\s*<div class="narration">', sec), "narration follows the body as a slide child"
-    narr = re.search(r'<div class="narration">(.*?)</div>', sec, re.S).group(1)
-    tiles = re.findall(r'<article class="narr-tile" data-at="(\d+)">\s*<p class="msg-agent">(.*?)</p>\s*'
-                       r'<blockquote class="msg-text">(.*?)</blockquote>\s*</article>', narr, re.S)
-    by_step: dict[int, list] = {}
-    for at, label, text in tiles:
-        by_step.setdefault(int(at), []).append((label, text))
-    assert sorted(by_step) == sorted(NARRATION)
-    for step, expected in NARRATION.items():
-        got = by_step[step]
-        assert len(got) == len(expected) <= 2
-        for (label, text), (want_label, want_text) in zip(got, expected):
-            assert want_label in label and want_text in text, (label, text)
-            assert not re.search(r'["“”{}]', text), "no quote marks or paraphrase braces in tiles"
+def test_tile_row_is_a_shared_component_not_slide_scoped_css():
+    src = deck_source()
+    css = re.search(r"<style>(.*?)</style>", src, re.S).group(1)
+    assert re.search(r"\.body--tiles\s*[{,]", css) and re.search(r"\.text-tile\b", css)
+    assert not re.search(r"#s-8\b|#s8-|\.s8-", css), "the tile row must not be styled per slide"
 
 
-def test_notes_cite_constraints_on_the_review_and_target_slide_elements():
+@pytest.mark.parametrize("size", SIZES)
+def test_three_tiles_sit_side_by_side_readable_and_unclipped_below_the_title(page, size):
+    open_deck(page, *size)
+    goto_slide(page, SID, 3)
+    settle(page, "#s8-t3")
+    res = page.evaluate("""ids => { const s = document.getElementById('s-8'), r = e => { const b = e.getBoundingClientRect();
+        return [b.left, b.top, b.right, b.bottom]; };
+      const nb = document.querySelector('.notes-btn');
+      return { title: r(s.querySelector('.title')), bar: document.querySelector('.bar').getBoundingClientRect().bottom,
+        notes: nb ? r(nb) : null, vw: innerWidth, vh: innerHeight,
+        tiles: ids.map(id => { const t = document.getElementById(id);
+          return { box: r(t), clipped: t.scrollHeight > t.clientHeight + 1 || t.scrollWidth > t.clientWidth + 1,
+            kids: [...t.querySelectorAll('h3, p, blockquote, .msg-card')].map(k => [k.tagName, r(k)]),
+            body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize),
+            head: parseFloat(getComputedStyle(t.querySelector('h3')).fontSize) }; }) }; }""", TILES)
+    title, tiles = res["title"], res["tiles"]
+    assert title[1] >= res["bar"] - 1, "title clear of the bar"
+    lefts = [t["box"][0] for t in tiles]
+    assert lefts == sorted(lefts), "tiles read left to right in step order"
+    for a, b in zip(tiles, tiles[1:]):
+        assert a["box"][2] <= b["box"][0] + 1, "tiles never overlap"
+        assert abs(a["box"][1] - b["box"][1]) <= 2, "tiles share one row"
+    for tid, t in zip(TILES, tiles):
+        l, top, r, bot = t["box"]
+        assert top >= title[3] - 1, f"{tid} rises over the title"
+        assert l >= 0 and r <= res["vw"] and bot <= res["vh"], f"{tid} off screen"
+        assert r - l >= 0.22 * res["vw"], f"{tid} too narrow to read"
+        assert not t["clipped"], f"{tid} clips its text"
+        for tag, (kl, kt, kr, kb) in t["kids"]:
+            assert kl >= l - 1 and kr <= r + 1 and kt >= top - 1 and kb <= bot + 1, f"{tid}: {tag} spills out"
+        assert t["body"] >= 16 and t["head"] > t["body"], f"{tid}: type too small ({t['body']}px)"
+        if res["notes"]:
+            nl, nt, nr, nb = res["notes"]
+            assert not (l < nr and r > nl and top < nb and bot > nt), f"{tid} covers the Notes button"
+
+
+def test_notes_cite_the_investigations_limits_on_each_tile():
     sec = helper_section()
     notes = re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', sec, re.S)
     assert len(notes) >= 3
     for target, body in notes:
         assert f'id="{target}"' in sec, target
         assert re.search(r"<h3>.+</h3>", body) and re.search(r'<a class="src" href="https://', body)
+    assert {t for t, _ in notes} >= set(TILES), "every tile has a note"
     text = " ".join(b for _, b in notes)
-    for must in ("unpaid", "six days", "$400K", "HPIM", "broader dataset", "could not have found everything"):
+    for must in ("HPIM", "broader dataset", "could not have found everything", "confabulated", "$400K",
+                 "1.2 million"):
         assert must in text, must
-    assert "x.com/RyanGreenblatt" in text, "Greenblatt's words are sourced"
-
-
-def test_slide_never_uses_forbidden_words_or_paraphrase_markup():
-    sec = helper_section()
-    assert "suicide" not in sec.lower()
-    assert "{" not in sec and "}" not in sec
-    assert not re.search(r"\sstyle\s*=", sec)
-
-
-@pytest.mark.parametrize("vw,vh", [(1280, 720), (1920, 1080)])
-def test_diagram_stays_on_screen_and_clear_of_the_title(page, vw, vh):
-    open_deck(page, vw, vh)
-    goto_slide(page, SID, 5)
-    res = page.evaluate("""() => {
-      const s = document.querySelector('#s-8'), sb = s.getBoundingClientRect();
-      const title = s.querySelector('.title').getBoundingClientRect();
-      return { title: title.bottom, top: sb.top, h: innerHeight, w: innerWidth,
-        boxes: [...s.querySelectorAll('svg.diagram text, svg.diagram rect')].map(e => {
-          const r = e.getBoundingClientRect(); return [e.textContent || e.id || 'rect', r.left, r.top - sb.top, r.right, r.bottom - sb.top]; }) }; }""")
-    spill = page.evaluate("""() => [...document.querySelectorAll('#s-8 .tile')].flatMap(t => {
-      const r = t.querySelector('rect').getBoundingClientRect();
-      return [...t.querySelectorAll('text')].filter(x => { const b = x.getBoundingClientRect();
-        return b.left < r.left || b.right > r.right; }).map(x => x.textContent); })""")
-    assert not spill, f"tile text spills out of its tile sideways: {spill}"
-    for name, left, top, right, bottom in res["boxes"]:
-        assert left >= 0 and right <= res["w"], f"{name} off-slide horizontally"
-        assert bottom <= res["h"], f"{name} off-slide vertically"
-        assert top >= res["title"] - res["top"], f"{name} rises over the title"
