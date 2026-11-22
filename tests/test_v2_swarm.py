@@ -33,7 +33,7 @@ from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, 
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-5"
-TITLE = "The swarm organised itself to defeat an automated scorer it misunderstood"
+TITLE = "The swarm coordinated at scale to research ways to cover its tracks"
 STEPS = 9   # states 0–9 (9 = closing Insight)
 INSIGHT = ("Within a day of finding each other, the agents’ attacks became sophisticated, planned and coordinated "
            "across three large research workstreams.")   # one sentence, presenter 22 Nov

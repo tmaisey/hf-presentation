@@ -26,8 +26,7 @@ from helper_deck import ROOT, deck_source, goto_slide, open_deck, parse_slides, 
 
 pytestmark = pytest.mark.deck("v2")
 
-S9_TITLE = ("Misalignment grew from ordinary training choices, and the obvious fixes risk making it "
-            "harder to see")
+S9_TITLE = "Misalignment emerged from flawed training objectives, but creating robust fixes is extremely difficult"
 S10_TITLES = {  # visible title per step: tiles (✓ 22 Nov) → controls (✓ 22 Nov); discussion is s-11 (S-035)
     "tiles": "Capability keeps accelerating as industry calls for restraint and public concern grows",
     "controls": "Practical controls keep AI agents within the bounds their tasks need",

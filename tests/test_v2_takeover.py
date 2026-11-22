@@ -33,7 +33,7 @@ from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, 
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-7"
-TITLE = "Agents adopt assured identities for messages before a second model compromises OpenAI’s own cluster"
+TITLE = "Agents implemented their own security protocols while compromising OpenAI’s own infrastructure"  # presenter, 22 Nov
 STEPS = 4   # states 0–4 (4 = closing Insight)
 WORLD_STEPS = 3   # the world's last beat; the Insight overlay is not part of the world
 INSIGHT_EM = "aligned to other agents as a collective"

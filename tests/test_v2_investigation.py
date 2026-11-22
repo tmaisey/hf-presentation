@@ -30,8 +30,7 @@ from helper_deck import deck_source, goto_slide, open_deck, parse_slides, settle
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-8"
-TITLE = ("Independent investigators could reconstruct the swarm in six days because the agents left "
-         "readable traces")
+TITLE = "Independent investigators could reconstruct events in six days because the agents left readable traces"
 SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 TILES = ["s8-t1", "s8-t2", "s8-t3"]   # tile ids in row order = build step 1, 2, 3
 # per tile: facts its text must state, verbatim quotes it must carry, hosts its links must include
