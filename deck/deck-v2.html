@@ -97,7 +97,7 @@
   .bar--compact .agenda button { width: 100%; text-align: left; border-radius: 10px; padding: 10px 14px;
     transform-origin: left center; }
   .bar--compact .agenda li:hover button { transform: scale(1.04); }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     .agenda li:hover button, .bar--compact .agenda li:hover button, .bar--compact .agenda { transform: none; }
   }
   .progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); transition: width .6s var(--ease); }
@@ -338,7 +338,7 @@
     transition: opacity .6s ease, transform .7s var(--ease), filter 0s, visibility 0s; }
   .narr-tile.is-shown.is-delayed { transition-delay: .35s; }
   .narr-tile .msg-agent { margin-bottom: .55em; }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     .narr-tile { transform: none !important; filter: none !important; transition: opacity .4s ease, visibility 0s linear .4s !important; }
     .narr-tile.is-shown { transition: opacity .4s ease, visibility 0s !important; }
   }
@@ -493,7 +493,7 @@
   @keyframes pa-try { 0% { stroke-dashoffset: 1; opacity: 1; } 13% { stroke-dashoffset: 0; opacity: 1; }
     24% { stroke-dashoffset: 0; opacity: 1; } 34%, 100% { stroke-dashoffset: 0; opacity: 0; } }
   @keyframes pa-miss { 0%, 12% { opacity: 0; } 14%, 24% { opacity: 1; } 34%, 100% { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     .is-visible > .note-fly, .runs.is-visible .run, .run-links.is-visible .w-link, .board-links.is-visible .w-link, .pop-panel.is-visible .pa-arrow, .pop-panel.is-visible .pa-reward,
     .pa-agent--strain, .pa-try > :first-child, .pa-try > .pa-miss { animation: none; }
     .pa-try path:first-child { stroke-dashoffset: 0; opacity: .5; }
@@ -572,7 +572,7 @@
   @keyframes pa-grab { from { transform: none; } to { transform: translate(-226px, 22px); } }
   .pop-panel.is-visible .pa-reward--late { animation-delay: 2.5s; }
   .pa-tick { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     .radar.is-visible circle, .pulses.is-visible .pulse, .bell.is-visible :is(.bell-ring, .bell-waves, .bell-body, .bell-slash),
     .status.is-visible .status-light, .pop-panel.is-visible .pa-flag, .mirror-group.is-zeroday #w-lock.is-visible { animation: none; }
     .bell.is-visible .bell-body { stroke: var(--ink-3); }
@@ -652,7 +652,7 @@
   .pa-ws-title { font: 600 25px var(--sans); fill: var(--ink); text-anchor: middle; }
   .pa-ws-sub { font: 400 21px var(--sans); fill: var(--ink-2); text-anchor: middle; }
   .pa-ws-lead { font: 600 22px var(--sans); fill: var(--ink-2); }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     #w-swarm-links.is-visible .w-link, .pulses--out.is-visible .pulse, .w-tw.is-visible .tw-pulse,
     .pop-panel.is-visible .pa-flag.pa-flag--new { animation: none; }
     .world :is(#w-founder, #w-founder-ring, #w-coords, #w-coord-links, #w-eye, #w-eye-off, #w-tw).is-visible { transition-delay: 0s; }
@@ -707,7 +707,7 @@
   #w-signed.is-visible .seal:nth-child(2) { animation-delay: .8s; }
   #w-signed.is-visible .seal:nth-child(3) { animation-delay: 1.1s; }
   #w-signed.is-visible .seal:nth-child(4) { animation-delay: 1.4s; }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     .acts.is-visible .act, #w-hf-locks.is-visible .hf-lock, #w-signed.is-visible .seal { animation: none; }
     .world :is(#w-net6, #w-hf, #w-modal, #w-breakout, #w-bell-quiet, #w-hf-key, #w-hf-locks, #w-hf-closed).is-visible { transition-delay: 0s; }
   }
@@ -722,7 +722,7 @@
   .unplug.is-visible .unplug-socket { animation: unplug-r .9s var(--ease) .6s both; }
   @keyframes unplug-l { from { transform: translateX(8px); } to { transform: none; } }
   @keyframes unplug-r { from { transform: translateX(-8px); } to { transform: none; } }
-  @media (prefers-reduced-motion: reduce) { .unplug.is-visible :is(.unplug-plug, .unplug-socket) { animation: none; } }
+  :root.still { .unplug.is-visible :is(.unplug-plug, .unplug-socket) { animation: none; } }
   /* s-7 (S-025): the third layout stage (1 s) lands before the new runs pop in and link to the mirror; at
      cluster-admin the bold lines draw into the mirror (timing of the rack and its padlock: below) */
   .world :is(#w-astra, #w-astra-links, #w-astra-tag).is-visible { transition-delay: .9s; }
@@ -730,7 +730,7 @@
   #w-astra-links.is-visible .w-link { animation-delay: calc(1.3s + var(--i) * 40ms); }
   #w-astra-admin.is-visible .w-link--admin { stroke-dasharray: 1; animation: link-draw .9s var(--ease) .5s both; }
   #w-oai-lock .lock-badge { transform-box: fill-box; transform-origin: center; }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     #w-astra.is-visible .run, #w-astra-links.is-visible .w-link, #w-astra-admin.is-visible .w-link--admin,
     #w-oai-lock.is-visible .lock-badge { animation: none; }
     #w-astra-admin .w-link--admin { stroke-dasharray: none; }
@@ -759,7 +759,7 @@
   .world #w-oai-secure:not(.is-visible) { transition: opacity .2s 2.05s; }
   .world #w-oai-lock.is-visible { transition-delay: 2.05s; }
   #w-oai-lock.is-visible .lock-badge { animation: lock-pop .7s 2.05s var(--ease) both; }
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     #w-secrets.is-visible .secret-file, #w-oai-route.is-visible path, #w-oai-lock.is-visible .lock-badge { animation: none; }
     #w-oai-route path { stroke-dasharray: none; }
     .world :is(#w-oai-cluster, #w-oai-secure, #w-secrets, #w-oai-lock).is-visible, .world #w-oai-secure:not(.is-visible) { transition-delay: 0s; }
@@ -811,7 +811,7 @@
   .text-tile .msg-card .cite { margin-top: .6em; }
   @media (max-height: 660px) { .text-tile { gap: .45em; padding-top: 14px; padding-bottom: 14px; } .text-tile h3 { font-size: clamp(18px, 1.5vw, 26px); }
     .text-tile .msg-card { padding: .5em .8em; } }
-  @media (prefers-reduced-motion: reduce) { .text-tile[data-show-at] { transform: none; } }
+  :root.still { .text-tile[data-show-at] { transform: none; } }
 
 
 
@@ -834,12 +834,17 @@
 
 
 
-  @media (prefers-reduced-motion: reduce) {
+  :root.still {
     .slide > .kicker, .slide > .title, .slide > .body, [data-show-at] { transform: none !important; transition: opacity .3s ease, filter .3s ease !important; }
     .overlay { transform: none !important; filter: none !important; transition: opacity .4s ease !important; }
     .agent, .link, .hub-link, .progress, .ring, .callout { transition: none !important; }
     .cluster.is-shown > .overlay--msg:is(:hover, :focus-visible) { transform: none; }
   }
+  /* reduced motion = :root.still (the engine sets it from prefers-reduced-motion, and in notes mode). Notes mode
+     (S-029, DESIGN §6) also sets :root.instant: every build state lands at its end at once, so the spotlit target
+     is drawn when the spotlight arrives. #_ in :is() only lifts specificity over the still rules' !important fades */
+  :root.instant :is(#_, .deck, .deck *), :root.instant :is(#_, .deck *)::before, :root.instant :is(#_, .deck *)::after {
+    transition-duration: 0s !important; transition-delay: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; }
 </style>
 </head>
 <body>
@@ -1885,6 +1890,9 @@
   const body = document.body;
   const deckEl = $('.deck');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // still = reduced-motion rules (:root.still); instant = notes mode, where every build state lands at its end (S-029)
+  let still = reduce, instant = false;
+  document.documentElement.classList.toggle('still', reduce);
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
   // seeded PRNG (mulberry32): same layout on every load, so screenshots and talks match
   const seeded = seed => () => {
@@ -2004,6 +2012,15 @@
     s.node.classList.toggle('is-overlaid', ovs.some(([, on]) => on) || $$(':scope > .popover', s.node).some(p => p.classList.contains('is-visible')));
     if (s.swarm) s.swarm(k);
     if (s === slides[cur]) renderWorld(s, k);
+    if (instant) settle();
+  }
+  // notes mode (S-029): finish any transition or entrance still under way, so the target is drawn at once
+  // (ambient drift is script-driven and keeps moving; looping streams are stopped by setInstant)
+  function settle() {
+    deckEl.getAnimations({ subtree: true }).forEach(a => {
+      const t = a.effect && a.effect.getComputedTiming();
+      if (t && Number.isFinite(t.endTime)) a.finish();
+    });
   }
 
   // ---------- narration tiles (DESIGN §5a): placed in the slide's right-hand column ----------
@@ -2046,7 +2063,7 @@
   // ---------- navigation (DESIGN §3) ----------
   function scrollToSlide(i, instant) {
     lastEngineScroll = performance.now();
-    deckEl.scrollTo({ top: slides[i].node.offsetTop, behavior: instant || reduce ? 'instant' : 'smooth' });
+    deckEl.scrollTo({ top: slides[i].node.offsetTop, behavior: instant || still ? 'instant' : 'smooth' });
   }
   function show(i, k, instant) {
     i = clamp(i, 0, slides.length - 1);
@@ -2255,6 +2272,7 @@
   const mirrorAt = t => t <= 1 ? { x: SPLIT.mx * t, y: 0, s: 1 }
     : t <= 2 ? { x: lerp(SPLIT.mx, SPLIT2.mx, t - 1), y: lerp(0, SPLIT2.my, t - 1), s: lerp(1, SPLIT2.ms, t - 1) }
     : { x: lerp(SPLIT2.mx, SPLIT3.mx, t - 2), y: lerp(SPLIT2.my, SPLIT3.my, t - 2), s: lerp(SPLIT2.ms, SPLIT3.ms, t - 2) };
+  const streams = [];   // act-stream rings (S-023): they rest spread along their path while still
   if (world) {
     const mk = (tag, cls) => { const e = document.createElementNS(NS, tag); e.setAttribute('class', cls); return e; };
     // run groups: each g.runs[data-runs=N][data-seed] is its own seeded swarm; [data-of] picks a group (default: the first)
@@ -2379,8 +2397,11 @@
       const frames = Array.from({ length: 17 }, (_, i) => { const f = i / 16; return { offset: f, transform: at(f), opacity: Math.min(1, f / .12, (1 - f) / .12) }; });
       for (let j = 0; j < n; j++) {
         const c = mk('circle', 'act act--flow'); c.setAttribute('r', 6); S.append(c);
-        if (reduce) c.style.transform = at((j + .5) / n);
-        else c.animate(frames, { duration: dur, iterations: Infinity, delay: -j * dur / n, easing: 'linear' });
+        const st = { rest: at((j + .5) / n), play: () => c.animate(frames, { duration: dur, iterations: Infinity, delay: -j * dur / n, easing: 'linear' }) };
+        streams.push(st);
+        if (reduce) c.style.transform = st.rest;
+        else st.anim = st.play();
+        st.c = c;
       }
     });
   }
@@ -2434,6 +2455,7 @@
   const tw = {};
   function tweenLayout(key, target, dur, delay = 0) {
     cancelAnimationFrame(tw[key]); clearTimeout(tw[`${key}-wait`]);
+    if (!dur && !delay) { lay[key] = target; applyLayout(lay.t, lay.g); return; }   // at once (still, S-029)
     const ease = x => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
     const go = () => {
       const from = lay[key], t0 = performance.now();
@@ -2450,13 +2472,13 @@
   function setLayout(target) {
     if (!world || target === lay.target) return;
     lay.target = target;
-    tweenLayout('t', target, reduce ? 0 : 1000);
+    tweenLayout('t', target, still ? 0 : 1000);
   }
   // the fan eases into its groups as the coordinators appear (their 1.3 s beat), and straight back out
   function setGrouping(target) {
     if (!world || target === lay.gTarget) return;
     lay.gTarget = target;
-    tweenLayout('g', target, reduce ? 0 : 1400, target > lay.g && !reduce ? 1300 : 0);
+    tweenLayout('g', target, still ? 0 : 1400, target > lay.g && !still ? 1300 : 0);
   }
   if (world) applyLayout(0);
   // steps [lo, hi) at which a world part shows on slide s (parts from earlier slides: always)
@@ -2529,6 +2551,17 @@
     return [lo, hi];
   }
 
+  // notes mode's instant build states (S-029, DESIGN §6): the reduced-motion rules plus zero-length motion
+  function setInstant(on) {
+    instant = on; still = reduce || on;
+    document.documentElement.classList.toggle('still', still);
+    document.documentElement.classList.toggle('instant', on);
+    streams.forEach(st => {
+      if (still && st.anim) { st.anim.cancel(); st.anim = null; st.c.style.transform = st.rest; }
+      else if (!still && !st.anim) { st.c.style.transform = ''; st.anim = st.play(); }
+    });
+  }
+
   const notes = {
     on: false, list: [], pins: [], idx: 0, saved: null, sig: '',
     set(on) {
@@ -2538,6 +2571,7 @@
       notesBtn.setAttribute('aria-pressed', String(on));
       if (on) {
         notes.saved = { slide: cur, step };
+        setInstant(true);
         show(cur, slides[cur].steps);                 // everything visible, overlays suppressed
         notes.load();
         requestAnimationFrame(notes.track);
@@ -2545,6 +2579,7 @@
         notes.clear();
         if (notes.saved && notes.saved.slide === cur) show(cur, notes.saved.step);
         else render(slides[cur], step, false);
+        setInstant(false);   // the return to the presenter's step lands at once too; motion resumes from here
       }
     },
     clear() {
@@ -2608,13 +2643,32 @@
       if (cy < top) { cy = clamp(y, top, bottom - ch); cx = x + w + 18 + cw < innerWidth ? x + w + 18 : clamp(x - cw - 18, 16, innerWidth - cw - 16); }
       cy = Math.max(cy, top);
       callout.style.left = `${cx}px`; callout.style.top = `${cy}px`;
-      // pins sit just outside each target's top-right corner; pins the callout would cover hide
+      // pins sit just outside each target's top-right corner; pins the callout would cover hide. Other pins keep off
+      // the focus frame (S-029): a focused pop-over (too big to place pins around) is drawn in front of them, so
+      // they clip where it covers them; round any other target a pin on its frame moves to the nearest free
+      // spot just outside it, or hides if none is near (it never goes behind a diagram). The current pin stays on top.
+      const R = 20, near = 44, inFrame = (px, py) => px > x - R && px < x + w + R && py > y - R && py < y + h + R;
+      const underCallout = (px, py) => px > cx - 15 && px < cx + cw + 15 && py > cy - 15 && py < cy + ch + 15;
+      const pop = notes.list[notes.idx].target.closest('.popover');
+      const pr = pop && pop.getBoundingClientRect();
+      const hole = pr && { l: Math.min(pr.left, x), t: Math.min(pr.top, y), r: Math.max(pr.right, x + w), b: Math.max(pr.bottom, y + h) };
       notes.list.forEach((t, j) => {
-        const b = t.target.getBoundingClientRect();
-        const px = clamp(b.right + 6, 20, innerWidth - 20), py = clamp(b.top - 6, top + 4, innerHeight - 20);
-        Object.assign(notes.pins[j].style, { left: `${px}px`, top: `${py}px` });
-        const covered = j !== notes.idx && px > cx - 15 && px < cx + cw + 15 && py > cy - 15 && py < cy + ch + 15;
-        notes.pins[j].classList.toggle('is-covered', covered);
+        const b = t.target.getBoundingClientRect(), pin = notes.pins[j];
+        let px = clamp(b.right + 6, 20, innerWidth - 20), py = clamp(b.top - 6, top + 4, innerHeight - 20), hidden = false;
+        if (j !== notes.idx && !pop && inFrame(px, py)) {
+          const spots = [[px, y - R], [px, y + h + R], [x - R, py], [x + w + R, py]]
+            .filter(([qx, qy]) => qx >= 20 && qx <= innerWidth - 20 && qy >= top + 4 && qy <= innerHeight - 20 && !underCallout(qx, qy))
+            .map(([qx, qy]) => [qx, qy, Math.hypot(qx - px, qy - py)]).sort((p, q) => p[2] - q[2]);
+          if (spots.length && spots[0][2] <= near) [px, py] = spots[0]; else hidden = true;
+        }
+        Object.assign(pin.style, { left: `${px}px`, top: `${py}px` });
+        // behind the pop-over: cut its box (in pin coordinates) out of the pin
+        const cut = j !== notes.idx && hole && px + R > hole.l && px - R < hole.r && py + R > hole.t && py - R < hole.b;
+        pin.style.clipPath = cut ? (() => {
+          const ox = px - 15, oy = py - 15, l = hole.l - ox, tp = hole.t - oy, r = hole.r - ox, bt = hole.b - oy;
+          return `polygon(evenodd, -10px -10px, 40px -10px, 40px 40px, -10px 40px, -10px -10px, ${l}px ${tp}px, ${r}px ${tp}px, ${r}px ${bt}px, ${l}px ${bt}px, ${l}px ${tp}px)`;
+        })() : '';
+        pin.classList.toggle('is-covered', j !== notes.idx && (hidden || underCallout(px, py)));
       });
     },
     // geometry re-tracks every frame while open, so reflow never strands the spotlight
