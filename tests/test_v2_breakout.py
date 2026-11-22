@@ -417,9 +417,9 @@ def test_key_gains_a_hollow_ring_entry_right_of_the_run_entry(page):
     helper_until(page, f"() => ({OPACITY})('#w-key-act') > .9")
     run = page.evaluate(RECT, ".world-key > svg")
     act = page.evaluate(RECT, "#w-key-act svg")
-    # the key wraps once s-5's run roles join it (S-022): the entry follows them, on the run's row or below
-    assert (act[0] > run[2] and abs((act[1] + act[3]) / 2 - (run[1] + run[3]) / 2) < 4) or act[1] >= run[3], \
-        "after the run entry: to its right on the same row, or on a later row of the key"
+    # the key stays on one row (DESIGN §10): the entry follows s-5's run roles on the run's row
+    assert act[0] > run[2] and abs((act[1] + act[3]) / 2 - (run[1] + run[3]) / 2) < 4, \
+        "after the run entry: to its right on the same row"
     assert helper_text(page.evaluate("() => document.querySelector('#w-key-act').textContent")) == "HF activity"
     assert page.evaluate("() => getComputedStyle(document.querySelector('#w-key-act circle')).fill") == "none"
 

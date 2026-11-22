@@ -675,11 +675,11 @@ def helper_key_fits(page, text, where):
             assert a[2] <= x0 or a[0] >= x1 or a[3] <= y0 or a[1] >= y1, f"{text} clear of {o['text']} {where}"
 
 
-@pytest.mark.parametrize("text,step,token", [("Research coordinator", 5, "--ink"), ("Sacrificed agent", 7, "--loss")])
+@pytest.mark.parametrize("text,step,token", [("Coordinator", 5, "--ink"), ("Sacrificed", 7, "--loss")])
 def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, token):
     """Black dot = coordinator (from s-5:5), red dot = sacrificed agent (from s-5:7): hidden before,
-    shown from that step in the key, and still there on s-6 and s-7 (they stay in the world). Four
-    entries never fit one row of the world column, so the key may wrap: each entry must still fit
+    shown from that step in the key, and still there on s-6 and s-7 (they stay in the world). The key
+    stays on one row (test_world checks the row and labels): each entry must still fit
     the column under the diagram at the short-wide size."""
     open_deck(page, 1288, 598)
     goto_slide(page, SID, step - 1)
