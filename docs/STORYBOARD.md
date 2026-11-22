@@ -409,12 +409,10 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
 - s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
-- s-7: not yet redesigned on the world. The presenter delegated the design (22 Nov): design it in
-  situ following s-6 (which hands over to it) and DESIGN rules, write it here and into S-025, then
-  build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.
+- s-7: designed and built by the builder (22 Nov); awaiting the presenter: third layout stage,
+  timeline copy, no Insight, no narration on step 2.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
-- S-030 layout guard is built (22 Nov). s-5, s-6 and s-10 faults are fixed; s-7
-  (all sizes) is still pending (S-025).
+- S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).
 - s-10: the employee letter stays "Over 1,100 … (Jul)"; exact date and signatory count still
   unconfirmed. Anthropic pause omitted (weakly sourced; a test guards against it).

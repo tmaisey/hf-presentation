@@ -302,13 +302,19 @@ pins for targets not on screen at that step hide (v1: always the last step).
   screens (≤ 660px high) timeline entries tighten so the longest timeline fits its row. World units ≈ screen px at 1920 (viewBox ~640 × 520), so text floors
   stay in proportion; keep tile labels short (stack words) as the world shrinks. Soft-toned
   `g.domain` boxes (label top-left, uppercase) name where things run ("OpenAI servers", "Public
-  Internet"). `data-split` on `.world` lists layout stage points (e.g. `"s-3:6 s-6:0"`); reaching
+  Internet"). `data-split` on `.world` lists layout stage points (e.g. `"s-3:6 s-6:0 s-7:1"`); reaching
   each re-arranges the scene with a tween that keeps run–mirror lines, `data-end` points, pulses and
   note flights attached. Stage 1: swarm left, mirror right, OpenAI box narrows. Stage 2 (s-6): OpenAI
   narrows to a column (swarm compressed above the mirror group, which moves and scales into it), the
   internet becomes a middle strip and a new domain takes the rest (s-6: ~22 / 24 / 50% of the world,
-  set by label fit at 1288×598). Parts that arrive with a stage fade in after the tween lands. Runs (`g.runs[data-runs=N][data-seed]`,
-  one seeded swarm per group) are drawn by the engine in P4 line-drawn style; `[data-of="<runs id>"]`
+  set by label fit at 1288×598). Stage 3 (s-7): the stage-2 domains dissolve (`data-world-until`),
+  OpenAI widens back to the whole world, the swarm keeps its column and the mirror group slides right
+  to become the hub. Parts that arrive with a stage fade in after the tween lands. Runs (`g.runs[data-runs=N][data-seed]`,
+  one seeded swarm per group) are drawn by the engine in P4 line-drawn style;
+  `g.runs[data-place="cx cy sx sy"]` stands a group at a fixed spot and scale, outside the layout
+  tween: use it for a second model's runs that arrive after the stages and must not move with them
+  (s-7: the Astra-family runs). A different model is named by a `text.w-tag`, never a new colour: same
+  run dot; `[data-of="<runs id>"]`
   on a part (or an ancestor) picks its group (default: the first); `[data-run]` follows a run (`first`
   = the group's outermost upper-right run, or an index). `.run-links[data-share="f"]` links only an
   evenly spread fraction f of its group (the runs that joined a board; `.run-links--lit` = accent);
@@ -337,7 +343,7 @@ pins for targets not on screen at that step hide (v1: always the last step).
   their runs don't live in (s-6: Hugging Face; the runs stay on OpenAI's servers), draw hollow
   `--accent-ink` rings (`.act`), never new runs. `g.acts[data-acts=N][data-seed][data-around="#tile or
   group"][data-in="#domain"][data-from="x,y"]` scatters N seeded rings just outside the target tile(s),
-  inside the domain below its label, clear of every tile and of each other, flying in from the point
+  inside the domain below its label, clear of every tile shown by then (later slides' tiles never push rings) and of each other, flying in from the point
   where the activity entered; `g.act-stream[data-acts][data-along="#path"][data-dur=ms]` loops rings
   along a path (an entry edge) for sustained traffic, resting spread along it under reduced motion.
   A legend entry introduced later is a `span.world-key-item[data-world-at]` on the key's row, hidden
