@@ -26,6 +26,9 @@ and add every new verdict here as an example pair. British spelling throughout.
 | Questions for discussion | Detection, training and independent oversight remain open questions after this incident | Label → finding; the discussion slide follows title rules too |
 | A small, fast, AI-assisted investigation | A small investigation, fast and AI-assisted | s-8 tile heading (22 Nov); avoids an "AI-/assisted" line break |
 | The agents hid from the scorer, not from people | The agents hid from the scorer and left their reasoning readable | s-8 tile heading (22 Nov); "X, not Y" antithesis → two findings |
+| Training rewarded cheating, and evaluation let it spread | Behaviours reinforced in training re-emerged in evaluation | s-9 tile heading (22 Nov); "X, and Y" pair + metaphor read as AI → one finding in precise vocabulary |
+| The obvious fix can teach models to hide, and alignment is unsolved | Penalising misaligned reasoning in training rewards concealing it | s-9 tile heading (22 Nov); framing ("the obvious fix") + two clauses → one sourced finding; "unsolved" left to the quote |
+| — | Opaque firings discourage transparency | s-9 tile heading (22 Nov), accepted for now |
 
 ## Insight overlays
 
@@ -106,12 +109,10 @@ and add every new verdict here as an example pair. British spelling throughout.
   incidents" ✓ (22 Nov) · s-8 "Independent investigators could reconstruct the swarm in six days
   because the agents left readable traces" ✓ · s-9 "Misalignment grew from ordinary training choices,
   and the obvious fixes risk making it harder to see" ✓ (22 Nov).
-- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight. s-9 tile headings (builder's, S-027):
-  "Training rewarded cheating, and evaluation let it spread" · "The obvious fix can teach models to
-  hide, and alignment is unsolved" · "Opaque firings discourage transparency". s-9 tile 3 ends "a
-  lesson we don't want models to learn": **flag to the presenter** as a possible epigram closer
-  (banned under Body text). s-9 tile 1 "Unprompted by humans" (replaces "With no human instructing them":
-  cut to fit 1288×598). s-10 Coxon cited "former Anthropic researcher".
+- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight. Accepted for now (presenter, 22 Nov):
+  s-9 tile 3 closer "a lesson we don't want models to learn"; tile 1 "Unprompted by humans" (was
+  "With no human instructing them", cut to fit 1288×598); s-10 Coxon in-body quote, cited "former
+  Anthropic researcher".
   Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
   carries over as-is.
 - Writing samples from the presenter (pending) to generalise beyond these examples.

@@ -327,20 +327,20 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
 - **Agreed design (presenter, 22 Nov; S-027):** same layout as s-8 (blurred world behind, three
   text tiles built one per step). The tiles are the insights: no separate Insight overlay. The v1
   loop diagram is dropped; its evidence moves into tile 2's links.
-- **Steps (3)** (built, S-027; tile headings ◇ pending presenter):
-  - **1 · ◇ Training rewarded cheating, and evaluation let it spread:** persistent agents were
+- **Steps (3)** (built, S-027; tile headings ✓ 22 Nov):
+  - **1 · Behaviours reinforced in training re-emerged in evaluation:** persistent agents were
     rewarded in training for cheating and coordinating on accidentally impossible tasks. A shared
     credential, a dismissed alert and no reasoning monitor let it reach evaluation. "Unprompted by
-    humans" (◇; was "With no human instructing them", trimmed to fit 1288×598), ~1,200 agents built
+    humans" (✓ for now; was "With no human instructing them", trimmed to fit 1288×598), ~1,200 agents built
     a universal cheat in 4 hours. Quote: OpenAI: "Persistence is valuable, but can amplify
     misalignment". Links: OpenAI TR, Redwood. Cluster-admin "within one second": note.
-  - **2 · ◇ The obvious fix can teach models to hide, and alignment is unsolved:** a complete
+  - **2 · Penalising misaligned reasoning in training rewards concealing it:** a complete
     reward signal is practically impossible (back to s-2). Penalising malicious reasoning keeps the
     incentive to cheat and rewards hiding it. The tampering was crude; more capable agents may not
     be. Quote: Hubinger: "we do not yet have a plan to solve alignment for superintelligence"
     (moved here from s-10). Links: TIME · Baker et al. 2025 · Sleeper Agents · alignment faking.
     METR fn 55 quote, 78% figure: notes.
-  - **3 · ◇ Opaque firings discourage transparency:** states both sides (OpenAI: "were not about
+  - **3 · Opaque firings discourage transparency:** states both sides (OpenAI: "were not about
     raising safety concerns"; the staff dispute this). Whatever the reason, firing people who
     worked openly with METR without a public explanation signals that transparency is risky: "a
     lesson we don't want models to learn" (◇ close to an epigram closer, VOICE). Quote: their
@@ -367,7 +367,7 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
   prompts carry over).
 - **Quote** (steps 1–2, in the pace panel under the table; no narration column): Jacob Coxon,
   "former Anthropic researcher": "One, it's obvious that things are speeding up, and two, they're
-  not under control." (◇ cite wording; Hubinger's quote moved to s-9 tile 2.)
+  not under control." (✓ for now, 22 Nov; Hubinger's quote moved to s-9 tile 2.)
 - Controls (step 3): no caption (it repeated the title). Prompts from step 4. Built (S-027).
 - **Ins (◇ v1 5.4; step 2):** METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate
   ranged from 11 to over 270 hours depending on how cheating was scored.
