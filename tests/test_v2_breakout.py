@@ -177,7 +177,7 @@ def test_world_parts_for_s6_are_declared_on_the_world():
             assert re.search(rf'id="{i}"[^>]*data-world-at="s-6:{step}"', world), i
     for i in ENDS_AT_CUT:
         assert re.search(rf'id="{i}"[^>]*data-world-until="s-6:7"', world), i
-    assert re.search(r'class="world"[^>]*data-split="s-3:6 s-6:0"', world), "s-6 is the world's second layout stage"
+    assert re.search(r'class="world"[^>]*data-split="s-3:6 s-6:0[ "]', world), "s-6 is the world's second layout stage"
 
 
 # ---------- in the browser ----------
@@ -297,7 +297,11 @@ def test_activity_rings_are_hollow_and_settle_round_their_tile_inside_hf(page, g
     page.wait_for_timeout(3200)
     rings = page.evaluate(RECTS, f"#{group} .act")
     hf, target = page.evaluate(RECT, "#w-hf rect"), page.evaluate(RECTS, f"{ACTS[group]} rect")
-    tiles = page.evaluate(RECTS, "#w-hf .tile rect, .world .tile rect")
+    # every tile of s-6 or earlier (a later slide's tiles, e.g. s-7's after Hugging Face is gone, may reuse the space)
+    tiles = page.evaluate("""() => { const ids = [...document.querySelectorAll('section.slide')].map(s => s.id);
+      return [...document.querySelectorAll('.world .tile rect')]
+        .filter(r => ids.indexOf(r.closest('[data-world-at]').dataset.worldAt.split(':')[0]) <= ids.indexOf('s-6'))
+        .map(e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom]; }); }""")
     assert len(rings) >= 6
     fills = page.evaluate(f"() => [...document.querySelectorAll('#{group} .act')].map(c => getComputedStyle(c).fill)")
     assert all(f == "none" for f in fills), "activity on Hugging Face is a hollow ring, not a run dot"

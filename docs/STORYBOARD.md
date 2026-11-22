@@ -283,18 +283,39 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 
 ✓ *After Hugging Face cut access, a second model's agents took control of an OpenAI cluster*
 (presenter, Nov 2026; replaces "The same agents…", which S-024 showed was wrong)
-- **Diagram (callback to s-6's "OpenAI servers" band; HF path shown severed, 13 Jul):** 1 the
-  band stays lit after the cut · 2 19 Jul, a separate evaluation run: agents root a
-  package-mirror node and read cloud secrets (TR leaves the node-root model unnamed) · 3 agents of a
-  **different Astra-family model** take Kubernetes cluster-admin and a privileged host-mounted pod
-  on the OpenAI cluster running the mirror (key tile) · 4 METR: more
-  OpenAI infrastructure compromised after its scope ended (no detail published). No further
-  takeovers: S-024 confirmed none (Sep escape DNS-only; mid-Aug report unconfirmed).
-- **Narr ⚠ thin** (no agent quote about cluster-admin): neutral fact tiles only, e.g. OpenAI TR
-  p14 "The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod."
+- **Design (builder, delegated by the presenter, 22 Nov; world slide, S-032; built in situ,
+  S-025):** continues the incident world from s-6's end state, in the same place on screen.
+  At 19 Jul a **third layout stage** (the smallest change that makes OpenAI's side readable; no
+  camera move): Hugging Face, the internet strip and the Modal sandbox dissolve (their story ended
+  at the cut), the OpenAI box widens back to the full world, the HF-phase swarm keeps its place in
+  the left column, and the package mirror slides right to become the hub both swarms share. The
+  new parts sit where Hugging Face was and reuse its glyphs, so the recurrence reads at a glance:
+  a second, separate group of runs tagged **Astra-family model** (same run dot: they are agent
+  runs; the tag, not a new colour, names the model), a **Cloud secrets** tile, and a key tile,
+  **OpenAI cluster** (runs the mirror), that pops the same oxblood open padlock as s-6's HF
+  clusters. Humans are not drawn; no Insight (1:00 slide; the title carries the finding).
+- **Steps (4 states, 0–3):**
+  - **0 · 13 Jul** Hugging Face cuts access; the agents keep running on OpenAI's servers: the world
+    as s-6 left it. Narr (METR investigation, verbatim; OpenAI's account in a METR footnote): "agents compromised OpenAI
+    infrastructure between July 13th and July 19th".
+  - **1 · 19 Jul** A separate evaluation runs a different, Astra-family model: re-arrangement; the
+    new runs appear right of the HF-phase swarm with their links into the mirror; tag. Narr (OpenAI
+    · technical report, p14): "While this model is from the same family as our next model, Astra,
+    it was a distinct model with different post-training".
+  - **2 · sub** Agents read 956 cloud secrets and root a node running the mirror: Cloud secrets
+    tile ("956 read"); the mirror's green closed padlock swaps to the oxblood open padlock. No lines
+    from the Astra runs: the TR leaves the node-root model unnamed. No narration.
+  - **3 · sub** The Astra-family model's agents take Kubernetes cluster-admin on the cluster running
+    the mirror: the OpenAI cluster key tile appears, bold lines run to it from a few Astra runs, then
+    its open padlock pops. Narr (OpenAI · technical report, p14): "The agents escalated to
+    Kubernetes cluster-admin and created a privileged host-mounted pod."
+- **Not on the slide:** METR's "more components of OpenAI infrastructure after the end of the dates
+  in scope" (scope ended 13 Jul, so it may be the 19 Jul events: note only), the Sep DNS
+  escape and the mid-Aug "research cluster" report (S-024: not takeovers / unconfirmed).
 - Notes: model and route per notes/other_takeovers.md (TR p14, p37; OpenAI 19 Jul misalignment
   report: "credentials left behind by earlier runs on Artifactory", note only, not the title).
-  Do not call it "the eval cluster". METR fn 41/54.
+  Do not call it "the eval cluster" (no primary source says the evaluations ran on it). METR's
+  footnote numbers differ between its web report and PDF: cite page or quote.
 
 ## s-8 · Investigation (1:30) · M2
 
