@@ -321,11 +321,12 @@ pins for targets not on screen at that step hide (v1: always the last step).
   run reaching a part beside it (`.w-link--probe`; s-5 dropped its run → scorer lines as clutter:
   show agents acting on a part with a flying note glyph, e.g. s-4's skull note, instead). Run roles follow §7:
   coordinator = solid-ink `circle.run-coord[data-run]` + heavy `.w-link--coord`, standing about
-  halfway between its fan and the mirror; once coordinators appear, the group's runs keep their
+  halfway between its group's median distance and the mirror tile with its board (opt-in: marking
+  coordinators turns grouping on; it is recomputed round the mirror on every later layout stage); once coordinators appear, the group's runs keep their
   distance from the mirror but ease partway round, by angle, towards the nearest coordinator, so
   each reads as a coordinator with its fan (s-5:5, kept on every later slide); sacrificed = `--loss`
   on existing runs, never new dots: several runs spread across the fan turn one at a time (~2 s
-  in all) and their lines fade. `g.pulses` travel run→mirror (load); `g.pulses--out` flow mirror→runs
+  in all; `circle.run-sac[data-run]`, ordered by the engine's `--sac`) and their lines fade. `g.pulses` travel run→mirror (load); `g.pulses--out` flow mirror→runs
   (assignments from the board); `g.w-tw` (`line.tw-line` + `circle.tw-pulse`) sends messages from a
   part up to the mirror (s-5: tripwires, scorer → board). A board's glyph says what it is made of:
   notes (`.note-glyph`) or cache folder names (`.folder-glyph`, s-5). A checker's state is a

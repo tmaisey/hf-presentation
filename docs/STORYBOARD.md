@@ -426,8 +426,8 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
 - s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
-- s-5/s-6/s-7 rework (presenter feedback, 22 Nov: coordinator groups, scorer, volunteers, plug,
-  rack, arrowheads) and timeline day tags (S-033): in build. s-7 still awaiting the presenter:
+- s-5/s-6/s-7 rework (presenter feedback, 22 Nov) built and merged; plug halved on review. Timeline
+  day tags (S-033) being reworked: date line, then event line, full month names. s-7 still awaiting the presenter:
   third layout stage, timeline copy, no Insight, no narration on step 2.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
