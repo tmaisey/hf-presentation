@@ -2,7 +2,8 @@
 
 v2 notes mode lands every note fully drawn and keeps the focus frame clear: moving to a note sets
 its slide to the target's step with every transition, animation and timed sequence already at its
-end state, and no other note's pin sits on the current focus frame (spotlight window + ring).
+end state; a focused pop-over is drawn in front of other notes' pins, and round any other target
+no other pin sits on the current focus frame (spotlight window + ring).
 Coverage: happy (every note on every slide, at a large and a short-wide viewport) · edge (opening
 notes mid-slide, world targets, pop-over targets) · negative (no animation still running on arrival;
 leaving notes mode restores normal motion).
@@ -44,15 +45,22 @@ ARRIVE = """key => {
   }
   return bad; }"""
 
-# every shown non-current pin's box against the current focus frame (the ring around the spotlight window)
+# a focused pop-over is drawn in front of other pins (no pin paints over it: hit-test a grid of the overlap);
+# round any other focused target, no shown non-current pin's box touches the focus frame (the ring)
 PIN_CLASH = """() => {
   """ + FOCUSED + """
-  const f = document.querySelector('.ring').getBoundingClientRect(), bad = [];
+  const pop = t && t.closest('.popover'), bad = [];
+  const f = (pop || document.querySelector('.ring')).getBoundingClientRect();
   document.querySelectorAll('.pin:not(.is-current)').forEach(p => {
     if (getComputedStyle(p).visibility === 'hidden') return;
     const r = p.getBoundingClientRect();
-    if (r.right > f.left && r.left < f.right && r.bottom > f.top && r.top < f.bottom)
-      bad.push(label + ': pin ' + p.textContent + ' sits on the focus frame');
+    const l = Math.max(r.left, f.left), rt = Math.min(r.right, f.right), tp = Math.max(r.top, f.top), bt = Math.min(r.bottom, f.bottom);
+    if (rt <= l || bt <= tp) return;
+    if (!pop) { bad.push(label + ': pin ' + p.textContent + ' sits on the focus frame'); return; }
+    for (let i = 0; i <= 4; i++) for (let j = 0; j <= 4; j++) {
+      const e = document.elementFromPoint(l + (rt - l) * (i + .5) / 5.0001, tp + (bt - tp) * (j + .5) / 5.0001);
+      if (e === p) { bad.push(label + ': pin ' + p.textContent + ' is drawn over the pop-over'); return; }
+    }
   });
   return bad; }"""
 
