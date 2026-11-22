@@ -32,3 +32,8 @@ PRD (intent) → interview → research (with consent) → storyboard → protot
 spec → TDD → assembled-screenshot look → done. Optional afterwards: PPTX hand-off, eval.
 
 Parts are linked below as they land; each says when to read it.
+
+## Parts
+
+- [Process](process/PROCESS.md): read first in any deck project; phases, installing the project
+  `AGENTS.md`, lessons from the worked example.

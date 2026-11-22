@@ -15,7 +15,7 @@ from helper_skill import SKILL_DIR, local_links
 
 PROCESS = SKILL_DIR / "process" / "PROCESS.md"
 TPL = SKILL_DIR / "assets" / "templates" / "project"
-INCIDENT_TERMS = re.compile(r"Hugging Face|OpenAI|swarm|deck-v2|ExploitGym|METR|S-0\d\d", re.I)
+INCIDENT_TERMS = re.compile(r"Hugging Face|OpenAI|swarm|deck-v2|ExploitGym|METR|PENDING_SLIDES|test_v2_", re.I)
 
 
 def _text(p):
