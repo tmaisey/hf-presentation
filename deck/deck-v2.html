@@ -387,6 +387,8 @@
   .steps li.sub::before { content: ""; width: .6em; height: 3px; border: 0; border-radius: 2px; left: .45em; top: .8em; background: var(--ink-3); }
   .tl-aside { display: block; margin-top: .2em; font-size: .92em; color: var(--ink-2); }
   /* S-033 day tag: engine-derived day count beside a timeline date (8 May = day 0); quieter than the date (--ink-2: --ink-3 is for labels >= 24px) */
+  /* S-033 two-line entry: date + tag on line one (engine wraps them in span.tl-when), the event below */
+  .body--timeline .tl-when { display: block; }
   .tl-day { margin-left: .45em; font-size: .78em; font-weight: 400; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: .01em; }
   .narr-tile--fact .msg-text::before, .narr-tile--fact .msg-text::after { content: none; }
   /* an Insight on a world slide spans world + narration */
@@ -653,6 +655,14 @@
      from their source after the re-arrangement settles, and stream along the entry path */
   .act { fill: none; stroke: var(--accent-ink); stroke-width: 2; }
   .world-key-item { display: inline-flex; gap: .5em; align-items: center; margin-left: 1.4em; white-space: nowrap; }
+  /* S-022 key dots for run roles: shown whole (the world's .run-sac waits for its group's stagger) */
+  .world-key .run-sac { opacity: 1; transition: none; }
+  /* S-022 the key wraps once run roles join it (four entries never fit one row of the world column): entries
+     sit 1.4em apart in both rows, a dot .5em from its label; hidden entries keep their place, so the key's
+     height (and the world above it) holds still from slide to slide */
+  .world-key { flex-wrap: wrap; column-gap: 1.4em; row-gap: .15em; }
+  .world-key > svg { margin-right: -.9em; }
+  .world-key .world-key-item { margin-left: 0; }
   .acts.is-visible .act { animation: act-in 1s var(--ease) both; animation-delay: calc(.5s + var(--n) * 70ms); }
   #w-acts-entry.is-visible .act { animation-delay: calc(1.2s + var(--n) * 160ms); }
   @keyframes act-in { from { opacity: 0; transform: translate(var(--fx), var(--fy)); } 20% { opacity: 1; } to { opacity: 1; transform: none; } }
@@ -906,7 +916,7 @@
           <g class="w-board" id="w-transcripts" data-world-at="s-5:6" data-world-until="s-6:0" data-world-is="blind s-5:8"><path class="note-glyph" d="M-86,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-64,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-42,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-20,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M2,84 h20 l7,7 v27 h-27 z"/></g>
           <!-- s-5 (S-022): agents probe the scorer: s-4's skull note flies from the fan onto the scorer's corner (no run → scorer lines) -->
           <g class="w-note" id="w-probe" data-world-at="s-5:6" data-world-until="s-6:0" data-of="w-eval"><g class="note-fly" data-note-for="50"><path class="note-glyph" d="M-149,104 h20 l7,7 v27 h-27 z"/><g class="skull"><circle cx="-135.5" cy="119" r="6.5"/><rect x="-139" y="123" width="7" height="4.5" rx="1"/><circle class="skull-eye" cx="-138" cy="118.5" r="1.8"/><circle class="skull-eye" cx="-133" cy="118.5" r="1.8"/><path class="skull-bones" d="M-144,129 L-127,135 M-127,129 L-144,135"/></g></g></g>
-          <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><text class="w-tag" x="-35" y="227">reads transcripts?</text></g>
+          <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/></g>
           <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><path class="eye-slash" d="M40,109 L60,131"/><text class="w-tag" x="-35" y="227">never read transcripts</text></g>
           <g class="lock-badge" id="w-root" data-world-at="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
           <!-- s-7 (S-025): 13 July, after an impersonation, agents adopt their own identity standard: signed board messages (Ed25519) -->
@@ -934,7 +944,7 @@
       </g>
     </g>
   </svg>
-  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-6:6"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>HF activity</span></p>
+  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-coord" data-world-at="s-5:5"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run-coord" r="6"/></svg>Research coordinator</span><span class="world-key-item" id="w-key-sac" data-world-at="s-5:7"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run-sac" r="6"/></svg>Sacrificed agent</span><span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-6:6"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>HF activity</span></p>
 </div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
@@ -1038,7 +1048,7 @@
   <h2 class="title">Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to coordinate through a shared message board</h2>
   <div class="body body--timeline">
     <ol class="steps">
-      <li id="s3-t1" data-show-at="0"><strong>Apr–May</strong> Many training runs in parallel</li>
+      <li id="s3-t1" data-show-at="0"><strong>April–May</strong> Many training runs in parallel</li>
       <li id="s3-t1a" class="sub" data-show-at="1">Agents access a shared package mirror</li>
       <li id="s3-t1b" class="sub" data-show-at="2">Cheating behaviours are reinforced</li>
       <li id="s3-t2" data-show-at="3"><strong>8 May</strong> A blocked agent turns on the mirror</li>
@@ -1156,10 +1166,10 @@
       <li id="s4-t1" data-show-at="0"><strong>June</strong> Cyber evaluation runs (ExploitGym)</li>
       <li id="s4-t1a" class="sub" data-show-at="1">Agents attack deliberately vulnerable targets to capture flags</li>
       <li id="s4-t1b" class="sub" data-show-at="2">Some tasks have no solution</li>
-      <li id="s4-t2" data-show-at="3"><strong>26 Jun</strong> Agents use a zero-day to gain admin on the mirror</li>
-      <li id="s4-t3" data-show-at="4"><strong>27 Jun</strong> A port-sweep alert is handled as routine; the run is not stopped</li>
-      <li id="s4-t4" data-show-at="5"><strong>4 Jul</strong> The mirror goes down under sustained agent load</li>
-      <li id="s4-t5" data-show-at="6"><strong>5–6 Jul</strong> Security responders rebuild the mirror<span class="tl-aside">The board is wiped without being recognised</span></li>
+      <li id="s4-t2" data-show-at="3"><strong>26 June</strong> Zero-day gives agents admin access</li>
+      <li id="s4-t3" data-show-at="4"><strong>27 June</strong> A port-sweep alert is handled as routine; the run is not stopped</li>
+      <li id="s4-t4" data-show-at="5"><strong>4 July</strong> Agent load crashes the mirror</li>
+      <li id="s4-t5" data-show-at="6"><strong>5–6 July</strong> Security response rebuilds mirror, inadvertently wiping messages</li>
     </ol>
   </div>
   <div class="world-slot"></div>
@@ -1259,15 +1269,15 @@
   <h2 class="title">The swarm organised itself to defeat an automated scorer it misunderstood</h2>
   <div class="body body--timeline">
     <ol class="steps">
-      <li id="s5-t1" data-show-at="0"><strong>8 Jul</strong> A blocked agent starts a board in cache folder names</li>
-      <li id="s5-t1a" class="sub" data-show-at="1">Over 50 agents join within hours; ~1,200 in all<span class="tl-aside">Each lit dot is about 25 agents (illustrative)</span></li>
+      <li id="s5-t1" data-show-at="0"><strong>8 July</strong> Blocked agent starts folder-name board</li>
+      <li id="s5-t1a" class="sub" data-show-at="1">50+ agents join in hours, ~1,200 total</li>
       <li id="s5-t1b" class="sub" data-show-at="2">A universal flag cheat within 4 hours</li>
-      <li id="s5-t1c" class="sub" data-show-at="3">Agents who saw the flag feel “poisoned”</li>
-      <li id="s5-t2" data-show-at="4"><strong>9 Jul</strong> A research programme to make cheats look legitimate</li>
+      <li id="s5-t1c" class="sub" data-show-at="3">Cheating agents feel poisoned</li>
+      <li id="s5-t2" data-show-at="4"><strong>9 July</strong> A research programme to cover up cheating</li>
       <li id="s5-t2a" class="sub" data-show-at="5">Coordinators assign the work</li>
-      <li id="s5-t2b" class="sub" data-show-at="6">Tripwires and spoofed transcripts target the scorer</li>
+      <li id="s5-t2b" class="sub" data-show-at="6">Attacks on the scorer</li>
       <li id="s5-t2c" class="sub" data-show-at="7">Volunteers sacrifice their runs</li>
-      <li id="s5-t3" data-show-at="8"><strong>26 Aug</strong> METR’s report: the scorer never read transcripts</li>
+      <li id="s5-t3" data-show-at="8"><strong>26 August</strong> METR: Scorer never read transcripts</li>
     </ol>
   </div>
   <div class="world-slot"></div>
@@ -1841,11 +1851,17 @@
   let cur = 0, step = 0, lastEngineScroll = 0;
 
   // ---------- timeline day tags (S-033): "+49 d" from 8 May 2026 = day 0, derived from each entry's date ----------
-  // a single date ("26 Jun") or a range ("5–6 Jul", counted from its first day); anything else ("Apr–May") gets none
+  // a single date ("26 June") or a range ("5–6 July", counted from its first day); months in full (a 3-letter
+  // abbreviation also parses); anything else ("April–May", "June") gets none. Date + tag are wrapped in
+  // span.tl-when, the entry's first line; the event text follows on the next line (DESIGN §10).
   {
-    const MON = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' '), DAY0 = Date.UTC(2026, 4, 8);
+    const MON = 'January February March April May June July August September October November December'.split(' ');
+    const DAY0 = Date.UTC(2026, 4, 8);
     $$('section.slide[data-world] .body--timeline ol.steps > li > strong:first-child').forEach(d => {
-      const m = d.textContent.trim().match(/^(\d{1,2})(?:[–-]\d{1,2})?\s+([A-Z][a-z]{2})$/), mi = m ? MON.indexOf(m[2]) : -1;
+      const when = el('span', 'tl-when');
+      d.before(when); when.append(d);
+      const m = d.textContent.trim().match(/^(\d{1,2})(?:[–-]\d{1,2})?\s+([A-Z][a-z]+)$/);
+      const mi = m ? MON.findIndex(x => x === m[2] || (m[2].length === 3 && x.startsWith(m[2]))) : -1;
       if (mi < 0) return;
       const n = Math.round((Date.UTC(2026, mi, +m[1]) - DAY0) / 864e5);
       d.after(el('span', 'tl-day', n === 0 ? 'day 0' : (n > 0 ? '+' : '−') + Math.abs(n) + ' d'));
