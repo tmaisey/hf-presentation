@@ -316,6 +316,13 @@
   .notes-nav button { color: var(--ink); background: none; border: 0; cursor: pointer; padding: 8px 12px; border-radius: 999px; }
   .notes-nav button:hover { background: var(--paper-deep); }
   .notes-pos { min-width: 3.5em; text-align: center; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  /* S-029: a target that would run under the Prev/Next bar is scrolled clear (the engine sets --notes-shift, 0 when not needed) */
+  .notes-on .slide.is-active > *, .notes-on .world { translate: 0 calc(-1 * var(--notes-shift, 0px)); }
+  /* S-029: a callout scrolling inside itself fades softly at each edge with more to read */
+  .callout.fade-t { -webkit-mask-image: linear-gradient(transparent, #000 40px); mask-image: linear-gradient(transparent, #000 40px); }
+  .callout.fade-b { -webkit-mask-image: linear-gradient(#000 calc(100% - 40px), transparent); mask-image: linear-gradient(#000 calc(100% - 40px), transparent); }
+  .callout.fade-t.fade-b { -webkit-mask-image: linear-gradient(transparent, #000 40px, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(transparent, #000 40px, #000 calc(100% - 40px), transparent); }
 
   /* ---------- S-018 narration tiles components (v2) ---------- */
   /* narrated slide: a right-hand column spans kicker → body beside the title; title and body narrow
@@ -2603,7 +2610,7 @@
   }
 
   const notes = {
-    on: false, list: [], pins: [], idx: 0, saved: null, sig: '',
+    on: false, list: [], pins: [], idx: 0, saved: null, sig: '', shift: 0,
     set(on) {
       if (on === notes.on) return;
       notes.on = on;
@@ -2626,6 +2633,14 @@
       notes.pins.forEach(p => p.remove());
       notes.pins = []; notes.list = [];
       body.classList.remove('notes-focus');
+      notes.shift = 0; document.documentElement.style.removeProperty('--notes-shift');
+      callout.classList.remove('fade-t', 'fade-b');
+    },
+    // a callout scrolling inside itself fades at each edge with more to read (S-029)
+    fade() {
+      const more = callout.scrollHeight - callout.clientHeight;
+      callout.classList.toggle('fade-t', more > 1 && callout.scrollTop > 1);
+      callout.classList.toggle('fade-b', more > 1 && callout.scrollTop < more - 1);
     },
     load() {
       notes.clear();
@@ -2670,8 +2685,17 @@
       notes.place();
     },
     place() {
-      const pad = 14, top = $('.bar').getBoundingClientRect().bottom + 12;
-      const target = notes.list[notes.idx].target, r = target.getBoundingClientRect();
+      const pad = 14, barB = $('.bar').getBoundingClientRect().bottom, top = barB + 12;
+      const target = notes.list[notes.idx].target;
+      // a target whose window would run into the static Prev/Next bar's line (short screens; the Notes toggle shares
+      // it) is scrolled clear: the slide and world shift up just enough, never lifting the target's top under the
+      // title bar; too tall for the space between the bars, its top aligns under the title bar and its bottom clips
+      // (S-029). Measured unshifted (current shift added back), so re-placing each frame is stable.
+      const navT = $('.notes-nav').offsetTop - 8, r0 = target.getBoundingClientRect();
+      const u = { top: r0.top + notes.shift, bottom: r0.bottom + notes.shift };
+      const shift = Math.max(0, Math.min(u.bottom + pad - navT, u.top - pad - barB - 4));
+      if (shift !== notes.shift) { notes.shift = shift; document.documentElement.style.setProperty('--notes-shift', `${shift}px`); }
+      const r = target.getBoundingClientRect();
       // spotlight window: the target plus pad, each edge pulled in to clip cleanly between the target and any
       // neighbouring line of slide text the pad would show as a sliver (S-029)
       let wl = r.left - pad, wt = r.top - pad, wr = r.right + pad, wb = r.bottom + pad;
@@ -2721,6 +2745,7 @@
       if (pick.side === 'below' || pick.side === 'above') { cx = clamp(x, L, RX - cw); cy = pick.side === 'below' ? pick.t : pick.b - ch; }
       else { cx = pick.side === 'right' ? pick.l : pick.r - cw; cy = clamp(y, top, floor - ch); }
       callout.style.left = `${cx}px`; callout.style.top = `${cy}px`;
+      notes.fade();
       // pins sit just outside each target's top-right corner; pins the callout would cover hide. Other pins keep off
       // the focus frame (S-029): a focused pop-over (too big to place pins around) is drawn in front of them, so
       // they clip where it covers them; round any other target a pin on its frame moves to the nearest free
@@ -2784,6 +2809,7 @@
     },
   };
   notesBtn.addEventListener('click', e => { e.stopPropagation(); notesBtn.blur(); notes.set(!notes.on); });
+  callout.addEventListener('scroll', () => notes.fade(), { passive: true });
   $$('[data-notes]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation(); b.blur();
     ({ prev: () => notes.focus(notes.idx - 1), next: () => notes.focus(notes.idx + 1), close: () => notes.set(false) })[b.dataset.notes]();

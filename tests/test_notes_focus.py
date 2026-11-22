@@ -208,12 +208,14 @@ TARGET_CLEAR = """() => {
   const bad = [], r = t.getBoundingClientRect(), ring = document.querySelector('.ring').getBoundingClientRect();
   const nav = document.querySelector('.notes-nav').getBoundingClientRect(), bar = document.querySelector('.bar').getBoundingClientRect();
   const hit = (a, b) => a.left < b.right - 1 && a.right > b.left + 1 && a.top < b.bottom - 1 && a.bottom > b.top + 1;
-  if (r.height > nav.top - bar.bottom - 8) {
+  if (r.height + 28 > nav.top - bar.bottom - 12) {   // target + its 14px window pad: no room for the ring between the bars
     if (r.top < bar.bottom - 1 || r.top > bar.bottom + 40) bad.push(label + ': too-tall target not aligned under the title bar (top ' + Math.round(r.top) + ')');
     return bad;
   }
   if (hit(r, nav)) bad.push(label + ': target runs under the Prev/Next bar');
   if (hit(ring, nav)) bad.push(label + ': spotlight ring runs under the Prev/Next bar');
+  // the Notes toggle shares the bar's line (s-8's right-hand tile ran into it)
+  if (hit(ring, document.querySelector('.notes-btn').getBoundingClientRect())) bad.push(label + ': spotlight ring runs under the Notes toggle');
   if (r.top < bar.bottom - 1) bad.push(label + ': target under the title bar');
   return bad; }"""
 
@@ -229,11 +231,19 @@ def test_spotlit_target_clears_the_prev_next_bar(page, size):
 TITLE_TOP = "() => document.querySelector('section.slide.is-active > .title').getBoundingClientRect().top"
 
 
-def test_slide_moves_only_when_a_target_needs_it_and_returns_on_close(page):
-    """At 1920×1080 every target fits between the bars, so no note may move the slide; at 1288×598 s-5's
-    pop-over does, and closing notes mode puts the slide back where the presenter left it."""
-    open_deck(page, 1920, 1080)
-    moved = []
+# after a shift the ring sits just above the Prev/Next bar (moved no further than needed), unless the target is too
+# tall for the space between the bars and is aligned under the title bar instead
+JUST_ENOUGH = """() => {
+  const ring = document.querySelector('.ring').getBoundingClientRect(), nav = document.querySelector('.notes-nav').getBoundingClientRect();
+  const bar = document.querySelector('.bar').getBoundingClientRect();
+  return ring.bottom >= nav.top - 24 || ring.top <= bar.bottom + 24; }"""
+
+
+@pytest.mark.parametrize("size", SIZES, ids=[f"{w}x{h}" for w, h in SIZES])
+def test_slide_moves_only_as_far_as_a_target_needs(page, size):
+    """Most notes leave the slide where it is; a note that moves it moves it up, just far enough."""
+    open_deck(page, *size)
+    bad, still = [], 0
     for sid in page.evaluate(NOTED_SLIDES):
         goto_slide(page, sid)
         settle_animations(page)
@@ -241,11 +251,21 @@ def test_slide_moves_only_when_a_target_needs_it_and_returns_on_close(page):
         for k in range(helper_note_count(page, sid)):
             page.keyboard.press("n" if k == 0 else "ArrowRight")
             settle_animations(page, NOTES_UI, still=".callout, .ring")
-            if abs(page.evaluate(TITLE_TOP) - home) > 1:
-                moved.append(f"{sid} note {k + 1}")
+            d = home - page.evaluate(TITLE_TOP)
+            if d < -1:
+                bad.append(f"{sid} note {k + 1}: slide moved down")
+            elif d > 1 and not page.evaluate(JUST_ENOUGH):
+                bad.append(f"{sid} note {k + 1}: slide moved up further than its target needs")
+            elif abs(d) <= 1:
+                still += 1
         page.keyboard.press("Escape")
-    assert moved == [], "notes mode moved slides whose targets fit:\n" + "\n".join(moved)
-    page.set_viewport_size({"width": 1288, "height": 598})
+    assert bad == [], "notes mode moves slides wrongly:\n" + "\n".join(bad)
+    assert still > 20, "nearly every note should leave its slide in place"
+
+
+def test_closing_notes_puts_a_moved_slide_back(page):
+    """s-5's pop-over runs under the Prev/Next bar at 1288×598, so its note moves the slide; Esc restores it."""
+    open_deck(page, 1288, 598)
     goto_slide(page, "s-5")
     settle_animations(page)
     home = page.evaluate(TITLE_TOP)
