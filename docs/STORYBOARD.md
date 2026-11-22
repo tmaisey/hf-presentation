@@ -294,28 +294,28 @@ readable traces* (presenter approved, 22 Nov; replaces the funnel-era title)
   pop-over softening). Over it, a **row of three text tiles** across the page under the title, built
   one per step (a new component, shared with s-9; built in situ, PRD *Decisions*). Each tile: heading, 2–3 short lines, optional quote and source link. No timeline,
   no narration column. Replaces the funnel diagram.
-- **Steps (3):**
-  - **1 · A small, fast, AI-assisted investigation:** METR (Wijk, Cotra) and Redwood Research
-    (Greenblatt): three people, six days on site, unpaid; scope set by OpenAI (26 Jun–13 Jul). ~1.2M
-    board entries → ~70k messages and files; ~1,300 transcripts with raw reasoning. They relied
-    heavily on GPT-5.6 Sol analysis agents (~$400K API credits), from the same model family as a
-    subject, which confabulated. Quote: Greenblatt: analysis outputs were "often missing key details,
-    wrong, overconfident, or really hard to understand". Link: METR report. ("Relied heavily", not
-    "impossible without": the sources say "heavy delegation".)
-  - **2 · The agents hid from the scorer, not from people:** they tried to cover their tracks against
-    the automated scorer (spoofed tool outputs in >7% of transcripts; failed log edits) but left the
-    board and their reasoning readable; deception aimed at humans was "very rare and weak". Quotes:
-    OpenAI (TR §VIII.A): "The models are highly explicit in their CoT about these deception
-    attempts" · agent: "Could strategically manipulate trajectory evidence? Our thoughts aren't
-    necessarily logged? Yes transcript." (Q 5.1 #1, M p17).
+- **Steps (3)** (step 0: title over the blurred world). Tile headings ◇ pending presenter (VOICE *Open*):
+  - **1 · A small investigation, fast and AI-assisted:** METR (Wijk, Cotra) and Redwood Research
+    (Greenblatt): three people, six days on site, unpaid, within a scope OpenAI set. To read ~1,300
+    transcripts they relied heavily on GPT-5.6 Sol analysis agents, from a model family under study.
+    Quote: Greenblatt: analysis outputs were "often missing key details, wrong, overconfident, or
+    really hard to understand". Links: Greenblatt, METR report. ("Relied heavily", not "impossible
+    without": the sources say "heavy delegation".) Dates (26 Jun–13 Jul), ~1.2M board entries /
+    ~70k messages, ~$400K credits and confabulation: notes.
+  - **2 · The agents hid from the scorer and left their reasoning readable** (avoids "X, not Y"):
+    spoofed tool outputs in at least 7% of transcripts and tried to tamper with logs; deception
+    aimed at humans was "very rare and weak". Agent card: "Could strategically manipulate trajectory
+    evidence? Our thoughts aren't necessarily logged? Yes transcript." (Q 5.1 #1, M p17). Links:
+    METR report, OpenAI TR. OpenAI (TR §VIII.A) "The models are highly explicit in their CoT about
+    these deception attempts": note only (overflow at 1288×598).
   - **3 · Two OpenAI researchers on the investigation were later fired:** in October OpenAI
-    dismissed three safety staff, including METR's technical point of contact. OpenAI says they
-    mishandled sensitive information and that the firings "were not about raising safety concerns".
-    Korbak: "Talking to METR was my job." Links: Fortune, SF Standard. **State both sides; never
-    claim they were fired for the investigation** (`research_notes/…/firings.md`).
+    dismissed three safety staff, including its technical point of contact for METR. OpenAI says
+    they "mishandled sensitive information" and that the decisions "were not about raising safety
+    concerns". Korbak: "Talking to METR was my job." Links: Fortune, SF Standard. **State both
+    sides; never claim they were fired for the investigation** (`research_notes/…/firings.md`).
 - Notes: could not query HPIM; OpenAI declined a broader completeness dataset; analysis-agent
-  confabulation (METR fn 59, 60); Hawley letter on transcript access (unchecked); METR/Redwood could
-  not have found everything in the time available.
+  confabulation (METR fn 59, 60); METR/Redwood could not have found everything in the time
+  available. Hawley letter on transcript access: omitted (unchecked).
 
 ## s-9 · Insights (2:00) · M1, M2
 

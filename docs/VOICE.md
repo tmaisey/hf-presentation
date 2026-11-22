@@ -104,7 +104,10 @@ and add every new verdict here as an example pair. British spelling throughout.
   incidents" ✓ (22 Nov) · s-8 "Independent investigators could reconstruct the swarm in six days
   because the agents left readable traces" ✓ · s-9 "Misalignment grew from ordinary training choices,
   and the obvious fixes risk making it harder to see" ✓ (22 Nov).
-- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight.
+- **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight · s-8 tile headings reworded in build
+  (22 Nov): tile 1 "A small investigation, fast and AI-assisted" (was "A small, fast, AI-assisted
+  investigation") · tile 2 "The agents hid from the scorer and left their reasoning readable" (✗
+  "…hid from the scorer, not from people": "X, not Y").
   Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
   carries over as-is.
 - Writing samples from the presenter (pending) to generalise beyond these examples.

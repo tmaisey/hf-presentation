@@ -143,8 +143,8 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   back, ≈6× the stroke (≥ 12px). [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
 - **Key tiles** (the slide's most important object): accent-tinted fill + soft accent glow,
   text stays ink, still no border. A few per deck; at most one or two per diagram.
-- **Flagged tile** (a caution): `--loss`-tinted fill, ink text, no border; ≤ 1 per diagram. Context
-  zones and scope fences sit beneath edges. Markup: §10 Diagrams.
+- ~~Flagged tile~~ *retired* (unused since S-026 went text-led; CSS left in the deck). Context
+  zones sit beneath edges. Markup: §10 Diagrams.
 - **Screen-size floors:** diagram text never renders below ~15px at 1280 wide / ~20px at 1920,
   however small the SVG is drawn (the engine compensates per diagram).
 - **NEVER** animated / marching dashed lines.
@@ -192,7 +192,13 @@ vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64
 its blocks with even spacing) · `div.body.body--split.body--flip` (64 / 36: wide content left, quotes
 right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
 `div.body.body--layers` (children share one grid cell and swap by step via `data-show-at` /
-`data-hide-at`: build phases that can't fit together, e.g. s-10 pace → controls → prompts).
+`data-hide-at`: build phases that can't fit together, e.g. s-10 pace → controls → prompts) ·
+`div.body.body--tiles` (tile row, S-026; s-8, s-9; built in situ: 2–4 equal-width, equal-height
+frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading +
+`p` lines (2–3 short) + optional `blockquote` + `p.cite` (report voice; italic, CSS quote marks)
+and/or in-flow `div.msg-card` (agent voice); links in text colour, underlined. On short screens
+(≤ 660px high) gaps tighten and the heading shrinks. Fit is tightest at 1288×598: trim a tile,
+moving detail to its note, rather than overflow).
 In a `body--stack` with a caption the diagram takes the remaining height (`flex: 1 1 0;
 min-height: 0`) so the stack never rises over the title (slide-scoped on `#s-3` today; generalise
 in S-028).
@@ -259,10 +265,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
 - Zone: `g.zone#id > rect + text.label`, painted first in `.layer-edges` (soft context region);
   `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context (the s-6/s-7
   "agents running on OpenAI's servers" band: one component on both slides).
-- Scope fence: `rect.fence#id` first in `.layer-edges`: soft `--paper-deep` fill + static dashed
-  `--ink-3` stroke (never animated; edges stay undashed); scope stated in `text.label`s; may be a
-  note target.
-- Flagged tile: `g.tile.tile--flag` in `.layer-key` (§7); ≤ 1 per diagram.
+- *Retired* (unused since S-026 went text-led; CSS left in the deck, **NEVER** reuse without
+  re-prototyping): scope fence `rect.fence`, flagged tile `g.tile.tile--flag`.
 - Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
   right-aligns), for a share-of-total split.
 - Cut: `g.cut > path.cut-mark[d] + text.tag.tag--loss`, paired with `data-hide-at` on the severed
@@ -309,6 +313,12 @@ pins for targets not on screen at that step hide (v1: always the last step).
   (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that
   is not a quote uses `.narr-tile--fact` (no quote marks), e.g. "messages … were not made public".
   Notes may target world parts by id, never an overlay (notes mode hides overlays).
+- Backdrop world (S-026; s-8, s-9): `section.slide[data-world="backdrop"]` with an empty
+  `div.world-slot` and a `body--tiles` body under the title (no timeline, no narration). The world
+  stays frozen at the end state of the last preceding world slide, heavily blurred and faded
+  (`.is-backdrop`: blur 12px, opacity .42; stronger than pop-over softening): backdrop, not content.
+  It keeps the camera of the last non-backdrop world slide unless it sets its own `data-camera`.
+  Step 0 is the title over the blurred world.
 - Pop-over: `div.popover[data-show-at][data-hide-at]` > `figure.pop-panel` cards (opaque `--tile`,
   `--shadow-overlay`), each `figcaption` (`span.pop-tag` + task) + `svg.pop-art` (small P4-style
   scene) + `p.pop-note`. While shown the world and caption soften (as under an Insight); exit is the
