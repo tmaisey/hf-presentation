@@ -37,7 +37,8 @@ def test_title_slide_opens_the_deck_with_the_approved_copy():
     assert _text(first["title"]) == TITLE
     src = _section_src()
     assert _text(re.search(r'<p id="s1-sub">(.*?)</p>', src, re.S).group(1)) == SUB
-    assert re.search(r'<p class="kicker">(.*?)</p>', src).group(1) == "July 2026"
+    assert 'class="kicker"' not in src, "no super-title (presenter, 22 Nov)"
+    assert _text(re.search(r'<p class="byline">(.*?)</p>', src, re.S).group(1)) == "Tom Maisey, November 2026"
 
 
 def test_reader_note_on_the_subtitle_cites_the_investigation():
@@ -58,11 +59,17 @@ def test_title_and_subtitle_fit_below_the_bar(page, vw, vh):
     settle_animations(page, "#s-1, .bar")
     r = page.evaluate("""() => {
       const s = document.getElementById('s-1'), box = e => e.getBoundingClientRect();
-      const t = box(s.querySelector('.title')), u = box(s.querySelector('#s1-sub')), k = box(s.querySelector('.kicker'));
+      const u0 = s.querySelector('#s1-sub'), t = box(s.querySelector('.title')), u = box(u0), b = box(s.querySelector('.byline'));
       const bar = box(document.querySelector('.bar'));
-      return { t: [t.top, t.bottom, t.left, t.right], u: [u.top, u.bottom, u.left, u.right], k: k.bottom,
+      return { t: [t.top, t.bottom, t.left, t.right], u: [u.top, u.bottom, u.left, u.right], b: [b.top, b.bottom, b.left, b.right], by: (cs => [cs.fontStyle, cs.fontFamily, cs.filter, parseFloat(cs.fontSize), parseFloat(getComputedStyle(u0).fontSize)])(getComputedStyle(s.querySelector('.byline'))),
                bar: bar.bottom, vw: innerWidth, vh: innerHeight }; }""")
     (tt, tb, tl, tr), (ut, ub, ul, ur) = r["t"], r["u"]
-    assert tt >= r["bar"] and r["k"] <= tt, "title below the bar and the kicker"
+    assert tt >= r["bar"], "title below the bar"
     assert tb <= ut, "subtitle below the title"
     assert ub <= r["vh"] and min(tl, ul) >= 0 and max(tr, ur) <= r["vw"]
+    bt, bb, bl, br = r["b"]
+    assert bt >= ub and bb <= r["vh"] and bl >= 0, "byline below the subtitle, on screen"
+    assert bl < r["vw"] / 3 and bt > r["vh"] * .6, "byline sits bottom-left"
+    style, family, filt, size, sub = r["by"]
+    assert style == "italic" and "Newsreader" in family and filt in ("none", ""), "italic serif, soft but sharp"
+    assert size < sub, "smallish: below the subtitle size"

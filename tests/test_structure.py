@@ -49,7 +49,8 @@ def test_every_slide_has_id_chapter_kicker_and_title():
         assert s["attrs"].get("data-chapter"), s["attrs"]["id"]
         classes = [(t, (a.get("class") or "")) for t, a in s["tags"]]
         closing = n == len(slides) - 1 and "slide--end" in (s["attrs"].get("class") or "").split()
-        assert closing or any("kicker" in c.split() for _, c in classes), s["attrs"]["id"]  # S-035: no kicker on the final thank-you
+        opening = n == 0  # presenter, 22 Nov: no super-title on the title slide
+        assert closing or opening or any("kicker" in c.split() for _, c in classes), s["attrs"]["id"]  # S-035: no kicker on the final thank-you
         assert any(t == "h2" and "title" in c.split() for t, c in classes), s["attrs"]["id"]
 
 
