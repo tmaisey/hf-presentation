@@ -215,8 +215,9 @@ of several blocks is one wrapper `div[data-show-at][data-hide-at]`, e.g. table +
 tighten so a phase fits under its title) ·
 `div.body.body--tiles` (tile row, S-026; s-8, s-9, s-10; built in situ: 2–4 equal-width, equal-height
 frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading
-(**MUST** fit 2 lines at every size, using the tile's full width: no narrow balanced wrap that
-leaves unused space) + **a bulleted list** of short points (`ul`, presenter 22 Nov: prose tiles read
+(**MUST** fit 2 lines at every size, using the tile's full width: normal wrapping, not
+`balance`/`pretty`, which leave unused space; `.keep` stops hyphen splits; spacing tightens on short
+screens) + **a bulleted list** of short points (`ul`, presenter 22 Nov: prose tiles read
 poorly) + optional `blockquote` + `p.cite` (**one line**), the quote and cite **bottom-aligned** in
 the tile (pushed to the foot, level across the row) (report voice; italic, CSS quote marks)
 and/or in-flow `div.msg-card` (agent voice); links in text colour, underlined. On short screens

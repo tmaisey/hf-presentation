@@ -449,7 +449,7 @@ approved sentences below are converted to bullets without dropping facts); the s
   3. **AI concern is rising, though safety remains secondary:** "Most Americans are concerned
      about AI, and 73% worry future AI could threaten human survival. But politics and markets focus
      elsewhere: polls and midterms weighed jobs, power bills and data centres, and AI-led market drops
-     were about spending and growth, not safety." (Quinnipiac Sep; NBC exit poll; AP 5 Nov. Most of the
+     were about spending and growth, not safety." (Quinnipiac Sep; NBC exit poll, nbcnews.com/politics/2026-elections/exit-polls; AP 5 Nov. Most of the
      attitude shift predates the incident: never claim it caused it.)
 - **Controls phase** ✓ title: *Practical controls keep AI agents within the bounds their tasks need*.
   Table: Control · **Practical considerations for AI projects** (replaces "Where it failed in the
