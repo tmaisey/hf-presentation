@@ -169,7 +169,11 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   can't render natively (e.g. backdrop blur), declared per design. The PPTX is an **editable
   hand-off** (a colleague reworks it or drops slides into a corporate template): native text,
   placeholders and shapes beat visual fidelity. LLM judges run as **Claude Code subagents** for
-  now (no API key); the rubric format stays runner-agnostic so an API runner can be added later. Eval targets the narrow case
+  now (no API key); the rubric format stays runner-agnostic so an API runner can be added later.
+  The eval has two uses: **iterating on the skill** (bundled test briefs: same deck, same deck with
+  a different design, new deck(s) of other types) and **assessing any deck built with the skill**.
+  Together the briefs **MUST** cover every skill feature; before a run the user is prompted to
+  choose its scope (which briefs/decks, which concerns, output and/or process). Eval targets the narrow case
   (presenter-driven editorial talks) but **MUST** be DRY and adaptable to other deck types
   (pitch, data review, internal update).
 - **s-1 and s-2 rebuilt in situ (presenter, 22 Nov):** new title and subtitle; s-2's reward-loop
