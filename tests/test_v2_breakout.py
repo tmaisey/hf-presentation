@@ -6,17 +6,19 @@ Internet becomes a thin middle strip holding a Modal customer's sandbox, and a H
 box takes the rest); 9 Jul the agents reach the internet and take the sandbox; 10 Jul a leaked key;
 11 Jul file read, then code execution and ~700 agents, cluster-admin on two clusters, internal
 datasets read, drawn as hollow rings of agent activity flowing into Hugging Face while the runs stay
-lit on OpenAI's servers; 13 Jul agents sign their board messages after an impersonation; Hugging
-Face cuts access; a closing Insight.
+lit on OpenAI's servers; 13 Jul, after an impersonation, agents adopt their own secure identity
+standard on the board; Hugging Face cuts access, drawn as an unplugged plug and socket pulled apart
+on the path into Hugging Face; a closing Insight.
 Coverage: happy (shell; nine states; timeline builds an entry per step; world parts per step;
 re-arranged domains and their order; runs, mirror and board inside the narrowed OpenAI box; Modal
 tile in the strip; HF tiles in the HF box; hollow rings settle round their tile inside HF; key and
-padlocks; signed board messages; cut; second key entry right of the run entry; verbatim narration;
+padlocks; signed board messages; unplugged plug and socket on the path; second key entry right of the run entry; verbatim narration;
 Insight blurs the rest; sourced notes) · edge (rings stream along the entry path; locks wait for
 the rings; reduced motion shows end states; every step on screen below the title at three sizes) ·
 negative (s-5's scorer, eye, transcripts and assignment pulses gone; no ring under a tile or outside
 HF; nothing in HF before its step; after the cut no ring, key or open padlock while the runs stay
-lit; no HF logo; no "suicide"; no console errors).
+lit; no bare cut mark; the 13 Jul entry names what the swarm did, not "sign"; no HF logo; no "suicide";
+no console errors).
 """
 
 import html
@@ -38,6 +40,7 @@ TR_URL = "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI
 HF_TIMELINE = "https://huggingface.co/blog/agent-intrusion-technical-timeline"
 METR_PDF = "https://metr.org/hugging-face-incident-report-aug-2026.pdf"
 # timeline: (id, step, numbered?, text fragment)
+T4 = "13 Jul After an impersonation, agents adopt their own secure identity standard on the board"
 TIMELINE = [("s6-t1", 0, True, "9 Jul"), ("s6-t2", 1, True, "10 Jul"), ("s6-t3", 2, True, "11 Jul"),
             ("s6-t3a", 3, False, "700"), ("s6-t3b", 4, False, "two"), ("s6-t3c", 5, False, "datasets"),
             ("s6-t4", 6, True, "13 Jul"), ("s6-t4a", 7, False, "cuts access")]
@@ -122,7 +125,10 @@ def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
         assert frag in text, frag
     assert "Modal" in got[0][3] and "sandbox" in got[0][3]
     assert "credentials" in got[1][3] and "file read" in got[2][3]
-    assert "cluster-admin" in got[4][3].lower() and "sign" in got[6][3] and "impersonation" in got[6][3]
+    assert "cluster-admin" in got[4][3].lower()
+    # day tags (S-033) may join an entry; they are derived from its date, so strip them before the exact match
+    assert re.sub(r"\s*\+\s?\d+\s?d\b", "", got[6][3]).strip() == T4, "approved 13 Jul line, verbatim (VOICE)"
+    assert "sign" not in got[6][3], "say what the swarm did, not the mechanism"
 
 
 def test_narration_tiles_quote_verbatim_per_step_and_a_fact_tile_at_the_cut():
@@ -156,6 +162,10 @@ def test_notes_cite_each_beat_with_https_sources():
     clusters = notes["w-hf-clusters"]
     assert HF_TIMELINE in clusters and TR_URL in clusters, "cluster-admin cites HF's timeline and OpenAI's narrower account"
     assert METR_PDF in notes["s6-t4"] and "p48" in helper_text(notes["s6-t4"]).replace(" ", ""), "signing: METR p48"
+    t4 = helper_text(notes["s6-t4"])
+    assert "identity standard" in t4 and "HOLD, GO or VETO" in t4, "the note makes the point: an identity standard to trust who posted"
+    for fact in ("Ed25519", "07:00", "19 agents", "429"):
+        assert fact in t4, fact
     text = helper_text(" ".join(notes.values()))
     for fact in ("Modal’s infrastructure", "38148c", "533", "90%", "three to six", "DryRun=True", "five",
                  "Ed25519", "07:00", "impersonat", "14:14", "16 July", "HPIM", "60%"):
@@ -374,7 +384,33 @@ def test_cut_dissolves_activity_in_hf_while_the_runs_stay_lit(page):
     closed = page.evaluate(CENTRES, "#w-hf-closed .secure-badge")
     clusters = page.evaluate(RECTS, "#w-hf-clusters rect")
     assert len(closed) == 2 and all(any(helper_inside(c, t, 16) for t in clusters) for c in closed), "padlocks close"
-    assert page.evaluate("() => !!document.querySelector('#w-hf-cut .cut-mark')")
+    assert page.evaluate("() => !document.querySelector('.world .cut-mark') && !/CUT/.test(document.querySelector('#w-hf-cut').textContent)"), \
+        "a cut is an unplugged plug and socket, never a bare cut mark"
+
+
+def test_cut_is_an_unplugged_plug_and_socket_pulled_apart_on_the_path_into_hf(page):
+    open_deck(page)
+    goto_slide(page, SID, 7)
+    helper_until(page, f"() => ({OPACITY})('#w-hf-cut') > .9", timeout=8000)
+    page.wait_for_timeout(1800)
+    assert page.evaluate("() => document.querySelector('#w-hf-cut').matches('g.unplug')"), "reusable g.unplug component"
+    def head(sel):   # the plug or socket itself, without its cable
+        rs = page.evaluate(RECTS, f"#w-hf-cut {sel} :not(.unplug-cable)")
+        return [min(r[0] for r in rs), min(r[1] for r in rs), max(r[2] for r in rs), max(r[3] for r in rs)]
+    plug, sock = head(".unplug-plug"), head(".unplug-socket")
+    modal, hf, workers = (page.evaluate(RECT, s) for s in ("#w-modal rect", "#w-hf rect", "#w-hf-workers rect"))
+    gap = sock[0] - plug[2]
+    assert gap >= 6, f"plug and socket face each other, pulled apart (gap {gap:.1f}px)"
+    assert abs((plug[1] + plug[3]) / 2 - (sock[1] + sock[3]) / 2) < 3, "on one line"
+    assert plug[3] - plug[1] >= 10 and sock[3] - sock[1] >= 10, "big enough to read"
+    cables = page.evaluate(RECTS, "#w-hf-cut .unplug-cable")
+    assert len(cables) == 2
+    assert min(c[0] for c in cables) <= modal[2] + 3, "the plug's cable runs from the Modal sandbox"
+    assert helper_inside(((sock[0] + sock[2]) / 2, (sock[1] + sock[3]) / 2), hf), "the socket is Hugging Face's side"
+    assert any(helper_hits(c, workers) or abs(c[3] - workers[1]) < 4 for c in cables), "the socket's cable leads to the workers"
+    tile = page.evaluate("() => { const d = document.createElement('div'); d.style.color = 'var(--tile)'; document.body.append(d); "
+                         "const c = getComputedStyle(d).color; d.remove(); return c; }")
+    assert page.evaluate("() => getComputedStyle(document.querySelector('#w-hf-cut .unplug-body')).fill") == tile, "line art on tile fill"
 
 
 def test_key_gains_a_hollow_ring_entry_right_of_the_run_entry(page):
@@ -413,6 +449,10 @@ def test_reduced_motion_shows_end_states_without_motion(page):
     a = page.evaluate(CENTRES, "#w-stream .act")
     assert len(set((round(x), round(y)) for x, y in a)) == len(a), "the stream rests spread along its path"
     assert page.evaluate(OPACITY, "#w-hf-locks") > 0.9
+    goto_slide(page, SID, 7)
+    page.wait_for_timeout(300)
+    assert all(n == "none" for n in page.evaluate(
+        "() => [...document.querySelectorAll('#w-hf-cut *')].map(e => getComputedStyle(e).animationName)")), "plug rests apart"
 
 
 @pytest.mark.parametrize("size", [(1920, 1080), (1280, 720), (1288, 598)])

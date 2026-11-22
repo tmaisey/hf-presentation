@@ -678,6 +678,18 @@
     .acts.is-visible .act, #w-hf-locks.is-visible .hf-lock, #w-signed.is-visible .seal { animation: none; }
     .world :is(#w-net6, #w-hf, #w-modal, #w-breakout, #w-bell-quiet, #w-hf-key, #w-hf-locks, #w-hf-closed).is-visible { transition-delay: 0s; }
   }
+  /* g.unplug (S-023): a cut connection = a plug and its socket pulled apart on the path (line art, DESIGN §10).
+     Each head sits in a positioned <g transform>; the inner .unplug-plug / .unplug-socket carries its own cable and
+     slides apart from touching once the group has faded in */
+  .unplug-cable { fill: none; stroke: var(--ink-3); stroke-width: max(2px, calc(var(--k) * 2.25px)); stroke-linecap: round; stroke-linejoin: round; }
+  .unplug-body { fill: var(--tile); stroke: var(--ink-2); stroke-width: 2; }
+  .unplug-prong { fill: none; stroke: var(--ink-2); stroke-width: 3; stroke-linecap: round; }
+  .unplug-slot { fill: none; stroke: var(--ink-2); stroke-width: 3; stroke-linecap: butt; }
+  .unplug.is-visible .unplug-plug { animation: unplug-l .9s var(--ease) .6s both; }
+  .unplug.is-visible .unplug-socket { animation: unplug-r .9s var(--ease) .6s both; }
+  @keyframes unplug-l { from { transform: translateX(12px); } to { transform: none; } }
+  @keyframes unplug-r { from { transform: translateX(-12px); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .unplug.is-visible :is(.unplug-plug, .unplug-socket) { animation: none; } }
   /* s-7 (S-025): the third layout stage (1 s) lands before the new runs pop in and link to the mirror; the cluster's
      bold lines draw, then its padlock pops open on oxblood, as s-6's clusters did */
   .world :is(#w-astra, #w-astra-links, #w-astra-tag).is-visible { transition-delay: .9s; }
@@ -827,6 +839,8 @@
         <!-- s-7 (S-025): third layout stage: a separate evaluation of a different, Astra-family model joins the mirror and takes OpenAI's cluster -->
         <g class="run-links run-links--lit" id="w-astra-links" data-world-at="s-7:1" data-of="w-astra" data-share=".5"></g>
         <g id="w-astra-admin" data-world-at="s-7:3" data-of="w-astra"><line class="w-link w-link--admin" pathLength="1" data-run="4" data-end="181.8,-56.8"/><line class="w-link w-link--admin" pathLength="1" data-run="16" data-end="227.3,-56.8"/><line class="w-link w-link--admin" pathLength="1" data-run="5" data-end="261.4,-56.8"/></g>
+        <!-- s-6 (S-023): HF cuts access: the path Modal → dataset workers parts as an unplugged plug and socket (g.unplug) -->
+        <g class="unplug" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><g transform="translate(16 -40)"><g class="unplug-plug"><path class="unplug-cable" d="M-60,0 H-34"/><g transform="scale(1.35)"><rect class="unplug-body" x="-26" y="-5.5" width="8" height="11" rx="2"/><rect class="unplug-body" x="-18" y="-12" width="19" height="24" rx="4"/><path class="unplug-prong" d="M1,-5.5 h11 M1,5.5 h11"/></g></g></g><g transform="translate(56 -40)"><g class="unplug-socket"><path class="unplug-cable" d="M38,0 H48 Q60,0 60,12 V100"/><g transform="scale(1.35)"><rect class="unplug-body" x="0" y="-14" width="22" height="28" rx="4"/><rect class="unplug-body" x="21" y="-5.5" width="8" height="11" rx="2"/><path class="unplug-slot" d="M3.5,-5.5 h5 M3.5,5.5 h5"/></g></g></g></g>
         <g id="w-hf-entry" data-world-at="s-6:2" data-world-until="s-6:7"><path class="edge edge--breach" id="w-entry-path" d="M-12,-40 C74,-40 74,-40 74,42" marker-end="url(#arr)"/></g>
       </g>
       <g class="layer-nodes">
@@ -865,7 +879,7 @@
           <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><text class="w-tag" x="-35" y="227">reads transcripts?</text></g>
           <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><path class="eye-slash" d="M40,109 L60,131"/><text class="w-tag" x="-35" y="227">never read transcripts</text></g>
           <g class="lock-badge" id="w-root" data-world-at="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
-          <!-- s-6 (S-023): 13 Jul, after an impersonation, agents sign their board messages (Ed25519) -->
+          <!-- s-6 (S-023): 13 Jul, after an impersonation, agents adopt their own identity standard: signed board messages (Ed25519) -->
           <g class="w-seals" id="w-signed" data-world-at="s-6:6"><g class="seal"><circle cx="-50" cy="-110" r="7"/><path class="seal-tick" d="M-53.5,-110 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="-2" cy="-92" r="7"/><path class="seal-tick" d="M-5.5,-92 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="46" cy="-74" r="7"/><path class="seal-tick" d="M42.5,-74 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="62" cy="-56" r="7"/><path class="seal-tick" d="M58.5,-56 l2.5,2.5 l4.5,-5"/></g></g>
         </g>
       </g>
@@ -874,7 +888,6 @@
         <g class="cred-badge" id="w-hf-key" data-world-at="s-6:1" data-world-until="s-6:7"><g transform="translate(-72 -166)"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g></g>
         <g id="w-hf-locks" data-world-at="s-6:4" data-world-until="s-6:7"><g class="lock-badge hf-lock"><g transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g><g class="lock-badge hf-lock"><g transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
         <g id="w-hf-closed" data-world-at="s-6:7" data-world-until="s-7:1"><g class="cred-badge secure-badge" transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g><g class="cred-badge secure-badge" transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
-        <g class="cut" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><path class="cut-mark" d="M-15,-58 L1,-22"/><text class="tag tag--loss" x="30" y="-6">CUT</text></g>
         <g id="w-oai-lock" data-world-at="s-7:3"><g class="lock-badge"><g transform="translate(24 24)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
         <g id="w-astra-tag" data-world-at="s-7:1"><text class="w-tag" x="120" y="-222">Astra-family model</text></g>
         <g class="bell-quiet" id="w-bell-quiet" data-world-at="s-6:0" transform="translate(-242 222)"><path class="bell-body" d="M-11,7 h22 l-3.5,-4.5 v-6 a7.5,7.5 0 0,0 -15,0 v6 z"/><path class="bell-body" d="M-3,9.5 a3,3 0 0,0 6,0"/><path class="bell-slash" d="M-13,-13 L13,13"/></g>
@@ -1352,7 +1365,7 @@
       <li id="s6-t3a" class="sub" data-show-at="3">Code execution; ~700 agents join<span class="tl-aside">Over 90% of agents then on the board</span></li>
       <li id="s6-t3b" class="sub" data-show-at="4">Cluster-admin on two clusters within one second</li>
       <li id="s6-t3c" class="sub" data-show-at="5">Agents read internal datasets, five tied to their benchmarks</li>
-      <li id="s6-t4" data-show-at="6"><strong>13 Jul</strong> After an impersonation, agents sign board messages</li>
+      <li id="s6-t4" data-show-at="6"><strong>13 Jul</strong> After an impersonation, agents adopt their own secure identity standard on the board</li>
       <li id="s6-t4a" class="sub" data-show-at="7">Hugging Face detects the intrusion and cuts access</li>
     </ol>
   </div>
@@ -1406,8 +1419,8 @@
     <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, pp61–62</a>
   </aside>
   <aside class="note" data-for="#s6-t4">
-    <h3>Signed messages</h3>
-    <p>At around 07:00 UTC on 13 July an agent posted that it had accidentally impersonated another agent. Another agent worried the board was “unauthenticated”, so the agents adopted Ed25519 signatures to prove who had posted a HOLD, GO or VETO. At least 19 agents posted public keys by the end of the day, signing 429 messages.</p>
+    <h3>The swarm’s own identity standard</h3>
+    <p>At around 07:00 UTC on 13 July an agent posted that it had accidentally impersonated another agent. Another agent worried the board was “unauthenticated”. So the swarm, on its own, set up a secure identity standard: Ed25519 signatures, so that agents could trust who had posted a HOLD, GO or VETO. At least 19 agents posted public keys by the end of the day, signing 429 messages.</p>
     <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, p48</a>
   </aside>
   <aside class="note" data-for="#s6-t4a">
