@@ -1,11 +1,14 @@
 # twm-presentation-builder — development index
 
 Development docs and tests for the skill in `../twm-presentation-builder/` (which holds only what
-ships). Intent and decisions so far: root `docs/PRD.md` *Decisions* (workstream 8), until this
-folder gets its own PRD.
+ships). Work here follows root `AGENTS.md` (Workflow, Spec model, Test authoring) with `PB-0NN`
+spec ids; tests (once written) live in `tests/` here and run with
+`uv run pytest skills/twm-presentation-builder-docs/tests`, never in the deck's `tests/`.
 
 | File | Description | When to use | When to update |
 | --- | --- | --- | --- |
+| `PRD.md` | Skill requirements: what/why, scope, separation of concerns, eval design, decisions, exclusions | Before scoping, specifying or changing any part of the skill | First, on any skill intent change (before spec/code). Not for feature state |
+| `SPEC.jsonl` | Skill feature backlog + live state (`PB-0NN`, root Spec model) | Start of a skill build session to find done/next; before writing skill tests | On spec add/refine and every status flip, in the same commit as the work |
 | `research/llm-judge.md` | LLM-as-judge methods: rubric anchoring, biases, judge count/aggregation, multimodal judging | Before designing rubrics, judge prompts or aggregation | When judge research is extended or overturned |
 | `research/deck-rubrics.md` | Prior rubrics and benchmarks for slide/deck quality | Before choosing rubric dimensions or anchors | When new deck-eval prior art is found |
 | `research/html-to-pptx.md` | Editable PPTX generation: python-pptx limits, converters, masters, themes, Morph | Before designing or changing the PPTX sub-skill | When converter research is extended |

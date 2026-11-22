@@ -146,7 +146,7 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 | 5 | Storyboard v2 (12 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | **Superseded** by the accepted rebuild (workstream 7, 22 Nov). History: first draft (10 slides) rejected on quality 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs were reopened and rebuilt. **Carried into the rebuild:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
 | 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **Done** (22 Nov): every v2 slide built in situ behind the S-030 layout guard and accepted by the presenter step by step; Close chapter, reader-notes and title-bar refinements built; README published. S-028 closed on the presenter's acceptance (22 Nov) | `design/prototypes/`, `docs/DESIGN.md` |
-| 8 | Generalise the deck into a reusable skill (`skills/twm-presentation-builder/`): HTML slide builder, HTML → PPTX sub-skill, LLM-as-judge eval of process and output | **Scoping** (22 Nov): interviewing the presenter; decisions below | `skills/twm-presentation-builder/` + `-docs/` (not yet created) |
+| 8 | Generalise the deck into a reusable skill (`skills/twm-presentation-builder/`): HTML slide builder, HTML → PPTX sub-skill, LLM-as-judge eval of process and output | **Specified** (22 Nov): PRD and 25 `PB-` specs written, build not started | `skills/twm-presentation-builder-docs/` (PRD, SPEC.jsonl); ships as `skills/twm-presentation-builder/` |
 
 ## Exclusions
 
@@ -157,41 +157,8 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 
 ## Decisions
 
-- **Presentation-builder skill scope (presenter, 22 Nov; workstream 8):** lives in this repo at
-  `skills/twm-presentation-builder/` (`SKILL.md` + parts) for now; may move to its own repo, so it
-  **MUST** stay self-contained (no paths into `deck/` or `docs/` except as cited examples).
-  Separation of concerns: content/storyboard, research, voice, design, architecture, process are
-  interchangeable parts. Design splits into **layout/components** (header, nav, title layout,
-  diagram kit, pop-overs, tiles), **palette** (colour roles and how they are applied) and
-  **style/material** (fonts, bokeh, frost, depth, motion); the engine and authoring contract
-  sit in an **architecture** layer beyond ADR-001. Voice ships as the presenter's personal profile
-  (`VOICE.md` rules + examples), not generalised. PPTX conversion may sacrifice effects PowerPoint
-  can't render natively (e.g. backdrop blur), declared per design. The PPTX is an **editable
-  hand-off** (a colleague reworks it or drops slides into a corporate template): native text,
-  placeholders and shapes beat visual fidelity. Build steps become **native PowerPoint animations wherever
-  possible** (entrance, exit, emphasis, motion paths on the final-state slide, in step order);
-  duplicated slides with Morph only where an effect has no animation equivalent. LLM judges run as **Claude Code subagents** for
-  now (no API key); the rubric format stays runner-agnostic so an API runner can be added later.
-  The eval has two uses: **iterating on the skill** (bundled test briefs: same deck, same deck with
-  a different design, new deck(s) of other types) and **assessing any deck built with the skill**.
-  Together the briefs **MUST** cover every skill feature; before a run the user is prompted to
-  choose its scope (which briefs/decks, which concerns, output and/or process). New-deck briefs
-  start **synthetic** (short pitch and data-review briefs, each with a small fixed research pack);
-  real topics are assessed later via the any-built-deck mode. Process evidence =
-  repo artefacts (git history, docs, SPEC states, outputs incl. screenshots); Claude Code session
-  transcripts **only** with the user's approval for that run. The skill **NEVER** makes the agent
-  keep a self-reported process log.
-  **Layout:** `skills/twm-presentation-builder/` holds only what ships (`SKILL.md`, parts, reusable
-  code, rubrics, examples); its own development docs (PRD, SPEC.jsonl, indexes) and tests live in
-  the sibling `skills/twm-presentation-builder-docs/`, indexed from root `AGENTS.md`. The deck's
-  `docs/` and `tests/` **NEVER** hold skill specs.
-  **Judge calibration:** no presenter-scored calibration set initially (may come later). Anchors
-  come from recorded presenter verdicts (`VOICE.md` pairs, PRD decisions, the v2 first-draft
-  rejection) plus deliberately flawed decks; eval reports **MUST** state that agreement with the
-  presenter is unmeasured until a calibration set exists. Research basis:
-  `skills/twm-presentation-builder-docs/research/`. Eval targets the narrow case
-  (presenter-driven editorial talks) but **MUST** be DRY and adaptable to other deck types
-  (pitch, data review, internal update).
+- **Presentation-builder skill (workstream 8):** its requirements and decisions live in
+  `skills/twm-presentation-builder-docs/PRD.md` (moved there 22 Nov), not here.
 - **s-1 and s-2 rebuilt in situ (presenter, 22 Nov):** new title and subtitle; s-2's reward-loop
   diagram is PowerPoint-style boxes and arrows, built straight into the deck and judged by eye step
   by step, no throwaway prototype (Workflow phase 4 exception).
