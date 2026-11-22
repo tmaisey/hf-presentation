@@ -3,15 +3,18 @@
 v2 closing slides. s-9 Insights reuses s-8's tile row over the frozen, blurred incident world: three
 text tiles built one per step (how misalignment happened from training to evaluation; why it is hard
 to design out and unsolved; opaque firings discourage transparency, both sides stated). s-10
-Takeaways: capability pace honest about pauses and pledges, its Insight, proportionate controls
-mapped to incident failures, then three discussion prompts, with a title per phase.
-Coverage: happy (slides close the deck in order with approved titles/kickers; s-9 builds one tile per
-step with sourced facts, verbatim quotes and links; s-10 swaps pace → Insight → controls → prompts) ·
+Takeaways, in phases with a title each: three pace tiles in the same tile row (capability still
+accelerating; industry calls for pacing and disclosure; public concern rising, safety secondary),
+controls with practical considerations for AI projects, then three discussion prompts.
+Coverage: happy (slides close the deck in order with approved titles/kickers; s-9 and s-10 build one
+tile per step with sourced facts, verbatim quotes and links; s-10 swaps tiles → controls → prompts) ·
 edge (s-9 world frozen in s-8's place and state; tiles read left to right in one row at every review
-size; s-10's insider quote sits in the pace panel and leaves with it; notes target elements on their
-slide) · negative (s-9 has no loop diagram, narration or separate Insight; no slide-scoped tile CSS;
-no causal claim on the firings; quotes verbatim from research; Hubinger not repeated on s-10; no
-weakly sourced Anthropic pause; no "suicide", "same agents" or firm-specific advice).
+size; s-10's Coxon quote sits in tile 1 and leaves with the tiles; notes target elements on their
+slide; each control's incident failure lives in its note) · negative (s-9 has no loop diagram,
+narration or separate Insight; s-10 has no Insight step or comparison table; no slide-scoped tile
+CSS; no causal claim on the firings or on the sentiment shift; quotes verbatim from research;
+Hubinger not repeated on s-10; no weakly sourced Anthropic pause; no "suicide", "same agents" or
+firm-specific advice).
 """
 
 import re
@@ -24,14 +27,11 @@ pytestmark = pytest.mark.deck("v2")
 
 S9_TITLE = ("Misalignment grew from ordinary training choices, and the obvious fixes risk making it "
             "harder to see")
-S10_TITLES = {  # visible title per step: pace (✓) → controls (v1 5.5) → discussion (v1 6.1 ◇)
-    "pace": "Capability, compute and spending are still accelerating despite pauses and pledges",
-    "controls": ("Each failure in this incident maps to a control that everyday AI systems can "
-                 "apply in proportion to risk"),
+S10_TITLES = {  # visible title per step: tiles (✓ 22 Nov) → controls (✓ 22 Nov) → discussion (v1 6.1 ◇)
+    "tiles": "Capability keeps accelerating as industry calls for restraint and public concern grows",
+    "controls": "Practical controls keep AI agents within the bounds their tasks need",
     "discussion": "Detection, training and independent oversight remain open questions after this incident",
 }
-S10_INSIGHT = ("METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate ranged from "
-               "11 to over 270 hours depending on how cheating was scored.")
 SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 TILES = ["s9-t1", "s9-t2", "s9-t3"]   # row order = build step 1, 2, 3
 FACTS = {   # per tile: what its visible text must state
@@ -52,8 +52,44 @@ LINKS = {
     "s9-t3": ["fortune.com", "sfstandard.com"],
 }
 COXON = "One, it’s obvious that things are speeding up, and two, they’re not under control."
-CONTROLS = ["Least agency and autonomy", "Per-agent authentication and authorisation",
-            "Sandbox isolation", "Deterministic controls", "Network access only when justified"]
+S10_TILES = ["s10-t1", "s10-t2", "s10-t3"]   # row order = build step 1, 2, 3
+S10_COPY = {   # approved copy (STORYBOARD s-10, 22 Nov): heading, body, quote
+    "s10-t1": ("Capability, compute and spending are still accelerating",
+               "The length of task AI agents can complete has grown about 10× every two years, faster since "
+               "2024. Training compute grows about 5× a year, and 2026 data-centre spending is around $700B. "
+               "METR could not reliably measure GPT-5.6 Sol: its estimate ranged from 11 to over 270 hours.",
+               COXON),
+    "s10-t2": ("Incidents prompted industry calls for pacing and disclosure",
+               "OpenAI paused its largest training runs twice and said its disclosure practices must expand. "
+               "Anthropic’s CEO called for pacing the frontier, endorsed by OpenAI’s CEO, and over 1,300 lab "
+               "staff signed a pacing letter. Hugging Face called for ‘radical transparency’; US senators and "
+               "California’s Attorney General are pressing OpenAI for details.",
+               "Our misalignment disclosure practices need to expand for this new phase of model capabilities."),
+    "s10-t3": ("Public AI concern is rising, though safety remains secondary",
+               "Most Americans are concerned about AI, and 73% worry future AI could threaten human survival. "
+               "But politics and markets focus elsewhere: midterm voters weighed jobs, power bills and data "
+               "centres, and AI-led market drops were about spending and growth, not safety.",
+               None),
+}
+S10_LINKS = {   # hosts each tile's cite line links (research notes: capability_pace.md, public_sentiment.md)
+    "s10-t1": ["metr.org", "epoch.ai", "finance.yahoo.com", "time.com"],
+    "s10-t2": ["thestar.com.my", "darioamodei.com", "pacingthefrontier.com", "itpro.com", "pbs.org", "oag.ca.gov"],
+    "s10-t3": ["techpolicy.press", "datacenterdynamics.com", "boston.com"],
+}
+CONTROLS = [   # control · practical consideration (approved, verbatim)
+    ("Least agency and autonomy", "While it’s tempting to use the most powerful tools for every use case, "
+     "give agent systems only the capabilities they need for the task."),
+    ("Per-agent authentication and authorisation", "Give each agent its own credentials, scoped to its task, "
+     "so you can trace and revoke access one agent at a time."),
+    ("Sandbox isolation", "Keep agents’ environments apart, including shared storage, so one environment "
+     "can’t become a channel to others."),
+    ("Deterministic controls and monitoring", "In higher-risk use cases, build in kill-switches and rule-based "
+     "escalation to a human, so a warning always reaches someone who can stop the agent."),
+    ("Network access only when justified", "Block internet and outside access by default, and open only the "
+     "routes a task needs."),
+]
+CONTROL_FAILURES = [   # per control row, in order: what its note must say failed in the incident
+    "reasoning budgets", "shared credential", "writable mirror", "27 June", "internet"]
 TILE_TEXT = """id => { const t = document.getElementById(id);
   return { text: t.innerText, quotes: [...t.querySelectorAll('blockquote')].map(q => q.textContent.trim()),
            links: [...t.querySelectorAll('a[href]')].map(a => a.href), head: (t.querySelector('h3') || {}).textContent }; }"""
@@ -103,7 +139,8 @@ def test_titles_are_the_approved_storyboard_titles():
     assert helper_norm(S9_TITLE) in helper_norm((ROOT / "docs" / "VOICE.md").read_text(encoding="utf-8"))
     titles = re.findall(r'<h2 class="title"[^>]*>(.*?)</h2>', helper_section("s-10"), re.S)
     assert titles == list(S10_TITLES.values())
-    assert helper_norm(S10_TITLES["pace"]) in helper_storyboard("s-10 · Pace")
+    for phase in ("tiles", "controls"):
+        assert helper_norm(S10_TITLES[phase]) in helper_storyboard("s-10 · Pace"), phase
 
 
 S9_HEADINGS = ["Reinforced training behaviours re-emerged in evaluation",   # presenter, 22 Nov (round 2)
@@ -152,17 +189,62 @@ def test_s9_quotes_are_verbatim_from_research_and_carry_no_typed_quote_marks():
     assert "{" not in sec and "}" not in sec and not re.search(r"\sstyle\s*=", sec)
 
 
-def test_s10_compare_is_honest_about_both_sides():
+def helper_s10_tile(tid: str) -> str:
     sec = helper_section("s-10")
-    table = re.search(r'<table class="compare".*?</table>', sec, re.S).group(0)
-    heads = re.findall(r"<th[^>]*>(.*?)</th>", table)
-    assert len(heads) == 2 and "accelerating" in heads[0].lower() and "pause" in heads[1].lower()
-    flat = helper_flat(table)
-    for fact in ("~10×", "~5× a year", "$700B", "Nov 2026",                          # still rising
-                 "paused its largest", "We Must Pace the Frontier", "Over 1,100", "letter", "(Jul)",
-                 "slow, plateau"):                                                    # pauses, pledges
-        assert helper_norm(fact) in flat, fact
-    assert "rising steeply" not in sec, "presenter rejected 'rising steeply' for 'accelerating'"
+    m = re.search(rf'<article class="text-tile" id="{tid}".*?</article>', sec, re.S)
+    assert m, f"{tid} missing"
+    return m.group(0)
+
+
+def test_s10_tiles_phase_reuses_the_tile_row_one_tile_per_step():
+    sec = helper_section("s-10")
+    row = re.search(r'<div class="body--tiles"[^>]*>(.*?)</div>\s*<div', sec, re.S)
+    assert row, "s-10's tiles phase is the shared tile row (div.body--tiles)"
+    tiles = re.findall(r'<article class="text-tile" id="([\w-]+)" data-show-at="(\d+)">', row.group(1))
+    assert tiles == [(t, str(n)) for n, t in enumerate(S10_TILES, start=1)], tiles
+
+
+def test_s10_tiles_carry_the_approved_copy_verbatim():
+    for tid, (head, body, quote) in S10_COPY.items():
+        tile = helper_s10_tile(tid)
+        assert helper_flat(re.search(r"<h3>(.*?)</h3>", tile, re.S).group(1)) == helper_norm(head), tid
+        assert helper_flat(re.search(r"<p[ >].*?</p>", tile, re.S).group(0)) == helper_norm(body), tid
+        quotes = [helper_flat(q) for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", tile, re.S)]
+        assert quotes == ([helper_norm(quote)] if quote else []), tid
+        for text in (head, body) + ((quote,) if quote else ()):
+            assert helper_norm(text) in helper_storyboard("s-10 · Pace"), f"{tid}: copy is the storyboard's"
+
+
+def test_s10_tile_quotes_are_verbatim_from_research_and_carry_no_typed_quote_marks():
+    sec, research = helper_section("s-10"), helper_research()
+    for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", sec, re.S):
+        assert not re.search(r'^["“”]|["“”]$', q.strip()), f"CSS adds quote marks: {q}"
+        assert helper_norm(q) in research, f"quote not found verbatim in docs/research: {q[:50]}"
+    assert "{" not in sec and "}" not in sec and not re.search(r"\sstyle\s*=", sec)
+
+
+def test_s10_tiles_cite_their_sources_with_links():
+    for tid, hosts in S10_LINKS.items():
+        cite = re.search(r'<p class="cite"[^>]*>(.*?)</p>', helper_s10_tile(tid), re.S)
+        assert cite, f"{tid} has a cite line"
+        hrefs = re.findall(r'<a href="([^"]+)"', cite.group(1))
+        assert all(h.startswith("https://") for h in hrefs)
+        for host in hosts:
+            assert any(host in h for h in hrefs), f"{tid} must link {host}"
+    assert "Coxon" in helper_flat(re.search(r'<p class="cite".*?</p>', helper_s10_tile("s10-t1"), re.S).group(0))
+
+
+def test_s10_reuses_the_tile_row_without_slide_scoped_css():
+    css = re.search(r"<style>(.*?)</style>", deck_source(), re.S).group(1)
+    assert not re.search(r"#s-10\b|#s10-|\.s10-", css), "the shared tile row must not be styled per slide"
+
+
+def test_s10_has_no_comparison_table_or_separate_insight_step():
+    """The tiles replace the comparison table, and the Insight (METR on GPT-5.6 Sol) folds into tile 1."""
+    sec = helper_section("s-10")
+    assert 'class="compare"' not in sec
+    assert "overlay--insight" not in sec
+    assert 'class="narration"' not in sec
 
 
 def test_s10_omits_the_weakly_sourced_anthropic_pause():
@@ -171,40 +253,52 @@ def test_s10_omits_the_weakly_sourced_anthropic_pause():
     assert not re.search(r"anthropic (also |reportedly )?(paused|halted)", flat)
 
 
-def test_s10_insider_quote_sits_in_the_pace_panel_and_hubinger_moved_to_s9():
-    sec = helper_section("s-10")
-    assert 'class="narration"' not in sec, "s-10's one quote lives in the body, so the body keeps the full width"
-    body = re.search(r'<div class="body.*?(?=<aside)', sec, re.S).group(0)
-    quote = re.search(r"<blockquote[^>]*>(.*?)</blockquote>\s*<p class=\"cite\">(.*?)</p>", body, re.S)
-    assert quote and helper_norm(quote.group(1)) == helper_norm(COXON) and "Coxon" in quote.group(2)
-    assert helper_norm(COXON) in helper_research()
-    assert "plan to solve alignment" not in sec, "Hubinger's quote moved to s-9 tile 2"
+def test_s10_never_claims_the_incident_caused_the_sentiment_shift():
+    """Most of the measured shift predates the incident (public_sentiment.md): the notes say so."""
+    flat = helper_flat(helper_section("s-10")).lower()
+    for claim in (r"(incident|breach|hack|attack)\w* (caused|drove|triggered|sparked|led to) (the |a )?"
+                  r"(shift|rise|concern|sentiment|drop|sell-?off)", r"because of the (incident|breach|hack)",
+                  r"after the (incident|breach|hack),? (concern|sentiment|support) (rose|jumped|grew)"):
+        assert not re.search(claim, flat), claim
+    notes = helper_flat(" ".join(re.findall(r'<aside class="note".*?</aside>', helper_section("s-10"), re.S)))
+    assert "before the incident" in notes.lower(), "the sentiment note says the shift mostly predates it"
+    assert "alleg" in notes.lower(), "the AG suit is reported as allegations"
+    assert "did not ask about the incident" in notes.lower()
 
 
-def test_s10_controls_pair_each_control_with_its_incident_failure():
+def test_s10_hubinger_moved_to_s9():
+    assert "plan to solve alignment" not in helper_section("s-10"), "Hubinger's quote moved to s-9 tile 2"
+
+
+def test_s10_controls_give_practical_considerations_verbatim():
     sec = helper_section("s-10")
-    table = re.search(r'<table(?! class="compare").*?</table>', sec, re.S).group(0)
+    table = re.search(r"<table.*?</table>", sec, re.S).group(0)
+    assert [helper_flat(h) for h in re.findall(r"<th[^>]*>(.*?)</th>", table, re.S)] == \
+        ["Control", "Practical considerations for AI projects"]
     rows = re.findall(r"<tr[^>]*>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>", table, re.S)
-    assert [c for c, _ in rows] == CONTROLS
-    failures = " ".join(f for _, f in rows)
-    for evidence in ("shared credential", "mirror", "27 June", "internet"):
-        assert evidence in failures, evidence
-    assert "in proportion to" in helper_flat(sec).lower()
+    assert [(helper_flat(c), helper_flat(p)) for c, p in rows] == [(helper_norm(c), helper_norm(p)) for c, p in CONTROLS]
+    story = helper_storyboard("s-10 · Pace")
+    assert all(helper_norm(p) in story for _, p in CONTROLS)
+    assert "where it failed" not in helper_flat(table).lower()
+
+
+def test_s10_each_control_notes_where_it_failed_in_the_incident():
+    sec = helper_section("s-10")
+    table = re.search(r"<table.*?</table>", sec, re.S).group(0)
+    ids = re.findall(r'<tr[^>]*>\s*<td id="(s10-[\w-]+)"', table)
+    assert len(ids) == len(CONTROLS), "each control row is a note target"
+    notes = dict(re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', sec, re.S))
+    for rid, evidence in zip(ids, CONTROL_FAILURES):
+        assert rid in notes, f"control #{rid} has no note"
+        assert evidence in helper_flat(notes[rid]), f"#{rid} note must say {evidence!r}"
 
 
 def test_s10_has_three_discussion_prompts_one_per_step():
     sec = helper_section("s-10")
     prompts = re.findall(r'<li class="prompt" id="(s10-\w+)" data-show-at="(\d)">(.*?)</li>', sec, re.S)
-    assert [(i, at) for i, at, _ in prompts] == [("s10-detect", "4"), ("s10-train", "5"),
-                                                ("s10-investigate", "6")]
+    assert [(i, at) for i, at, _ in prompts] == [("s10-detect", "5"), ("s10-train", "6"),
+                                                ("s10-investigate", "7")]
     assert all(p.rstrip().endswith("?") for *_, p in prompts)
-
-
-def test_s10_insight_is_the_storyboard_text_on_its_own_step():
-    ins = re.findall(r'<aside class="overlay overlay--insight" data-at="(\d+)">\s*<p>(.*?)</p>',
-                     helper_section("s-10"), re.S)
-    assert ins == [("2", S10_INSIGHT)]
-    assert helper_norm(S10_INSIGHT) in helper_storyboard("s-10 · Pace")
 
 
 def test_notes_target_elements_on_their_slide_and_cite_https_sources():
@@ -218,6 +312,11 @@ def test_notes_target_elements_on_their_slide_and_cite_https_sources():
     s9_targets = {t for t, _ in re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>',
                                            helper_section("s-9"), re.S)}
     assert s9_targets >= set(TILES), "every s-9 tile has a note"
+    s10 = helper_section("s-10")
+    s10_targets = re.findall(r'<aside class="note" data-for="#([\w-]+)">', s10)
+    for tid in S10_TILES:
+        tile = helper_s10_tile(tid)
+        assert any(f'id="{t}"' in tile for t in s10_targets), f"{tid} has a note on it or inside it"
 
 
 def test_s9_notes_carry_the_caveats_and_our_inferences_labelled():
@@ -241,9 +340,9 @@ def test_forbidden_and_inaccurate_wording_is_absent():
 def test_step_counts_and_clean_load(page):
     errors = open_deck(page)
     plan = dict(page.evaluate("window.deck.plan()"))
-    assert plan["s-9"] == 3 and plan["s-10"] == 6
+    assert plan["s-9"] == 3 and plan["s-10"] == 7
     goto_slide(page, "s-9", 3)
-    goto_slide(page, "s-10", 6)
+    goto_slide(page, "s-10", 7)
     assert errors == []
 
 
@@ -338,23 +437,47 @@ VISIBLE = """sid => { const s = document.getElementById(sid);
   const on = e => { for (; e && e !== s; e = e.parentElement) if (+getComputedStyle(e).opacity <= 0.5) return false; return true; };
   return {
     titles: [...s.querySelectorAll('h2.title')].filter(on).map(e => e.textContent.trim()),
-    compare: [...s.querySelectorAll('table.compare')].some(on),
+    tiles: [...s.querySelectorAll('.text-tile')].filter(on).map(e => e.id),
     quote: [...s.querySelectorAll('.body blockquote')].filter(on).map(e => e.textContent.trim()),
-    controls: [...s.querySelectorAll('table:not(.compare)')].some(on),
+    controls: [...s.querySelectorAll('table')].some(on),
     prompts: [...s.querySelectorAll('li.prompt')].filter(on).map(e => e.id),
     insight: [...s.querySelectorAll('.overlay--insight')].some(e => e.classList.contains('is-shown')),
   }; }"""
 
 
-def test_s10_swaps_pace_insight_controls_prompts_with_a_title_per_phase(page):
+def test_s10_swaps_tiles_controls_prompts_with_a_title_per_phase(page):
     open_deck(page)
-    for k in range(7):
+    for k in range(8):
         goto_slide(page, "s-10", k)
         v = page.evaluate(VISIBLE, "s-10")
-        phase = "pace" if k <= 2 else "controls" if k == 3 else "discussion"
+        phase = "tiles" if k <= 3 else "controls" if k == 4 else "discussion"
         assert v["titles"] == [S10_TITLES[phase]], k
-        assert v["compare"] == (1 <= k <= 2), k
-        assert [helper_norm(q) for q in v["quote"]] == ([helper_norm(COXON)] if 1 <= k <= 2 else []), k
-        assert v["insight"] == (k == 2), k
-        assert v["controls"] == (k == 3), k
-        assert v["prompts"] == ["s10-detect", "s10-train", "s10-investigate"][:max(0, k - 3)], k
+        assert v["tiles"] == (S10_TILES[:k] if k <= 3 else []), k
+        assert (helper_norm(COXON) in [helper_norm(q) for q in v["quote"]]) == (1 <= k <= 3), k
+        assert not v["insight"], k
+        assert v["controls"] == (k == 4), k
+        assert v["prompts"] == ["s10-detect", "s10-train", "s10-investigate"][:max(0, k - 4)], k
+
+
+@pytest.mark.parametrize("size", SIZES)
+def test_s10_tiles_read_left_to_right_in_one_row_as_on_s9(page, size):
+    """Same row and type as s-9: one row, readable width, body type no smaller than s-9's."""
+    open_deck(page, *size)
+    goto_slide(page, "s-9", 3)
+    settle(page, "#s9-t3")
+    s9_body = page.evaluate("() => parseFloat(getComputedStyle(document.querySelector('#s9-t1 p')).fontSize)")
+    goto_slide(page, "s-10", 3)
+    settle(page, "#s10-t3")
+    res = page.evaluate("""ids => { const nb = document.querySelector('.notes-btn').getBoundingClientRect();
+      return { vw: innerWidth, notes: [nb.left, nb.top, nb.right, nb.bottom], tiles: ids.map(id => { const t = document.getElementById(id),
+        b = t.getBoundingClientRect(); return { box: [b.left, b.top, b.right, b.bottom],
+        body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize) }; }) }; }""", S10_TILES)
+    tiles = res["tiles"]
+    for a, b in zip(tiles, tiles[1:]):
+        assert a["box"][2] <= b["box"][0] + 1 and abs(a["box"][1] - b["box"][1]) <= 2, "one row, left to right"
+    nl, nt, nr, nb = res["notes"]
+    for tid, t in zip(S10_TILES, tiles):
+        l, top, r, bot = t["box"]
+        assert r - l >= 0.22 * res["vw"], f"{tid} too narrow to read"
+        assert t["body"] >= s9_body, f"{tid}: body type smaller than s-9's"
+        assert not (l < nr and r > nl and top < nb and bot > nt), f"{tid} covers the Notes button"
