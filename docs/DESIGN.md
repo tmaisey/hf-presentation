@@ -49,9 +49,12 @@ everything else binds both. Slide authors need only §10.
   builds) run before leaving the chapter. Wheel is throttled to one step per gesture. [P2 `next()`](../design/prototypes/02-chapters-depth.html#L201), [wheel lock](../design/prototypes/02-chapters-depth.html#L227)
 - Persistent frosted title bar + accent progress hairline. [P2:22–35](../design/prototypes/02-chapters-depth.html#L22)
   Title: Title Case serif, then a muted `·` and a softer *italic* subtitle (ink-2, weight 400). [P5:34–36](../design/prototypes/05-header-bar.html#L34)
-- Agenda (v2): every chapter always labelled, **no dots**; current = `--accent-ink` label. Hover lifts
+- The bar's deck title is a **home link**: click/Enter goes to s-1 step 0 (presenter, 22 Nov).
+- Agenda (v2): every chapter always labelled, **no dots**; current = `--accent-ink` label on a **resting
+  pill** (tile fill, faint shadow: less lifted than hover; presenter, 22 Nov). Hover lifts
   the pointed-at chapter (tile pill, small scale, lift shadow) while the rest soften slightly
-  (blur ≈0.6px, ~72% opacity, still readable). [P5:41–53](../design/prototypes/05-header-bar.html#L41)
+  (blur ≈0.6px, ~72% opacity, still readable); while hovering another chapter the current
+  pill softens with the rest. [P5:41–53](../design/prototypes/05-header-bar.html#L41)
 - Compact agenda: when the row would come within 32px of the title (measured, not a breakpoint),
   show only the current chapter's name + chevron; hover, focus or click drops an **opaque** `--tile`
   vertical panel (`--shadow-soft`; a nested backdrop blur can't work inside the frosted bar)
