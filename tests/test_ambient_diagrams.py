@@ -35,8 +35,8 @@ def test_title_fireflies_are_numerous_and_drift_perceptibly(page):
     pos = "() => [...document.querySelectorAll('#s-1 .orb')].map(o => new DOMMatrix(getComputedStyle(o).transform)).map(m => [m.e, m.f])"
     a = page.evaluate(pos); page.wait_for_timeout(1000); b = page.evaluate(pos)
     moved = max(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** .5 for (x1, y1), (x2, y2) in zip(a, b))
-    # the old drift peaked at ~5 px/s (amp 46, t/9000); faster but still a slow float
-    assert 7.5 <= moved <= 30, f"fastest orb drifts {moved:.1f}px/s: perceptible but still subtle"
+    # drift peaks ~13 px/s (amp 53, t/4000); was ~5 then ~9 (presenter asked +50% twice, 22 Nov)
+    assert 11 <= moved <= 30, f"fastest orb drifts {moved:.1f}px/s: perceptible but still subtle"
 
 def test_reduced_motion_freezes_ambient_drift(page):
     open_deck(page, reduced_motion=True)
