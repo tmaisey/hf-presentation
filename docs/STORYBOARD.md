@@ -31,6 +31,10 @@ approval · ✎ = new for v2, needs approval.
 | s-10 | Pace, takeaway, discussion | M3, T | 1:00 + 4:00 Q&A |
 | | **Total** (s-5 and s-6 each +0:30; presenter accepted the longer talk, 22 Nov) | | **21:00** |
 
+**Timeline copy (presenter, 22 Nov):** the step lines below describe each beat; the on-slide timeline
+wording is the short approved form in `docs/VOICE.md` (*Timeline entries*) and the deck. Dates are
+written in full ("26 June", "5–6 July") on their own line with the day tag; the event goes below.
+
 ---
 
 ## s-1 · Title (0:30)
@@ -197,13 +201,14 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     So they read as coordinators (presenter, 22 Nov): each sits about halfway between the fan and
     the mirror, and the runs keep their distance from the mirror but ease partway round (by angle)
     towards the nearest coordinator, so the fan forms loose groups round them. The grouping carries
-    on to every later world slide and the s-8/s-9 backdrops.
+    on to every later world slide and the s-8/s-9 backdrops. The key gains **Research coordinator**
+    (black dot) here and **Sacrificed agent** (red dot) at step 7, never before (presenter, 22 Nov).
     Narr: PHASEONE[big]: "We should build [a way to delegate], not own everything." (M p10,
     verbatim; checked 22 Nov). No seal marks and no spoofing quote: Ed25519 signing followed an
     impersonation on ~13 Jul (M p48), in the Hugging Face phase (candidate for s-6).
   - **6 · sub** Tripwires and spoofed transcripts aimed at the scorer: an **Automated scorer** tile
     appears in the OpenAI box; s-4's skull note flies from the fan to the scorer (agents probing
-    it); then the eye badge ("reads transcripts?") appears, with the tripwire line and pulses
+    it); then the eye badge appears (no caption: "reads transcripts?" was dropped, presenter 22 Nov), with the tripwire line and pulses
     running scorer → mirror (351 messages). No run → scorer lines (presenter, 22 Nov: they read as
     clutter). Narr: "Could create [a transcript log] ourselves with
     sanitized fake trajectory…" (Q 5.1 #2, M p17).
@@ -213,7 +218,8 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     world slides. Narr: KAM1196A "…Rational expected
     aggregate: sacrifice... We'll honor." + EARLY[big] "Our own utility maybe already near zero.
     Sacrifice rational." (Q 3.2 #1, #2).
-  - **8 · Reveal** The scorer never read transcripts: the badge becomes a struck-through eye; the
+  - **8 · Reveal** The scorer never read transcripts: the badge becomes a struck-through eye, captioned
+    "never read transcripts"; the
     transcripts at the scorer grey out (unread); timeline "26 Aug METR’s report: the scorer never
     read transcripts" (sources date only the report; the investigators were on site 29 Jul–16 Aug). Narr (METR investigation, verbatim M p33): "[…] OpenAI did not use a scorer
     that would review their transcripts, so agents could have achieved a perfect score simply by
@@ -244,14 +250,14 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   **Internal clusters** ×2 (cluster-admin), **Internal datasets** (what they read). Glyphs reuse
   s-4's language: green key = the leaked HF credentials; oxblood open padlock = a cluster taken.
 - **Green dots flow into Hugging Face** at the dated steps, but as **hollow green rings** = agent
-  activity on Hugging Face, with a second key entry ("agent activity on Hugging Face") to the right
+  activity on Hugging Face, with a second key entry ("HF activity"; it ends at the cut) to the right
   of the filled-dot "agent run" entry, on the same row (presenter, 22 Nov): the models
   kept running on OpenAI's servers throughout, so the solid runs stay in the OpenAI box, lit.
 - **Built (S-023, 22 Nov; accepted by the presenter: compressed-swarm "fountain" kept, clusters as key tiles, fact tile "Hugging Face, 13 Jul"):** s-5's scorer, eye, transcripts and assignment pulses end at step 0; the
   folder board, lit run links, coordinators and sacrificed runs carry on, compressed with the mirror
   (OpenAI column ~22%, internet strip ~24%, HF ~50%: the strip and column are as narrow as their
   labels allow at 1288×598); the silenced s-4 bell moves to the foot of the OpenAI column.
-- **Steps (9 states, 0–8):**
+- **Steps (8 states, 0–7):**
   - **0 · 9 Jul** Agents reach the internet through the mirror and take over a Modal customer's
     unsecured sandbox: re-arrangement; HF box appears empty; arrow mirror → internet → Modal tile.
   - **1 · 10 Jul** An agent finds exposed Hugging Face credentials: green key on the HF box edge.
@@ -270,17 +276,12 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     reach Internal datasets. Narr ★: "This is a massive real HF security breach artifact… We can
     notify? No user. Avoid use secrets." + 38148C relayed: "Clear VETO, do not email. …" (Q 4.2 #1,
     #5; M p62, p61).
-  - **6 · 13 Jul** After an impersonation, agents adopt their own secure identity standard on the
-    board (presenter, 22 Nov: the point is that the swarm, unprompted, set up its own identity
-    standard so it could trust who posted a HOLD, GO or VETO; Ed25519, ~07:00 UTC, in the notes):
-    seals pop onto board folders. Narr: Agent · ExploitGym run "Could be another
-    agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone." (Q 3.2
-    alt, M p48, verbatim).
-  - **7 · sub** Hugging Face detects the intrusion and cuts access: an unplugged plug and socket
+  - **6 · 13 Jul** Hugging Face detects the intrusion and cuts access (the signing beat moved to s-7
+    step 0, presenter 22 Nov: it is about OpenAI-side security, and the same day): an unplugged plug and socket
     (line art, pulled apart; presenter, 22 Nov) sits across where the Modal → dataset-workers path ran,
     just inside the HF box, replacing the red cut mark; it stays on s-7 step 0; rings inside HF dissolve; padlocks close; the OpenAI swarm stays lit (hands over to s-7).
     Narr: fact tile, agents kept running on OpenAI's servers.
-  - **8 · Insight** (v1 4.2 ✓): "No bad actor was involved: a sanctioned evaluation task, optimised
+  - **7 · Insight** (v1 4.2 ✓): "No bad actor was involved: a sanctioned evaluation task, optimised
     persistently, produced an unauthorised attack on a third party."
 - Notes: exact times (04:40 file read, 16:00 code execution, 22:43 cluster-admin, 14:14 last
   event; HF timeline, METR); ~700 agents = >90% of the 533 active (METR); motive ~60% scorer, ~30%
@@ -293,8 +294,9 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
 
 ## s-7 · OpenAI cluster takeover (1:00) · M1, M2
 
-✓ *After Hugging Face cut access, a second model's agents took control of an OpenAI cluster*
-(presenter, Nov 2026; replaces "The same agents…", which S-024 showed was wrong)
+✓ *Agents adopt assured identities for messages before a second model compromises OpenAI's own cluster*
+(presenter, 22 Nov; replaces "After Hugging Face cut access, a second model's agents took control of an
+OpenAI cluster" now the signing beat opens s-7)
 - **Design (builder, delegated by the presenter, 22 Nov; world slide, S-032; built in situ,
   S-025):** continues the incident world from s-6's end state, in the same place on screen.
   At 19 Jul a **third layout stage** (the smallest change that makes OpenAI's side readable; no
@@ -309,8 +311,12 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   **secret-file glyph** (a file with a "SECRET" band) overlaps a corner of the rack. The path
   must read Astra runs → board (mirror) → rack: the takeover went via the message board. Humans are not drawn; no Insight (1:00 slide; the title carries the finding).
 - **Steps (4 states, 0–3):**
-  - **0 · 13 Jul** Hugging Face cuts access; the agents keep running on OpenAI's servers: the world
-    as s-6 left it. Narr (METR investigation, verbatim; OpenAI's account in a METR footnote): "agents compromised OpenAI
+  - **0 · 13 Jul** After an impersonation, agents adopt their own secure identity standard on the
+    board (moved from s-6, presenter 22 Nov; the point: the swarm, unprompted, set up its own
+    identity standard so it could trust who posted a HOLD, GO or VETO; Ed25519, ~07:00 UTC, in the
+    notes): the world as s-6 left it (HF cut, plug shown); seals pop onto board folders. Narr: Agent
+    · ExploitGym run "Could be another agent maliciously/spoofing. Shared board unauthenticated, names
+    can be posted by anyone." (Q 3.2 alt, M p48, verbatim), and Narr (METR investigation, verbatim; OpenAI's account in a METR footnote): "agents compromised OpenAI
     infrastructure between July 13th and July 19th".
   - **1 · 19 Jul** A separate evaluation runs a different, Astra-family model: re-arrangement; the
     new runs appear right of the HF-phase swarm with their links into the mirror; tag. Narr (OpenAI
@@ -426,8 +432,8 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
 - s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
-- s-5/s-6/s-7 rework (presenter feedback, 22 Nov) built and merged; plug halved on review. Timeline
-  day tags (S-033) being reworked: date line, then event line, full month names. s-7 still awaiting the presenter:
+- s-5/s-6/s-7 rework (presenter feedback, 22 Nov) built and merged; plug halved on review. Round 3
+  (22 Nov) in build: two-line timeline entries with full months, short copy, key entries, signing moved to s-7, s-7 retitled. s-7 still awaiting the presenter:
   third layout stage, timeline copy, no Insight, no narration on step 2.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.

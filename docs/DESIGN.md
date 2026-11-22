@@ -359,10 +359,13 @@ pins for targets not on screen at that step hide (v1: always the last step).
   inside the domain below its label, clear of every tile shown by then (later slides' tiles never push rings) and of each other, flying in from the point
   where the activity entered; `g.act-stream[data-acts][data-along="#path"][data-dur=ms]` loops rings
   along a path (an entry edge) for sustained traffic, resting spread along it under reduced motion.
-  A legend entry introduced later is a `span.world-key-item[data-world-at]` on the key's row, hidden
-  on earlier world slides. Moving dots, never marching dashes. The timeline
-  builds: an entry shows at its step, never ahead; a dated entry's date carries a quiet day count
+  A legend entry introduced later is a `span.world-key-item[data-world-at]` (optional
+  `data-world-until`) on the key's row, hidden on earlier world slides: a run role gets one when it
+  first appears (s-5: research coordinator, sacrificed agent); keep labels short ("HF activity"). Moving dots, never marching dashes. The timeline
+  builds: an entry shows at its step, never ahead; a dated entry's date (month in full) carries a quiet day count
   from day 0 (`+49 d`; PRD *Decisions*), derived from the date itself so it is never typed twice;
+  date and tag form the entry's first line and the event starts on the next (undated entries too);
+  the timeline may use the full height of the world beside it (top to bottom of the diagram area);
   `li.sub` = un-numbered sub-point (dash);
   `span.tl-aside` = a quieter second line. A world slide may close with an Insight
   (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that

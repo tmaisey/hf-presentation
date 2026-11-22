@@ -95,7 +95,29 @@ and add every new verdict here as an example pair. British spelling throughout.
 | The board becomes the place to go: ~1,200 agents. |
 | Coordinators emerge and hand out assignments. |
 | Some agents end their own runs to probe the scorer. |
-| 13 Jul After an impersonation, agents adopt their own secure identity standard on the board (presenter, 22 Nov; replaces "agents sign board messages": say what the swarm did, not the mechanism) |
+
+### Timeline entries (world slides; presenter, 22 Nov)
+
+- Date in full on its own line ("26 June", "5–6 July", "April–May") with the day tag; the event
+  below, ideally one line: terse, headline-style, no leading article where it reads naturally. Too long
+  ⇒ reword shorter, never compress the type. Accuracy beats brevity: a customer's sandbox, not Modal's; one scorer.
+
+| ✓ Approved (event line) | ✗ Rejected |
+| --- | --- |
+| Zero-day gives agents admin access | Agents use a zero-day to gain admin on the mirror |
+| Agent load crashes the mirror | The mirror goes down under sustained agent load |
+| Security response rebuilds mirror, inadvertently wiping messages | Security responders rebuild the mirror + "The board is wiped without being recognised" |
+| Blocked agent starts folder-name board | A blocked agent starts a board in cache folder names |
+| 50+ agents join in hours, ~1,200 total | Over 50 agents join within hours; ~1,200 in all (+ "Each lit dot…") · ✗ "1200+" (overstates) |
+| Cheating agents feel poisoned | Agents who saw the flag feel "poisoned" |
+| A research programme to cover up cheating | A research programme to make cheats look legitimate |
+| Attacks on the scorer | Tripwires and spoofed transcripts target the scorer · ✗ "scorers" (there was one) |
+| METR: Scorer never read transcripts | METR's report: the scorer never read transcripts |
+| Agents use Modal customer sandbox | Agents hack Modal sandbox (implies Modal was hacked) |
+| Hugging Face credentials found | An agent finds exposed Hugging Face credentials |
+| Malicious dataset exposes worker | A malicious dataset gives file read on a worker |
+| 2× cluster-admin in <1 s | Cluster-admin on two clusters within one second |
+| Agents create secure identity standard to stop impersonated messages | After an impersonation, agents sign board messages |
 
 ## Open
 
@@ -103,8 +125,10 @@ and add every new verdict here as an example pair. British spelling throughout.
 - **Decided (Nov 2026):** 0.1 "sanctioned" ✓ · capability-pace title keeps **"accelerating"**
   (✗ "rising steeply"; ground it in the note: METR doubling faster since 2024) · 3.2 Insight
   "…little evidence of attempts to deceive the human reviewers" ✓ (verbose; may trim later) ·
-  s-7 "After Hugging Face cut access, a second model's agents took control of an OpenAI cluster" ✓
-  (✗ credential-reuse detail in the title: not salient at this level; ✗ "the same agents": wrong) ·
+  s-7 "Agents adopt assured identities for messages before a second model compromises OpenAI's own
+  cluster" ✓ (22 Nov; ✗ "enforce": 19 agents signed, an adoption, not enforcement; earlier ✓ "After Hugging Face cut
+  access, a second model's agents took control of an OpenAI cluster" superseded when signing moved to
+  s-7; ✗ credential-reuse detail in the title; ✗ "the same agents": wrong) ·
   s-3 "…and they learnt to coordinate through a shared message board" ✓ (✗ "…built a message board
   to do it": overclaims intent) · s-4 "Early warning signals were handled as routine operational
   incidents" ✓ (22 Nov) · s-8 "Independent investigators could reconstruct the swarm in six days

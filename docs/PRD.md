@@ -158,7 +158,8 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 - **Timeline day tags (presenter, 22 Nov):** every dated timeline entry carries its day count
   from **8 May = day 0** (the first dated event, "A blocked agent turns on the mirror"), in days
   throughout ("+49 d"; weeks would merge the dense 8–19 Jul entries), so the room keeps the overall
-  duration (to +110 d at 26 Aug). Undated entries ("Apr–May", "June") carry none; a range counts
+  duration (to +110 d at 26 August). Dates are written in full on their own line with the tag, the
+  event below; long entries are reworded shorter, never compressed (22 Nov). Undated entries ("Apr–May", "June") carry none; a range counts
   from its first day.
 - **Scorer reveal stays on s-5 (presenter, 22 Nov):** the s-4 ExploitGym pop-over explains
   capture-the-flag and unsolvable tasks only; "the scorer only checked the flag; nobody read the
