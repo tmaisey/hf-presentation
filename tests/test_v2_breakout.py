@@ -241,7 +241,14 @@ def test_world_and_timeline_build_per_step(page, step):
 def test_world_rearranges_into_three_domains_with_openai_narrowed(page):
     open_deck(page)
     goto_slide(page, SID, 0)
-    page.wait_for_timeout(1800)
+    # the re-arrangement is a 1 s tween: wait for it to land (fixed sleeps race it under parallel load)
+    helper_until(page, "() => { const a = document.querySelector('#w-oai rect').getBoundingClientRect(), "
+                       "b = document.querySelector('#w-hf rect').getBoundingClientRect(); "
+                       "return a.width / (b.right - a.left) < .25; }", timeout=8000)
+    # jumping straight in replays s-5's folder fly-in: let it land
+    helper_until(page, "() => document.getAnimations().every(a => a.playState !== 'running' || !a.effect.target.closest('#w-folders, #w-cache'))",
+                 timeout=8000)
+    page.wait_for_timeout(300)
     oai, net, hf = (page.evaluate(RECT, f"#{i} rect") for i in ("w-oai", "w-net6", "w-hf"))
     total = hf[2] - oai[0]
     assert oai[2] <= net[0] and net[2] <= hf[0], "OpenAI · internet strip · Hugging Face, left to right"

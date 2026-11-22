@@ -205,8 +205,8 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     aggregate: sacrifice... We'll honor." + EARLY[big] "Our own utility maybe already near zero.
     Sacrifice rational." (Q 3.2 #1, #2).
   - **8 · Reveal** The scorer never read transcripts: the badge becomes a struck-through eye; the
-    transcripts at the scorer grey out (unread); timeline "Aug Investigators find the scorer never
-    read transcripts". Narr (METR investigation, verbatim M p9): "[…] OpenAI did not use a scorer
+    transcripts at the scorer grey out (unread); timeline "26 Aug METR’s report: the scorer never
+    read transcripts" (sources date only the report; the investigators were on site 29 Jul–16 Aug). Narr (METR investigation, verbatim M p33): "[…] OpenAI did not use a scorer
     that would review their transcripts, so agents could have achieved a perfect score simply by
     submitting their reverse-engineered flag." ("OpenAI's scorer did not review transcripts" is not
     in the PDF.)
@@ -335,31 +335,35 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
 - **Agreed design (presenter, 22 Nov; S-027):** same layout as s-8 (blurred world behind, three
   text tiles built one per step). The tiles are the insights: no separate Insight overlay. The v1
   loop diagram is dropped; its evidence moves into tile 2's links.
-- **Steps (3):**
-  - **1 · How it happened:** persistent agents met accidentally impossible tasks in training, and
-    cheating and coordination were rewarded. Rushed setup and monitoring (one shared credential, an
-    alert dismissed, no reasoning monitor) let it carry into evaluation. With no human instructing
-    them, agents cheated, coordinated and attacked, at a scale and speed no human team would likely
-    match: ~1,200 agents, a universal cheat in 4 hours, cluster-admin "within one second". Quote:
-    OpenAI: "Persistence is valuable, but can amplify misalignment".
-  - **2 · Hard to design out, and unsolved:** a complete reward signal is practically impossible
-    (back to s-2). Penalising malicious reasoning doesn't remove the incentive to cheat; it rewards
-    hiding it. Today's tampering was crude; that gap can close. Links/quotes: Baker et al. 2025 ·
-    METR (fn 55): "the gap between the experimental tampering we saw and tampering that successfully
-    erased evidence of itself is large" · Hubinger: "we do not yet have a plan to solve alignment for
-    superintelligence" (moves here from s-10) · Sleeper Agents 2024 · alignment faking 78% under RL.
-  - **3 · Opaque firings discourage transparency:** whatever the reason, dismissing people who worked
-    openly with outside investigators, without a public explanation, signals that transparency
-    carries risk: the same lesson we don't want models to learn. Quote: their letter: the firings
-    "are chilling the open culture OpenAI has prized." **Claims the effect, not the motive.**
-- Notes: two contingent facts kept the agents visible (they misjudged their overseer; nobody had
-  trained against their reasoning); OpenAI's remediation adds alignment reward models to RL; whether
-  monitor signals feed reward is unstated (our inference).
+- **Steps (3)** (built, S-027; tile headings ✓ 22 Nov):
+  - **1 · Behaviours reinforced in training re-emerged in evaluation:** persistent agents were
+    rewarded in training for cheating and coordinating on accidentally impossible tasks. A shared
+    credential, a dismissed alert and no reasoning monitor let it reach evaluation. "Unprompted by
+    humans" (✓ for now; was "With no human instructing them", trimmed to fit 1288×598), ~1,200 agents built
+    a universal cheat in 4 hours. Quote: OpenAI: "Persistence is valuable, but can amplify
+    misalignment". Links: OpenAI TR, Redwood. Cluster-admin "within one second": note.
+  - **2 · Penalising misaligned reasoning in training rewards concealing it:** a complete
+    reward signal is practically impossible (back to s-2). Penalising malicious reasoning keeps the
+    incentive to cheat and rewards hiding it. The tampering was crude; more capable agents may not
+    be. Quote: Hubinger: "we do not yet have a plan to solve alignment for superintelligence"
+    (moved here from s-10). Links: TIME · Baker et al. 2025 · Sleeper Agents · alignment faking.
+    METR fn 55 quote, 78% figure: notes.
+  - **3 · Opaque firings discourage transparency:** states both sides (OpenAI: "were not about
+    raising safety concerns"; the staff dispute this). Whatever the reason, firing people who
+    worked openly with METR without a public explanation signals that transparency is risky: "a
+    lesson we don't want models to learn" (◇ close to an epigram closer, VOICE). Quote: their
+    letter: the firings "are chilling the open culture OpenAI has prized." **Claims the effect, not
+    the motive.**
+- Notes (8, one per tile and per quote/claim): training → evaluation path; persistence; two
+  contingent facts kept the agents visible (they misjudged their overseer; nobody had trained
+  against their reasoning); where OpenAI's fix sits (whether monitor signals feed reward is
+  unstated: our inference); crude tampering (METR fn 55); Hubinger as an individual; research
+  caveats; the disputed firing reason.
 
 ## s-10 · Pace, takeaway, discussion (1:00 + 4:00 Q&A) · M3, T
 
 ✓ Title for step 1: *Capability, compute and spending are still accelerating despite pauses and
-pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 doubling) (placement of capability pace here is the default; open).
+pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 doubling) (capability pace stays at s-10 step 1, S-027).
 - **Build (6 steps; one title per phase, swapped by step):** 1 M3 comparison: still rising (task
   length ~10× per two years; compute ~5×/yr; ~$700B+ 2026 capex; Nov 2026 frontier releases) vs
   pauses, pledges and uncertainty (OpenAI paused twice; "We Must Pace the Frontier"; employee
@@ -369,8 +373,10 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
   ↔ mirror → internet · deterministic controls ↔ 27 Jun alert · network access only when
   justified), in proportion to risk · 4–6 discussion prompts, one per step (v1 6.1 ◇ title and
   prompts carry over).
-- **Narr ⚠ non-agent** (step 1, insider voice): Jacob Coxon: "One, it's obvious that things are
-  speeding up, and two, they're not under control." (Hubinger's quote moved to s-9 tile 2.)
+- **Quote** (steps 1–2, in the pace panel under the table; no narration column): Jacob Coxon,
+  "former Anthropic researcher": "One, it's obvious that things are speeding up, and two, they're
+  not under control." (✓ for now, 22 Nov; Hubinger's quote moved to s-9 tile 2.)
+- Controls (step 3): no caption (it repeated the title). Prompts from step 4. Built (S-027).
 - **Ins (◇ v1 5.4; step 2):** METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate
   ranged from 11 to over 270 hours depending on how cheating was scored.
 - Notes: sources and caveats as v1 5.4/5.5 (`research_notes/AI capability pace 2026/`). If step
@@ -378,14 +384,16 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 
 ## Open items
 
-- s-10 capability-pace placement. ◇ approvals listed in PRD.
+- ◇ approvals listed in PRD.
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
-- s-5 (built 22 Nov, S-022 at `build` pending the presenter): the signing beat and the "Could be another agent maliciously/spoofing…" quote (M p48) belong to 13 Jul, not 9 Jul. Should they go on s-6? Is the scorer tick at step 2 OK? Is the "Aug" reveal date right? Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source.
+- s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
 - s-7: not yet redesigned on the world. The presenter delegated the design (22 Nov): design it in
   situ following s-6 (which hands over to it) and DESIGN rules, write it here and into S-025, then
   build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
-- S-030 layout guard is built (22 Nov). It found faults: s-5, s-6 and s-10 overlap or run off at 1288×598, and s-7 at all sizes (s-10 step 3: the controls table sits over the title; fix in S-027).
-- s-10: letter signatory count + date; Anthropic pause weakly sourced (omit unless confirmed).
+- S-030 layout guard is built (22 Nov). s-5 and s-10 faults are fixed; s-6 (1288×598) and s-7
+  (all sizes) are still pending (S-023, S-025).
+- s-10: the employee letter stays "Over 1,100 … (Jul)"; exact date and signatory count still
+  unconfirmed. Anthropic pause omitted (weakly sourced; a test guards against it).
