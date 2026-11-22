@@ -271,7 +271,13 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `g.zone.zone--lit` = accent-tinted fill + glow for a persistent lit context. *Unused* since s-6/s-7 moved onto the incident world, where a
   `g.domain` box does that job.
 - *Retired* (unused since S-026 went text-led; CSS left in the deck, **NEVER** reuse without
-  re-prototyping): scope fence `rect.fence`, flagged tile `g.tile.tile--flag`.
+  re-prototyping): scope fence `rect.fence`, flagged tile `g.tile.tile--flag`, `.edge--reinforced`.
+- Coloured edges (S-019, s-2): `.edge--ok` (accent) / `.edge--loss` (`--loss`), each with its own
+  arrowhead marker (`#arr-ok` / `#arr-loss`, same shape as `#arr`); a verified success = the
+  `.cred-badge.tick-badge` disc on the edge. A figure with annotations: `div.fig > svg.diagram +
+  div.fig-notes > p.annot[.annot--loss]` (callout on `--tile`, 4px accent or `--loss` left edge);
+  annotations swap by step in one shared cell. `.keep` = never break inside a phrase (embedded
+  fonts lack U+2011).
 - Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
   right-aligns), for a share-of-total split. *Unused* since S-023 moved s-6 onto the incident world
   (CSS left in the deck for reuse).
@@ -360,7 +366,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   where the activity entered; `g.act-stream[data-acts][data-along="#path"][data-dur=ms]` loops rings
   along a path (an entry edge) for sustained traffic, resting spread along it under reduced motion.
   A legend entry introduced later is a `span.world-key-item[data-world-at]` (optional
-  `data-world-until`) on the key's row, hidden on earlier world slides: a run role gets one when it
+  `data-world-until`) in the key, hidden on earlier world slides; the key wraps within the world
+  column and hidden entries keep their space, so its height (and the world) never changes between world slides: a run role gets one when it
   first appears (s-5: research coordinator, sacrificed agent); keep labels short ("HF activity"). Moving dots, never marching dashes. The timeline
   builds: an entry shows at its step, never ahead; a dated entry's date (month in full) carries a quiet day count
   from day 0 (`+49 d`; PRD *Decisions*), derived from the date itself so it is never typed twice;

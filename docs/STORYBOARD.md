@@ -71,6 +71,8 @@ cyber evaluation")
     s-9 tile 2: penalising misaligned reasoning rewards concealing it.)
 - Note: TR: "finding hidden efficiencies and shortcuts can even be the desired behavior… making the
   boundary difficult to draw during training."
+- **Built (S-019, 22 Nov):** at step 3 the red test → scorer path replaces the top grey attempt (still
+  three attempts); the red return arcs over the top, the green one runs underneath.
 
 ## s-3 · Training board (2:00) · M1
 
