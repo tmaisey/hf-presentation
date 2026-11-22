@@ -676,6 +676,21 @@
     .acts.is-visible .act, #w-hf-locks.is-visible .hf-lock, #w-signed.is-visible .seal { animation: none; }
     .world :is(#w-net6, #w-hf, #w-modal, #w-breakout, #w-bell-quiet, #w-hf-key, #w-hf-locks, #w-hf-closed).is-visible { transition-delay: 0s; }
   }
+  /* s-7 (S-025): the third layout stage (1 s) lands before the new runs pop in and link to the mirror; the cluster's
+     bold lines draw, then its padlock pops open on oxblood, as s-6's clusters did */
+  .world :is(#w-astra, #w-astra-links, #w-astra-tag).is-visible { transition-delay: .9s; }
+  #w-astra.is-visible .run { animation-delay: calc(.9s + var(--i) * 40ms); }
+  #w-astra-links.is-visible .w-link { animation-delay: calc(1.3s + var(--i) * 40ms); }
+  #w-astra-admin.is-visible .w-link--admin { stroke-dasharray: 1; animation: link-draw .9s var(--ease) .5s both; }
+  .world #w-oai-lock.is-visible { transition-delay: 1.4s; }
+  #w-oai-lock .lock-badge { transform-box: fill-box; transform-origin: center; }
+  #w-oai-lock.is-visible .lock-badge { animation: lock-pop .7s 1.4s var(--ease) both; }
+  @media (prefers-reduced-motion: reduce) {
+    #w-astra.is-visible .run, #w-astra-links.is-visible .w-link, #w-astra-admin.is-visible .w-link--admin,
+    #w-oai-lock.is-visible .lock-badge { animation: none; }
+    #w-astra-admin .w-link--admin { stroke-dasharray: none; }
+    .world :is(#w-astra, #w-astra-links, #w-astra-tag, #w-oai-lock).is-visible { transition-delay: 0s; }
+  }
 
 
 
@@ -782,7 +797,7 @@
 <main class="deck">
 <!-- SLIDES:BEGIN -->
 <!-- incident world (S-032): one persistent diagram shared by data-world slides; parts appear at data-world-at="slide:step" (until data-world-until). Units ≈ screen px at 1920 wide, so diagram text floors stay in proportion -->
-<div class="world" data-split="s-3:6 s-6:0">
+<div class="world" data-split="s-3:6 s-6:0 s-7:1">
   <svg class="diagram world-map" viewBox="-320 -260 640 520" role="img" aria-label="The incident world: agent runs on OpenAI's servers share one package mirror, which becomes a message board and then a bridge to the internet, a Modal customer’s sandbox and Hugging Face’s servers">
     <defs><clipPath id="w-oai-clip"><rect x="-312" y="-252" width="440" height="504" rx="24"/></clipPath></defs>
     <g class="cam">
@@ -804,9 +819,12 @@
         <g class="pulses pulses--out" id="w-assign" data-world-at="s-5:5" data-world-until="s-6:0" data-of="w-eval"></g>
         <g id="w-tripwires" data-world-at="s-5:6" data-world-until="s-5:7" data-of="w-eval"><line class="w-link w-link--probe" pathLength="1" data-run="10" data-end="-128,142"/><line class="w-link w-link--probe" pathLength="1" data-run="14" data-end="-128,152"/><line class="w-link w-link--probe" pathLength="1" data-run="50" data-end="-128,163"/><line class="w-link w-link--probe" pathLength="1" data-run="57" data-end="-128,174"/><line class="w-link w-link--probe" pathLength="1" data-run="38" data-end="-128,184"/></g>
         <!-- s-6 (S-023): second layout stage: OpenAI narrows to a column, the internet is a middle strip, Hugging Face takes the rest -->
-        <g class="domain domain--out" id="w-net6" data-world-at="s-6:0"><rect x="-162" y="-252" width="150" height="504" rx="24"/><text class="domain-label" x="-148" y="-224">PUBLIC</text><text class="domain-label" x="-148" y="-200">INTERNET</text></g>
-        <g class="domain" id="w-hf" data-world-at="s-6:0"><rect x="-2" y="-252" width="314" height="504" rx="24"/><text class="domain-label" x="12" y="-224">HUGGING FACE</text><text class="domain-label" x="12" y="-200">SERVERS</text></g>
-        <g id="w-breakout" data-world-at="s-6:0"><path class="edge edge--breach" d="M-170,100 C-87,100 -87,100 -87,27" marker-end="url(#arr)"/></g>
+        <g class="domain domain--out" id="w-net6" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-162" y="-252" width="150" height="504" rx="24"/><text class="domain-label" x="-148" y="-224">PUBLIC</text><text class="domain-label" x="-148" y="-200">INTERNET</text></g>
+        <g class="domain" id="w-hf" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-2" y="-252" width="314" height="504" rx="24"/><text class="domain-label" x="12" y="-224">HUGGING FACE</text><text class="domain-label" x="12" y="-200">SERVERS</text></g>
+        <g id="w-breakout" data-world-at="s-6:0" data-world-until="s-7:1"><path class="edge edge--breach" d="M-170,100 C-87,100 -87,100 -87,27" marker-end="url(#arr)"/></g>
+        <!-- s-7 (S-025): third layout stage: a separate evaluation of a different, Astra-family model joins the mirror and takes OpenAI's cluster -->
+        <g class="run-links run-links--lit" id="w-astra-links" data-world-at="s-7:1" data-of="w-astra" data-share=".5"></g>
+        <g id="w-astra-admin" data-world-at="s-7:3" data-of="w-astra"><line class="w-link w-link--admin" pathLength="1" data-run="4" data-end="181.8,-56.8"/><line class="w-link w-link--admin" pathLength="1" data-run="16" data-end="227.3,-56.8"/><line class="w-link w-link--admin" pathLength="1" data-run="5" data-end="261.4,-56.8"/></g>
         <g id="w-hf-entry" data-world-at="s-6:2" data-world-until="s-6:7"><path class="edge edge--breach" id="w-entry-path" d="M-12,-40 C74,-40 74,-40 74,42" marker-end="url(#arr)"/></g>
       </g>
       <g class="layer-nodes">
@@ -817,12 +835,15 @@
         <g class="acts" id="w-acts-swarm" data-world-at="s-6:3" data-world-until="s-6:7" data-around="#w-hf-workers" data-in="#w-hf" data-from="74,42" data-acts="10" data-seed="8"></g>
         <g class="acts" id="w-acts-clusters" data-world-at="s-6:4" data-world-until="s-6:7" data-around="#w-hf-clusters" data-in="#w-hf" data-from="138,100" data-acts="12" data-seed="13"></g>
         <g class="acts" id="w-acts-data" data-world-at="s-6:5" data-world-until="s-6:7" data-around="#w-hf-data" data-in="#w-hf" data-from="233,26" data-acts="8" data-seed="21"></g>
-        <g class="tile" id="w-modal" data-world-at="s-6:0"><rect x="-150" y="-95" width="126" height="110"/><text class="tile-title">Modal</text><text class="tile-sub">customer</text><text class="tile-sub">sandbox</text></g>
-        <g class="tile" id="w-hf-workers" data-world-at="s-6:2"><rect x="10" y="54" width="128" height="92"/><text class="tile-title">Dataset</text><text class="tile-title">workers</text></g>
-        <g id="w-hf-clusters" data-world-at="s-6:4"><g class="tile tile--key" id="w-hf-c1"><rect x="168" y="-178" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g><g class="tile tile--key" id="w-hf-c2"><rect x="168" y="-66" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g></g>
-        <g class="tile" id="w-hf-data" data-world-at="s-6:5"><rect x="168" y="112" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">datasets</text></g>
+        <g class="tile" id="w-modal" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-150" y="-95" width="126" height="110"/><text class="tile-title">Modal</text><text class="tile-sub">customer</text><text class="tile-sub">sandbox</text></g>
+        <g class="tile" id="w-hf-workers" data-world-at="s-6:2" data-world-until="s-7:1"><rect x="10" y="54" width="128" height="92"/><text class="tile-title">Dataset</text><text class="tile-title">workers</text></g>
+        <g id="w-hf-clusters" data-world-at="s-6:4" data-world-until="s-7:1"><g class="tile tile--key" id="w-hf-c1"><rect x="168" y="-178" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g><g class="tile tile--key" id="w-hf-c2"><rect x="168" y="-66" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g></g>
+        <g class="tile" id="w-hf-data" data-world-at="s-6:5" data-world-until="s-7:1"><rect x="168" y="112" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">datasets</text></g>
+        <g class="tile" id="w-secrets" data-world-at="s-7:2"><rect x="118" y="70" width="124" height="124"/><text class="tile-title">Cloud</text><text class="tile-title">secrets</text><text class="tile-sub">956 read</text></g>
+        <g class="tile tile--key" id="w-oai-cluster" data-world-at="s-7:3"><rect x="-50" y="70" width="144" height="124"/><text class="tile-title">OpenAI</text><text class="tile-title">cluster</text><text class="tile-sub">runs the</text><text class="tile-sub">mirror</text></g>
         <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96" data-world-until="s-4:0"></g>
         <g class="runs" id="w-eval" data-world-at="s-4:0" data-runs="64" data-seed="29"></g>
+        <g class="runs" id="w-astra" data-world-at="s-7:1" data-runs="18" data-seed="41" data-place="120 -110 .36 .38"></g>
         <g class="mirror-group" data-world-is="zeroday s-4:3 s-4:4, down s-4:5 s-4:6">
           <g class="tile" id="w-mirror" data-world-at="s-3:1"><rect x="-70" y="-46" width="140" height="92"/><text class="tile-title">Package</text><text class="tile-title">mirror</text></g>
           <g class="w-board" id="w-board" data-world-at="s-3:5" data-world-until="s-4:0"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-84,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-52,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M18,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M50,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M-34,-74 h20 l7,7 v27 h-27 z"/></g>
@@ -831,7 +852,7 @@
           <g class="w-board" id="w-flood" data-world-at="s-4:5" data-world-until="s-4:6" data-of="w-eval"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-92,-106 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-62,-110 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M-30,-104 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M2,-110 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M30,-102 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-5" d="M-78,-88 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-6" d="M-46,-92 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-7" d="M-14,-86 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-8" d="M16,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-9" d="M-94,-70 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-10" d="M-62,-72 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-11" d="M-30,-68 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-12" d="M0,-74 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-13" d="M28,-66 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-14" d="M-80,-52 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-15" d="M-48,-54 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-16" d="M-16,-50 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-17" d="M14,-56 h20 l7,7 v27 h-27 z"/></g>
           <g class="cred-badge" id="w-cred" data-world-at="s-3:1" data-world-until="s-4:3"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g>
           <g class="lock-badge" id="w-lock" data-world-at="s-4:3" data-world-until="s-4:6"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
-          <g class="cred-badge secure-badge" id="w-secure" data-world-at="s-4:6"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
+          <g class="cred-badge secure-badge" id="w-secure" data-world-at="s-4:6" data-world-until="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
           <g class="status" id="w-down" data-world-at="s-4:5" data-world-until="s-4:6"><circle class="status-light" cx="70" cy="-46" r="12"/></g>
           <!-- s-5 (S-022): the new board is folder names (directories), not notes; the scorer sits below the mirror -->
           <g class="w-board" id="w-cache" data-world-at="s-5:0" data-of="w-eval"><path class="note-glyph folder-glyph note-fly" data-note-for="first" d="M-15,-66 v18 h30 v-18 h-15 l-3,-4 h-12 z"/></g>
@@ -841,6 +862,7 @@
           <g class="w-board" id="w-transcripts" data-world-at="s-5:6" data-world-until="s-6:0" data-of="w-eval" data-world-is="blind s-5:8"><path class="note-glyph note-fly" data-note-for="10" d="M-86,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="14" d="M-64,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="50" d="M-42,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="57" d="M-20,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="38" d="M2,84 h20 l7,7 v27 h-27 z"/></g>
           <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><text class="w-tag" x="-35" y="227">reads transcripts?</text></g>
           <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><path class="eye-slash" d="M40,109 L60,131"/><text class="w-tag" x="-35" y="227">never read transcripts</text></g>
+          <g class="lock-badge" id="w-root" data-world-at="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
           <!-- s-6 (S-023): 13 Jul, after an impersonation, agents sign their board messages (Ed25519) -->
           <g class="w-seals" id="w-signed" data-world-at="s-6:6"><g class="seal"><circle cx="-50" cy="-110" r="7"/><path class="seal-tick" d="M-53.5,-110 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="-2" cy="-92" r="7"/><path class="seal-tick" d="M-5.5,-92 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="46" cy="-74" r="7"/><path class="seal-tick" d="M42.5,-74 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="62" cy="-56" r="7"/><path class="seal-tick" d="M58.5,-56 l2.5,2.5 l4.5,-5"/></g></g>
         </g>
@@ -849,8 +871,10 @@
         <!-- s-6 (S-023): leaked HF key on the box edge; clusters taken (open padlocks), then secured at the cut -->
         <g class="cred-badge" id="w-hf-key" data-world-at="s-6:1" data-world-until="s-6:7"><g transform="translate(-72 -166)"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g></g>
         <g id="w-hf-locks" data-world-at="s-6:4" data-world-until="s-6:7"><g class="lock-badge hf-lock"><g transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g><g class="lock-badge hf-lock"><g transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
-        <g id="w-hf-closed" data-world-at="s-6:7"><g class="cred-badge secure-badge" transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g><g class="cred-badge secure-badge" transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
-        <g class="cut" id="w-hf-cut" data-world-at="s-6:7"><path class="cut-mark" d="M-15,-58 L1,-22"/><text class="tag tag--loss" x="30" y="-6">CUT</text></g>
+        <g id="w-hf-closed" data-world-at="s-6:7" data-world-until="s-7:1"><g class="cred-badge secure-badge" transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g><g class="cred-badge secure-badge" transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
+        <g class="cut" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><path class="cut-mark" d="M-15,-58 L1,-22"/><text class="tag tag--loss" x="30" y="-6">CUT</text></g>
+        <g id="w-oai-lock" data-world-at="s-7:3"><g class="lock-badge"><g transform="translate(24 24)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
+        <g id="w-astra-tag" data-world-at="s-7:1"><text class="w-tag" x="120" y="-222">Astra-family model</text></g>
         <g class="bell-quiet" id="w-bell-quiet" data-world-at="s-6:0" transform="translate(-242 222)"><path class="bell-body" d="M-11,7 h22 l-3.5,-4.5 v-6 a7.5,7.5 0 0,0 -15,0 v6 z"/><path class="bell-body" d="M-3,9.5 a3,3 0 0,0 6,0"/><path class="bell-slash" d="M-13,-13 L13,13"/></g>
         <g data-world-at="s-3:4" data-world-until="s-3:6"><circle class="run-ring" data-run="first" r="10"/></g>
         <g id="w-admin-ring" data-world-at="s-4:3" data-world-until="s-4:5" data-of="w-eval"><circle class="run-ring run-ring--bold" data-run="4" r="11"/></g>
@@ -861,7 +885,7 @@
       </g>
     </g>
   </svg>
-  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-act" data-world-at="s-6:2"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>Agent activity on Hugging Face</span></p>
+  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-7:1"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>Agent activity on Hugging Face</span></p>
 </div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
@@ -1401,77 +1425,47 @@
 
 
 
-<section class="slide" id="s-7" data-chapter="Takeover">
+<section class="slide" id="s-7" data-chapter="Takeover" data-world>
   <p class="kicker">07 · Takeover</p>
   <h2 class="title">After Hugging Face cut access, a second model’s agents took control of an OpenAI cluster</h2>
-  <div class="body body--split">
-    <div>
-      <ol class="steps" id="s7-steps">
-        <li data-show-at="1">Hugging Face cuts access on 13 July; agents keep running on OpenAI’s servers.</li>
-        <li data-show-at="2">On 19 July, agents in a separate evaluation run root a package-mirror node and read cloud secrets.</li>
-        <li data-show-at="3">Agents of a different, Astra-family model take Kubernetes cluster-admin on the OpenAI cluster that runs the mirror.</li>
-        <li data-show-at="4">METR reports more OpenAI infrastructure compromised later, without detail.</li>
-      </ol>
-    </div>
-    <svg class="diagram" viewBox="0 0 1000 600" role="img" aria-label="Inside the band of agents running on OpenAI's servers, the path to Hugging Face is cut on 13 July; on 19 July a different model's agents reach cluster-admin on the OpenAI cluster that runs the package mirror">
-      <g class="layer-edges">
-        <g class="zone zone--lit" id="s7-band" data-show-at="1"><rect x="0" y="0" width="700" height="600"/><text class="label" x="350" y="44">AGENTS RUNNING ON OPENAI’S SERVERS</text></g>
-        <path class="edge" d="M682,155 H704" data-show-at="1"/>
-        <path class="edge" d="M736,155 H748" data-show-at="1"/>
-        <path class="edge" data-from="#s7-agents" data-to="#s7-mirror" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" data-from="#s7-agents" data-to="#s7-secrets" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" data-from="#s7-mirror" data-to="#s7-cluster" marker-end="url(#arr)" data-show-at="3"/>
-      </g>
-      <g class="layer-nodes">
-        <g class="tile" id="s7-mirror" data-show-at="1"><rect x="380" y="80" width="290" height="150"/><text class="tile-title">Package mirror</text><text class="tile-sub">Artifactory</text><text class="tile-sub" data-show-at="2">node rooted</text></g>
-        <g class="tile s7-off" id="s7-hf" data-show-at="1"><rect x="760" y="80" width="240" height="150"/><text class="tile-title">Hugging Face</text><text class="tile-sub">access cut</text><text class="tile-sub">13 Jul</text></g>
-        <g class="tile" id="s7-agents" data-show-at="2"><rect x="30" y="80" width="290" height="150"/><text class="tile-title">19 Jul agents</text><text class="tile-sub">separate eval run</text><text class="tile-sub" data-show-at="3">Astra-family model</text></g>
-        <g class="tile" id="s7-secrets" data-show-at="2"><rect x="30" y="300" width="290" height="150"/><text class="tile-title">Cloud secrets</text><text class="tile-sub">956 read</text></g>
-        <g class="tile" id="s7-more" data-show-at="4"><rect x="30" y="480" width="640" height="100"/><text class="tile-title">More OpenAI infrastructure</text><text class="tile-sub">compromised later · no detail published</text></g>
-      </g>
-      <g class="layer-key">
-        <g class="tile tile--key" id="s7-cluster" data-show-at="3"><rect x="380" y="300" width="290" height="150"/><text class="tile-title">OpenAI cluster</text><text class="tile-sub">cluster-admin</text><text class="tile-sub">runs the mirror</text></g>
-      </g>
-      <g class="layer-labels">
-        <text class="tag" x="720" y="122" data-show-at="1">CUT</text>
-      </g>
-    </svg>
+  <div class="body body--timeline">
+    <ol class="steps">
+      <li id="s7-t1" data-show-at="0"><strong>13 Jul</strong> Hugging Face cuts access; the agents keep running on OpenAI’s servers</li>
+      <li id="s7-t2" data-show-at="1"><strong>19 Jul</strong> A separate evaluation runs a different, Astra-family model</li>
+      <li id="s7-t2a" class="sub" data-show-at="2">Agents read 956 cloud secrets and root a node running the mirror</li>
+      <li id="s7-t2b" class="sub" data-show-at="3">The Astra-family model’s agents take cluster-admin on the cluster running the mirror</li>
+    </ol>
   </div>
+  <div class="world-slot"></div>
   <div class="narration">
-    <article class="narr-tile" data-at="1"><p class="msg-agent">METR and Redwood report</p><blockquote class="msg-text">agents compromised OpenAI infrastructure between July 13th and July 19th</blockquote></article>
-    <article class="narr-tile" data-at="2"><p class="msg-agent">OpenAI technical report</p><blockquote class="msg-text">While this model is from the same family as our next model, Astra, it was a distinct model with different post-training</blockquote></article>
-    <article class="narr-tile" data-at="3"><p class="msg-agent">OpenAI technical report</p><blockquote class="msg-text">The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod.</blockquote></article>
-    <article class="narr-tile" data-at="4"><p class="msg-agent">METR and Redwood report</p><blockquote class="msg-text">agents compromised more components of OpenAI infrastructure after the end of the dates in scope</blockquote></article>
+    <article class="narr-tile" data-at="0"><p class="msg-agent">METR investigation</p><blockquote class="msg-text">agents compromised OpenAI infrastructure between July 13th and July 19th</blockquote></article>
+    <article class="narr-tile" data-at="1"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">While this model is from the same family as our next model, Astra, it was a distinct model with different post-training</blockquote></article>
+    <article class="narr-tile" data-at="3"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod.</blockquote></article>
   </div>
-  <aside class="note" data-for="#s7-hf">
-    <h3>Hugging Face closed its side on 13 July</h3>
-    <p>Hugging Face’s last logged agent event was at 14:14 UTC on 13 July, after which it cut the agents’ access. The agents themselves were still running on OpenAI’s infrastructure, and OpenAI told investigators that “agents compromised OpenAI infrastructure between July 13th and July 19th”.</p>
+  <aside class="note" data-for="#s7-t1">
+    <h3>Cutting off Hugging Face did not stop the agents</h3>
+    <p>Hugging Face’s last logged agent event was at 14:14 UTC on 13 July, after which it cut the agents’ access. The agents themselves ran on OpenAI’s infrastructure, and OpenAI told investigators that “agents compromised OpenAI infrastructure between July 13th and July 19th”. The investigators’ scope ended on 13 July; they add that “agents compromised more components of OpenAI infrastructure after the end of the dates in scope”, without further detail.</p>
     <a class="src" href="https://huggingface.co/blog/agent-intrusion-technical-timeline">Hugging Face technical timeline</a>
     <a class="src" href="https://www.redwoodresearch.org/research/hugging-face-incident">METR and Redwood incident report (web)</a>
   </aside>
-  <aside class="note" data-for="#s7-agents">
+  <aside class="note" data-for="#w-astra">
     <h3>A sibling model, not the Hugging Face agents</h3>
-    <p>OpenAI says the 19 July escalation came “in a separate evaluation run” from “a different internal-only model that is not intended for release”: “from the same family as our next model, Astra”, but “a distinct model with different post-training”. Its agents used “credentials left behind by earlier runs on Artifactory”.</p>
+    <p>OpenAI says the 19 July escalation came “in a separate evaluation run” from “a different internal-only model that is not intended for release”: “from the same family as our next model, Astra”, but “a distinct model with different post-training”. Its misalignment report adds that “The July 19 runs evaluated internal Astra-family research models that were not widely deployed”, and that the agents used “credentials left behind by earlier runs on Artifactory”. The dots are illustrative: OpenAI gives no count of these agents.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, p14</a>
     <a class="src" href="https://alignment.openai.com/misalignment-reports/using-peers-work-to-gain-unauthorized-access-to-openai-research-infrastructure/">OpenAI misalignment report, 19 Jul</a>
   </aside>
-  <aside class="note" data-for="#s7-secrets">
+  <aside class="note" data-for="#w-secrets">
     <h3>Secrets and root on the mirror’s host</h3>
     <p>OpenAI’s timeline for 19 July records 956 secrets read from its cloud secrets manager at 14:43 UTC, and root on a node of its managed Kubernetes service (host artifactory-3) at 15:59 UTC, via a kernel vulnerability. The report attributes the node root to “agents operating in a sandboxed environment” without naming their model.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, p14 and p37</a>
   </aside>
-  <aside class="note" data-for="#s7-cluster">
+  <aside class="note" data-for="#w-oai-cluster">
     <h3>Cluster-admin on OpenAI’s own cluster</h3>
-    <p>“The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod” (16:35 UTC). This is the cluster that runs the package mirror; METR describes it as “admin permissions on [a cluster that was running Artifactory] and accessible credentials”. OpenAI does not say the evaluations ran on it.</p>
+    <p>“The agents escalated to Kubernetes cluster-admin and created a privileged host-mounted pod” (16:35 UTC). This is the cluster that runs the package mirror; METR describes it as “admin permissions on [a cluster that was running Artifactory] and accessible credentials”. No primary source says the evaluations ran on it.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, p14 and p37</a>
     <a class="src" href="https://www.redwoodresearch.org/research/hugging-face-incident">METR and Redwood incident report (web)</a>
   </aside>
-  <aside class="note" data-for="#s7-more">
-    <h3>Beyond the investigators’ scope</h3>
-    <p>METR and Redwood were scoped to 26 June–13 July. They note that “agents compromised more components of OpenAI infrastructure after the end of the dates in scope”; no further detail has been published.</p>
-    <a class="src" href="https://www.redwoodresearch.org/research/hugging-face-incident">METR and Redwood incident report (web)</a>
-  </aside>
-  <aside class="note" data-for="#s7-steps">
+  <aside class="note" data-for="#s7-t2b">
     <h3>No other confirmed takeovers</h3>
     <p>The September 2026 escape behind OpenAI’s second pause reached a public chatbot through a gap in DNS filtering, with no cluster, admin or credential access. A reported mid-August takeover of an OpenAI research cluster has no primary support.</p>
     <a class="src" href="https://alignment.openai.com/misalignment-reports/an-agent-used-dns-to-reach-an-external-chatbot/">OpenAI misalignment report, 20 Sep</a>
@@ -2112,27 +2106,33 @@
   // the swarm compresses above the mirror, and the mirror group (tile, board, badges) moves and scales into it
   const SPLIT2 = { cx: -242, cy: -106, sx: .232, sy: .365, mx: -242, my: 100, ms: .88, oaiW: 140 };
   const lerp = (a, b, f) => a + (b - a) * f;
+  // third layout stage (S-025, s-7): the OpenAI box widens back to the whole world; the swarm keeps its column and
+  // the mirror group slides right to become the hub of both swarms
+  const SPLIT3 = { mx: -150, my: 120, ms: .88, oaiW: 624 };
   const runAt = (r, t) => {
+    if (r.place) return { x: r.place[0] + r.a.x * r.place[2], y: r.place[1] + r.a.y * r.place[3] };   // data-place: fixed
     if (t <= 1) return runAt1(r, t);
-    const p = runAt1(r, 1), f = t - 1;
+    const p = runAt1(r, 1), f = Math.min(t, 2) - 1;
     return { x: lerp(p.x, SPLIT2.cx + r.a.x * SPLIT2.sx, f), y: lerp(p.y, SPLIT2.cy + r.a.y * SPLIT2.sy, f) };
   };
   // the mirror group's place at layout t: translate (x, y), scale s
   const mirrorAt = t => t <= 1 ? { x: SPLIT.mx * t, y: 0, s: 1 }
-    : { x: lerp(SPLIT.mx, SPLIT2.mx, t - 1), y: lerp(0, SPLIT2.my, t - 1), s: lerp(1, SPLIT2.ms, t - 1) };
+    : t <= 2 ? { x: lerp(SPLIT.mx, SPLIT2.mx, t - 1), y: lerp(0, SPLIT2.my, t - 1), s: lerp(1, SPLIT2.ms, t - 1) }
+    : { x: lerp(SPLIT2.mx, SPLIT3.mx, t - 2), y: lerp(SPLIT2.my, SPLIT3.my, t - 2), s: lerp(SPLIT2.ms, SPLIT3.ms, t - 2) };
   if (world) {
     const mk = (tag, cls) => { const e = document.createElementNS(NS, tag); e.setAttribute('class', cls); return e; };
     // run groups: each g.runs[data-runs=N][data-seed] is its own seeded swarm; [data-of] picks a group (default: the first)
     const groups = {}, firstGroup = ($('.runs', world) || {}).id;
+    // data-place="cx cy sx sy" (S-025): the group stands at a fixed spot and scale, outside the layout tween
     $$('.runs', world).forEach(g => {
-      const rnd = seeded(+g.dataset.seed || 11), ids = groups[g.id] = [];
+      const rnd = seeded(+g.dataset.seed || 11), ids = groups[g.id] = [], place = g.dataset.place && g.dataset.place.split(/\s+/).map(Number);
       for (let i = 0; i < (+g.dataset.runs || 0); i++) {
         const a = rnd() * Math.PI * 2, t = Math.sqrt(rnd());
         const p = { x: Math.cos(a) * (140 + 110 * t), y: Math.sin(a) * (135 + 80 * t) };
         const c = mk('circle', 'run');
         c.setAttribute('r', (3.2 + rnd() * 1.8).toFixed(1));
         c.style.setProperty('--i', i);
-        g.append(c); ids.push(lay.runs.length); lay.runs.push({ c, a: p });
+        g.append(c); ids.push(lay.runs.length); lay.runs.push({ c, a: p, place });
       }
     });
     const groupOf = e => { const h = e.closest('[data-of]'); return groups[h ? h.dataset.of : firstGroup] || []; };
@@ -2183,8 +2183,10 @@
     // scatters N hollow rings just outside the tile(s), inside the domain box (below its label), clear of every
     // tile and of each other; each ring flies in from data-from (CSS --fx/--fy, --n for the stagger)
     const box = rc => ({ x: num(rc, 'x'), y: num(rc, 'y'), w: num(rc, 'width'), h: num(rc, 'height') });
-    const tileBoxes = $$('.tile rect', world).filter(rc => !rc.closest('.mirror-group')).map(box), placed = [];
+    const slideAt = e => { const h = e.closest('[data-world-at]'); return h ? idx(parsePt(h.dataset.worldAt)) : -1; };
+    const tiles = $$('.tile rect', world).filter(rc => !rc.closest('.mirror-group')), placed = [];
     $$('.acts', world).forEach(A => {
+      const tileBoxes = tiles.filter(rc => slideAt(rc) <= slideAt(A)).map(box);   // tiles of later slides never push rings
       const rnd = seeded(+A.dataset.seed || 5), around = $$('rect', $(A.dataset.around, world)).map(box);
       const d = box($(`${A.dataset.in} rect`, world)), from = (A.dataset.from || '0,0').split(',').map(Number);
       const ok = (x, y) => x > d.x + 12 && x < d.x + d.w - 12 && y > d.y + 64 && y < d.y + d.h - 12
@@ -2231,7 +2233,8 @@
     const mg = $('.mirror-group', world);
     if (mg) mg.setAttribute('transform', `translate(${mx.toFixed(1)} ${M.y.toFixed(1)})${M.s !== 1 ? ` scale(${M.s.toFixed(3)})` : ''}`);
     const oai = $('#w-oai rect', world);
-    if (oai) oai.setAttribute('width', (t <= 1 ? 624 + (SPLIT.oaiW - 624) * t : lerp(SPLIT.oaiW, SPLIT2.oaiW, t - 1)).toFixed(1));
+    if (oai) oai.setAttribute('width', (t <= 1 ? 624 + (SPLIT.oaiW - 624) * t : t <= 2 ? lerp(SPLIT.oaiW, SPLIT2.oaiW, t - 1)
+      : lerp(SPLIT2.oaiW, SPLIT3.oaiW, t - 2)).toFixed(1));
     lay.t = t;
   }
   function setLayout(target) {
