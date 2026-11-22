@@ -2,8 +2,10 @@
 
 Incident world: one persistent diagram shared by world slides (s-3 onward), plus pop-over cards.
 Coverage: happy (world shows on a world slide between timeline and narration under the title, with
-a run key; it holds one place and scale from one world slide to the next; builds with steps; pop-over softens the world then sharpens it; notes spotlight world parts) · edge (going back to a
-non-world slide hides it; re-entering resets to that step) · negative (world never on a non-world
+a run key on one row (presenter's short labels, text shrunk to the world column, hidden entries
+holding their space); it holds one place and scale from one world slide to the next; builds with steps; pop-over softens the world then sharpens it; notes spotlight world parts) · edge (going back to a
+non-world slide hides it; re-entering resets to that step; a jump to a later step shows board glyphs
+from earlier steps already at rest on the mirror's board) · negative (world never on a non-world
 slide; world never over the title; pop-over exit is a rack focus, not a cut).
 """
 
@@ -129,3 +131,70 @@ def test_reader_notes_spotlight_world_parts(page):
         page.keyboard.press("ArrowRight")
         page.wait_for_timeout(700)
     assert any(hits), "no note spotlighted a world element"
+
+
+KEY_ENTRIES = """() => { const k = document.querySelector('.world .world-key'), w = document.querySelector('.world').getBoundingClientRect();
+  const boxes = [k.querySelector(':scope > svg'), ...k.querySelectorAll('.world-key-item')].map(e => { const r = e.getBoundingClientRect();
+    return [r.left, r.top, r.right, r.bottom]; });
+  const kr = k.getBoundingClientRect();
+  return {boxes, key: [kr.left, kr.top, kr.right, kr.bottom], world: [w.left, w.right], scroll: k.scrollWidth - k.clientWidth,
+          labels: [[...k.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim(),
+                   ...[...k.querySelectorAll('.world-key-item')].map(e => e.textContent.trim())]}; }"""
+
+
+@pytest.mark.parametrize("w,h", [(1920, 1080), (1280, 720), (1288, 598)])
+def test_world_key_stays_on_one_row_at_one_height_on_every_world_slide(page, w, h):
+    """Presenter, 22 Nov (DESIGN §10): every entry, shown or still hidden, sits on one row inside the world
+    column, clear of its neighbours, and the key's height never changes between world slides (so the world
+    above it never resizes). Catches the old wrap to two rows once s-5's run roles joined the key."""
+    open_deck(page, w, h)
+    plan = dict(page.evaluate("window.deck.plan()"))
+    worlds = page.evaluate("() => [...document.querySelectorAll('section.slide[data-world]')]"
+                           ".filter(s => s.dataset.world !== 'backdrop').map(s => s.id)")
+    heights = {}
+    for sid in worlds:
+        goto_slide(page, sid, plan[sid])
+        k = page.evaluate(KEY_ENTRIES)
+        assert k["labels"] == ["Agent Run", "Coordinator", "Sacrificed", "HF activity"], "presenter's short labels"
+        mids = [(b[1] + b[3]) / 2 for b in k["boxes"]]
+        assert max(mids) - min(mids) < 3, f"{sid}: key entries on one row: {k['boxes']}"
+        assert all(a[2] <= b[0] + 0.5 for a, b in zip(k["boxes"], k["boxes"][1:])), f"{sid}: entries overlap"
+        assert k["scroll"] <= 1 and k["key"][2] <= k["world"][1] + 1, f"{sid}: key overflows the world column"
+        assert all(b[0] >= k["world"][0] - 1 and b[2] <= k["world"][1] + 1 for b in k["boxes"]), f"{sid}: entry outside the world"
+        heights[sid] = round(k["key"][3] - k["key"][1], 1)
+    assert len(set(heights.values())) == 1, f"key height changes between world slides: {heights}"
+
+
+BOARD_GLYPHS = """() => { const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
+  return [...document.querySelectorAll('.world .mirror-group .w-board .note-fly')].filter(n => {
+      const h = n.closest('[data-world-at]'); return h.classList.contains('is-visible'); })
+    .map(n => { const r = n.getBoundingClientRect(), h = n.closest('[data-world-at]');
+      return {id: h.id + ' ' + n.dataset.noteFor, at: h.dataset.worldAt, x: (r.left + r.right) / 2, y: (r.top + r.bottom) / 2, o: +getComputedStyle(n).opacity}; })
+    .concat([{mirror: [m.left, m.top, m.right, m.bottom]}]); }"""
+
+
+def test_board_glyphs_from_earlier_steps_rest_on_the_board_after_a_jump(page):
+    """Every board glyph (notes, folders) shown at a world step after s-5:0 that arrived at an earlier step sits
+    on the mirror's board, whichever layout stage the mirror is in, straight after a jump there: a carried-over
+    part never replays its fly-in from a stale start (the stray folder left of the mirror on s-6/s-7)."""
+    open_deck(page)
+    plan = dict(page.evaluate("window.deck.plan()"))
+    order = page.evaluate("() => [...document.querySelectorAll('section.slide[data-world]')].map(s => s.id)")
+    points = [(sid, k) for sid in order[order.index("s-5"):] for k in range(plan[sid] + 1) if (sid, k) != ("s-5", 0)]
+    bad = []
+    for sid, k in points:
+        page.evaluate("() => window.deck.goto('s-3', 0)")   # a world point before every s-5 part: a real jump from there
+        page.wait_for_timeout(100)
+        page.evaluate("([id, s]) => window.deck.goto(id, s)", [sid, k])
+        page.wait_for_timeout(250)
+        *glyphs, mirror = page.evaluate(BOARD_GLYPHS)
+        l, t, r, b = mirror["mirror"]
+        mw, mh = r - l, b - t
+        for g in glyphs:
+            if g["at"] == f"{sid}:{k}":
+                continue   # arriving at this very step: its fly-in is the point
+            if not (l - .3 * mw <= g["x"] <= r + .3 * mw and t - 1.6 * mh <= g["y"] <= b):
+                bad.append(f"{sid}:{k} {g['id']} at ({g['x']:.0f}, {g['y']:.0f}) off the board {mirror['mirror']}")
+            elif g["o"] < .9:
+                bad.append(f"{sid}:{k} {g['id']} not yet shown (opacity {g['o']:.2f}): still waiting to fly in")
+    assert bad == []

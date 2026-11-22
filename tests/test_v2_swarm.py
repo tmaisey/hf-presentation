@@ -574,6 +574,26 @@ def test_reveal_strikes_the_eye_only_at_its_step(page):
     assert page.evaluate("() => !!document.querySelector('#w-eye-off .eye-slash')"), "the eye is struck through"
 
 
+@pytest.mark.parametrize("w,h", [(1920, 1080), (1280, 720), (1288, 598)])
+def test_scorer_label_stays_clear_of_its_skull_note_eye_and_caption(page, w, h):
+    """Presenter, 22 Nov: at the short-wide size the skull note and eye badge crowded "Automated scorer" and
+    "never read transcripts" touched the box. The note and badge may sit on the tile's corners, never over
+    its label; the caption sits below the tile with a gap."""
+    open_deck(page, w, h)
+    goto_slide(page, SID, 8)
+    helper_until(page, f"() => ({OPACITY})('#w-eye-off') > .9 && ({OPACITY})('#w-probe') > .9", timeout=8000)
+    page.wait_for_timeout(1500)
+    res = page.evaluate("""() => { const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
+      return { label: [...document.querySelectorAll('#w-scorer text')].map(r), tile: r(document.querySelector('#w-scorer rect')),
+               note: r(document.querySelector('#w-probe .note-fly')), eye: r(document.querySelector('#w-eye-off circle')),
+               cap: r(document.querySelector('#w-eye-off .w-tag')) }; }""")
+    hit = lambda a, b, pad=0: a[0] < b[2] + pad and a[2] > b[0] - pad and a[1] < b[3] + pad and a[3] > b[1] - pad
+    for name in ("note", "eye"):
+        assert not any(hit(res[name], t, 3) for t in res["label"]), f"{name} crowds the scorer's label at {w}x{h}"
+    assert res["cap"][1] >= res["tile"][3] + 3, f"caption touches the scorer at {w}x{h}"
+    assert not hit(res["cap"], res["eye"], 2) and not hit(res["cap"], res["note"], 2), "caption clear of the badge and note"
+
+
 @pytest.mark.parametrize("step", [3, 4])
 def test_popovers_leave_the_narration_free_for_that_steps_tile(page, step):
     open_deck(page)
@@ -675,11 +695,11 @@ def helper_key_fits(page, text, where):
             assert a[2] <= x0 or a[0] >= x1 or a[3] <= y0 or a[1] >= y1, f"{text} clear of {o['text']} {where}"
 
 
-@pytest.mark.parametrize("text,step,token", [("Research coordinator", 5, "--ink"), ("Sacrificed agent", 7, "--loss")])
+@pytest.mark.parametrize("text,step,token", [("Coordinator", 5, "--ink"), ("Sacrificed", 7, "--loss")])
 def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, token):
     """Black dot = coordinator (from s-5:5), red dot = sacrificed agent (from s-5:7): hidden before,
-    shown from that step in the key, and still there on s-6 and s-7 (they stay in the world). Four
-    entries never fit one row of the world column, so the key may wrap: each entry must still fit
+    shown from that step in the key, and still there on s-6 and s-7 (they stay in the world). The key
+    stays on one row (test_world checks the row and labels): each entry must still fit
     the column under the diagram at the short-wide size."""
     open_deck(page, 1288, 598)
     goto_slide(page, SID, step - 1)

@@ -212,6 +212,7 @@ def test_runs_appear_without_lines_then_all_link_to_one_mirror(page):
 
 def test_notes_fly_from_runs_outside_the_ring_onto_the_mirror(page):
     open_deck(page)
+    goto_slide(page, SID, 4)   # stepped through, as presented: each note arrives (and flies) at its own step
     goto_slide(page, SID, 5)
     res = page.evaluate("""() => { const c = e => { const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; };
       const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
