@@ -84,6 +84,10 @@ and add every new verdict here as an example pair. British spelling throughout.
   (convert, don't cut: detail that won't fit goes to the note). Same accuracy and no-aphorism rules as
   body text.
 
+- ✓ (presenter, 22 Nov): the s-8, s-9 and s-10 bullet sets as built, incl. the s-10 tile 2 trims
+  ("largest runs"; senators/AG detail in the note) and s-9's standalone "That is a lesson we don't want
+  models to learn".
+
 ## Body text / subtext
 
 - Explain the mechanism plainly: cause → consequence, in full sentences.
