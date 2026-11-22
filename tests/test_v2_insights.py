@@ -9,8 +9,9 @@ controls with practical considerations for AI projects, then three discussion pr
 Coverage: happy (slides close the deck in order with approved titles/kickers; s-9 and s-10 build one
 tile per step with sourced facts, verbatim quotes and links; s-10 swaps tiles → controls → prompts) ·
 edge (s-9 world frozen in s-8's place and state; tiles read left to right in one row at every review
-size; s-10's Coxon quote sits in tile 1 and leaves with the tiles; notes target elements on their
-slide; each control's incident failure lives in its note) · negative (s-9 has no loop diagram,
+size; s-10's Coxon quote sits in tile 1 and leaves with the tiles; s-10 tiles keep every approved
+figure as bullets, moved detail lives in the tile's notes; notes target elements on their slide;
+each control's incident failure lives in its note) · negative (s-9 has no loop diagram,
 narration or separate Insight; s-10 has no Insight step or comparison table; no slide-scoped tile
 CSS; no causal claim on the firings or on the sentiment shift; quotes verbatim from research;
 Hubinger not repeated on s-10; no weakly sourced Anthropic pause; no "suicide", "same agents" or
@@ -48,33 +49,36 @@ QUOTES = {  # verbatim, and each must appear in the research notes
 }
 LINKS = {
     "s9-t1": ["cdn.openai.com", "blog.redwoodresearch.org"],
-    "s9-t2": ["time.com", "arxiv.org/abs/2503.11926", "arxiv.org/abs/2401.05566", "arxiv.org/abs/2412.14093"],
+    "s9-t2": ["time.com", "arxiv.org/abs/2503.11926"],   # Sleeper Agents, alignment faking: #s9-research note
     "s9-t3": ["fortune.com", "sfstandard.com"],
 }
 COXON = "One, it’s obvious that things are speeding up, and two, they’re not under control."
 S10_TILES = ["s10-t1", "s10-t2", "s10-t3"]   # row order = build step 1, 2, 3
-S10_COPY = {   # approved copy (STORYBOARD s-10, 22 Nov): heading, body, quote
+S10_COPY = {   # STORYBOARD s-10 (22 Nov): heading (verbatim), approved sentences as bullets, quote
     "s10-t1": ("Capability, compute and spending are still accelerating",
-               "The length of task AI agents can complete has grown about 10× every two years, faster since "
-               "2024. Training compute grows about 5× a year, and 2026 data-centre spending is around $700B. "
-               "METR could not reliably measure GPT-5.6 Sol: its estimate ranged from 11 to over 270 hours.",
+               ["The length of task AI agents can complete has grown about 10× every two years, faster since 2024",
+                "Training compute grows about 5× a year, and 2026 data-centre spending is around $700B",
+                "METR could not reliably measure GPT-5.6 Sol: 11 to over 270 hours"],
                COXON),
     "s10-t2": ("Incidents prompted industry calls for pacing and disclosure",
-               "OpenAI paused its largest training runs twice and said its disclosure practices must expand. "
-               "Anthropic’s CEO called for pacing the frontier, endorsed by OpenAI’s CEO, and over 1,300 lab "
-               "staff signed a pacing letter. Hugging Face called for ‘radical transparency’; US senators and "
-               "California’s Attorney General are pressing OpenAI for details.",
+               ["OpenAI paused its largest runs twice",
+                "Anthropic’s CEO called for pacing the frontier, endorsed by OpenAI’s CEO",
+                "Over 1,300 lab staff signed a pacing letter",
+                "Hugging Face called for ‘radical transparency’"],
                "Our misalignment disclosure practices need to expand for this new phase of model capabilities."),
-    "s10-t3": ("Public AI concern is rising, though safety remains secondary",
-               "Most Americans are concerned about AI, and 73% worry future AI could threaten human survival. "
-               "But politics and markets focus elsewhere: midterm voters weighed jobs, power bills and data "
-               "centres, and AI-led market drops were about spending and growth, not safety.",
+    "s10-t3": ("AI concern is rising, though safety remains secondary",
+               ["Most Americans are concerned about AI, and 73% worry future AI could threaten human survival",
+                "But politics and markets focus elsewhere: polls and midterms weighed jobs, power bills and data centres",
+                "AI-led market drops were about spending and growth, not safety"],
                None),
 }
+S10_MOVED = {   # approved detail that did not fit 1288×598 as a bullet: it lives in the tile's notes instead
+    "s10-t2": ["reinforcement learning runs", "senators", "Attorney General"],
+}
 S10_LINKS = {   # hosts each tile's cite line links (research notes: capability_pace.md, public_sentiment.md)
-    "s10-t1": ["metr.org", "epoch.ai", "time.com"],
-    "s10-t2": ["thestar.com.my", "darioamodei.com", "pacingthefrontier.com", "pbs.org"],
-    "s10-t3": ["techpolicy.press", "datacenterdynamics.com", "boston.com"],
+    "s10-t1": ["metr.org", "time.com"],   # Epoch AI: #s10-compute note
+    "s10-t2": ["thestar.com.my", "darioamodei.com", "pacingthefrontier.com"],   # PBS/AP: #s10-calls note
+    "s10-t3": ["techpolicy.press", "nbcnews.com", "boston.com"],   # NBC's own exit-poll page (56%)
 }
 CONTROLS = [   # control · practical consideration (approved, verbatim)
     ("Least agency and autonomy", "While it’s tempting to use the most powerful tools for every use case, "
@@ -99,6 +103,7 @@ def helper_norm(s: str) -> str:
     """Fold typographic apostrophes/quotes and whitespace so deck, docs and research text compare."""
     s = s.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
     s = s.replace("\u2011", "-")   # a non-breaking hyphen is still a hyphen
+    s = s.replace("&nbsp;", " ").replace("\u00a0", " ")   # so is a non-breaking space
     return re.sub(r"\s+", " ", s).strip()
 
 
@@ -204,15 +209,43 @@ def test_s10_tiles_phase_reuses_the_tile_row_one_tile_per_step():
     assert tiles == [(t, str(n)) for n, t in enumerate(S10_TILES, start=1)], tiles
 
 
-def test_s10_tiles_carry_the_approved_copy_verbatim():
-    for tid, (head, body, quote) in S10_COPY.items():
+def test_s10_tiles_carry_the_approved_copy_as_bullets():
+    """Presenter, 22 Nov: the approved sentences become bullets; heading and quote stay verbatim."""
+    story = helper_storyboard("s-10 · Pace")
+    for tid, (head, bullets, quote) in S10_COPY.items():
         tile = helper_s10_tile(tid)
         assert helper_flat(re.search(r"<h3>(.*?)</h3>", tile, re.S).group(1)) == helper_norm(head), tid
-        assert helper_flat(re.search(r"<p[ >].*?</p>", tile, re.S).group(0)) == helper_norm(body), tid
+        assert helper_norm(head) in story, f"{tid}: heading is the storyboard's"
+        got = [helper_flat(li) for li in re.findall(r"<li[^>]*>(.*?)</li>", tile, re.S)]
+        assert got == [helper_norm(b) for b in bullets], tid
         quotes = [helper_flat(q) for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", tile, re.S)]
         assert quotes == ([helper_norm(quote)] if quote else []), tid
-        for text in (head, body) + ((quote,) if quote else ()):
-            assert helper_norm(text) in helper_storyboard("s-10 · Pace"), f"{tid}: copy is the storyboard's"
+        if quote:
+            assert helper_norm(quote) in story, f"{tid}: quote is the storyboard's"
+
+
+S10_FIGURES = {   # every approved figure and claim of the storyboard sentences, per tile
+    "s10-t1": ["10×", "every two years", "faster since 2024", "5× a year", "$700B", "GPT-5.6 Sol", "11", "270"],
+    "s10-t2": ["paused", "twice", "disclosure practices", "pacing the frontier", "OpenAI’s CEO", "1,300",
+               "radical transparency"],   # disclosure: OpenAI's own words, in the quote
+    "s10-t3": ["Most Americans", "73%", "human survival", "jobs, power bills and data centres", "spending and growth",
+               "not safety"],
+}
+
+
+def test_s10_bullets_keep_every_approved_figure_and_notes_hold_what_moved():
+    """Convert, don't cut (VOICE tile bullets): a fact is on the tile, or in that tile's notes."""
+    sec = helper_section("s-10")
+    notes = dict(re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', sec, re.S))
+    for tid, figures in S10_FIGURES.items():
+        tile = helper_s10_tile(tid)
+        flat = helper_flat(tile)
+        for fig in figures:
+            assert helper_norm(fig) in flat, f"{tid} must keep {fig!r}"
+        ids = set(re.findall(r'id="([\w-]+)"', tile))
+        tile_notes = helper_flat(" ".join(body for target, body in notes.items() if target in ids))
+        for moved in S10_MOVED.get(tid, []):
+            assert helper_norm(moved) in tile_notes, f"{tid}: {moved!r} moved off the tile but is not in its notes"
 
 
 def test_s10_tile_quotes_are_verbatim_from_research_and_carry_no_typed_quote_marks():
@@ -314,6 +347,10 @@ def test_notes_target_elements_on_their_slide_and_cite_https_sources():
     assert s9_targets >= set(TILES), "every s-9 tile has a note"
     s10 = helper_section("s-10")
     s10_targets = re.findall(r'<aside class="note" data-for="#([\w-]+)">', s10)
+    research = dict(re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', helper_section("s-9"), re.S))
+    for paper in ("arxiv.org/abs/2401.05566", "arxiv.org/abs/2412.14093"):
+        assert paper in research["s9-research"], f"tile 2's research note links {paper}"
+    assert "epoch.ai" in s10 and "pbs.org" in s10, "links dropped from s-10 cites live in its notes"
     for tid in S10_TILES:
         tile = helper_s10_tile(tid)
         assert any(f'id="{t}"' in tile for t in s10_targets), f"{tid} has a note on it or inside it"
@@ -403,7 +440,7 @@ def test_s9_tiles_read_left_to_right_in_one_row_at_a_readable_size(page, size):
     res = page.evaluate("""ids => { const nb = document.querySelector('.notes-btn').getBoundingClientRect();
       return { vw: innerWidth, notes: [nb.left, nb.top, nb.right, nb.bottom], tiles: ids.map(id => { const t = document.getElementById(id),
         b = t.getBoundingClientRect(); return { box: [b.left, b.top, b.right, b.bottom],
-        body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize) }; }) }; }""", TILES)
+        body: parseFloat(getComputedStyle(t.querySelector('li')).fontSize) }; }) }; }""", TILES)
     tiles = res["tiles"]
     for a, b in zip(tiles, tiles[1:]):
         assert a["box"][2] <= b["box"][0] + 1 and abs(a["box"][1] - b["box"][1]) <= 2, "one row, left to right"
@@ -416,8 +453,8 @@ def test_s9_tiles_read_left_to_right_in_one_row_at_a_readable_size(page, size):
 
 
 @pytest.mark.parametrize("size", SIZES)
-def test_s9_headings_wrap_on_whole_words_within_two_lines(page, size):
-    """Presenter, 22 Nov: 're-' / 'emerged' split across lines; every heading fits two lines."""
+def test_s9_headings_wrap_on_whole_words(page, size):
+    """Presenter, 22 Nov: 're-' / 'emerged' split across lines (line count: the shared tile-row test)."""
     open_deck(page, *size)
     goto_slide(page, "s-9", 3)
     settle(page, "#s9-t3")
@@ -427,9 +464,8 @@ def test_s9_headings_wrap_on_whole_words_within_two_lines(page, size):
         if (!/[-\u2010\u2011]/.test(m[0])) continue;
         const r = document.createRange(); r.setStart(node, m.index); r.setEnd(node, m.index + m[0].length);
         if (new Set([...r.getClientRects()].map(b => Math.round(b.top))).size > 1) split.push(m[0]); }
-      return { id, lines: Math.round(h.getBoundingClientRect().height / lh), split }; })""", TILES)
+      return { id, split }; })""", TILES)
     for r in res:
-        assert r["lines"] <= 2, f"{r['id']} heading takes {r['lines']} lines"
         assert not r["split"], f"{r['id']} breaks inside {r['split']}"
 
 
@@ -465,13 +501,13 @@ def test_s10_tiles_read_left_to_right_in_one_row_as_on_s9(page, size):
     open_deck(page, *size)
     goto_slide(page, "s-9", 3)
     settle(page, "#s9-t3")
-    s9_body = page.evaluate("() => parseFloat(getComputedStyle(document.querySelector('#s9-t1 p')).fontSize)")
+    s9_body = page.evaluate("() => parseFloat(getComputedStyle(document.querySelector('#s9-t1 li')).fontSize)")
     goto_slide(page, "s-10", 3)
     settle(page, "#s10-t3")
     res = page.evaluate("""ids => { const nb = document.querySelector('.notes-btn').getBoundingClientRect();
       return { vw: innerWidth, notes: [nb.left, nb.top, nb.right, nb.bottom], tiles: ids.map(id => { const t = document.getElementById(id),
         b = t.getBoundingClientRect(); return { box: [b.left, b.top, b.right, b.bottom],
-        body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize) }; }) }; }""", S10_TILES)
+        body: parseFloat(getComputedStyle(t.querySelector('li')).fontSize) }; }) }; }""", S10_TILES)
     tiles = res["tiles"]
     for a, b in zip(tiles, tiles[1:]):
         assert a["box"][2] <= b["box"][0] + 1 and abs(a["box"][1] - b["box"][1]) <= 2, "one row, left to right"

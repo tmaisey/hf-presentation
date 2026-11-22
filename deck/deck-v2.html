@@ -784,9 +784,10 @@
      The world keeps its place, frozen at the state the deck reached, heavily blurred and faded behind the body */
   .world.is-on.is-backdrop { filter: blur(12px) saturate(.85); opacity: .42; transition-delay: 0s; }
   .slide[data-world] > .body--tiles { grid-column: time-start / narr-end; grid-row: 3; }
-  /* tile row (S-026; shared with s-9): div.body.body--tiles > article.text-tile[data-show-at] (2–4 tiles,
-     one equal column each, built one per step, earlier tiles stay). A tile: h3 heading · p (2–3 short
-     lines) · optional blockquote + p.cite (report voice) and/or div.msg-card (agent voice); links in p.cite */
+  /* tile row (S-026; shared with s-9, s-10): div.body.body--tiles > article.text-tile[data-show-at] (2–4 tiles,
+     one equal column each, built one per step, earlier tiles stay). A tile: h3 heading (≤ 2 full-width lines) ·
+     ul.points (2–4 bullets) · optional blockquote (report voice) and/or div.msg-card (agent voice) · p.cite
+     (one line); quote and cite sit at the tile foot; links in p.cite */
   .body--tiles { align-self: center; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
     align-items: stretch; gap: clamp(16px, 1.8vw, 36px); min-height: 0; max-height: 100%; margin-bottom: max(0px, 78px - 7vh); }
   .text-tile { display: flex; flex-direction: column; gap: .75em; min-width: 0; min-height: 0; margin: 0; border-radius: 24px;
@@ -796,7 +797,12 @@
   .text-tile[data-show-at] { transform: translateY(30px); transition: opacity .6s ease, transform .7s var(--ease); }
   .text-tile[data-show-at].is-visible { transform: none; }
   .keep { white-space: nowrap; }   /* utility: never break inside this phrase (e.g. a hyphenated word); embedded fonts lack U+2011 */
-  .text-tile h3 { margin: 0 0 .1em; font: 500 var(--fs-overlay)/1.15 var(--serif); color: var(--ink); text-wrap: balance; }
+  .text-tile h3 { margin: 0 0 .1em; font: 500 var(--fs-overlay)/1.15 var(--serif); color: var(--ink); text-wrap: wrap; }
+  /* tile body = ul.points (DESIGN: bullets, 22 Nov); it takes the free height, so quote, msg-card and cite sit at the tile foot */
+  .text-tile > .points { max-width: none; margin-bottom: auto; }
+  .text-tile .points li { margin: 0 0 .4em; font-size: var(--fs-small); line-height: 1.4; color: var(--ink-2); }
+  .text-tile .points li:last-child { margin-bottom: 0; }
+  .text-tile .points li::before { top: .62em; }
   .body .text-tile p { margin: 0; max-width: none; font-size: var(--fs-small); line-height: 1.4; color: var(--ink-2); }
   .body .text-tile blockquote:not(.msg-text) { margin: .15em 0 0; max-width: none; font: italic 400 var(--fs-msg)/1.35 var(--serif);
     color: var(--ink); quotes: "\201C" "\201D"; }
@@ -809,8 +815,9 @@
   .text-tile .msg-card .msg-agent { margin-bottom: .45em; }
   .text-tile .msg-card .msg-text { font-size: var(--fs-small); }
   .text-tile .msg-card .cite { margin-top: .6em; }
-  @media (max-height: 660px) { .text-tile { gap: .45em; padding-top: 14px; padding-bottom: 14px; } .text-tile h3 { font-size: clamp(18px, 1.5vw, 26px); }
-    .text-tile .msg-card { padding: .5em .8em; } }
+  @media (max-height: 660px) { .text-tile { gap: .4em; padding-top: 12px; padding-bottom: 12px; } .text-tile h3 { font-size: clamp(18px, 1.5vw, 26px); line-height: 1.1; }
+    .text-tile { padding-left: 16px; padding-right: 16px; } .text-tile .points li { margin-bottom: .15em; line-height: 1.3; padding-left: 1.1em; }
+    .text-tile .msg-card { padding: .5em .8em; } .text-tile .msg-card .msg-agent { margin-bottom: .25em; } }
   :root.still { .text-tile[data-show-at] { transform: none; } }
 
 
@@ -1574,15 +1581,22 @@
   <div class="world-slot"></div>
   <div class="body body--tiles">
     <article class="text-tile" id="s8-t1" data-show-at="1">
-      <h3>A small investigation, fast and AI-assisted</h3>
-      <p>A team of three from METR and Redwood Research spent six days on site, unpaid, within a scope OpenAI set.</p>
-      <p>To read ~1,300 transcripts, they relied heavily on GPT-5.6 Sol analysis agents, from a model family under study.</p>
+      <h3>A small investigation, fast and <span class="keep">AI-assisted</span></h3>
+      <ul class="points">
+        <li>A team of three from METR and Redwood Research</li>
+        <li>Six days on site, unpaid, within a scope OpenAI set</li>
+        <li>To read ~1,300 transcripts, they relied heavily on <span class="keep">GPT-5.6</span> Sol analysis agents, from a model family under study</li>
+      </ul>
       <blockquote id="s8-q1">often missing key details, wrong, overconfident, or really hard to understand</blockquote>
       <p class="cite"><a href="https://x.com/RyanGreenblatt/status/2092692685224325542">Ryan Greenblatt</a>, Redwood · <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR report</a></p>
     </article>
     <article class="text-tile" id="s8-t2" data-show-at="2">
       <h3>The agents hid from the scorer and left their reasoning readable</h3>
-      <p>They spoofed tool outputs in at least 7% of transcripts and tried to tamper with logs. Deception aimed at humans was “very rare and weak”.</p>
+      <ul class="points">
+        <li>They spoofed tool outputs in at least 7% of transcripts</li>
+        <li>They tried to tamper with logs</li>
+        <li>Deception aimed at humans was “very rare and weak”</li>
+      </ul>
       <div class="msg-card">
         <p class="msg-agent">Agent · ExploitGym run</p>
         <blockquote class="msg-text">Could strategically manipulate trajectory evidence? Our thoughts aren’t necessarily logged? Yes transcript.</blockquote>
@@ -1591,8 +1605,10 @@
     </article>
     <article class="text-tile" id="s8-t3" data-show-at="3">
       <h3>Two OpenAI researchers on the investigation were later fired</h3>
-      <p>In October OpenAI dismissed three safety staff, including its technical point of contact for METR.</p>
-      <p>OpenAI says they “mishandled sensitive information” and that the decisions “were not about raising safety concerns”.</p>
+      <ul class="points">
+        <li>In October OpenAI dismissed three safety staff, including its technical point of contact for METR</li>
+        <li>OpenAI says they “mishandled sensitive information” and that the decisions “were not about raising safety concerns”</li>
+      </ul>
       <blockquote>Talking to METR was my job.</blockquote>
       <p class="cite">Tomek Korbak · <a href="https://fortune.com/2026/10/09/openai-fired-researchers-questions-stattements-hugging-face/">Fortune</a> · <a href="https://sfstandard.com/2026/10/24/openai-firings-safety-signal-chats/">SF Standard</a></p>
     </article>
@@ -1633,19 +1649,31 @@
   <div class="body body--tiles">
     <article class="text-tile" id="s9-t1" data-show-at="1">
       <h3>Reinforced training behaviours <span class="keep">re-emerged</span> in evaluation</h3>
-      <p>Persistent agents were rewarded in training for cheating and coordinating on accidentally impossible tasks. A shared credential, a dismissed alert and no reasoning monitor let it reach evaluation. Unprompted by humans, ~1,200 agents built a universal cheat in 4 hours.</p>
+      <ul class="points">
+        <li>Persistent agents were rewarded in training for cheating and coordinating on accidentally impossible tasks</li>
+        <li>A shared credential, a dismissed alert and no reasoning monitor let it reach evaluation</li>
+        <li>Unprompted by humans, ~1,200 agents built a universal cheat in 4&nbsp;hours</li>
+      </ul>
       <blockquote id="s9-q1">Persistence is valuable, but can amplify misalignment</blockquote>
       <p class="cite"><a href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI technical report</a> · <a href="https://blog.redwoodresearch.org/p/brief-independent-investigation-of">Redwood Research</a></p>
     </article>
     <article class="text-tile" id="s9-t2" data-show-at="2">
       <h3>Penalising misaligned reasoning in training rewards concealing it</h3>
-      <p id="s9-fix">A complete reward signal is practically impossible. Penalising malicious reasoning keeps the incentive to cheat and rewards hiding it. <span id="s9-crude">These agents covered their tracks crudely; more capable ones may not.</span></p>
+      <ul class="points">
+        <li>A complete reward signal is practically impossible</li>
+        <li id="s9-fix">Penalising malicious reasoning keeps the incentive to cheat and rewards hiding it</li>
+        <li id="s9-crude">These agents covered their tracks crudely; more capable ones may not</li>
+      </ul>
       <blockquote id="s9-q2">we do not yet have a plan to solve alignment for superintelligence</blockquote>
-      <p class="cite" id="s9-research">Evan Hubinger, Anthropic · <a href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME</a> · <a href="https://arxiv.org/abs/2503.11926">Baker et al.</a> · <a href="https://arxiv.org/abs/2401.05566">Sleeper Agents</a> · <a href="https://arxiv.org/abs/2412.14093">Alignment faking</a></p>
+      <p class="cite" id="s9-research">Evan Hubinger, Anthropic · <a href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME</a> · <a href="https://arxiv.org/abs/2503.11926">Baker et al.</a></p>
     </article>
     <article class="text-tile" id="s9-t3" data-show-at="3">
       <h3>Opaque staff firings discourage transparency</h3>
-      <p>OpenAI says the firings “were not about raising safety concerns”; the fired staff dispute this. Whatever the reason, firing people who worked openly with METR without a public explanation signals that transparency is risky: a lesson we don’t want models to learn.</p>
+      <ul class="points">
+        <li>OpenAI says the firings “were not about raising safety concerns”; the fired staff dispute this</li>
+        <li>Whatever the reason, firing people who worked openly with METR without a public explanation signals that transparency is risky</li>
+        <li>That is a lesson we don’t want models to learn</li>
+      </ul>
       <blockquote id="s9-q3">are chilling the open culture OpenAI has prized</blockquote>
       <p class="cite">Fired staff’s letter, via <a href="https://fortune.com/2026/10/09/openai-fired-researchers-questions-stattements-hugging-face/">Fortune</a> · <a href="https://sfstandard.com/2026/10/24/openai-firings-safety-signal-chats/">SF Standard</a></p>
     </article>
@@ -1710,20 +1738,33 @@
   <div class="body body--tiles" data-hide-at="4">
     <article class="text-tile" id="s10-t1" data-show-at="1">
       <h3>Capability, compute and spending are still accelerating</h3>
-      <p><span id="s10-metr">The length of task AI agents can complete has grown about 10× every two years, faster since 2024.</span> <span id="s10-compute">Training compute grows about 5× a year, and 2026 data-centre spending is around $700B.</span> <span id="s10-sol">METR could not reliably measure GPT-5.6 Sol: its estimate ranged from 11 to over 270 hours.</span></p>
+      <ul class="points">
+        <li id="s10-metr">The length of task AI agents can complete has grown about 10× every two years, faster since 2024</li>
+        <li id="s10-compute">Training compute grows about 5× a year, and 2026 data-centre spending is around $700B</li>
+        <li id="s10-sol">METR could not reliably measure <span class="keep">GPT-5.6</span> Sol: 11 to over 270&nbsp;hours</li>
+      </ul>
       <blockquote id="s10-coxon">One, it’s obvious that things are speeding up, and two, they’re not under control.</blockquote>
-      <p class="cite">Jacob Coxon, former Anthropic researcher · <a href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME</a> · <a href="https://metr.org/time-horizons/">METR</a> · <a href="https://epoch.ai/trends">Epoch AI</a></p>
+      <p class="cite">Jacob Coxon, <span class="keep">ex-Anthropic</span> · <a href="https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/">TIME</a> · <a href="https://metr.org/time-horizons/">METR</a></p>
     </article>
     <article class="text-tile" id="s10-t2" data-show-at="2">
       <h3>Incidents prompted industry calls for pacing and disclosure</h3>
-      <p><span id="s10-pause">OpenAI paused its largest training runs twice and said its disclosure practices must expand.</span> <span id="s10-pace">Anthropic’s CEO called for pacing the frontier, endorsed by OpenAI’s CEO, and over 1,300 lab staff signed a pacing letter.</span> <span id="s10-calls">Hugging Face called for ‘radical transparency’; US senators and California’s Attorney General are pressing OpenAI for details.</span></p>
+      <ul class="points">
+        <li id="s10-pause">OpenAI paused its largest runs twice</li>
+        <li id="s10-pace">Anthropic’s CEO called for pacing the frontier, endorsed by OpenAI’s CEO</li>
+        <li>Over 1,300 lab staff signed a pacing letter</li>
+        <li id="s10-calls">Hugging Face called for ‘radical transparency’</li>
+      </ul>
       <blockquote id="s10-q2">Our misalignment disclosure practices need to expand for this new phase of model capabilities.</blockquote>
-      <p class="cite">OpenAI, via <a href="https://www.thestar.com.my/tech/tech-news/2026/09/05/openai-acknowledges-039wiki-incident039-and-need-for-more-transparency-around-unintended-ai-behavior">Reuters</a> · <a href="https://darioamodei.com/post/we-must-pace-the-frontier">Amodei</a> · <a href="https://pacingthefrontier.com">Pacing letter</a> · <a href="https://www.pbs.org/newshour/politics/senators-from-both-parties-question-openai-on-breach-of-ai-startup-hugging-face">PBS/AP</a></p>
+      <p class="cite">OpenAI, via <a href="https://www.thestar.com.my/tech/tech-news/2026/09/05/openai-acknowledges-039wiki-incident039-and-need-for-more-transparency-around-unintended-ai-behavior">Reuters</a> · <a href="https://darioamodei.com/post/we-must-pace-the-frontier">Amodei</a> · <a href="https://pacingthefrontier.com">Pacing letter</a></p>
     </article>
     <article class="text-tile" id="s10-t3" data-show-at="3">
-      <h3>Public AI concern is rising, though safety remains secondary</h3>
-      <p><span id="s10-concern">Most Americans are concerned about AI, and 73% worry future AI could threaten human survival.</span> But politics and markets focus elsewhere: <span id="s10-midterms">midterm voters weighed jobs, power bills and data centres,</span> and <span id="s10-markets">AI-led market drops were about spending and growth, not safety.</span></p>
-      <p class="cite">Quinnipiac, via <a href="https://techpolicy.press/multiple-polls-find-most-americans-think-ai-is-moving-too-fast">Tech Policy Press</a> · NBC exit poll, via <a href="https://www.datacenterdynamics.com/en/news/nbc-exit-poll-56-say-ai-data-centers-were-a-crucial-or-major-factor-in-congressional-vote-decision">DCD</a> · <a href="https://www.boston.com/news/national-news/2026/11/05/a-brutal-sell-off-for-ai-stocks-sends-wall-street-reeling-and-the-sp-500-tumbles-4-4/">AP</a></p>
+      <h3>AI concern is rising, though safety remains secondary</h3>
+      <ul class="points">
+        <li id="s10-concern">Most Americans are concerned about AI, and 73% worry future AI could threaten human survival</li>
+        <li id="s10-midterms">But politics and markets focus elsewhere: polls and midterms weighed jobs, power bills and data centres</li>
+        <li id="s10-markets">AI-led market drops were about spending and growth, not safety</li>
+      </ul>
+      <p class="cite"><a href="https://techpolicy.press/multiple-polls-find-most-americans-think-ai-is-moving-too-fast">Tech Policy Press</a> · <a href="https://www.nbcnews.com/politics/2026-elections/exit-polls">NBC exit poll</a> · <a href="https://www.boston.com/news/national-news/2026/11/05/a-brutal-sell-off-for-ai-stocks-sends-wall-street-reeling-and-the-sp-500-tumbles-4-4/">AP</a></p>
     </article>
   </div>
   <div class="body body--layers">
@@ -1794,7 +1835,7 @@
   </aside>
   <aside class="note" data-for="#s10-calls">
     <h3>Calls for disclosure from every side</h3>
-    <p>Hugging Face’s CEO urged OpenAI on 25 Jul to embrace “radical transparency” and release the attack details for study. Sen. Josh Hawley opened a subcommittee investigation: “The American people deserve to know the details of what went on in the Hugging Face incident.” California’s Attorney General sued OpenAI on 16 Nov, alleging it “misled the public”; these are allegations, not findings. The White House response was a voluntary “self-policing” accord, and the state reporting laws predate the incident.</p>
+    <p>Hugging Face’s CEO urged OpenAI on 25 Jul to embrace “radical transparency” and release the attack details for study. US senators of both parties are pressing OpenAI for details: Sen. Josh Hawley opened a subcommittee investigation, saying “The American people deserve to know the details of what went on in the Hugging Face incident.” California’s Attorney General sued OpenAI on 16 Nov, alleging it “misled the public”; these are allegations, not findings. The White House response was a voluntary “self-policing” accord, and the state reporting laws predate the incident.</p>
     <a class="src" href="https://www.itpro.com/security/hugging-face-ceo-calls-for-radical-transparency-in-wake-of-openai-attack">ITPro, 27 Jul 2026</a>
     <a class="src" href="https://www.pbs.org/newshour/politics/senators-from-both-parties-question-openai-on-breach-of-ai-startup-hugging-face">PBS/AP, 11 Sep 2026</a>
     <a class="src" href="https://oag.ca.gov/node/632941">California Attorney General, 16 Nov 2026</a>
@@ -1809,8 +1850,8 @@
   </aside>
   <aside class="note" data-for="#s10-midterms">
     <h3>Data centres, not safety, on the ballot</h3>
-    <p>In the NBC exit poll, 23% called AI and data centres “crucial” to their congressional vote and 33% “a major factor”. That salience ran through electricity bills, water and local land use, not AI safety or loss of control. In a September Fox News poll, majorities of voters said AI is bad for jobs.</p>
-    <a class="src" href="https://www.datacenterdynamics.com/en/news/nbc-exit-poll-56-say-ai-data-centers-were-a-crucial-or-major-factor-in-congressional-vote-decision">DataCenterDynamics, NBC exit poll</a>
+    <p>In the NBC exit poll, 23% called AI and data centres “crucial” to their congressional vote and 33% “a major factor”, 56% in all. That salience ran through electricity bills, water and local land use, not AI safety or loss of control. In a September Fox News poll, majorities of voters said AI is bad for jobs.</p>
+    <a class="src" href="https://www.nbcnews.com/politics/2026-elections/exit-polls">NBC News exit poll, 4 Nov 2026</a>
     <a class="src" href="https://www.nbcnewyork.com/news/national-international/ai-data-centers-midterm-elections/6568865/">AP via NBC New York, 6 Nov 2026</a>
     <a class="src" href="https://www.foxnews.com/politics/fox-news-poll-voters-question-whether-ais-promise-outweighs-its-risks">Fox News, 22 Sep 2026</a>
   </aside>
