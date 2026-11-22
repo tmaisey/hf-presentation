@@ -425,25 +425,46 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
 
 ## s-10 · Pace, takeaway, discussion (1:00 + 4:00 Q&A) · M3, T
 
-✓ Title for step 1: *Capability, compute and spending are still accelerating despite pauses and
-pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 doubling) (capability pace stays at s-10 step 1, S-027).
-- **Build (6 steps; one title per phase, swapped by step):** 1 M3 comparison: still rising (task
-  length ~10× per two years; compute ~5×/yr; ~$700B+ 2026 capex; Nov 2026 frontier releases) vs
-  pauses, pledges and uncertainty (OpenAI paused twice; "We Must Pace the Frontier"; employee
-  letter; International AI Safety Report: progress could slow, plateau, continue or accelerate) ·
-  2 Ins · 3 T controls table, each paired with its
-  incident failure (least agency · per-agent authN/Z ↔ one shared credential · sandbox isolation
-  ↔ mirror → internet · deterministic controls ↔ 27 Jun alert · network access only when
-  justified), in proportion to risk · 4–6 discussion prompts, one per step (v1 6.1 ◇ title and
-  prompts carry over).
-- **Quote** (steps 1–2, in the pace panel under the table; no narration column): Jacob Coxon,
-  "former Anthropic researcher": "One, it's obvious that things are speeding up, and two, they're
-  not under control." (✓ for now, 22 Nov; Hubinger's quote moved to s-9 tile 2.)
-- Controls (step 3): no caption (it repeated the title). Prompts from step 4. Built (S-027).
-- **Ins (◇ v1 5.4; step 2):** METR could not reliably measure GPT-5.6 Sol: its time-horizon estimate
-  ranged from 11 to over 270 hours depending on how cheating was scored.
-- Notes: sources and caveats as v1 5.4/5.5 (`research_notes/AI capability pace 2026/`). If step
-  density is too high, split into s-10 (M3 + T) and s-11 (discussion).
+**Rework (presenter, 22 Nov):** one title per phase, swapped by step; s-9's tile-row style for the
+pace phase; the separate Insight step folds into tile 1. Sources: `research_notes/AI capability pace
+2026/` (`capability_pace.md`, `public_sentiment.md`).
+- **Tiles phase** ✓ title: *Capability keeps accelerating as industry calls for restraint and public
+  concern grows* (replaces "Capability, compute and spending are still accelerating despite pauses and
+  pledges"). Three tiles, one per step:
+  1. **Capability, compute and spending are still accelerating:** "The length of task AI agents can
+     complete has grown about 10× every two years, faster since 2024. Training compute grows about 5×
+     a year, and 2026 data-centre spending is around $700B. METR could not reliably measure GPT-5.6
+     Sol: its estimate ranged from 11 to over 270 hours." Quote: Jacob Coxon, former Anthropic
+     researcher, "One, it's obvious that things are speeding up, and two, they're not under control."
+  2. **Incidents prompted industry calls for pacing and disclosure:** "OpenAI paused its largest
+     training runs twice and said its disclosure practices must expand. Anthropic's CEO called for
+     pacing the frontier, endorsed by OpenAI's CEO, and over 1,300 lab staff signed a pacing letter.
+     Hugging Face called for 'radical transparency'; US senators and California's Attorney General are
+     pressing OpenAI for details." Quote: OpenAI (Reuters, 5 Sep): "Our misalignment disclosure
+     practices need to expand for this new phase of model capabilities." (AG suit = allegations; the
+     letter page shows 1,386 signatures.)
+  3. **Public AI concern is rising, though safety remains secondary:** "Most Americans are concerned
+     about AI, and 73% worry future AI could threaten human survival. But politics and markets focus
+     elsewhere: midterm voters weighed jobs, power bills and data centres, and AI-led market drops were
+     about spending and growth, not safety." (Quinnipiac Sep; NBC exit poll; AP 5 Nov. Most of the
+     attitude shift predates the incident: never claim it caused it.)
+- **Controls phase** ✓ title: *Practical controls keep AI agents within the bounds their tasks need*.
+  Table: Control · **Practical considerations for AI projects** (replaces "Where it failed in the
+  incident"; the incident links move to the notes):
+  - Least agency and autonomy: "While it's tempting to use the most powerful tools for every use case,
+    give agent systems only the capabilities they need for the task."
+  - Per-agent authentication and authorisation: "Give each agent its own credentials, scoped to its
+    task, so you can trace and revoke access one agent at a time."
+  - Sandbox isolation: "Keep agents' environments apart, including shared storage, so one environment
+    can't become a channel to others."
+  - Deterministic controls and monitoring: "In higher-risk use cases, build in kill-switches and
+    rule-based escalation to a human, so a warning always reaches someone who can stop the agent."
+  - Network access only when justified: "Block internet and outside access by default, and open only
+    the routes a task needs."
+- **Discussion phase:** v1 6.1 ◇ title and three prompts, one per step (unchanged).
+- Notes: per tile, the cited figures and caveats; per control, where it failed in the incident (shared
+  credential, shared writable mirror, 27 June alert left to judgement, mirror proxying to the internet,
+  persistent agents with large budgets).
 
 ## Open items
 
@@ -457,5 +478,4 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
 - S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).
-- s-10: the employee letter stays "Over 1,100 … (Jul)"; exact date and signatory count still
-  unconfirmed. Anthropic pause omitted (weakly sourced; a test guards against it).
+- s-10: pacing-letter count settled at "over 1,300" (letter page: 1,386). Anthropic pause omitted (weakly sourced; a test guards against it).
