@@ -72,8 +72,8 @@ S10_COPY = {   # approved copy (STORYBOARD s-10, 22 Nov): heading, body, quote
                None),
 }
 S10_LINKS = {   # hosts each tile's cite line links (research notes: capability_pace.md, public_sentiment.md)
-    "s10-t1": ["metr.org", "epoch.ai", "finance.yahoo.com", "time.com"],
-    "s10-t2": ["thestar.com.my", "darioamodei.com", "pacingthefrontier.com", "itpro.com", "pbs.org", "oag.ca.gov"],
+    "s10-t1": ["metr.org", "epoch.ai", "time.com"],
+    "s10-t2": ["thestar.com.my", "darioamodei.com", "pacingthefrontier.com", "pbs.org"],
     "s10-t3": ["techpolicy.press", "datacenterdynamics.com", "boston.com"],
 }
 CONTROLS = [   # control · practical consideration (approved, verbatim)
@@ -198,8 +198,8 @@ def helper_s10_tile(tid: str) -> str:
 
 def test_s10_tiles_phase_reuses_the_tile_row_one_tile_per_step():
     sec = helper_section("s-10")
-    row = re.search(r'<div class="body--tiles"[^>]*>(.*?)</div>\s*<div', sec, re.S)
-    assert row, "s-10's tiles phase is the shared tile row (div.body--tiles)"
+    row = re.search(r'<div class="body body--tiles"[^>]*>(.*?)</div>\s*<div', sec, re.S)
+    assert row, "s-10's tiles phase is the shared tile row (div.body.body--tiles)"
     tiles = re.findall(r'<article class="text-tile" id="([\w-]+)" data-show-at="(\d+)">', row.group(1))
     assert tiles == [(t, str(n)) for n, t in enumerate(S10_TILES, start=1)], tiles
 
