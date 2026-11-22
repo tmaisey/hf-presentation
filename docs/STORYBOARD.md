@@ -39,8 +39,8 @@ written in full ("26 June", "5–6 July") on their own line with the day tag; th
 
 ## s-1 · Title (0:30)
 
-✓ *OpenAI's agents breaching Hugging Face was a clear public example of AI misalignment risks*
-(presenter, 22 Nov; replaces ◇ "OpenAI's agent swarm breached Hugging Face while running a sanctioned
+✓ *OpenAI breaching Hugging Face was a public example of AI misalignment* (presenter, 22 Nov: OpenAI is
+responsible for what its agents do; replaces "OpenAI's agents breaching… clear public example… risks" and ◇ "OpenAI's agent swarm breached Hugging Face while running a sanctioned
 cyber evaluation")
 - Sub ✓: "Flawed AI capability development methods led to autonomous cyber-attacks during routine
   testing". Kicker "July 2026"; the existing reader note stays. Ambient bokeh, no diagram (S-034).

@@ -125,8 +125,8 @@ and add every new verdict here as an example pair. British spelling throughout.
 ## Open
 
 - Agent-message overlays: verbatim quotes, so voice rules apply only to the header label.
-- **Decided (Nov 2026):** s-1 "OpenAI's agents breaching Hugging Face was a clear public example of AI
-  misalignment risks" ✓ (22 Nov) · 0.1 "sanctioned" ✓ · capability-pace title keeps **"accelerating"**
+- **Decided (Nov 2026):** s-1 "OpenAI breaching Hugging Face was a public example of AI misalignment" ✓ (22 Nov; ✗ "OpenAI's
+  agents breaching…": OpenAI is the legal entity responsible for its agents' actions) · 0.1 "sanctioned" ✓ · capability-pace title keeps **"accelerating"**
   (✗ "rising steeply"; ground it in the note: METR doubling faster since 2024) · 3.2 Insight
   "…little evidence of attempts to deceive the human reviewers" ✓ (verbose; may trim later) ·
   s-7 "Agents adopt assured identities for messages before a second model compromises OpenAI's own
