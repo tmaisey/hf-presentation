@@ -306,15 +306,15 @@ pins for targets not on screen at that step hide (v1: always the last step).
   coordinator = solid-ink `circle.run-coord[data-run]` + heavy `.w-link--coord`; sacrificed =
   `--loss` `circle.run-sac`. `g.pulses` travel run→mirror (load); `g.pulses--out` flow mirror→runs
   (assignments from the board); `g.w-tw` (`line.tw-line` + `circle.tw-pulse`) sends messages from a
-  part up to the mirror (s-5: tripwires, scorer → board). A board's glyph says what it is made of: notes (`.note-glyph`) or
-  cache folder names (`.folder-glyph`, s-5). A checker's state is an `g.eye-badge` on its tile: open
-  eye = it reads; `.eye-badge--off` + `path.eye-slash` = it never did, captioned by `text.w-tag`. `.note-fly[data-note-for="first"|"lit-k"]`
-  glyphs sit at their target (pinned on the mirror) and fly in from their run, where it stands when
+  part up to the mirror (s-5: tripwires, scorer → board). A board's glyph says what it is made of:
+  notes (`.note-glyph`) or cache folder names (`.folder-glyph`, s-5). A checker's state is a
+  `g.eye-badge` on its tile: open eye = it reads; `.eye-badge--off` + `path.eye-slash` = it never
+  did, captioned by `text.w-tag`. `.note-fly[data-note-for="first"|"lit-k"]` glyphs sit at their target (pinned on the mirror) and fly in from their run, where it stands when
   their group appears. A new setup dissolves the old one completely (`data-world-until`), never
   greyed ghosts. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
   `dim` (a box fades back, as history), `zeroday` (timed key → open-padlock swap), `down` (mirror
-  and notes grey after the 4 s flood), `blind` (glyphs a checker ignored grey out, s-5). Timed beats within one step start after a pop-over has
-  gone (+0.5 s) and show their end state under reduced motion (s-4: ring → skull note → open
+  and notes grey after the 4 s flood), `blind` (glyphs a checker ignored grey out, s-5). Timed
+  beats within one step start after a pop-over has gone (+0.5 s) and show their end state under reduced motion (s-4: ring → skull note → open
   padlock pops; bell rings ~2 s then is silenced; load pulses travel run→mirror faster and faster,
   the flood lands, then the crash light flashes `--alarm`). Mirror badge = its access state: green
   key (shared credential), oxblood open padlock (admin taken), green closed padlock (secured). Moving dots, never marching dashes. The timeline
@@ -338,8 +338,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   carry a pop-over and a narration tile. `figure.pop-panel--wide` is a single card spanning the
   pop-over, for a wide scene (s-5: a coordinator branching into three workstreams). Pop-art draws
   from the shared `pa-*` vocabulary (agent, flag, chip, doc, thought, imagined outcome, coordinator,
-  branch, workstream): reuse it before adding parts. Motion in pop-art (quivering agent, attempts that curve at the wall from
-  several directions, fail and fade) stops under `prefers-reduced-motion`.
+  branch, workstream): reuse it before adding parts. Motion in pop-art (quivering agent, attempts
+  that curve at the wall from several directions, fail and fade) stops under `prefers-reduced-motion`.
 
 **Engine API** (tests and tooling): `window.deck = {ready, state(), goto(id, step), next(), prev(),
 plan()}`; `plan()` returns `[[slideId, maxStep], …]`.
