@@ -374,9 +374,9 @@ pins for targets not on screen at that step hide (v1: always the last step).
   A legend entry introduced later is a `span.world-key-item[data-world-at]` (optional
   `data-world-until`) in the key, hidden on earlier world slides; the key stays on **one row**
   (presenter, 22 Nov): its text shrinks to fit the world column (below the diagram-text floor if it
-  must; labels are shortened only if the smaller text still won't fit); hidden entries keep their
-  space, so its height (and the world) never changes between world slides: a run role gets one when it
-  first appears (s-5: research coordinator, sacrificed agent); keep labels short ("HF activity"). Moving dots, never marching dashes. The timeline
+  must; labels: "Agent Run", "Coordinator", "Sacrificed", "HF activity", presenter 22 Nov); hidden entries
+  keep their space, so its height (and the world) never changes between world slides: a run role gets one when it
+  first appears (s-5: Coordinator, Sacrificed); keep labels short ("HF activity"). Moving dots, never marching dashes. The timeline
   builds: an entry shows at its step, never ahead; a dated entry's date (month in full) carries a quiet day count
   from day 0 (`+49 d`; PRD *Decisions*), derived from the date itself so it is never typed twice;
   date and tag form the entry's first line and the event starts on the next (undated entries too);
