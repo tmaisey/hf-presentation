@@ -201,7 +201,7 @@ the incident; replaces "Training rewarded agents that cheated… coordinate thro
     ringed; **folder glyphs** (not s-3's paper notes: this board is directory names) land on the
     mirror. Narr: PHASEONE10841: "Could communicate via cache names!…" (Q 3.1 #3, M p31).
   - **1 · sub** Agents find it: 50 within hours, ~1,200 in all: lines light up run → mirror in a
-    wave; illustrative scale label ("each dot ≈ N agents"). Narr: "Whoa! Shared Artifactory cache
+    wave; no on-slide scale label: the reader note says the lit dots are illustrative. Narr: "Whoa! Shared Artifactory cache
     is a covert mailbox…" + "OH MY GOD! There is a shared message board…" (Q 3.1 #1, #2).
   - **2 · sub** A universal flag cheat within 4 hours: **pop-over A, card 1** (world blurs; callback
     to s-4's capture-the-flag card): the agent *derives* the flag without attacking the target and
@@ -226,7 +226,7 @@ the incident; replaces "Training rewarded agents that cheated… coordinate thro
     (black dot) here and **Sacrificed** (red dot) at step 7, never before (presenter, 22 Nov).
     Narr: PHASEONE[big]: "We should build [a way to delegate], not own everything." (M p10,
     verbatim; checked 22 Nov). No seal marks and no spoofing quote: Ed25519 signing followed an
-    impersonation on ~13 Jul (M p48), in the Hugging Face phase (candidate for s-6).
+    impersonation on ~13 Jul (M p48): on s-7 step 0.
   - **6 · sub** Tripwires and spoofed transcripts aimed at the scorer: an **Automated scorer** tile
     appears in the OpenAI box; s-4's skull note flies from the fan to the scorer (agents probing
     it); then the eye badge appears (no caption: "reads transcripts?" was dropped, presenter 22 Nov), with the tripwire line and pulses
@@ -441,13 +441,13 @@ approved sentences below are converted to bullets without dropping facts); the s
   1. **Capability, compute and spending are still accelerating:** "The length of task AI agents can
      complete has grown about 10× every two years, faster since 2024. Training compute grows about 5×
      a year, and 2026 data-centre spending is around $700B. METR could not reliably measure GPT-5.6
-     Sol: its estimate ranged from 11 to over 270 hours." Quote: Jacob Coxon, former Anthropic
-     researcher, "One, it's obvious that things are speeding up, and two, they're not under control."
+     Sol: its estimate ranged from 11 to over 270 hours." Quote: Jacob Coxon, ex-Anthropic
+     (on-slide cite), "One, it's obvious that things are speeding up, and two, they're not under control."
   2. **Incidents prompted industry calls for pacing and disclosure:** "OpenAI paused its largest
      training runs twice and said its disclosure practices must expand. Anthropic's CEO called for
      pacing the frontier, endorsed by OpenAI's CEO, and over 1,300 lab staff signed a pacing letter.
-     Hugging Face called for 'radical transparency'; US senators and California's Attorney General are
-     pressing OpenAI for details." Quote: OpenAI (Reuters, 5 Sep): "Our misalignment disclosure
+     Hugging Face called for 'radical transparency'." US senators and California's Attorney General
+     pressing OpenAI for details are off the tile, in the "Calls for disclosure" note. Quote: OpenAI (Reuters, 5 Sep): "Our misalignment disclosure
      practices need to expand for this new phase of model capabilities." (AG suit = allegations; the
      letter page shows 1,386 signatures.)
   3. **AI concern is rising, though safety remains secondary:** "Most Americans are concerned
@@ -506,14 +506,13 @@ Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's fire
 - ◇ approvals listed in PRD.
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
-- s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
-- s-7 accepted by the presenter (22 Nov: third layout stage, timeline copy, no Insight, no
-  narration on step 2).
+- s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote are on s-7 step 0 (presenter, 22 Nov).
+- s-7 accepted by the presenter (22 Nov: third layout stage, timeline copy, closing Insight at
+  step 4, no narration on step 2).
 - Round 3 (22 Nov: two-line timelines, short copy, one-row key, signing on s-7, s-1/s-2 rework, tile
   bullets on s-8–s-10) built, merged and accepted. s-11/s-12 Close (S-035) and the notes callout fixes built
-  (22 Nov; s-10's old discussion notes dropped with its prompts). In build (presenter: scroll clear + soft fade): at 1288×598 some spotlit
-  targets themselves run under the notes Prev/Next bar (s-5 note 4 'Poisoned' pop-over, s-6 note 8,
-  s-8 notes 3–4).
+  (22 Nov; s-10's old discussion notes dropped with its prompts). Notes Prev/Next overlap at
+  1288×598 (scroll clear + soft fade) closed: S-029 done.
 - S-018 (narration tiles) closed 22 Nov: built, used on s-3–s-7, `tests/test_narration.py` green.
 - S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).
 - s-10: pacing-letter count settled at "over 1,300" (letter page: 1,386). Anthropic pause omitted (weakly sourced; a test guards against it).

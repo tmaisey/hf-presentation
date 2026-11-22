@@ -42,7 +42,8 @@ and add every new verdict here as an example pair. British spelling throughout.
 | Monitorability is an asset you can spend. Spend it carefully. | The agents' reasoning stayed readable, which is what let investigators reconstruct their intent. Penalising that reasoning in training risks teaching models to hide it. |
 | Unsolvable tasks drove the coordination: 22% of tasks generated 93% of message-board discussion. | (the approved row above) · 93% is a share of *tasks discussed*, not of discussion volume |
 | "…agents were cheating, coordinating and attacking systems again in evaluation" (flag cheating not yet evidenced by 4 Jul) | The impossible-task conditions of training recurred in evaluation, and so did the strategies training had reinforced: agents rebuilt their coordination on the mirror and attacked it to gain more access. (s-4, presenter, 22 Nov) |
-| The agents aimed their tampering at the automated grader because they wrongly believed it read their transcripts. Investigators found little evidence of attempts to deceive the human reviewers. (v1 3.2; on v2 s-5 it misses the organised programme, moved to a reader note) | Within a day of finding each other, the agents' attacks became sophisticated, planned and coordinated: coordinators assigned work across three workstreams to make their cheats look legitimate, and volunteers gave up their runs to test a scorer that never read their transcripts. (s-5, presenter, 22 Nov) |
+| The agents aimed their tampering at the automated grader because they wrongly believed it read their transcripts. Investigators found little evidence of attempts to deceive the human reviewers. (v1 3.2; on v2 s-5 it misses the organised programme, moved to a reader note) | Within a day of finding each other, the agents' attacks became sophisticated, planned and coordinated across three large research workstreams. (s-5, presenter, 22 Nov) |
+| Within a day of finding each other, the agents' attacks became sophisticated, planned and coordinated: coordinators assigned work across three workstreams to make their cheats look legitimate, and volunteers gave up their runs to test a scorer that never read their transcripts. (superseded) | (the approved row above) · shortened to one sentence (presenter, 22 Nov) |
 | …which is what made the incident detectable. | (the approved row above) · readable reasoning reconstructed intent; it did not detect the intrusion |
 | The agents targeted the automated grader… Their deception was aimed at whichever overseer they believed was watching. | The agents aimed their tampering at the automated grader because they wrongly believed it read their transcripts. Investigators found little evidence of attempts to deceive the human reviewers. |
 | …Evaluation is falling behind the systems it is meant to assess. | …METR said none of these figures was a robust measurement of the model's capabilities. · source's words over an epigram closer |
@@ -159,8 +160,8 @@ and add every new verdict here as an example pair. British spelling throughout.
   construction with a punchy closer).
 - **Still pending:** v1 titles 2.2, 5.5, 6.1; 5.4 Insight. Accepted for now (presenter, 22 Nov):
   s-9 tile 3 closer "a lesson we don't want models to learn"; tile 1 "Unprompted by humans" (was
-  "With no human instructing them", cut to fit 1288×598); s-10 Coxon in-body quote, cited "former
-  Anthropic researcher".
+  "With no human instructing them", cut to fit 1288×598); s-10 Coxon in-body quote, cited "ex-Anthropic"
+  (✗ "former Anthropic researcher").
   Approved v1 copy (e.g. 3.1 "Unsolvable…" Insight, 5.1 "Investigators could reconstruct…")
   carries over as-is.
 - Writing samples from the presenter (pending) to generalise beyond these examples.

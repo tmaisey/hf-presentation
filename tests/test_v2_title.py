@@ -1,10 +1,11 @@
 """Spec: S-034
 
 v2 title slide (s-1): the approved title and subtitle (storyboard s-1, VOICE) over the ambient
-background, with the "July 2026" kicker and the sourced reader note on the subtitle.
-Coverage: happy (title, subtitle and kicker verbatim; ambient; note cites METR) · edge (title and
-subtitle fit whole inside the slide, below the bar and apart from each other at 1920×1080, 1280×720
-and 1288×598) · negative (no diagram, no build steps, the replaced title and subtitle are gone).
+background, with the byline "Tom Maisey, November 2026" and the sourced reader note on the subtitle.
+Coverage: happy (title, subtitle and byline verbatim; ambient; note cites METR) · edge (title,
+subtitle and bottom-left byline fit whole inside the slide, below the bar and apart from each other
+at 1920×1080, 1280×720 and 1288×598) · negative (no kicker, no diagram, no build steps, the
+replaced title and subtitle are gone).
 """
 
 import re

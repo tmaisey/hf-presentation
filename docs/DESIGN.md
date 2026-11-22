@@ -1,7 +1,7 @@
 # Design rules
 
 Binding visual rules for the deck. **MUST / NEVER** are binding; deviate only with presenter
-approval. Each rule links to the prototype code that shows it (`P1`–`P4` below). The prototypes
+approval. Each rule links to the prototype code that shows it (`P1`–`P5` below). The prototypes
 are **frozen references**: if one is edited, re-check every link here in the same commit.
 
 Build architecture (define once, apply per slide): ADR: ADR-001 (`docs/ADR.jsonl`), implemented in
@@ -16,6 +16,7 @@ everything else binds both. Slide authors need only §10.
 | P2 | [`02-chapters-depth.html`](../design/prototypes/02-chapters-depth.html) |
 | P3 | [`03-notes-spotlight.html`](../design/prototypes/03-notes-spotlight.html) |
 | P4 | [`04-diagram-swarm.html`](../design/prototypes/04-diagram-swarm.html) |
+| P5 | [`05-header-bar.html`](../design/prototypes/05-header-bar.html) |
 
 ## 1 · Tokens (defined once on `:root`)
 
@@ -64,7 +65,8 @@ everything else binds both. Slide authors need only §10.
 
 ## 4 · Depth & ambient
 
-- Bokeh: three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs (5 / 6 / 6), slow
+- Bokeh (the presenter's "fireflies": same thing; P2's dropped canvas fireflies were different):
+  three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs (5 / 6 / 6), slow
   drift (peak ~13px/s: perceptible, still subtle; presenter, 22 Nov) + slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
 - Ambient **only** on title / summary / Insight / close pages (s-1, s-11, s-12; s-12 is a
   `slide--end` closing page: one centred line, no kicker); **NEVER** on detail or diagram pages. [P2 detail chapter](../design/prototypes/02-chapters-depth.html#L123)
@@ -99,11 +101,6 @@ prose. While shown, the content beneath softens (blur 3px, 55% opacity). [P2:68]
 - **Insight** overlays stay in v2 unchanged, for key takeaways.
 
 ### 5a · Narration tiles (v2; replaces the cluster)
-
-> **Provisional (20 Nov 2026):** the v2 first draft built to this section and to the v2 component
-> additions in §10 (zone, mix bar, cut, fence, flag tile, `body--layers`, stepped titles, narration
-> column) fell below the v1 quality bar. Re-prototype with the presenter before reusing any of them
-> (PRD workstreams 6–7).
 
 Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter decision, Nov 2026.
 
@@ -177,8 +174,9 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   disc, done = filled `--ink-2` disc, waiting = hollow disc; all item text stays ≥ `--ink-2`). [P4 steps](../design/prototypes/04-diagram-swarm.html#L25), [`render()`](../design/prototypes/04-diagram-swarm.html#L152)
 - State colours: active agent = accent-tinted fill + `--accent-ink` stroke; coordinator = solid
   `--ink`; sacrificed = `--loss`, and its links fade. [P4:49–51](../design/prototypes/04-diagram-swarm.html#L49)
-- Illustrative scale stated on-slide (e.g. "each dot represents about 8 agents").
-- **v2 is diagram-led:** most slides (all but title, insights and discussion) **MUST** carry a
+- Illustrative scale goes in the reader note (e.g. s-5: "The lit dots are illustrative"), **NEVER** on-slide.
+- **v2 is diagram-led:** most slides (all but title, investigation (s-8, text-led tiles), insights,
+  takeaways (s-10: tiles, then a controls table) and discussion) **MUST** carry a
   dynamic, step-built diagram of the slide's core concept (the v1 swarm on `s-3-1` is the bar),
   paired with narration tiles (§5a).
 
@@ -204,22 +202,26 @@ Write slides in `deck/deck.html` (v1) or `deck/deck-v2.html` (v2) between `<!-- 
 slide needs something new, extend the component CSS / engine once and document it here.
 
 **Slide shell**
-- `section.slide#s-C-N[data-chapter="<Chapter>"]`: the agenda is built from distinct `data-chapter`
-  values in slide order, so every slide of a chapter repeats the same value.
+- `section.slide#s-N[data-chapter="<Chapter>"]`: the agenda is built from distinct `data-chapter`
+  values in slide order, so every slide of a chapter repeats the same value (v1 ids: `s-C-N`).
 - `[data-ambient]`: bokeh (title / summary / Insight slides only, §4). `.slide--lead`: big
-  title, vertically centred (title and summary slides).
+  title, vertically centred (title and summary slides). `p.byline` (title slide, after the body):
+  small italic serif in `--ink-2`, pinned bottom-left, sharp (no blur).
 - Children in order: `p.kicker` (`0N · Chapter`), `h2.title` (VOICE rules, ≤1 `<em>`), one
-  `div.body`, then overlays, then notes. The body sits in the area below the title; overlays share
+  `div.body` (or stepped bodies, below), then overlays, then notes. The body sits in the area below the title; overlays share
   that area, so they can never cover the title.
 - Stepped titles: a slide with build phases may carry one `h2.title` per phase, swapped with
   `data-show-at` / `data-hide-at` (title rules apply to each). Notes on a phase's content show that phase (Reader notes below).
+- Stepped bodies: likewise, one `div.body` per build phase, siblings in the one body cell, swapped
+  with `data-show-at` / `data-hide-at` (s-10: `body--tiles[data-hide-at=4]` → `body--layers`
+  controls); **NEVER** nested.
 
-**Body layouts** (only ever on the slide's one `div.body`, never nested): `div.body` (flow, centred
+**Body layouts** (only ever on a slide's `div.body`, never nested): `div.body` (flow, centred
 vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64%; a `div` column stacks
 its blocks with even spacing) · `div.body.body--split.body--flip` (64 / 36: wide content left, quotes
 right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
 `div.body.body--layers` (children share one grid cell and swap by step via `data-show-at` /
-`data-hide-at`: build phases that can't fit together, e.g. s-10 pace → controls → prompts; a phase
+`data-hide-at`: build phases that can't fit together (s-10's holds the controls phase); a phase
 of several blocks is one wrapper `div[data-show-at][data-hide-at]`, e.g. table + `blockquote` +
 `p.cite`; a quote under a table keeps clear of its last rule, and on short screens table rows
 tighten so a phase fits under its title) ·
@@ -234,9 +236,8 @@ the tile (pushed to the foot, level across the row) (report voice; italic, CSS q
 and/or in-flow `div.msg-card` (agent voice); links in text colour, underlined. On short screens
 (≤ 660px high) gaps tighten and the heading shrinks. Fit is tightest at 1288×598: trim a tile,
 moving detail to its note, rather than overflow).
-In a `body--stack` with a caption the diagram takes the remaining height (`flex: 1 1 0;
-min-height: 0`) so the stack never rises over the title (slide-scoped on `#s-3` today; generalise
-in S-028).
+`body--stack` is *unused* in v2 (CSS left for reuse): with a caption, the diagram must take the
+remaining height (`flex: 1 1 0; min-height: 0`) so the stack never rises over the title.
 **Quotes MUST sit below or to the right of the slide's core content**, never before it.
 Content classes: `p` (≤46ch), `ul.points > li` (accent dash bullets), `ol.steps > li` (numbered step
 list), `dl.terms > div > dt + dd` (terms flow into columns), `blockquote` + `p.cite` (report voice),

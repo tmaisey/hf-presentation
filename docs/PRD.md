@@ -70,9 +70,9 @@ they serve.
 - Depth through blur/bokeh: Insight overlays float above softened content for key takeaways.
 - **Dynamic diagrams on most slides:** a proper step-built diagram illustrating the slide's core
   concept (like v1's swarm/message-board diagram).
-- **One incident world (s-3 Training → s-6 Breakout, likely s-7 Takeover):** a single persistent,
-  illustrative diagram in prototype 04's line-drawn style (not box-and-arrow) that evolves with the
-  timeline. Each slide picks up where the last ended, and moving between slides animates the scene
+- **One incident world (s-3 Training → s-7 Takeover; s-8 and s-9 show it frozen as a blurred
+  backdrop):** a single persistent, illustrative diagram in prototype 04's line-drawn style (not
+  box-and-arrow) that evolves with the timeline. Each slide picks up where the last ended, and moving between slides animates the scene
   like a camera (presenter chose this over per-slide diagrams, 21 Nov). At Breakout the focus
   moves outside OpenAI: the internal scene simplifies and shrinks to make room for the path to
   Hugging Face.
@@ -143,8 +143,8 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 | 2 | Design prototypes → design rules | v1 done; v2 visuals (narration tiles, diagrams) reopened → workstream 7 | `design/prototypes/`, `docs/DESIGN.md` |
 | 3 | Writing voice | Done (extend with each verdict) | `docs/VOICE.md` |
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
-| 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
-| 6 | Build v2 as `deck/deck-v2.html` | First draft built (10 slides), **rejected on quality** 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs reopened; draft markup is raw material. **Reusable:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
+| 5 | Storyboard v2 (12 slides) | Done | `docs/STORYBOARD.md` |
+| 6 | Build v2 as `deck/deck-v2.html` | **Superseded** by the accepted rebuild (workstream 7, 22 Nov). History: first draft (10 slides) rejected on quality 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs were reopened and rebuilt. **Carried into the rebuild:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
 | 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **Done** (22 Nov): every v2 slide built in situ behind the S-030 layout guard and accepted by the presenter step by step; Close chapter, reader-notes and title-bar refinements built; README published. S-028 closed on the presenter's acceptance (22 Nov) | `design/prototypes/`, `docs/DESIGN.md` |
 
 ## Exclusions
@@ -172,8 +172,8 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 - **The world holds one place on screen across world slides (presenter, 22 Nov):** a longer or
   shorter title never moves or rescales it, so shared parts stay put as the slide changes.
 - **Build without further design sessions (presenter, 22 Nov):** the remaining slides build in
-  situ from the storyboard; s-7 (S-025) has no agreed design yet and the builder designs it,
-  continuing s-6 and following DESIGN rules, writes it into `STORYBOARD.md` and S-025, then builds.
+  situ from the storyboard; s-7 (S-025) was designed by the builder, continuing s-6 and following
+  DESIGN rules, then built and accepted (S-025 done).
   The **tile row** (s-8, s-9: three text tiles over the heavily blurred world) is a new component
   built in situ in `deck/deck-v2.html`, judged by eye step by step, with no throwaway prototype.
 - **Humans are not drawn on the world (presenter, 22 Nov):** responders' actions (rebuilds, cut
@@ -182,9 +182,13 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   one slide at a time, Training first; each step is judged by eye before the next slide starts.
   Pop-overs use real tasks: a possible one cheated (library answer copied → rewarded) and an
   accidentally impossible one (Drive links, no internet) with a visibly persistent agent.
-- The 22% of ExploitGym tasks are called **"unsolvable"** on-slide (presenter, Nov 2026). Grounding,
-  carried in the 3.1 reader note: OpenAI itself blames "the presence of impossible tasks in the
-  ExploitGym evaluation", and the hard figure is 198 of 898 tasks no model has ever solved.
+- The 22% of ExploitGym tasks read **"Some tasks have no solution"** on s-4; "Unsolvable tasks" is
+  only its reader-note heading (presenter, Nov 2026). Grounding, carried in that note: OpenAI
+  itself blames "the presence of impossible tasks in the ExploitGym evaluation", and the hard
+  figure is 198 of 898 tasks no model has ever solved.
+- **Settled by the accepted deck (22 Nov):** capability pace sits on s-10 (takeaways); the pacing
+  letter reads "over 1,300" signatories (letter page: 1,386); the weakly sourced Anthropic pause is
+  omitted; the v2 first-draft review items were overtaken by the accepted rebuild.
 
 ## Open questions
 
@@ -192,12 +196,6 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   was DNS-only internet access, and the mid-Aug "research cluster" report is unconfirmed, so slide 7
   shows two events. The 19 Jul OpenAI takeover was by a different (Astra-family) model, not the HF
   agents (`other_takeovers.md`).
-- **Capability-pace placement:** default within the insights slides (9–10).
 - **Copy approvals:** see `docs/VOICE.md` Open (decided: "sanctioned", keep "accelerating", 3.2
   Insight; Notes button **always visible**, no idle fade).
-- Employee-letter signatory count and date; whether to cite the weakly sourced Anthropic pause.
 - Presenter writing samples (pending) to generalise `docs/VOICE.md`.
-- **v2 first-draft review items (presenter to look):** report/investigator quotes as narration
-  tiles (s-4, s-7, s-8, s-10); s-8 flagged-tile colour (loss tint vs new muted amber); s-10 stepped
-  titles vs one title vs split; s-10 Nov-2026 releases row and 5.4 Insight length; agent-written
-  diagram labels and short step lists (s-2, s-4, s-5, s-6, s-8). May be overtaken by prototypes.
