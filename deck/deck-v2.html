@@ -348,7 +348,7 @@
   /* reward-loop diagram (s-2): the loophole route thickens as it is reinforced (step 4) */
   .edge--reinforced { stroke: var(--ink-2); stroke-width: max(5px, calc(var(--k) * 5px)); }
   /* coloured edges (s-2 loop): a verified success in accent, a reward hack in --loss; heads from #arr-ok / #arr-loss */
-  .edge--ok, .edge--loss { stroke-width: max(4.5px, calc(var(--k) * 4.5px)); }
+  .edge--ok, .edge--loss { stroke-width: max(3px, calc(var(--k) * 3.25px)); }   /* ~1.45× grey: stands out, not heavy (presenter, 22 Nov) */
   .edge--ok { stroke: var(--accent); }
   .edge--loss { stroke: var(--loss); }
   #arr-ok path { fill: var(--accent); }
@@ -856,10 +856,10 @@
       <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
     </marker>
     <!-- S-019: the same head in an edge's own colour, for coloured edges (.edge--ok, .edge--loss) -->
-    <marker id="arr-ok" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="6" markerHeight="5" markerUnits="strokeWidth" orient="auto">
+    <marker id="arr-ok" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="4.15" markerHeight="3.46" markerUnits="strokeWidth" orient="auto">
       <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
     </marker>
-    <marker id="arr-loss" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="6" markerHeight="5" markerUnits="strokeWidth" orient="auto">
+    <marker id="arr-loss" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="4.15" markerHeight="3.46" markerUnits="strokeWidth" orient="auto">
       <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
     </marker>
   </defs>
@@ -2044,7 +2044,7 @@
   slides.filter(s => s.node.hasAttribute('data-ambient')).forEach((s, n) => {
     const rnd = seeded(101 + n), r = (a, b) => a + rnd() * (b - a);
     const layer = el('div', 'bokeh'); layer.setAttribute('aria-hidden', 'true');
-    [['far', 3, 340, 560, .015, 10], ['mid', 4, 120, 240, .035, 28], ['near', 4, 30, 80, .07, 46]].forEach(([d, count, lo, hi, z, amp]) => {
+    [['far', 5, 340, 560, .015, 12], ['mid', 6, 120, 240, .035, 32], ['near', 6, 30, 80, .07, 53]].forEach(([d, count, lo, hi, z, amp]) => {
       for (let i = 0; i < count; i++) {
         const o = el('div', `orb ${d} orb--${(i % 5) + 1}`), size = r(lo, hi);
         Object.assign(o.style, { width: `${size}px`, height: `${size}px`, left: `${r(40, 100)}%`, top: `${r(0, 90)}%` });
@@ -2061,7 +2061,7 @@
       const active = slides[cur];
       orbs.forEach(({ o, slide, z, amp, ph }) => {
         if (slide !== active) return;
-        const dx = Math.sin(t / 9000 + ph) * amp, dy = Math.cos(t / 11000 + ph * 1.3) * amp * .8;
+        const dx = Math.sin(t / 6000 + ph) * amp, dy = Math.cos(t / 7300 + ph * 1.3) * amp * .8;
         o.style.transform = `translate(${mx * z + dx}px, ${my * z + dy}px)`;
       });
       requestAnimationFrame(frame);

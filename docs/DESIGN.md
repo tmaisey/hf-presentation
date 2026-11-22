@@ -61,8 +61,8 @@ everything else binds both. Slide authors need only §10.
 
 ## 4 · Depth & ambient
 
-- Bokeh: three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs, slow drift +
-  slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
+- Bokeh: three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs (5 / 6 / 6), slow
+  drift (peak ~9px/s: perceptible, still subtle; presenter, 22 Nov) + slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
 - Ambient **only** on title / summary / Insight pages; **NEVER** on detail or diagram pages. [P2 detail chapter](../design/prototypes/02-chapters-depth.html#L123)
 - Respect `prefers-reduced-motion` (no drift, no rise). [P2:93](../design/prototypes/02-chapters-depth.html#L93)
 
@@ -276,8 +276,9 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `g.domain` box does that job.
 - *Retired* (unused since S-026 went text-led; CSS left in the deck, **NEVER** reuse without
   re-prototyping): scope fence `rect.fence`, flagged tile `g.tile.tile--flag`, `.edge--reinforced`.
-- Coloured edges (S-019, s-2): `.edge--ok` (accent) / `.edge--loss` (`--loss`), each with its own
-  arrowhead marker (`#arr-ok` / `#arr-loss`, same shape as `#arr`); a verified success = the
+- Coloured edges (S-019, s-2): `.edge--ok` (accent) / `.edge--loss` (`--loss`), ~1.45× the grey
+  edge's weight, never heavier; each has its own marker (`#arr-ok` / `#arr-loss`, same shape as `#arr`)
+  sized so the head matches the grey head on screen (presenter, 22 Nov: heavier read blocky); a verified success = the
   `.cred-badge.tick-badge` disc on the edge. A figure with annotations: `div.fig > svg.diagram +
   div.fig-notes > p.annot` (plain card on `--tile` with the deck's lift shadow; **NEVER** a coloured
   side bar or border stripe on any card: an AI-slide smell, presenter 22 Nov); an annotation may open
