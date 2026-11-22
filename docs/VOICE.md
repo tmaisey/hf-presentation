@@ -73,6 +73,10 @@ and add every new verdict here as an example pair. British spelling throughout.
 
 - The one place questions are allowed: 3 provocative, open questions that invite disagreement.
 - Specific and grounded in the talk, never generic ("What does this mean for us?").
+- ✓ (s-11, 22 Nov): "Where do you see these alignment risks materialising in enterprise environments?" ·
+  "What mitigations could be applied on projects to help enterprises manage risks while benefitting from
+  AI?" · "What approaches could improve efforts to manage AI safety under pressures to accelerate
+  capability?"
 
 ## Tile bullets (s-8, s-9, s-10; presenter, 22 Nov)
 

@@ -28,7 +28,8 @@ approval · ✎ = new for v2, needs approval.
 | s-7 | OpenAI cluster takeover | M1, M2 | 1:00 |
 | s-8 | Investigation | M2 | 1:30 |
 | s-9 | Insights | M1, M2 | 2:00 |
-| s-10 | Pace, takeaway, discussion | M3, T | 1:00 + 4:00 Q&A |
+| s-10 | Pace and takeaway | M3, T | 1:00 |
+| s-11 | Close: discussion | T | 4:00 Q&A |
 | | **Total** (s-5 and s-6 each +0:30; presenter accepted the longer talk, 22 Nov) | | **21:00** |
 
 **Timeline copy (presenter, 22 Nov):** the step lines below describe each beat; the on-slide timeline
@@ -423,7 +424,7 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
   unstated: our inference); crude tampering (METR fn 55); Hubinger as an individual; research
   caveats; the disputed firing reason.
 
-## s-10 · Pace, takeaway, discussion (1:00 + 4:00 Q&A) · M3, T
+## s-10 · Pace and takeaway (1:00) · M3, T
 
 **Rework (presenter, 22 Nov):** one title per phase, swapped by step; s-9's tile-row style for the
 pace phase (tile bodies as bullets, quote and one-line cite bottom-aligned, DESIGN tile row; the
@@ -462,10 +463,22 @@ approved sentences below are converted to bullets without dropping facts); the s
     rule-based escalation to a human, so a warning always reaches someone who can stop the agent."
   - Network access only when justified: "Block internet and outside access by default, and open only
     the routes a task needs."
-- **Discussion phase:** v1 6.1 ◇ title and three prompts, one per step (unchanged).
+- **Discussion:** moved to its own slide, s-11 (presenter, 22 Nov).
 - Notes: per tile, the cited figures and caveats; per control, where it failed in the incident (shared
   credential, shared writable mirror, 27 June alert left to judgement, mirror proxying to the internet,
   persistent agents with large budgets).
+
+## s-11 · Close (4:00 Q&A) · T
+
+New nav chapter **Close** (presenter, 22 Nov); kicker "11 · Close"; ambient fireflies as s-1 (DESIGN §4:
+a summary page). Title ✎ *Questions for discussion* (default; presenter may retitle). Three prompts,
+one per step (✓, presenter, 22 Nov):
+1. "Where do you see these alignment risks materialising in enterprise environments?"
+2. "What mitigations could be applied on projects to help enterprises manage risks while benefitting
+   from AI?"
+3. "What approaches could improve efforts to manage AI safety under pressures to accelerate
+   capability?"
+Replaces s-10's discussion phase and its v1 6.1 ◇ title.
 
 ## Open items
 
