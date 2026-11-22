@@ -46,7 +46,7 @@ TIMELINE = [("s6-t1", 0, True, "9 Jul"), ("s6-t2", 1, True, "10 Jul"), ("s6-t3",
             ("s6-t4", 6, True, "13 Jul"), ("s6-t4a", 7, False, "cuts access")]
 # world parts carried from s-5 at full opacity throughout s-6 (the runs stay lit on OpenAI's servers)
 CARRIED = {"w-oai", "w-mirror", "w-eval", "w-eval-links", "w-secure", "w-swarm-links", "w-cache", "w-folders",
-           "w-coords", "w-coord-links", "w-sacrificed"}
+           "w-coords", "w-coord-links", "w-sacrificed", "w-key-coord", "w-key-sac"}  # + s-5 key roles
 S5_ENDED = ("#w-scorer", "#w-eye-off", "#w-transcripts", "#w-assign", "#w-net", "#w-bell")
 WORLD_AT = {0: {"w-net6", "w-hf", "w-modal", "w-breakout", "w-bell-quiet"},
             1: {"w-hf-key"},
@@ -423,7 +423,9 @@ def test_key_gains_a_hollow_ring_entry_right_of_the_run_entry(page):
     helper_until(page, f"() => ({OPACITY})('#w-key-act') > .9")
     run = page.evaluate(RECT, ".world-key > svg")
     act = page.evaluate(RECT, "#w-key-act svg")
-    assert act[0] > run[2] and abs((act[1] + act[3]) / 2 - (run[1] + run[3]) / 2) < 4, "same row, to the right"
+    # the key wraps once s-5's run roles join it (S-022): the entry follows them, on the run's row or below
+    assert (act[0] > run[2] and abs((act[1] + act[3]) / 2 - (run[1] + run[3]) / 2) < 4) or act[1] >= run[3], \
+        "after the run entry: to its right on the same row, or on a later row of the key"
     assert "Hugging Face" in page.evaluate("() => document.querySelector('#w-key-act').textContent")
     assert page.evaluate("() => getComputedStyle(document.querySelector('#w-key-act circle')).fill") == "none"
 

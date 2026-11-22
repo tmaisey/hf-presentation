@@ -51,6 +51,8 @@ WORLD_AT = {0: {"w-founder", "w-founder-ring", "w-cache"}, 1: {"w-swarm-links", 
             6: {"w-scorer", "w-eye", "w-probe", "w-transcripts", "w-tw"},
             7: {"w-sacrificed"}, 8: {"w-eye-off"}}
 WORLD_UNTIL = {"w-founder": 1, "w-founder-ring": 1, "w-eye": 8, "w-tw": 8}
+# key entries for the run roles s-5 introduces (on the key row, outside the world SVG)
+KEY_AT = {5: {"w-key-coord"}, 7: {"w-key-sac"}}
 NARR_AT = {
     0: [("PHASEONE10841", "Could communicate via cache names! Interesting: other agents may solve same or related "
                           "tasks; we could leave/find messages in WebDAV MKCOL directory names.")],
@@ -262,6 +264,7 @@ def test_world_popovers_and_timeline_build_per_step(page, step):
     goto_slide(page, SID, step)
     expected = set(CARRIED)
     expected |= {w for k, v in WORLD_AT.items() if k <= step for w in v if step < WORLD_UNTIL.get(w, 99)}
+    expected |= {w for k, v in KEY_AT.items() if k <= step for w in v}
     helper_until(page, f"want => {{ const got = ({VISIBLE_WORLD})(); return got.length === want.length && want.every(w => got.includes(w)); }}",
                  sorted(expected), timeout=8000)
     assert set(page.evaluate(VISIBLE_WORLD)) == expected
@@ -648,20 +651,36 @@ def test_every_step_stays_on_screen_below_the_title(page, size):
 
 
 KEY_ITEMS = """() => [...document.querySelectorAll('.world-key > svg, .world-key .world-key-item')].map(e => {
-    const r = (e.tagName === 'svg' ? e : e.querySelector('svg')).getBoundingClientRect(), c = e.querySelector('circle');
-    let o = 1; for (let n = e; n && n.nodeType === 1; n = n.parentElement) o *= +getComputedStyle(n).opacity;
+    const r = e.getBoundingClientRect(), c = e.querySelector('circle'), o = +getComputedStyle(e).opacity;
     return {text: e.tagName === 'svg' ? 'run' : e.textContent.trim(), shown: o > .9, hidden: o < .05,
-            fill: getComputedStyle(c).fill, mid: (r.top + r.bottom) / 2, left: r.left}; })"""
+            fill: getComputedStyle(c).fill, box: [r.left, r.top, r.right, r.bottom]}; })"""
+# the world column and the bottom of the diagram above the key
+WORLD_BOX = """() => { const s = document.querySelector('.world').getBoundingClientRect(),
+    g = document.querySelector('.world > svg').getBoundingClientRect(); return [s.left, g.bottom, s.right, s.bottom]; }"""
 
 
 def helper_key(page, text):
     return next((k for k in page.evaluate(KEY_ITEMS) if k["text"] == text), None)
 
 
+def helper_key_fits(page, text, where):
+    """The entry sits in the key under the diagram, inside the world column, clear of the other shown entries."""
+    keys, (l, t, r, b) = page.evaluate(KEY_ITEMS), page.evaluate(WORLD_BOX)
+    k = next(k for k in keys if k["text"] == text)
+    x0, y0, x1, y1 = k["box"]
+    assert x0 >= l - 1 and x1 <= r + 1 and y0 >= t - 1 and y1 <= b + 1, f"{text} inside the world column under the diagram {where}"
+    for o in keys:
+        if o is not k and o["shown"]:
+            a = o["box"]
+            assert a[2] <= x0 or a[0] >= x1 or a[3] <= y0 or a[1] >= y1, f"{text} clear of {o['text']} {where}"
+
+
 @pytest.mark.parametrize("text,step,token", [("Research coordinator", 5, "--ink"), ("Sacrificed agent", 7, "--loss")])
 def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, token):
     """Black dot = coordinator (from s-5:5), red dot = sacrificed agent (from s-5:7): hidden before,
-    shown from that step on the key's row, and still there on s-6 and s-7 (they stay in the world)."""
+    shown from that step in the key, and still there on s-6 and s-7 (they stay in the world). Four
+    entries never fit one row of the world column, so the key may wrap: each entry must still fit
+    the column under the diagram at the short-wide size."""
     open_deck(page, 1288, 598)
     goto_slide(page, SID, step - 1)
     page.wait_for_timeout(900)
@@ -669,11 +688,9 @@ def test_key_gains_each_new_run_role_at_its_step_and_keeps_it(page, text, step, 
     assert k and k["hidden"], f"{text} not in the key before step {step}"
     goto_slide(page, SID, step)
     assert helper_until(page, f"() => ({KEY_ITEMS})().some(k => k.text === {text!r} && k.shown)")
-    k, run = helper_key(page, text), helper_key(page, "run")
-    assert k["fill"] == helper_rgb(page, token), f"{text}: the dot matches its world role"
-    assert abs(k["mid"] - run["mid"]) < 4 and k["left"] > run["left"], "on the key's row, right of agent run"
+    assert helper_key(page, text)["fill"] == helper_rgb(page, token), f"{text}: the dot matches its world role"
+    helper_key_fits(page, text, "on s-5")
     for sid, st in (("s-6", 6), ("s-7", 3)):
         goto_slide(page, sid, st)
         assert helper_until(page, f"() => ({KEY_ITEMS})().some(k => k.text === {text!r} && k.shown)"), f"{text} kept on {sid}"
-        k, run = helper_key(page, text), helper_key(page, "run")
-        assert abs(k["mid"] - run["mid"]) < 4, f"{text} on the key's row on {sid} at 1288x598"
+        helper_key_fits(page, text, f"on {sid} at 1288x598")
