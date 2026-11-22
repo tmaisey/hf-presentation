@@ -37,6 +37,5 @@ def test_v2_is_its_own_file_on_the_shared_engine():
 def test_v2_opens_on_the_approved_title_slide(page):
     first = parse_slides()[0]
     assert first["attrs"]["id"] == "s-1" and "data-ambient" in first["attrs"]
-    assert first["title"] == ("OpenAI’s agent swarm breached Hugging Face while running a "
-                              "sanctioned cyber evaluation")
+    assert first["title"].strip(), "approved title copy is S-034's (test_v2_title.py)"
     assert open_deck(page) == []

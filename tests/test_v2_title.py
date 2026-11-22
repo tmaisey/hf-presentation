@@ -1,0 +1,68 @@
+"""Spec: S-034
+
+v2 title slide (s-1): the approved title and subtitle (storyboard s-1, VOICE) over the ambient
+background, with the "July 2026" kicker and the sourced reader note on the subtitle.
+Coverage: happy (title, subtitle and kicker verbatim; ambient; note cites METR) · edge (title and
+subtitle fit whole inside the slide, below the bar and apart from each other at 1920×1080, 1280×720
+and 1288×598) · negative (no diagram, no build steps, the replaced title and subtitle are gone).
+"""
+
+import re
+
+import pytest
+
+from helper_deck import open_deck, parse_slides, slides_source
+
+pytestmark = pytest.mark.deck("v2")
+
+SID = "s-1"
+TITLE = "OpenAI’s agents breaching Hugging Face was a clear public example of AI misalignment risks"
+SUB = "Flawed AI capability development methods led to autonomous cyber-attacks during routine testing"
+OLD = ["OpenAI’s agent swarm breached Hugging Face", "What happened, why, and what it means for AI safety"]
+
+
+def _section_src():
+    m = re.search(r'<section[^>]*id="s-1".*?</section>', slides_source(), re.S)
+    assert m, "s-1 missing"
+    return m.group(0)
+
+
+def _text(s):
+    return " ".join(re.sub(r"<[^>]+>", "", s).split())
+
+
+def test_title_slide_opens_the_deck_with_the_approved_copy():
+    first = parse_slides()[0]
+    assert first["attrs"]["id"] == SID and "data-ambient" in first["attrs"]
+    assert _text(first["title"]) == TITLE
+    src = _section_src()
+    assert _text(re.search(r'<p id="s1-sub">(.*?)</p>', src, re.S).group(1)) == SUB
+    assert re.search(r'<p class="kicker">(.*?)</p>', src).group(1) == "July 2026"
+
+
+def test_reader_note_on_the_subtitle_cites_the_investigation():
+    note = re.search(r'<aside class="note" data-for="#s1-sub">(.*?)</aside>', _section_src(), re.S)
+    assert note and 'class="src" href="https://metr.org/' in note.group(1)
+
+
+def test_replaced_copy_and_diagram_are_absent():
+    src = _section_src()
+    assert not any(o in src for o in OLD)
+    assert "<svg" not in src and "data-show-at" not in src and "data-at" not in src
+
+
+@pytest.mark.parametrize("vw,vh", [(1920, 1080), (1280, 720), (1288, 598)])
+def test_title_and_subtitle_fit_below_the_bar(page, vw, vh):
+    assert open_deck(page, vw, vh) == []
+    page.evaluate("() => window.deck.goto('s-1', 0)")
+    page.wait_for_timeout(1200)
+    r = page.evaluate("""() => {
+      const s = document.getElementById('s-1'), box = e => e.getBoundingClientRect();
+      const t = box(s.querySelector('.title')), u = box(s.querySelector('#s1-sub')), k = box(s.querySelector('.kicker'));
+      const bar = box(document.querySelector('.bar'));
+      return { t: [t.top, t.bottom, t.left, t.right], u: [u.top, u.bottom, u.left, u.right], k: k.bottom,
+               bar: bar.bottom, vw: innerWidth, vh: innerHeight }; }""")
+    (tt, tb, tl, tr), (ut, ub, ul, ur) = r["t"], r["u"]
+    assert tt >= r["bar"] and r["k"] <= tt, "title below the bar and the kicker"
+    assert tb <= ut, "subtitle below the title"
+    assert ub <= r["vh"] and min(tl, ul) >= 0 and max(tr, ur) <= r["vw"]
