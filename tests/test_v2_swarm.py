@@ -370,13 +370,25 @@ def helper_fan(g):
 
 
 def helper_coord_ratios(g):
-    """Each coordinator's distance from the mirror over the median distance of the runs grouped round it."""
+    """Each coordinator's distance from the mirror's centre over the median distance of the runs grouped round it.
+
+    "Halfway between the fan and the mirror" is measured from the mirror's edge, so with the tile's half-width
+    added a coordinator halfway in reads about 0.6–0.7 here on s-5.
+    """
     fan, res = helper_fan(g), []
     for k, c in enumerate(g["coords"]):
         ds = sorted(d for kk, _, d in fan if kk == k)
         assert ds, f"coordinator {k} has runs round it"
         res.append(helper_polar(g, c)[1] / ds[len(ds) // 2])
     return res
+
+
+def helper_coords_lead_their_groups(g, share):
+    """Each coordinator stands nearer the mirror than at least ``share`` of the runs grouped round it."""
+    fan = helper_fan(g)
+    for k, c in enumerate(g["coords"]):
+        d, ds = helper_polar(g, c)[1], [dd for kk, _, dd in fan if kk == k]
+        assert sum(x > d for x in ds) >= share * len(ds), f"coordinator {k} stands between its fan and the mirror"
 
 
 def helper_assert_volunteers_spread(g):
@@ -414,7 +426,8 @@ def test_runs_group_round_coordinators_standing_halfway_to_the_mirror(page):
         assert helper_angdiff(helper_polar(g4, a)[0], helper_polar(g5, b)[0]) < 0.03, "coordinators keep their bearing"
         assert not helper_inside(b, g5["mbox"], 6), "coordinators stand clear of the mirror"
     ratios = helper_coord_ratios(g5)
-    assert all(0.35 <= r <= 0.65 for r in ratios), f"each coordinator stands about halfway to the mirror: {ratios}"
+    assert all(0.5 <= r <= 0.75 for r in ratios), f"each coordinator stands about halfway to the mirror: {ratios}"
+    helper_coords_lead_their_groups(g5, 0.6)
     off4 = sum(o for _, o, _ in helper_fan(g4)) / len(helper_fan(g4))
     off5 = sum(o for _, o, _ in helper_fan(g5)) / len(helper_fan(g5))
     assert off5 <= 0.75 * off4, "the fan eases round towards its coordinators"
@@ -440,10 +453,10 @@ def test_scorer_sits_below_the_mirror_with_tripwires_to_the_board_and_no_run_lin
         const a = (p.x = +l.getAttribute('x1'), p.y = +l.getAttribute('y1'), p.matrixTransform(m));
         const b = (p.x = +l.getAttribute('x2'), p.y = +l.getAttribute('y2'), p.matrixTransform(m));
         return [l.getAttribute('class') || '', a.x, a.y, b.x, b.y]; }}); }}""")
-    at_scorer = [c for c, a, b, x, y in lines if helper_inside((a, b), s, 14) or helper_inside((x, y), s, 14)]
+    at_scorer = [c for c, a, b, x, y in lines if helper_inside((a, b), s, 20) or helper_inside((x, y), s, 20)]
     assert at_scorer and all("tw-line" in c for c in at_scorer), "no run → scorer lines: only the tripwire meets the scorer"
     tw = [(a, b, x, y) for c, a, b, x, y in lines if "tw-line" in c]
-    assert tw and all(helper_inside((a, b), s, 20) and helper_inside((x, y), m, 6) for a, b, x, y in tw), "tripwire runs scorer → board"
+    assert tw and all(helper_inside((a, b), s, 20) and helper_inside((x, y), m, 14) for a, b, x, y in tw), "tripwire runs scorer → board"
     docs = page.evaluate(CENTRES, "#w-transcripts .note-glyph")
     assert len(docs) >= 3 and all(helper_inside(d, s, 50) for d in docs), "transcripts sit at the scorer"
     eye = page.evaluate(CENTRES, "#w-eye")[0]
@@ -509,7 +522,9 @@ def test_grouping_and_volunteers_carry_to_later_world_slides(page, slide):
     page.wait_for_timeout(2600)
     g = helper_geom(page)
     ratios = helper_coord_ratios(g)
-    assert all(0.3 <= r <= 0.7 for r in ratios), f"coordinators still stand halfway to the mirror: {ratios}"
+    # the compressed column (s-6 on) puts the board between fan and mirror, so coordinators sit just above it
+    assert all(0.5 <= r <= 0.95 for r in ratios), f"coordinators still stand between fan and mirror: {ratios}"
+    helper_coords_lead_their_groups(g, 0.5)
     assert not any(helper_inside(c, g["mbox"], 4) for c in g["coords"])
     sac = page.evaluate(SAC_STATE)
     loss = helper_rgb(page, "--loss")
@@ -583,7 +598,7 @@ def test_reduced_motion_shows_end_states_without_motion(page):
     assert names and all(n == "none" for n in names)
     assert page.evaluate(OPACITY, "#w-coords") > 0.9 and page.evaluate(OPACITY, "#w-scorer") > 0.9
     assert page.evaluate(OPACITY, "#w-probe") > 0.9 and page.evaluate(OPACITY, "#w-eye") > 0.9
-    assert all(0.3 <= r <= 0.7 for r in helper_coord_ratios(helper_geom(page))), "the grouped end state shows at once"
+    assert all(0.5 <= r <= 0.75 for r in helper_coord_ratios(helper_geom(page))), "the grouped end state shows at once"
     page.evaluate("window.deck.goto('s-5', 7)")
     page.wait_for_timeout(150)
     sac = page.evaluate(SAC_STATE)

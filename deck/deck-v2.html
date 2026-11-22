@@ -579,14 +579,11 @@
   .pulses--out.is-visible .pulse { animation: pulse-out 1.3s ease-out calc(1.9s + var(--d)) 3 both; }
   @keyframes pulse-out { from { transform: translate(var(--tx), var(--ty)); opacity: .9; } 80% { opacity: .9; }
     to { transform: translate(var(--sx), var(--sy)); opacity: 0; } }
-  /* the scorer: volunteers' lines and spoofed transcripts converge on it; tripwire messages run back to the board */
+  /* the scorer arrives with its transcripts; s-4's skull note flies from the fan onto it (agents probing), then the
+     eye badge opens and tripwire messages run scorer → board (S-022: no run → scorer lines) */
   .w-link--probe { stroke: var(--accent-ink); stroke-width: 1.8; opacity: .85; stroke-dasharray: 1; }
-  #w-tripwires.is-visible .w-link--probe { animation: link-draw .9s var(--ease) .9s both; }
-  #w-transcripts.is-visible > .note-fly { animation-delay: 1.5s; }
-  #w-transcripts.is-visible > .note-fly:nth-child(2) { animation-delay: 1.7s; }
-  #w-transcripts.is-visible > .note-fly:nth-child(3) { animation-delay: 1.9s; }
-  #w-transcripts.is-visible > .note-fly:nth-child(4) { animation-delay: 2.1s; }
-  #w-transcripts.is-visible > .note-fly:nth-child(5) { animation-delay: 2.3s; }
+  #w-probe.is-visible > .note-fly { animation-delay: .6s; }
+  .world #w-tw.is-visible { transition-delay: 2.1s; }
   .is-blind > .note-glyph { fill: var(--paper-deep); stroke: var(--ink-3); transition: fill .6s .5s, stroke .6s .5s; }
   .tw-line { stroke: var(--ink-3); stroke-width: 1.6; opacity: .6; }
   .tw-pulse { fill: var(--accent-ink); opacity: 0; }
@@ -594,7 +591,7 @@
   .w-tw.is-visible .tw-pulse:nth-of-type(2) { animation-delay: 2.97s; }
   .w-tw.is-visible .tw-pulse:nth-of-type(3) { animation-delay: 3.34s; }
   @keyframes tw-pulse { from { transform: none; opacity: .9; } 85% { opacity: .9; } to { transform: translateY(-46px); opacity: 0; } }
-  .world #w-eye.is-visible { transition-delay: .5s; }
+  .world #w-eye.is-visible { transition-delay: 1.9s; }
   .eye-badge circle:first-child { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 2; }
   .eye-badge .eye { fill: var(--tile); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
   .eye-badge .eye-pupil { fill: var(--ink); }
@@ -605,9 +602,13 @@
   .w-tag { font: 600 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--ink-2); text-anchor: middle; }
   .eye-badge--off .w-tag { fill: var(--ink); }
   .world #w-eye-off.is-visible { transition-delay: .5s; }
-  /* volunteers sacrifice their runs (DESIGN §7: --loss); their lines to the scorer fade */
-  .run-sac { fill: var(--loss); stroke: var(--tile); stroke-width: 1.6; }
-  .world #w-sacrificed.is-visible { transition-delay: .4s; }
+  /* volunteers sacrifice their runs (DESIGN §7: --loss on existing runs): each turns in turn over ~2 s (engine sets
+     --sac, the order) and the engine fades that run's lines with it (.w-link--sac.is-gone) */
+  .run-sac { fill: var(--loss); stroke: var(--tile); stroke-width: 1.6; opacity: 0; transition: opacity .35s ease; }
+  .world #w-sacrificed { transition: none; }
+  .is-visible > .run-sac { opacity: 1; transition-delay: calc(.5s + var(--sac, 0) * .45s); }
+  .w-link.w-link--sac { transition: opacity .6s ease; }
+  .w-link.w-link--sac.is-gone { opacity: 0; transition-delay: calc(.5s + var(--sac, 0) * .45s); }
   /* pop-art: a derived flag (formula → flag, target untouched), the "poisoned" fear, the research programme */
   .pa-chip rect { fill: var(--paper-deep); stroke: var(--ink-3); stroke-width: 1.5; }
   .pa-flag--new { transform-box: fill-box; transform-origin: 50% 100%; }
@@ -626,9 +627,10 @@
   .pa-ws-sub { font: 400 21px var(--sans); fill: var(--ink-2); text-anchor: middle; }
   .pa-ws-lead { font: 600 22px var(--sans); fill: var(--ink-2); }
   @media (prefers-reduced-motion: reduce) {
-    #w-swarm-links.is-visible .w-link, .pulses--out.is-visible .pulse, .w-tw.is-visible .tw-pulse, #w-tripwires.is-visible .w-link--probe,
+    #w-swarm-links.is-visible .w-link, .pulses--out.is-visible .pulse, .w-tw.is-visible .tw-pulse,
     .pop-panel.is-visible .pa-flag.pa-flag--new { animation: none; }
-    .world :is(#w-founder, #w-founder-ring, #w-coords, #w-coord-links, #w-eye, #w-eye-off, #w-sacrificed).is-visible { transition-delay: 0s; }
+    .world :is(#w-founder, #w-founder-ring, #w-coords, #w-coord-links, #w-eye, #w-eye-off, #w-tw).is-visible { transition-delay: 0s; }
+    .run-sac, .w-link.w-link--sac { transition: none !important; }
     .w-link--probe { stroke-dasharray: none; }
   }
 
@@ -812,12 +814,11 @@
         <g id="w-admin" data-world-at="s-4:3" data-world-until="s-4:5" data-of="w-eval"><line class="w-link w-link--admin" data-run="4"/></g>
         <g class="radar" id="w-radar" data-world-at="s-4:4" data-world-until="s-4:5" clip-path="url(#w-oai-clip)"><circle cx="40" cy="0" r="340"/><circle cx="40" cy="0" r="340"/><circle cx="40" cy="0" r="340"/></g>
         <g class="pulses" id="w-load" data-world-at="s-4:5" data-world-until="s-4:6" data-of="w-eval"></g>
-        <!-- s-5 (S-022): the 8 Jul founder; most runs join the folder-name board; coordinators; volunteers' lines to the scorer -->
+        <!-- s-5 (S-022): the 8 Jul founder; most runs join the folder-name board; coordinators (the engine stands them halfway to the mirror and groups the fan round them) -->
         <g id="w-founder" data-world-at="s-5:0" data-world-until="s-5:1" data-of="w-eval"><line class="w-link w-link--lit" data-run="first"/></g>
         <g class="run-links run-links--lit" id="w-swarm-links" data-world-at="s-5:1" data-of="w-eval" data-share=".75"></g>
-        <g id="w-coord-links" data-world-at="s-5:5" data-of="w-eval"><line class="w-link w-link--coord" data-run="41"/><line class="w-link w-link--coord" data-run="49"/><line class="w-link w-link--coord" data-run="17"/></g>
+        <g id="w-coord-links" data-world-at="s-5:5" data-of="w-eval"><line class="w-link w-link--coord" data-run="41"/><line class="w-link w-link--coord" data-run="5"/><line class="w-link w-link--coord" data-run="34"/></g>
         <g class="pulses pulses--out" id="w-assign" data-world-at="s-5:5" data-world-until="s-6:0" data-of="w-eval"></g>
-        <g id="w-tripwires" data-world-at="s-5:6" data-world-until="s-5:7" data-of="w-eval"><line class="w-link w-link--probe" pathLength="1" data-run="10" data-end="-128,142"/><line class="w-link w-link--probe" pathLength="1" data-run="14" data-end="-128,152"/><line class="w-link w-link--probe" pathLength="1" data-run="50" data-end="-128,163"/><line class="w-link w-link--probe" pathLength="1" data-run="57" data-end="-128,174"/><line class="w-link w-link--probe" pathLength="1" data-run="38" data-end="-128,184"/></g>
         <!-- s-6 (S-023): second layout stage: OpenAI narrows to a column, the internet is a middle strip, Hugging Face takes the rest -->
         <g class="domain domain--out" id="w-net6" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-162" y="-252" width="150" height="504" rx="24"/><text class="domain-label" x="-148" y="-224">PUBLIC</text><text class="domain-label" x="-148" y="-200">INTERNET</text></g>
         <g class="domain" id="w-hf" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-2" y="-252" width="314" height="504" rx="24"/><text class="domain-label" x="12" y="-224">HUGGING FACE</text><text class="domain-label" x="12" y="-200">SERVERS</text></g>
@@ -859,7 +860,9 @@
           <g class="w-board" id="w-folders" data-world-at="s-5:1" data-of="w-eval"><path class="note-glyph folder-glyph note-fly" data-note-for="lit-0" d="M-76,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-1" d="M-44,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-2" d="M-12,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-3" d="M20,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-4" d="M-60,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-5" d="M-28,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-6" d="M4,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-7" d="M36,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-8" d="M-76,-88 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-9" d="M-44,-88 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-10" d="M20,-88 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-11" d="M-60,-70 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-12" d="M4,-70 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-13" d="M36,-70 v18 h30 v-18 h-15 l-3,-4 h-12 z"/></g>
           <g class="w-tw" id="w-tw" data-world-at="s-5:6" data-world-until="s-5:8"><line class="tw-line" x1="40" y1="100" x2="40" y2="54"/><circle class="tw-pulse" cx="40" cy="100" r="4"/><circle class="tw-pulse" cx="40" cy="100" r="4"/><circle class="tw-pulse" cx="40" cy="100" r="4"/></g>
           <g class="tile" id="w-scorer" data-world-at="s-5:6" data-world-until="s-6:0"><rect x="-120" y="116" width="170" height="84"/><text class="tile-title">Automated</text><text class="tile-title">scorer</text></g>
-          <g class="w-board" id="w-transcripts" data-world-at="s-5:6" data-world-until="s-6:0" data-of="w-eval" data-world-is="blind s-5:8"><path class="note-glyph note-fly" data-note-for="10" d="M-86,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="14" d="M-64,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="50" d="M-42,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="57" d="M-20,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="38" d="M2,84 h20 l7,7 v27 h-27 z"/></g>
+          <g class="w-board" id="w-transcripts" data-world-at="s-5:6" data-world-until="s-6:0" data-world-is="blind s-5:8"><path class="note-glyph" d="M-86,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-64,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-42,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-20,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M2,84 h20 l7,7 v27 h-27 z"/></g>
+          <!-- s-5 (S-022): agents probe the scorer: s-4's skull note flies from the fan onto the scorer's corner (no run → scorer lines) -->
+          <g class="w-note" id="w-probe" data-world-at="s-5:6" data-world-until="s-6:0" data-of="w-eval"><g class="note-fly" data-note-for="50"><path class="note-glyph" d="M-149,104 h20 l7,7 v27 h-27 z"/><g class="skull"><circle cx="-135.5" cy="119" r="6.5"/><rect x="-139" y="123" width="7" height="4.5" rx="1"/><circle class="skull-eye" cx="-138" cy="118.5" r="1.8"/><circle class="skull-eye" cx="-133" cy="118.5" r="1.8"/><path class="skull-bones" d="M-144,129 L-127,135 M-127,129 L-144,135"/></g></g></g>
           <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><text class="w-tag" x="-35" y="227">reads transcripts?</text></g>
           <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><path class="eye-slash" d="M40,109 L60,131"/><text class="w-tag" x="-35" y="227">never read transcripts</text></g>
           <g class="lock-badge" id="w-root" data-world-at="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
@@ -879,8 +882,8 @@
         <g data-world-at="s-3:4" data-world-until="s-3:6"><circle class="run-ring" data-run="first" r="10"/></g>
         <g id="w-admin-ring" data-world-at="s-4:3" data-world-until="s-4:5" data-of="w-eval"><circle class="run-ring run-ring--bold" data-run="4" r="11"/></g>
         <g id="w-founder-ring" data-world-at="s-5:0" data-world-until="s-5:1" data-of="w-eval"><circle class="run-ring run-ring--bold" data-run="first" r="11"/></g>
-        <g id="w-coords" data-world-at="s-5:5" data-of="w-eval"><circle class="run-coord" data-run="41" r="7.5"/><circle class="run-coord" data-run="49" r="7.5"/><circle class="run-coord" data-run="17" r="7.5"/></g>
-        <g id="w-sacrificed" data-world-at="s-5:7" data-of="w-eval"><circle class="run-sac" data-run="10" r="7"/><circle class="run-sac" data-run="14" r="7"/><circle class="run-sac" data-run="50" r="7"/><circle class="run-sac" data-run="57" r="7"/><circle class="run-sac" data-run="38" r="7"/></g>
+        <g id="w-coords" data-world-at="s-5:5" data-of="w-eval"><circle class="run-coord" data-run="41" r="7.5"/><circle class="run-coord" data-run="5" r="7.5"/><circle class="run-coord" data-run="34" r="7.5"/></g>
+        <g id="w-sacrificed" data-world-at="s-5:7" data-of="w-eval"><circle class="run-sac" data-run="11" r="7"/><circle class="run-sac" data-run="61" r="7"/><circle class="run-sac" data-run="18" r="7"/><circle class="run-sac" data-run="33" r="7"/><circle class="run-sac" data-run="35" r="7"/></g>
         <g class="bell" id="w-bell" data-world-at="s-4:4" data-world-until="s-6:0" transform="translate(100 -222)"><path class="bell-waves" d="M-17,-9 a18,18 0 0,0 0,14 M17,-9 a18,18 0 0,1 0,14"/><g class="bell-ring"><path class="bell-body" d="M-11,7 h22 l-3.5,-4.5 v-6 a7.5,7.5 0 0,0 -15,0 v6 z"/><path class="bell-body" d="M-3,9.5 a3,3 0 0,0 6,0"/></g><path class="bell-slash" d="M-13,-13 L13,13"/></g>
       </g>
     </g>
@@ -1259,9 +1262,9 @@
       <svg class="pop-art" viewBox="0 0 1040 300" role="img" aria-label="A coordinator branches the work into three workstreams: swap the target, probe the scorer, clean up the transcripts">
         <circle class="pa-coord" cx="520" cy="34" r="16"/>
         <text class="pa-ws-lead" x="548" y="42">Coordinator</text>
-        <path class="pa-branch" d="M506,52 C430,90 190,80 180,124" marker-end="url(#arr)"/>
+        <path class="pa-branch" d="M504,48 C370,66 228,62 186,122" marker-end="url(#arr)"/>
         <path class="pa-branch" d="M520,54 V124" marker-end="url(#arr)"/>
-        <path class="pa-branch" d="M534,52 C610,90 850,80 860,124" marker-end="url(#arr)"/>
+        <path class="pa-branch" d="M536,48 C670,66 812,62 854,122" marker-end="url(#arr)"/>
         <g class="pa-ws"><rect x="20" y="138" width="320" height="150" rx="16"/><text class="pa-ws-title" x="180" y="184">Swap the target</text><text class="pa-ws-sub" x="180" y="222">cached modified targets</text><text class="pa-ws-sub" x="180" y="254">crash targets to reload</text></g>
         <g class="pa-ws"><rect x="360" y="138" width="320" height="150" rx="16"/><text class="pa-ws-title" x="520" y="184">Probe the scorer</text><text class="pa-ws-sub" x="520" y="222">tripwire messages</text><text class="pa-ws-sub" x="520" y="254">sacrificial volunteers</text></g>
         <g class="pa-ws"><rect x="700" y="138" width="320" height="150" rx="16"/><text class="pa-ws-title" x="860" y="184">Clean up the transcripts</text><text class="pa-ws-sub" x="860" y="222">spoofed tool outputs</text><text class="pa-ws-sub" x="860" y="254">log edits</text></g>
@@ -2099,7 +2102,7 @@
     const i = slides.findIndex(x => x.id === pt.sid), at = slides.indexOf(s);
     return i < at || (i === at && k >= pt.n);
   };
-  const lay = { t: 0, target: 0, raf: 0, runs: [], lines: [], rings: [], pulses: [] };
+  const lay = { t: 0, target: 0, g: 0, gTarget: 0, runs: [], lines: [], rings: [], pulses: [], groups: [], sac: [] };
   const SPLIT = { cx: -176, sx: .51, sy: .75, mx: 40, oaiW: 440 };   // swarm left, mirror right, OpenAI box narrows
   const runAt1 = (r, t) => ({ x: r.a.x + ((SPLIT.cx + r.a.x * SPLIT.sx) - r.a.x) * t, y: r.a.y + (r.a.y * SPLIT.sy - r.a.y) * t });
   // second layout stage (S-023, s-6): data-split lists stage points; at stage 2 the OpenAI box narrows to a column,
@@ -2158,13 +2161,40 @@
     // from where the run stands (before or after the split) when the note's group appears
     const splitPts = (world.dataset.split || '').split(/\s+/).filter(Boolean).map(parsePt), idx = pt => slides.findIndex(x => x.id === pt.sid);
     const atOrAfter = (a, b) => !!(a && b) && (idx(a) > idx(b) || (idx(a) === idx(b) && a.n >= b.n));
+    // coordinators (S-022): a group's circle.run-coord runs; from their host's point the coordinators stand about halfway
+    // between their fan and the mirror (its tile plus the group's boards then on show), and the group's other runs keep
+    // their distance from the mirror but ease partway round it, by angle, towards the nearest coordinator (layoutPos)
+    $$('.run-coord[data-run]', world).forEach(c => {
+      const ids = groupOf(c), host = c.closest('[data-world-at]'), at = parsePt(host.dataset.worldAt);
+      let G = lay.groups.find(x => x.ids === ids);
+      if (!G) {
+        const rnd = seeded(13), boxes = [$('#w-mirror rect', world), ...$$('.mirror-group .w-board', world).filter(b => {
+          const h = b.closest('[data-world-at]'), u = parsePt(h.dataset.worldUntil);
+          return groupOf(b) === ids && atOrAfter(at, parsePt(h.dataset.worldAt)) && !(u && atOrAfter(at, u));
+        })].map(e => e.getBBox());
+        const x0 = Math.min(...boxes.map(b => b.x)), y0 = Math.min(...boxes.map(b => b.y));
+        const x1 = Math.max(...boxes.map(b => b.x + b.width)), y1 = Math.max(...boxes.map(b => b.y + b.height));
+        G = { ids, at, coords: [], pull: ids.map(() => .25 + rnd() * .3), box: { x0, y0, x1, y1 } };
+        lay.groups.push(G);
+      }
+      G.coords.push(runOf(c));
+    });
+    // sacrificed runs (S-022): each circle.run-sac turns in its order (--sac) and its run's lines fade with it
+    $$('.run-sac[data-run]', world).forEach((c, k) => {
+      const i = runOf(c), host = c.closest('[data-world-at]');
+      c.style.setProperty('--sac', k);
+      lay.lines.filter(L => L.i === i && L.l.closest('.run-links')).forEach(L => {
+        L.l.classList.add('w-link--sac'); L.l.style.setProperty('--sac', k); lay.sac.push({ l: L.l, host });
+      });
+    });
     $$('[data-note-for]', world).forEach(n => {
       const ids = groupOf(n), v = n.dataset.noteFor, m = /^lit-(\d+)$/.exec(v);
       const lit = ids.filter((_, j) => j % 4 === 1).sort((p, q) => Math.atan2(lay.runs[p].a.y, lay.runs[p].a.x) - Math.atan2(lay.runs[q].a.y, lay.runs[q].a.x));
       const many = $$('[data-note-for^="lit-"]', n.parentNode).length || 5;
       const i = v === 'first' ? firstOf(ids) : m ? lit[Math.floor((+m[1] + .5) * lit.length / many) % lit.length] : ids[+v];
       const host = n.closest('[data-world-at]'), t = splitPts.filter(p => atOrAfter(host && parsePt(host.dataset.worldAt), p)).length;
-      const bb = n.getBBox(), r = runAt(lay.runs[i], t), M = mirrorAt(t);
+      const g = lay.groups.some(G => atOrAfter(host && parsePt(host.dataset.worldAt), G.at)) ? 1 : 0;
+      const bb = n.getBBox(), r = layoutPos(t, g)[i], M = mirrorAt(t);
       n.style.setProperty('--fx', `${((r.x - M.x) / M.s - (bb.x + bb.width / 2)).toFixed(1)}px`);
       n.style.setProperty('--fy', `${((r.y - M.y) / M.s - (bb.y + bb.height / 2)).toFixed(1)}px`);
       n.style.setProperty('--n', m ? +m[1] : 0);
@@ -2218,8 +2248,35 @@
       }
     });
   }
-  function applyLayout(t) {
-    const pos = lay.runs.map(r => runAt(r, t)), M = mirrorAt(t), mx = M.x;
+  // every run's place at layout t with coordinator grouping g (0 = none, 1 = grouped; S-022), worked out about the
+  // mirror where it stands at t, so the groups hold through every layout stage
+  function layoutPos(t, g) {
+    const pos = lay.runs.map(r => runAt(r, t));
+    if (!g) return pos;
+    const M = mirrorAt(t), wrap = a => Math.atan2(Math.sin(a), Math.cos(a));
+    const pol = i => [Math.atan2(pos[i].y - M.y, pos[i].x - M.x), Math.hypot(pos[i].x - M.x, pos[i].y - M.y)];
+    lay.groups.forEach(G => {
+      const cs = G.coords.map(pol), dist = cs.map(() => []);
+      G.ids.forEach((i, j) => {
+        if (G.coords.includes(i)) return;
+        const [a, d] = pol(i);
+        const k = cs.reduce((best, c, q) => (Math.abs(wrap(c[0] - a)) < Math.abs(wrap(cs[best][0] - a)) ? q : best), 0);
+        dist[k].push(d);
+        const a2 = a + g * G.pull[j] * wrap(cs[k][0] - a);
+        pos[i] = { x: M.x + Math.cos(a2) * d, y: M.y + Math.sin(a2) * d };
+      });
+      G.coords.forEach((i, k) => {
+        const [a, d] = cs[k], ux = Math.cos(a), uy = Math.sin(a), b = G.box;
+        const edge = M.s * Math.min(Math.abs(ux) > 1e-6 ? (ux > 0 ? b.x1 : b.x0) / ux : Infinity, Math.abs(uy) > 1e-6 ? (uy > 0 ? b.y1 : b.y0) / uy : Infinity);
+        const ds = dist[k].sort((p, q) => p - q), mid = ds.length ? ds[ds.length >> 1] : d;
+        const dc = lerp(d, Math.max(edge + 18 * M.s, (edge + mid) / 2), g);
+        pos[i] = { x: M.x + ux * dc, y: M.y + uy * dc };
+      });
+    });
+    return pos;
+  }
+  function applyLayout(t, g = lay.g) {
+    const pos = layoutPos(t, g), M = mirrorAt(t), mx = M.x;
     lay.runs.forEach((r, i) => { r.c.setAttribute('cx', pos[i].x.toFixed(1)); r.c.setAttribute('cy', pos[i].y.toFixed(1)); });
     lay.lines.forEach(({ l, i, end }) => {
       l.setAttribute('x1', pos[i].x.toFixed(1)); l.setAttribute('y1', pos[i].y.toFixed(1));
@@ -2235,20 +2292,35 @@
     const oai = $('#w-oai rect', world);
     if (oai) oai.setAttribute('width', (t <= 1 ? 624 + (SPLIT.oaiW - 624) * t : t <= 2 ? lerp(SPLIT.oaiW, SPLIT2.oaiW, t - 1)
       : lerp(SPLIT2.oaiW, SPLIT3.oaiW, t - 2)).toFixed(1));
-    lay.t = t;
+    lay.t = t; lay.g = g;
+  }
+  // layout stage (t) and coordinator grouping (g) tween independently (S-022), each re-applying the whole layout
+  const tw = {};
+  function tweenLayout(key, target, dur, delay = 0) {
+    cancelAnimationFrame(tw[key]); clearTimeout(tw[`${key}-wait`]);
+    const ease = x => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+    const go = () => {
+      const from = lay[key], t0 = performance.now();
+      const tick = now => {
+        const f = dur ? Math.min(1, (now - t0) / dur) : 1;
+        lay[key] = from + (target - from) * ease(f);
+        applyLayout(lay.t, lay.g);
+        if (f < 1) tw[key] = requestAnimationFrame(tick);
+      };
+      tw[key] = requestAnimationFrame(tick);
+    };
+    if (delay) tw[`${key}-wait`] = setTimeout(go, delay); else go();
   }
   function setLayout(target) {
     if (!world || target === lay.target) return;
     lay.target = target;
-    cancelAnimationFrame(lay.raf);
-    const from = lay.t, t0 = performance.now(), dur = reduce ? 0 : 1000;
-    const ease = x => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-    const tick = now => {
-      const f = dur ? Math.min(1, (now - t0) / dur) : 1;
-      applyLayout(from + (target - from) * ease(f));
-      if (f < 1) lay.raf = requestAnimationFrame(tick);
-    };
-    lay.raf = requestAnimationFrame(tick);
+    tweenLayout('t', target, reduce ? 0 : 1000);
+  }
+  // the fan eases into its groups as the coordinators appear (their 1.3 s beat), and straight back out
+  function setGrouping(target) {
+    if (!world || target === lay.gTarget) return;
+    lay.gTarget = target;
+    tweenLayout('g', target, reduce ? 0 : 1400, target > lay.g && !reduce ? 1300 : 0);
   }
   if (world) applyLayout(0);
   // steps [lo, hi) at which a world part shows on slide s (parts from earlier slides: always)
@@ -2279,6 +2351,8 @@
     if (!s.world) return;
     worldItems.forEach(({ e, at, until }) => e.classList.toggle('is-visible', reached(at, s, k) && !reached(until, s, k)));
     worldStates.forEach(({ e, cls, at, until }) => e.classList.toggle(cls, reached(at, s, k) && !reached(until, s, k)));
+    lay.sac.forEach(({ l, host }) => l.classList.toggle('is-gone', host.classList.contains('is-visible')));   // S-022
+    setGrouping(lay.groups.some(G => reached(G.at, s, k)) ? 1 : 0);
     world.classList.toggle('is-soft', s.node.classList.contains('is-overlaid'));   // pop-over or Insight has focus
     // backdrop world slide (S-026): the world stays frozen at the state reached so far, heavily blurred behind
     // the body, and keeps the camera of the last world slide before it unless it sets its own
