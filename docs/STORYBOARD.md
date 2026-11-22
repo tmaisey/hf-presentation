@@ -373,8 +373,7 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - s-10 capability-pace placement. ◇ approvals listed in PRD.
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
-- s-5 (before build): check "We should build [a way to delegate]…" and the spoofing quote (M p48)
-  against the METR PDF.
+- s-5 (built 22 Nov, S-022 at `build` pending the presenter): the signing beat and the "Could be another agent maliciously/spoofing…" quote (M p48) belong to 13 Jul, not 9 Jul. Should they go on s-6? Is the scorer tick at step 2 OK? Is the "Aug" reveal date right? Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source.
 - s-7: not yet redesigned on the world. The presenter delegated the design (22 Nov): design it in
   situ following s-6 (which hands over to it) and DESIGN rules, write it here and into S-025, then
   build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.

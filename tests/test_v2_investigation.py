@@ -189,6 +189,15 @@ def test_world_is_frozen_at_the_previous_world_slides_end_state_in_the_same_plac
     goto_slide(page, prev, dict(page.evaluate("window.deck.plan()"))[prev])
     page.wait_for_timeout(5500)   # timed beats of the last step have played out
     end = page.evaluate(snap)
+    # Parts whose run ends (data-world-until) at a slide before s-8 have left the story by s-8,
+    # e.g. s-5's scorer ends at s-6:0: expect them hidden, every other part as at prev's end.
+    ended = page.evaluate("""() => { const ids = [...document.querySelectorAll('section.slide')].map(s => s.id),
+        at8 = ids.indexOf('s-8');
+      return [...document.querySelector('.world').querySelectorAll('[data-world-at], [data-world-is]')].map(e => {
+        const u = e.getAttribute('data-world-until');
+        return !!u && ids.indexOf(u.split(':')[0]) <= at8 && ids.indexOf(u.split(':')[0]) >= 0; }); }""")
+    end["parts"] = [" ".join(t for t in c.split() if t != "is-visible") if gone and c else c
+                    for c, gone in zip(end["parts"], ended)]
     for step in range(4):
         goto_slide(page, SID, step)
         assert page.evaluate(snap) == end, f"step {step}: the world must hold {prev}'s end state and place"
