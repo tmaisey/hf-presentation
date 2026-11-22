@@ -288,8 +288,14 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `g.domain` boxes (label top-left, uppercase) name where things run ("OpenAI servers", "Public
   Internet"). `data-split` on `.world` re-arranges the scene (swarm left, mirror right, OpenAI box
   narrows) with a tween that keeps run–mirror lines attached. Runs (`g.runs[data-runs=N]`) are drawn
-  by the engine in P4 line-drawn style; `[data-run]` / `[data-note-for]` follow a run (`first` =
-  the first-note agent, placed outside the ring). Notes may target world parts by id.
+  by the engine in P4 line-drawn style; `[data-run]` follows a run (`first` = the first-note
+  agent, outermost upper right). `.note-fly[data-note-for="first"|"lit-k"]` glyphs sit at their
+  target (pinned on the mirror) and fly in from their run when their group appears. The timeline
+  builds: an entry shows at its step, never ahead; `li.sub` = un-numbered sub-point (dash);
+  `span.tl-aside` = a quieter second line. A world slide may close with an Insight
+  (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that
+  is not a quote uses `.narr-tile--fact` (no quote marks), e.g. "messages … were not made public".
+  Notes may target world parts by id, never an overlay (notes mode hides overlays).
 - Pop-over: `div.popover[data-show-at][data-hide-at]` > `figure.pop-panel` cards (opaque `--tile`,
   `--shadow-overlay`), each `figcaption` (`span.pop-tag` + task) + `svg.pop-art` (small P4-style
   scene) + `p.pop-note`. While shown the world and caption soften (as under an Insight); exit is the

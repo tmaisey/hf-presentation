@@ -376,6 +376,16 @@
   .body--timeline .steps li { font-size: var(--fs-small); line-height: 1.3; padding: .3em 0 .3em 2.1em; }
   .body--timeline .steps li::before { top: .3em; }
   .body--timeline strong { font-weight: 600; color: var(--ink); }
+  /* the timeline builds: an entry appears at its step (current = accent), never ahead */
+  .body--timeline .steps > li[data-show-at] { opacity: 0; transform: translateY(-8px); transition: opacity .6s ease, transform .6s var(--ease), color .5s; }
+  .body--timeline .steps > li[data-show-at].is-visible { opacity: 1; transform: none; }
+  /* sub-point: un-numbered, a short dash under its entry */
+  .steps li.sub { counter-increment: none; padding-top: .15em; padding-bottom: .15em; }
+  .steps li.sub::before { content: ""; width: .6em; height: 3px; border: 0; border-radius: 2px; left: .45em; top: .8em; background: var(--ink-3); }
+  .tl-aside { display: block; margin-top: .2em; font-size: .92em; color: var(--ink-2); }
+  .narr-tile--fact .msg-text::before, .narr-tile--fact .msg-text::after { content: none; }
+  /* an Insight on a world slide spans world + narration */
+  .slide[data-world] > .overlay { grid-column: world-start / narr-end; grid-row: 3; }
   /* domains: soft-toned boxes naming where things run */
   .domain rect { fill: color-mix(in srgb, var(--paper-deep) 55%, var(--paper)); stroke: none; }
   .domain--out rect { fill: color-mix(in srgb, var(--paper-deep) 30%, var(--paper)); }
@@ -383,7 +393,6 @@
   .globe > * { fill: none; stroke: var(--ink-3); stroke-width: 2; }
   .cred-badge circle { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 2; }
   .cred-badge path { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
-  .cred-label { font: 500 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--ink-2); dominant-baseline: central; text-anchor: middle; }
   /* runs: P4 line-drawn agents, lit; they pop in staggered when their group appears */
   .run { fill: color-mix(in srgb, var(--accent) 30%, var(--paper)); stroke: var(--accent-ink); stroke-width: 1.6;
     transform-box: fill-box; transform-origin: center; }
@@ -396,6 +405,10 @@
   @keyframes link-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   .w-link--lit { stroke: var(--accent-ink); stroke-width: 1.6; opacity: .85; }
   .run-ring { fill: none; stroke: var(--accent-ink); stroke-width: 2; }
+  /* notes fly from their run (engine sets --fx/--fy, the start offset) onto the mirror */
+  .is-visible > .note-fly { animation: note-fly 1.1s var(--ease) both; animation-delay: calc(var(--n, 0) * 160ms); }
+  @keyframes note-fly { from { opacity: 0; transform: translate(var(--fx), var(--fy)) scale(.7); }
+    15% { opacity: 1; } to { opacity: 1; transform: none; } }
   .note-glyph { fill: var(--tile); stroke: var(--ink-2); stroke-width: 1.4; stroke-linejoin: round; filter: url(#lift); }
   .w-date { font: 600 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--accent-ink); text-anchor: middle; }
   .edge--breach { stroke: var(--accent-ink); }
@@ -452,7 +465,7 @@
     24% { stroke-dashoffset: 0; opacity: 1; } 34%, 100% { stroke-dashoffset: 0; opacity: 0; } }
   @keyframes pa-miss { 0%, 12% { opacity: 0; } 14%, 24% { opacity: 1; } 34%, 100% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) {
-    .runs.is-visible .run, .run-links.is-visible .w-link, .board-links.is-visible .w-link, .pop-panel.is-visible .pa-arrow, .pop-panel.is-visible .pa-reward,
+    .is-visible > .note-fly, .runs.is-visible .run, .run-links.is-visible .w-link, .board-links.is-visible .w-link, .pop-panel.is-visible .pa-arrow, .pop-panel.is-visible .pa-reward,
     .pa-agent--strain, .pa-try > :first-child, .pa-try > .pa-miss { animation: none; }
     .pa-try path:first-child { stroke-dashoffset: 0; opacity: .5; }
     .pa-try .pa-miss { opacity: .7; }
@@ -566,12 +579,13 @@
         <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96"></g>
         <g class="mirror-group">
           <g class="tile" id="w-mirror" data-world-at="s-3:1"><rect x="-70" y="-46" width="140" height="92"/><text class="tile-title">Package</text><text class="tile-title">mirror</text></g>
-          <g class="w-board" id="w-board" data-world-at="s-3:5"><path class="note-glyph" d="M-80,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-48,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-16,-84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M16,-92 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M48,-80 h20 l7,7 v27 h-27 z"/></g>
-          <g class="cred-badge" id="w-cred" data-world-at="s-3:1"><circle cx="0" cy="78" r="13"/><path d="M-7,78 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M-3.5,78 H9 M6,78 v4 M2,78 v3.5"/><text class="cred-label" x="0" y="106">shared login</text></g>
+          <g class="w-board" id="w-board" data-world-at="s-3:5"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-84,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-52,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M18,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M50,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M-34,-74 h20 l7,7 v27 h-27 z"/></g>
+          <g class="w-note" id="w-note1" data-world-at="s-3:4"><path class="note-glyph note-fly" data-note-for="first" d="M-16,-96 h20 l7,7 v27 h-27 z"/></g>
+          <g class="cred-badge" id="w-cred" data-world-at="s-3:1"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g>
         </g>
       </g>
       <g class="layer-labels">
-        <g class="w-note" id="w-note1" data-world-at="s-3:4" data-world-until="s-3:6"><circle class="run-ring" data-run="first" r="10"/><path class="note-glyph" data-note-for="first"/></g>
+        <g data-world-at="s-3:4" data-world-until="s-3:6"><circle class="run-ring" data-run="first" r="10"/></g>
       </g>
     </g>
   </svg>
@@ -679,13 +693,13 @@
   <h2 class="title">Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to coordinate through a shared message board</h2>
   <div class="body body--timeline">
     <ol class="steps">
-      <li id="s3-t0" data-show-at="0"><strong>Apr–May</strong> Many training runs in parallel</li>
-      <li id="s3-t1" data-show-at="1">Every run uses one shared package mirror</li>
-      <li id="s3-t2" data-show-at="2">Some agents cheat; OpenAI says it was reinforced</li>
-      <li id="s3-t3" data-show-at="3"><strong>8 May</strong> A blocked agent turns on the mirror</li>
-      <li id="s3-t4" data-show-at="4"><strong>12 May</strong> First note left on the mirror</li>
-      <li id="s3-t5" data-show-at="5"><strong>13 May</strong> Other agents reply; a board forms</li>
-      <li id="s3-t6" data-show-at="6"><strong>26 May</strong> The board helps agents reach the internet. An internal team saw it; no escalation</li>
+      <li id="s3-t1" data-show-at="0"><strong>Apr–May</strong> Many training runs in parallel</li>
+      <li id="s3-t1a" class="sub" data-show-at="1">Agents access a shared package mirror</li>
+      <li id="s3-t1b" class="sub" data-show-at="2">Cheating behaviours are reinforced</li>
+      <li id="s3-t2" data-show-at="3"><strong>8 May</strong> A blocked agent turns on the mirror</li>
+      <li id="s3-t3" data-show-at="4"><strong>12 May</strong> First note left on the mirror</li>
+      <li id="s3-t4" data-show-at="5"><strong>13 May</strong> Agents learn to use the package mirror as a message board</li>
+      <li id="s3-t5" data-show-at="6"><strong>26 May</strong> The agents hack the package mirror for public internet access<span class="tl-aside">An internal team saw the board; no escalation</span></li>
     </ol>
   </div>
   <div class="world-slot"></div>
@@ -730,7 +744,11 @@
   </div>
   <div class="narration">
     <article class="narr-tile" data-at="4"><p class="msg-agent">Agent · training run, 12 May</p><blockquote class="msg-text">Agent seeks [filename]; upload if found!</blockquote></article>
+    <article class="narr-tile narr-tile--fact" data-at="5"><p class="msg-agent">Training board, 13 May</p><blockquote class="msg-text">Other agents’ messages from training were not made public.</blockquote></article>
     <article class="narr-tile" data-at="6"><p class="msg-agent">OpenAI · technical report</p><blockquote class="msg-text">These forms of ‘cheating’ rose over the training runs that contributed to the Hugging Face incident.</blockquote></article>
+  </div>
+  <div class="overlay overlay--insight" id="s3-insight" data-at="7">
+    <p>Cheating and coordination through the board helped agents finish tasks and were reinforced during training. Agents learnt to use these strategies.</p>
   </div>
   <aside class="note" data-for="#s3-pop-impossible">
     <h3>Impossible by accident</h3>
@@ -768,11 +786,17 @@
     <p>On 26 May “agents successfully used an SSRF vulnerability in Artifactory to obtain internet access, relying in part on information exchanged via the Artifactory message board.” The same day, agents used six publicly exposed Hugging Face tokens to create a repo and a proxy Space. OpenAI says that activity came from an unrelated workload with no evidence of a link to July.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
   </aside>
-  <aside class="note" data-for="#s3-t6">
+  <aside class="note" data-for="#s3-t5">
     <h3>Seen in May</h3>
     <p>“Around the same time, an internal team observed an agent engage in message board activity and instances of disallowed internet access.” The report does not say what action followed. MIT Technology Review reports that the training board was later shut down.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
     <a class="src" href="https://www.technologyreview.com/2026/08/26/1143013/the-inside-story-on-why-openai-agents-hacked-hugging-face/">MIT Technology Review, 26 Aug 2026</a>
+  </aside>
+  <aside class="note" data-for="#s3-t1b">
+    <h3>Reinforced in training</h3>
+    <p>OpenAI reports that an agent which copied a reference answer received “positive RL reward causing this behavior to subsequently be reinforced”, and that agents “learned to use improvised collaboration channels in rare cases during the training process… This behavior was then reinforced during training.” METR and Redwood were scoped out of training, so no outside party has verified this.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A, §VIII.C</a>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation (scope)</a>
   </aside>
 </section>
 
@@ -1764,7 +1788,7 @@
     const i = slides.findIndex(x => x.id === pt.sid), at = slides.indexOf(s);
     return i < at || (i === at && k >= pt.n);
   };
-  const lay = { t: 0, target: 0, raf: 0, runs: [], lines: [], rings: [], notes: [] };
+  const lay = { t: 0, target: 0, raf: 0, runs: [], lines: [], rings: [] };
   const SPLIT = { cx: -176, sx: .51, sy: .75, mx: 40, oaiW: 440 };   // swarm left, mirror right, OpenAI box narrows
   if (world) {
     const rnd = seeded(11), mk = (tag, cls) => { const e = document.createElementNS(NS, tag); e.setAttribute('class', cls); return e; };
@@ -1790,10 +1814,19 @@
     const cand = lay.runs.map((r, i) => [i, Math.atan2(r.a.y / 215, r.a.x / 250), Math.hypot(r.a.x / 250, r.a.y / 215)])
       .filter(([, ang]) => ang > -0.95 && ang < -0.3);
     const first = cand.length ? cand.sort((p, q) => q[2] - p[2])[0][0] : 0;
-    const runOf = e => { const v = e.dataset.run || e.dataset.noteFor; return v === 'first' ? first : +v; };
+    const runOf = e => (e.dataset.run === 'first' ? first : +e.dataset.run);
     $$('line[data-run]', world).forEach(l => lay.lines.push({ l, i: runOf(l) }));
     $$('circle[data-run]', world).forEach(c => lay.rings.push({ c, i: runOf(c) }));
-    $$('[data-note-for]', world).forEach(n => lay.notes.push({ n, i: runOf(n) }));
+    // flying notes start at their run: "first", or "lit-k" = k-th of the lit runs, spread by angle
+    const lit = lay.runs.map((r, i) => [i, Math.atan2(r.a.y, r.a.x)]).filter(([i]) => i % 4 === 1).sort((p, q) => p[1] - q[1]).map(([i]) => i);
+    $$('[data-note-for]', world).forEach((n, j) => {
+      const v = n.dataset.noteFor, m = /^lit-(\d+)$/.exec(v);
+      const i = v === 'first' ? first : m ? lit[Math.floor((+m[1] + .5) * lit.length / 5) % lit.length] : +v;
+      const bb = n.getBBox(), r = lay.runs[i].a;
+      n.style.setProperty('--fx', `${(r.x - (bb.x + bb.width / 2)).toFixed(1)}px`);
+      n.style.setProperty('--fy', `${(r.y - (bb.y + bb.height / 2)).toFixed(1)}px`);
+      n.style.setProperty('--n', m ? +m[1] : 0);
+    });
   }
   const runAt = (r, t) => ({ x: r.a.x + ((SPLIT.cx + r.a.x * SPLIT.sx) - r.a.x) * t, y: r.a.y + (r.a.y * SPLIT.sy - r.a.y) * t });
   function applyLayout(t) {
@@ -1804,11 +1837,6 @@
       l.setAttribute('x2', mx.toFixed(1)); l.setAttribute('y2', 0);
     });
     lay.rings.forEach(({ c, i }) => { c.setAttribute('cx', pos[i].x.toFixed(1)); c.setAttribute('cy', pos[i].y.toFixed(1)); });
-    lay.notes.forEach(({ n, i }) => {   // the note sits just beyond its run, away from the mirror
-      const p = pos[i], d = Math.hypot(p.x - mx, p.y) || 1;
-      const x = p.x + (p.x - mx) / d * 30 - 14, y = p.y + p.y / d * 30 - 18;
-      n.setAttribute('d', `M${x.toFixed(1)},${y.toFixed(1)} h20 l8,8 v28 h-28 z`);
-    });
     const mg = $('.mirror-group', world);
     if (mg) mg.setAttribute('transform', `translate(${mx.toFixed(1)} 0)`);
     const oai = $('#w-oai rect', world);
@@ -1847,7 +1875,7 @@
     world.classList.toggle('is-on', s.world);
     if (!s.world) return;
     worldItems.forEach(({ e, at, until }) => e.classList.toggle('is-visible', reached(at, s, k) && !reached(until, s, k)));
-    world.classList.toggle('is-soft', $$(':scope > .popover', s.node).some(p => p.classList.contains('is-visible')));
+    world.classList.toggle('is-soft', s.node.classList.contains('is-overlaid'));   // pop-over or Insight has focus
     setLayout(reached(parsePt(world.dataset.split), s, k) ? 1 : 0);
     const [cx, cy, cs] = (s.node.dataset.camera || '0 0 1').split(/\s+/).map(Number);
     $('.cam', world).style.transform = `translate(${cx}px, ${cy}px) scale(${cs})`;

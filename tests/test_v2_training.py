@@ -44,7 +44,7 @@ NARR_AT = {
          "Face incident.")],
 }
 NOTE_TARGETS = {"s3-pop-possible", "s3-pop-impossible", "w-runs", "w-cred", "w-note1", "w-board", "w-net", "s3-t5",
-                "s3-insight"}
+                "s3-t1b"}   # notes mode hides overlays, so the Insight's sourcing sits on the "reinforced" sub-point
 
 
 def helper_section() -> str:
@@ -146,7 +146,7 @@ def test_reinforcement_is_attributed_to_openai_in_the_notes():
     """Slide copy may say 'reinforced' plainly (presenter, 22 Nov); the notes say it is OpenAI's
     finding and that METR/Redwood were scoped out of training."""
     notes = dict(re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', helper_section(), re.S))
-    for target in ("s3-pop-possible", "s3-insight"):
+    for target in ("s3-pop-possible", "s3-t1b"):
         body = helper_text(notes[target])
         assert "OpenAI" in body and "reinforce" in body.lower() and "METR" in body and "Redwood" in body, target
 
