@@ -294,7 +294,7 @@ readable traces* (presenter approved, 22 Nov; replaces the funnel-era title)
   pop-over softening). Over it, a **row of three text tiles** across the page under the title, built
   one per step (a new component, shared with s-9; built in situ, PRD *Decisions*). Each tile: heading, 2–3 short lines, optional quote and source link. No timeline,
   no narration column. Replaces the funnel diagram.
-- **Steps (3)** (step 0: title over the blurred world). Tile headings ◇ pending presenter (VOICE *Open*):
+- **Steps (3)** (step 0: title over the blurred world). Tile headings ✓ approved (22 Nov); blur strength and step 0 accepted as built:
   - **1 · A small investigation, fast and AI-assisted:** METR (Wijk, Cotra) and Redwood Research
     (Greenblatt): three people, six days on site, unpaid, within a scope OpenAI set. To read ~1,300
     transcripts they relied heavily on GPT-5.6 Sol analysis agents, from a model family under study.
