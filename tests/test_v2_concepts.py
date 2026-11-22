@@ -71,10 +71,12 @@ STATE = """sid => {
     return best; };
   const markerFill = e => { const m = (e.getAttribute('marker-end') || '').match(/url\\(#([^)]+)\\)/);
     const p = m && document.querySelector('#' + m[1] + ' path'); return p ? getComputedStyle(p).fill : null; };
+  const headW = e => { const m = (e.getAttribute('marker-end') || '').match(/url\\(#([^)]+)\\)/), mk = m && document.getElementById(m[1]);
+    return mk ? mk.markerWidth.baseVal.value * (mk.markerUnits.baseVal === 2 ? parseFloat(getComputedStyle(e).strokeWidth) : 1) : 0; };
   const edges = [...svg.querySelectorAll('.edge')].filter(shown).map(e => {
     const L = e.getTotalLength(), a = e.getPointAtLength(0), z = e.getPointAtLength(L);
     return { from: near(a), to: near(z), start: [a.x, a.y], end: [z.x, z.y], stroke: getComputedStyle(e).stroke,
-      width: parseFloat(getComputedStyle(e).strokeWidth), head: markerFill(e) }; });
+      width: parseFloat(getComputedStyle(e).strokeWidth), head: markerFill(e), headw: headW(e) }; });
   const ticks = [...svg.querySelectorAll('.tick-badge')].filter(shown).map(g => {
     const b = g.getBBox(), m = g.getCTM(), sm = svg.getCTM().inverse().multiply(m);
     const c = new DOMPoint(b.x + b.width / 2, b.y + b.height / 2).matrixTransform(sm);
@@ -194,7 +196,10 @@ def test_step_one_scores_three_attempts_with_the_success_ticked_on_the_scorer_ed
     green = [e for e in scored if e["stroke"] == st["accent"]]
     grey = [e for e in scored if e["stroke"] == st["ink3"]]
     assert len(green) == 1 and len(grey) == 2
-    assert green[0]["width"] >= 1.8 * max(e["width"] for e in grey), "the success is bold"
+    gw, kw = green[0]["width"], max(e["width"] for e in grey)
+    # presenter, 22 Nov: the first build (2x grey, heads scaled with it) read blocky
+    assert 1.2 * kw <= gw <= 1.6 * kw, f"the success stands out without being heavy ({gw} vs {kw})"
+    assert abs(green[0]["headw"] - grey[0]["headw"]) <= 1, "coloured heads match the grey heads' size"
     for e in scored:
         (ax, ay), (bx, by) = e["start"], e["end"]
         assert bx > ax and by > ay, "attempts run down the right side"

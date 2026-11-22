@@ -25,6 +25,18 @@ def test_orbs_only_on_ambient_slides(page):
         assert (orbs > 0) == ambient
 
 
+
+def test_title_fireflies_are_numerous_and_drift_perceptibly(page):
+    """Presenter, 22 Nov: ~50% more orbs (11 → ~17) moving a little faster; still subtle, same blur planes."""
+    open_deck(page)
+    goto_slide(page, "s-1")
+    n = page.evaluate("() => document.querySelectorAll('#s-1 .orb').length")
+    assert n >= 16, f"{n} orbs"
+    pos = "() => [...document.querySelectorAll('#s-1 .orb')].map(o => new DOMMatrix(getComputedStyle(o).transform)).map(m => [m.e, m.f])"
+    a = page.evaluate(pos); page.wait_for_timeout(1000); b = page.evaluate(pos)
+    moved = max(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** .5 for (x1, y1), (x2, y2) in zip(a, b))
+    assert 36 <= moved <= 120, f"fastest orb drifts {moved:.0f}px/s: perceptible but still subtle"
+
 def test_reduced_motion_freezes_ambient_drift(page):
     open_deck(page, reduced_motion=True)
     sid = page.evaluate("() => document.querySelector('section.slide[data-ambient]').id")
