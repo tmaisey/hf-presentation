@@ -355,7 +355,8 @@ def test_cut_dissolves_activity_in_hf_while_the_runs_stay_lit(page):
     open_deck(page)
     goto_slide(page, SID, 7)
     gone = ["#" + i for i in ENDS_AT_CUT]
-    helper_until(page, f"sels => sels.every(s => ({OPACITY})(s) < .02) && ({OPACITY})('#w-hf-cut') > .9", gone, timeout=8000)
+    helper_until(page, f"sels => sels.every(s => ({OPACITY})(s) < .02) && ({OPACITY})('#w-hf-cut') > .9 && ({OPACITY})('#w-hf-closed') > .9",
+                 gone, timeout=8000)
     assert all(page.evaluate(OPACITY, s) < 0.02 for s in gone), "rings, key, open padlocks and the entry path are gone"
     for sel in ("#w-hf-cut", "#w-hf-closed", "#w-eval", "#w-swarm-links", "#w-hf-workers", "#w-hf-clusters", "#w-hf-data"):
         assert page.evaluate(OPACITY, sel) > 0.9, sel

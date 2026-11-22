@@ -74,9 +74,12 @@ def test_world_key_shows_an_agent_run_dot(page):
     open_deck(page)
     goto_slide(page, page.evaluate(FIRST_WORLD), 0)
     key = page.evaluate("""() => { const k = document.querySelector('.world .world-key');
-      return k && {text: k.innerText.trim().toLowerCase(), dot: !!k.querySelector('.run'),
-                   shown: k.getBoundingClientRect().height > 0}; }""")
-    assert key == {"text": "agent run", "dot": True, "shown": True}
+      const own = [...k.childNodes].filter(n => !(n.classList && n.classList.contains('world-key-item')));
+      return k && {text: own.map(n => n.textContent).join('').trim().toLowerCase(), dot: !!k.querySelector('.run'),
+                   shown: k.getBoundingClientRect().height > 0,
+                   later: [...k.querySelectorAll('.world-key-item')].every(e => +getComputedStyle(e).opacity < .05)}; }""")
+    # later entries (e.g. s-6's hollow ring) join the same row at their slide, never before (DESIGN §10)
+    assert key == {"text": "agent run", "dot": True, "shown": True, "later": True}
 
 
 def test_world_builds_with_steps_and_resets_on_reentry(page):
