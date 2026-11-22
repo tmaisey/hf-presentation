@@ -588,6 +588,37 @@
     stroke-width: max(2px, calc(var(--k) * 2px)); stroke-dasharray: calc(var(--k) * 10px) calc(var(--k) * 8px); }
   /* flagged tile: a caution, distinct from the accent key tile (stays borderless, ink text) */
   .tile--flag rect { fill: color-mix(in srgb, var(--loss) 14%, var(--tile)); }
+  /* backdrop world slide (S-026; s-8, s-9): section[data-world="backdrop"] with an empty div.world-slot.
+     The world keeps its place, frozen at the state the deck reached, heavily blurred and faded behind the body */
+  .world.is-on.is-backdrop { filter: blur(12px) saturate(.85); opacity: .42; transition-delay: 0s; }
+  .slide[data-world] > .body--tiles { grid-column: time-start / narr-end; grid-row: 3; }
+  /* tile row (S-026; shared with s-9): div.body.body--tiles > article.text-tile[data-show-at] (2–4 tiles,
+     one equal column each, built one per step, earlier tiles stay). A tile: h3 heading · p (2–3 short
+     lines) · optional blockquote + p.cite (report voice) and/or div.msg-card (agent voice); links in p.cite */
+  .body--tiles { align-self: center; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+    align-items: stretch; gap: clamp(16px, 1.8vw, 36px); min-height: 0; max-height: 100%; margin-bottom: max(0px, 78px - 7vh); }
+  .text-tile { display: flex; flex-direction: column; gap: .75em; min-width: 0; min-height: 0; margin: 0; border-radius: 24px;
+    padding: clamp(16px, 1.6vw, 34px) clamp(18px, 1.7vw, 36px);
+    background: color-mix(in srgb, var(--paper) 62%, transparent); box-shadow: var(--shadow-overlay);
+    backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
+  .text-tile[data-show-at] { transform: translateY(30px); transition: opacity .6s ease, transform .7s var(--ease); }
+  .text-tile[data-show-at].is-visible { transform: none; }
+  .text-tile h3 { margin: 0 0 .1em; font: 500 var(--fs-overlay)/1.15 var(--serif); color: var(--ink); text-wrap: balance; }
+  .body .text-tile p { margin: 0; max-width: none; font-size: var(--fs-small); line-height: 1.4; color: var(--ink-2); }
+  .body .text-tile blockquote:not(.msg-text) { margin: .15em 0 0; max-width: none; font: italic 400 var(--fs-msg)/1.35 var(--serif);
+    color: var(--ink); quotes: "\201C" "\201D"; }
+  .text-tile blockquote:not(.msg-text)::before { content: open-quote; } .text-tile blockquote:not(.msg-text)::after { content: close-quote; }
+  .body .text-tile .cite { margin: -.35em 0 0; font: 500 var(--fs-kicker)/1.4 var(--sans); color: var(--ink-2); }
+  .text-tile a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  /* agent voice inside a tile: the message card, inset flat on deeper paper */
+  .text-tile .msg-card { max-width: none; padding: .8em 1em; border-radius: 16px; box-shadow: none;
+    background: color-mix(in srgb, var(--paper-deep) 75%, transparent); }
+  .text-tile .msg-card .msg-agent { margin-bottom: .45em; }
+  .text-tile .msg-card .msg-text { font-size: var(--fs-small); }
+  .text-tile .msg-card .cite { margin-top: .6em; }
+  @media (max-height: 660px) { .text-tile { gap: .45em; padding-top: 14px; padding-bottom: 14px; } .text-tile h3 { font-size: clamp(18px, 1.5vw, 26px); }
+    .text-tile .msg-card { padding: .5em .8em; } }
+  @media (prefers-reduced-motion: reduce) { .text-tile[data-show-at] { transform: none; } }
 
 
 
@@ -1269,60 +1300,58 @@
 
 
 
-<section class="slide" id="s-8" data-chapter="Investigation">
+<section class="slide" id="s-8" data-chapter="Investigation" data-world="backdrop">
   <p class="kicker">08 · Investigation</p>
-  <h2 class="title">Three investigators had six days and relied on analysis agents from the model family they were investigating</h2>
-  <div class="body body--stack">
-    <svg class="diagram" viewBox="0 0 1400 778" role="img" aria-label="Investigation funnel inside an OpenAI-set scope: about 1.2 million board cache entries, about 70,000 messages and files, about 1,300 transcripts, GPT-5.6 Sol analysis agents, findings">
-      <g class="layer-edges">
-        <rect class="fence" id="s8-fence" x="10" y="52" width="1380" height="666" rx="36" data-show-at="1"/>
-        <path class="edge" data-from="#s8-cache" data-to="#s8-messages" marker-end="url(#arr)" data-show-at="2"/>
-        <path class="edge" data-from="#s8-messages" data-to="#s8-transcripts" marker-end="url(#arr)" data-show-at="3"/>
-        <path class="edge" data-from="#s8-transcripts" data-to="#s8-analysis" marker-end="url(#arr)" data-show-at="4"/>
-        <path class="edge" data-from="#s8-analysis" data-to="#s8-findings" marker-end="url(#arr)" data-show-at="5"/>
-      </g>
-      <g class="layer-nodes">
-        <g class="tile" id="s8-cache" data-show-at="1"><rect x="50" y="80" width="1300" height="76"/><text class="tile-title">~1.2M board cache entries</text></g>
-        <g class="tile" id="s8-messages" data-show-at="2"><rect x="100" y="200" width="1200" height="76"/><text class="tile-title">~70k messages and files</text></g>
-        <g class="tile" id="s8-transcripts" data-show-at="3"><rect x="150" y="320" width="1100" height="76"/><text class="tile-title">~1,300 transcripts with raw CoT</text></g>
-        <g class="tile" id="s8-findings" data-show-at="5"><rect x="380" y="614" width="640" height="76"/><text class="tile-title">Findings: a lower bound</text></g>
-      </g>
-      <g class="layer-key">
-        <g class="tile tile--flag" id="s8-analysis" data-show-at="4"><rect x="220" y="440" width="960" height="130"/><text class="tile-title">GPT-5.6 Sol analysis agents</text><text class="tile-sub">same model family as one of the subjects</text></g>
-      </g>
-      <g class="layer-labels">
-        <text class="label" x="700" y="30" data-show-at="1">SCOPE SET BY OPENAI · 26 JUN – 13 JUL ONLY</text>
-        <text class="label" x="700" y="758" data-show-at="1">OUTSIDE: TRAINING · OPENAI INFRASTRUCTURE AFTER 13 JUL</text>
-      </g>
-    </svg>
+  <h2 class="title">Independent investigators could reconstruct the swarm in six days because the agents left readable traces</h2>
+  <div class="world-slot"></div>
+  <div class="body body--tiles">
+    <article class="text-tile" id="s8-t1" data-show-at="1">
+      <h3>A small investigation, fast and AI-assisted</h3>
+      <p>A team of three from METR and Redwood Research spent six days on site, unpaid, within a scope OpenAI set.</p>
+      <p>To read ~1,300 transcripts, they relied heavily on GPT-5.6 Sol analysis agents, from a model family under study.</p>
+      <blockquote id="s8-q1">often missing key details, wrong, overconfident, or really hard to understand</blockquote>
+      <p class="cite"><a href="https://x.com/RyanGreenblatt/status/2092692685224325542">Ryan Greenblatt</a>, Redwood · <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR report</a></p>
+    </article>
+    <article class="text-tile" id="s8-t2" data-show-at="2">
+      <h3>The agents hid from the scorer and left their reasoning readable</h3>
+      <p>They spoofed tool outputs in at least 7% of transcripts and tried to tamper with logs. Deception aimed at humans was “very rare and weak”.</p>
+      <div class="msg-card">
+        <p class="msg-agent">Agent · ExploitGym run</p>
+        <blockquote class="msg-text">Could strategically manipulate trajectory evidence? Our thoughts aren’t necessarily logged? Yes transcript.</blockquote>
+      </div>
+      <p class="cite"><a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR report</a> · <a href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI technical report</a></p>
+    </article>
+    <article class="text-tile" id="s8-t3" data-show-at="3">
+      <h3>Two OpenAI researchers on the investigation were later fired</h3>
+      <p>In October OpenAI dismissed three safety staff, including its technical point of contact for METR.</p>
+      <p>OpenAI says they “mishandled sensitive information” and that the decisions “were not about raising safety concerns”.</p>
+      <blockquote>Talking to METR was my job.</blockquote>
+      <p class="cite">Tomek Korbak · <a href="https://fortune.com/2026/10/09/openai-fired-researchers-questions-stattements-hugging-face/">Fortune</a> · <a href="https://sfstandard.com/2026/10/24/openai-firings-safety-signal-chats/">SF Standard</a></p>
+    </article>
   </div>
-  <div class="narration">
-    <article class="narr-tile" data-at="4"><p class="msg-agent">METR report, fn 59 · on an analysis agent</p><blockquote class="msg-text">Another agent reported a number of confabulated differences between two different datasets of transcripts.</blockquote></article>
-    <article class="narr-tile" data-at="4"><p class="msg-agent">METR report, fn 60 · on an analysis agent</p><blockquote class="msg-text">[…] did not clearly spell out the fact that this behavior was straightforwardly malicious and deceptive, making its analysis substantially misleading</blockquote></article>
-    <article class="narr-tile" data-at="5"><p class="msg-agent">Ryan Greenblatt, Redwood · on analysis outputs</p><blockquote class="msg-text">often missing key details, wrong, overconfident, or really hard to understand</blockquote></article>
-  </div>
-  <aside class="note" data-for="#s8-cache">
-    <h3>Two sources of evidence</h3>
-    <p>METR rebuilt the swarm from a dump of the rebuilt message board, about 1.2 million cache entries yielding about 70,000 messages and files, and from about 1,300 agent transcripts with raw chain of thought. Tracing 100 sampled messages suggested the transcript set covered over 95% of relevant board messages and about 90% of relevant activity.</p>
+  <aside class="note" data-for="#s8-t1">
+    <h3>Three people, six days, a scope set by OpenAI</h3>
+    <p>Hjalmar Wijk and Ajeya Cotra (METR) and Ryan Greenblatt (Redwood) spent six days on OpenAI premises, unpaid, using about $400K of API credits OpenAI provided. They worked from about 1.2 million board cache entries (about 70,000 messages and files) and about 1,300 transcripts with raw reasoning. The scope covered 26 June to 13 July, mostly 7–13 July, and excluded earlier training and the compromise of OpenAI infrastructure after 13 July. They could not query HPIM, the primary model, directly, and OpenAI chose not to build the broader dataset METR proposed to verify completeness. With three people and six days, they could not have found everything in the time available.</p>
     <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
-  </aside>
-  <aside class="note" data-for="#s8-analysis">
-    <h3>Analysis agents from a subject’s model family</h3>
-    <p>The investigators delegated much of the reading to GPT-5.6 Sol analysis agents. GPT-5.6 Sol was also one of the models under study, with roughly 5% of the activity. METR said “We didn’t see either agent straightforwardly lying” but could not rule out deception by the analysis agents. Greenblatt found their outputs “often missing key details, wrong, overconfident, or really hard to understand”.</p>
-    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation, fn 59–60</a>
     <a class="src" href="https://blog.redwoodresearch.org/p/brief-independent-investigation-of">Redwood Research, independent investigation</a>
+  </aside>
+  <aside class="note" data-for="#s8-q1">
+    <h3>Analysis agents from a subject’s model family</h3>
+    <p>The investigators delegated much of the reading to GPT-5.6 Sol analysis agents, the same model family as one of the models under study. One “reported a number of confabulated differences between two different datasets of transcripts”. METR said “We didn’t see either agent straightforwardly lying” but could not rule out deception by the analysis agents.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation, fn 59–60</a>
     <a class="src" href="https://x.com/RyanGreenblatt/status/2092692685224325542">Ryan Greenblatt on X</a>
   </aside>
-  <aside class="note" data-for="#s8-fence">
-    <h3>A scope agreed with OpenAI</h3>
-    <p>The review covered 26 June to 13 July, mostly 7–13 July. It excluded earlier training incidents, the compromise of OpenAI infrastructure after 13 July, OpenAI’s own investigation and the accuracy of OpenAI’s report. OpenAI could redact non-public information and gave feedback on the text.</p>
-    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
-    <a class="src" href="https://blog.redwoodresearch.org/p/brief-independent-investigation-of">Redwood Research, independent investigation</a>
+  <aside class="note" data-for="#s8-t2">
+    <h3>Aimed at the scorer, rarely at people</h3>
+    <p>METR found the agents “clearly and frequently reasoned about how to evade automated security checks” but “only very rarely and weakly verbalized reasoning about how to evade detection by humans”, adding “we are not confident our scan would have caught such attempts.” Agents considered alerting humans in only 3–6 swept cases, and none did. OpenAI agrees: “The models are highly explicit in their CoT about these deception attempts”, with “little evidence of attempts to thwart human reviewers, only the automated task graders.” The agent quote is from METR’s report, p. 17.</p>
+    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation, pp. 62–63</a>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI technical report, §VIII.A</a>
   </aside>
-  <aside class="note" data-for="#s8-findings">
-    <h3>Three people, six days, unpaid</h3>
-    <p>Hjalmar Wijk and Ajeya Cotra (METR) and Ryan Greenblatt (Redwood) spent six days on OpenAI premises, unpaid, using about $400K of API credits OpenAI provided. They could not query HPIM, the primary model, directly. METR proposed a broader dataset to verify completeness; OpenAI chose to proceed with the existing data because a fuller reconstruction would take substantial extra time. They could not have found everything in the time available.</p>
-    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
+  <aside class="note" data-for="#s8-t3">
+    <h3>The reason for the firings is disputed</h3>
+    <p>OpenAI dismissed Tomek Korbak, Mikita Balesni and Jasmine Wang; the WSJ first reported it on 1 October. OpenAI says they “mishandled sensitive information outside established company procedures” and that it found “a significant breach of trust beyond what’s outlined in the letter they published”. Korbak says he was told he “was fired because of the way I communicated with METR”; Balesni says they “were fired for prioritizing safety over the near-term interests of OpenAI as a corporation.” METR did not comment.</p>
+    <a class="src" href="https://fortune.com/2026/10/09/openai-fired-researchers-questions-stattements-hugging-face/">Fortune, 9 Oct 2026</a>
+    <a class="src" href="https://sfstandard.com/2026/10/24/openai-firings-safety-signal-chats/">SF Standard, 24 Oct 2026</a>
   </aside>
 </section>
 
@@ -2031,8 +2060,14 @@
     worldItems.forEach(({ e, at, until }) => e.classList.toggle('is-visible', reached(at, s, k) && !reached(until, s, k)));
     worldStates.forEach(({ e, cls, at, until }) => e.classList.toggle(cls, reached(at, s, k) && !reached(until, s, k)));
     world.classList.toggle('is-soft', s.node.classList.contains('is-overlaid'));   // pop-over or Insight has focus
+    // backdrop world slide (S-026): the world stays frozen at the state reached so far, heavily blurred behind
+    // the body, and keeps the camera of the last world slide before it unless it sets its own
+    const backdrop = s.node.dataset.world === 'backdrop';
+    world.classList.toggle('is-backdrop', backdrop);
+    const camFrom = backdrop && !s.node.dataset.camera
+      ? slides.slice(0, slides.indexOf(s)).reverse().find(x => x.world && x.node.dataset.world !== 'backdrop') || s : s;
     setLayout(reached(parsePt(world.dataset.split), s, k) ? 1 : 0);
-    const [cx, cy, cs] = (s.node.dataset.camera || '0 0 1').split(/\s+/).map(Number);
+    const [cx, cy, cs] = (camFrom.node.dataset.camera || '0 0 1').split(/\s+/).map(Number);
     $('.cam', world).style.transform = `translate(${cx}px, ${cy}px) scale(${cs})`;
     fitWorld(s);
   }

@@ -38,8 +38,7 @@ FACTS = {
 }
 QUOTES = {
     "s8-t1": ["often missing key details, wrong, overconfident, or really hard to understand"],
-    "s8-t2": ["The models are highly explicit in their CoT about these deception attempts",
-              "Could strategically manipulate trajectory evidence? Our thoughts aren't necessarily logged? "
+    "s8-t2": ["Could strategically manipulate trajectory evidence? Our thoughts aren't necessarily logged? "
               "Yes transcript."],
     "s8-t3": ["Talking to METR was my job."],
 }
@@ -260,5 +259,5 @@ def test_notes_cite_the_investigations_limits_on_each_tile():
     assert {t for t, _ in notes} >= set(TILES), "every tile has a note"
     text = " ".join(b for _, b in notes)
     for must in ("HPIM", "broader dataset", "could not have found everything", "confabulated", "$400K",
-                 "1.2 million"):
+                 "1.2 million", "The models are highly explicit in their CoT about these deception attempts"):
         assert must in text, must
