@@ -1,11 +1,13 @@
-"""Spec: S-026
+"""Spec: S-026, S-027
 
 v2 slide s-8 (Investigation), text-led: the incident world stays in its place, frozen at the state
 the deck reached before s-8 and heavily blurred and faded behind a row of three text tiles (the
 shared tile-row component, reused by s-9), built one per step: the small AI-assisted investigation,
 the agents hiding from the scorer while their reasoning stayed readable, and the later firings with
 both sides stated; each tile carries verbatim quotes and real source links; reader notes cite the
-investigation's limits.
+investigation's limits. Also the tile-row component contract on every slide that uses it (s-8, s-9,
+s-10; presenter, 22 Nov): bulleted bodies, quote and one-line cite at the tile foot, level across the
+row, headings within two full-width lines.
 Coverage: happy (shell, title, kicker, chapter; backdrop world marker; three steps, one tile each;
 sourced facts and verbatim quotes per tile; links styled in the text colour; notes on each tile) ·
 edge (world frozen at the previous world slide's end state, same place, blurred harder than a
@@ -13,7 +15,10 @@ pop-over softens it; three tiles readable side by side, unclipped, below the tit
 Notes button at 1920×1080, 1280×720 and 1288×598; tile row styled in the component layer, not per
 slide) · negative (no tile before its step; no funnel diagram or narration column; never claims the
 firings were caused by the investigation, and states OpenAI's side; no quote marks, braces, inline
-styles or "suicide" in the markup; no console errors).
+styles or "suicide" in the markup; no console errors) · component (every tile-row slide, all three
+sizes: body is one list of 2–4 bullets, never prose; quote and cite pushed to the tile foot, cites
+level across the row and one line each; headings ≤ 2 lines filling the tile's width, never a narrow
+balanced wrap).
 """
 
 import re
@@ -47,6 +52,7 @@ LINKS = {
     "s8-t2": ["cdn.openai.com", "metr.org"],
     "s8-t3": ["fortune.com", "sfstandard.com"],
 }
+TILE_SLIDES = ["s-8", "s-9", "s-10"]   # every slide built on the tile row; its tiles are all in by step 3
 TILE_TEXT = """id => { const t = document.getElementById(id);
   return { text: t.innerText, quotes: [...t.querySelectorAll('blockquote')].map(q => q.textContent.trim()),
            links: [...t.querySelectorAll('a[href]')].map(a => a.href), head: (t.querySelector('h3') || {}).textContent }; }"""
@@ -84,6 +90,21 @@ def test_body_is_one_tile_row_of_three_tiles_built_one_per_step():
     assert tiles == [(t, str(n)) for n, t in enumerate(TILES, start=1)], tiles
 
 
+def test_tile_row_bodies_are_bullet_lists_on_every_tile_row_slide():
+    """Presenter, 22 Nov: prose tiles read poorly; a tile body is one list of 2–4 bullets, never paragraphs."""
+    for sid in TILE_SLIDES:
+        sec = re.search(rf'<section class="[^"]*" id="{sid}".*?</section>', slides_source(), re.S).group(0)
+        tiles = re.findall(r'<article class="text-tile" id="([\w-]+)".*?</article>', sec, re.S)
+        bodies = re.findall(r'<article class="text-tile".*?</article>', sec, re.S)
+        assert len(bodies) == 3, sid
+        for tid, tile in zip(tiles, bodies):
+            lists = re.findall(r'<ul class="points">(.*?)</ul>', tile, re.S)
+            assert len(lists) == 1, f"{tid}: one bulleted list"
+            assert 2 <= len(re.findall(r"<li[ >]", lists[0])) <= 4, f"{tid}: 2–4 bullets"
+            prose = [p for p in re.findall(r'<p( class="[^"]*")?[ >]', tile) if p not in (' class="cite"', ' class="msg-agent"')]
+            assert not prose, f"{tid}: no prose paragraphs besides the cite"
+
+
 def test_funnel_diagram_and_narration_column_are_gone():
     sec = helper_section()
     assert "<svg" not in sec, "s-8 is text-led: no slide diagram (the funnel is retired)"
@@ -112,9 +133,9 @@ def test_tiles_state_their_sourced_facts_with_verbatim_quotes_and_links(page):
     for tid in TILES:
         t = page.evaluate(TILE_TEXT, tid)
         assert t["head"] and len(t["head"]) < 80, f"{tid}: a short heading"
-        text = helper_norm(t["text"])
+        text = helper_norm(t["text"]).lower()   # a fact may open a bullet, capitalised
         for fact in FACTS[tid]:
-            assert fact in text, f"{tid} must state {fact!r}"
+            assert fact.lower() in text, f"{tid} must state {fact!r}"
         quotes = [helper_norm(q) for q in t["quotes"]]
         for want in QUOTES[tid]:
             assert any(want in q for q in quotes), f"{tid} must quote verbatim: {want!r} (got {quotes})"
@@ -234,8 +255,8 @@ def test_three_tiles_sit_side_by_side_readable_and_unclipped_below_the_title(pag
         notes: nb ? r(nb) : null, vw: innerWidth, vh: innerHeight,
         tiles: ids.map(id => { const t = document.getElementById(id);
           return { box: r(t), clipped: t.scrollHeight > t.clientHeight + 1 || t.scrollWidth > t.clientWidth + 1,
-            kids: [...t.querySelectorAll('h3, p, blockquote, .msg-card')].map(k => [k.tagName, r(k)]),
-            body: parseFloat(getComputedStyle(t.querySelector('p')).fontSize),
+            kids: [...t.querySelectorAll('h3, li, p, blockquote, .msg-card')].map(k => [k.tagName, r(k)]),
+            body: parseFloat(getComputedStyle(t.querySelector('li')).fontSize),
             head: parseFloat(getComputedStyle(t.querySelector('h3')).fontSize) }; }) }; }""", TILES)
     title, tiles = res["title"], res["tiles"]
     assert title[1] >= res["bar"] - 1, "title clear of the bar"
@@ -270,3 +291,59 @@ def test_notes_cite_the_investigations_limits_on_each_tile():
     for must in ("HPIM", "broader dataset", "could not have found everything", "confabulated", "$400K",
                  "1.2 million", "The models are highly explicit in their CoT about these deception attempts"):
         assert must in text, must
+
+
+TILE_FOOT = """sid => [...document.querySelectorAll('#' + sid + ' .body--tiles > .text-tile')].map(t => {
+  const b = t.getBoundingClientRect(), cs = getComputedStyle(t), cite = t.querySelector(':scope > .cite');
+  const q = t.querySelector(':scope > blockquote, :scope > .msg-card'), c = cite.getBoundingClientRect();
+  return { id: t.id, foot: b.bottom - parseFloat(cs.paddingBottom) - parseFloat(cs.borderBottomWidth),
+    citeTop: c.top, citeBottom: c.bottom, citeLines: c.height / parseFloat(getComputedStyle(cite).lineHeight),
+    quoteNext: !q || q.nextElementSibling === cite, quoteBottom: q ? q.getBoundingClientRect().bottom : null,
+    em: parseFloat(getComputedStyle(cite).fontSize) }; })"""
+
+
+@pytest.mark.parametrize("size", SIZES)
+@pytest.mark.parametrize("sid", TILE_SLIDES)
+def test_tile_quote_and_one_line_cite_sit_at_the_tile_foot_level_across_the_row(page, sid, size):
+    """DESIGN tile row (22 Nov): quote then cite pushed to the foot, so cites line up across tiles."""
+    open_deck(page, *size)
+    goto_slide(page, sid, 3)
+    settle(page, f"#{sid} .text-tile:last-child")
+    tiles = page.evaluate(TILE_FOOT, sid)
+    assert len(tiles) == 3
+    for t in tiles:
+        assert abs(t["citeBottom"] - t["foot"]) <= 1, f"{t['id']}: cite not at the tile foot"
+        assert t["citeLines"] < 1.5, f"{t['id']}: cite wraps to {t['citeLines']:.1f} lines"
+        assert t["quoteNext"], f"{t['id']}: the quote sits directly above its cite"
+        if t["quoteBottom"] is not None:
+            assert 0 <= t["citeTop"] - t["quoteBottom"] <= 1.5 * t["em"], f"{t['id']}: quote not held at the foot"
+    bottoms = [t["citeBottom"] for t in tiles]
+    assert max(bottoms) - min(bottoms) <= 1, f"cites not level across the row: {bottoms}"
+
+
+HEAD_FIT = """sid => [...document.querySelectorAll('#' + sid + ' .body--tiles > .text-tile')].map(t => {
+  const h = t.querySelector('h3'), cs = getComputedStyle(t), lh = parseFloat(getComputedStyle(h).lineHeight);
+  const inner = t.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), words = [];
+  const w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+  for (let node; (node = w.nextNode());) for (const m of node.textContent.matchAll(/\\S+/g)) {
+    const r = document.createRange(); r.setStart(node, m.index); r.setEnd(node, m.index + m[0].length);
+    const rects = [...r.getClientRects()]; words.push({ top: Math.round(rects[0].top), left: rects[0].left,
+      right: rects[rects.length - 1].right, width: rects.reduce((a, x) => a + x.width, 0) }); }
+  const first = words.filter(x => x.top === words[0].top), next = words.find(x => x.top > words[0].top);
+  const space = parseFloat(getComputedStyle(h).fontSize) * 0.2;
+  return { id: t.id, lines: Math.round(h.getBoundingClientRect().height / lh), inner, h3: h.getBoundingClientRect().width,
+    fill: next ? Math.max(...first.map(x => x.right)) - h.getBoundingClientRect().left + space + next.width : null }; })"""
+
+
+@pytest.mark.parametrize("size", SIZES)
+@pytest.mark.parametrize("sid", TILE_SLIDES)
+def test_tile_headings_fit_two_lines_using_the_full_tile_width(page, sid, size):
+    """Presenter, 22 Nov: a balanced or capped wrap left unused space and pushed headings to 3 lines."""
+    open_deck(page, *size)
+    goto_slide(page, sid, 3)
+    settle(page, f"#{sid} .text-tile:last-child")
+    for h in page.evaluate(HEAD_FIT, sid):
+        assert h["lines"] <= 2, f"{h['id']}: heading takes {h['lines']} lines"
+        assert h["h3"] >= h["inner"] - 1, f"{h['id']}: heading narrower than its tile"
+        if h["fill"] is not None:
+            assert h["fill"] > h["inner"], f"{h['id']}: line 1 breaks early, leaving space a word would fill"
