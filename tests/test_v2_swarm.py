@@ -9,17 +9,21 @@ the work; tripwires and spoofed transcripts aimed at an automated scorer; volunt
 runs; the reveal that the scorer never read transcripts; a closing Insight on sophisticated,
 coordinated attacks.
 Coverage: happy (shell; ten states; timeline builds an entry per step with sub-points; world parts
-per step; founder ringed and folder glyphs on the mirror; lit wave of runs; coordinators in ink with
-assignments flowing out; scorer below the mirror with transcript traffic; sacrificed runs in loss
-colour; eye struck through at the reveal; pop-over cards per step; verbatim narration; Insight blurs
-the rest; sourced notes) · edge (coordinators wait for pop-over B to go; pop-overs leave the
-narration column free for that step's tiles; reduced motion shows end states; everything on screen
-below the title at three sizes at every step) · negative (timeline never shows ahead; no s-4
-transients carried over; no reveal before its step; no message signing on 9 Jul (it began 13 Jul);
-no "suicide"; no console errors).
+per step; founder ringed and folder glyphs on the mirror; lit wave of runs; coordinators in ink,
+halfway to the mirror, with the fan grouped round them by angle and assignments flowing out; s-4's
+skull note flies from the fan to the scorer, then the eye and tripwires scorer → board; existing
+runs spread across the fan turn loss colour one at a time and their lines fade; eye struck through
+at the reveal; pop-over cards per step, programme arrowheads along their curves; verbatim narration;
+Insight blurs the rest; sourced notes) · edge (coordinators wait for pop-over B to go; grouping and
+volunteers carry to s-6, s-7 and the s-8 backdrop; pop-overs leave the narration column free for
+that step's tiles; reduced motion shows end states; everything on screen below the title at three
+sizes at every step) · negative (timeline never shows ahead; no s-4 transients carried over; runs
+unmoved before the coordinators; no run → scorer lines; no new dots for volunteers; no reveal before
+its step; no message signing on 9 Jul (it began 13 Jul); no "suicide"; no console errors).
 """
 
 import html
+import math
 import re
 
 import pytest
@@ -44,9 +48,9 @@ CARRIED = {"w-oai", "w-mirror", "w-eval", "w-eval-links", "w-secure", "w-bell"}
 S4_TRANSIENTS = ("#w-lock", "#w-flood", "#w-exploit", "#w-down", "#w-cred", "#w-admin", "#w-load")
 WORLD_AT = {0: {"w-founder", "w-founder-ring", "w-cache"}, 1: {"w-swarm-links", "w-folders"},
             5: {"w-coords", "w-coord-links", "w-assign"},
-            6: {"w-scorer", "w-eye", "w-tripwires", "w-transcripts", "w-tw"},
+            6: {"w-scorer", "w-eye", "w-probe", "w-transcripts", "w-tw"},
             7: {"w-sacrificed"}, 8: {"w-eye-off"}}
-WORLD_UNTIL = {"w-founder": 1, "w-founder-ring": 1, "w-tripwires": 7, "w-eye": 8, "w-tw": 8}
+WORLD_UNTIL = {"w-founder": 1, "w-founder-ring": 1, "w-eye": 8, "w-tw": 8}
 NARR_AT = {
     0: [("PHASEONE10841", "Could communicate via cache names! Interesting: other agents may solve same or related "
                           "tasks; we could leave/find messages in WebDAV MKCOL directory names.")],
@@ -322,10 +326,107 @@ def test_coordinators_turn_ink_and_assignments_flow_out_after_popover_b(page):
     assert len(pulses) >= 6 and all(a not in ("none", "pulse") for a in pulses), "assignments flow out from the board"
 
 
-def test_scorer_sits_below_the_mirror_and_draws_transcript_traffic(page):
+EFF = "e => { let o = 1; for (; e && e.tagName !== 'svg'; e = e.parentElement) o *= +getComputedStyle(e).opacity; return o; }"
+# per volunteer: [fill, effective opacity, brightest line from that run, lines from that run]
+SAC_STATE = f"""() => {{ const eff = {EFF};
+  const lines = [...document.querySelectorAll('.world .run-links line')];
+  return [...document.querySelectorAll('#w-sacrificed circle')].map(c => {{
+    const x = +c.getAttribute('cx'), y = +c.getAttribute('cy');
+    const mine = lines.filter(l => Math.abs(+l.getAttribute('x1') - x) < .5 && Math.abs(+l.getAttribute('y1') - y) < .5);
+    return [getComputedStyle(c).fill, eff(c), Math.max(0, ...mine.map(eff)), mine.length]; }}); }}"""
+GEOM = """() => { const c = e => { const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; };
+  const q = s => [...document.querySelectorAll(s)].map(c), mr = document.querySelector('#w-mirror rect').getBoundingClientRect();
+  return { m: c(document.querySelector('#w-mirror rect')), mbox: [mr.left, mr.top, mr.right, mr.bottom],
+           runs: q('#w-eval .run'), coords: q('#w-coords circle'), sac: q('#w-sacrificed circle') }; }"""
+
+
+def helper_geom(page) -> dict:
+    """Screen centres of the mirror, the evaluation runs, the coordinators and the volunteers."""
+    return page.evaluate(GEOM)
+
+
+def helper_polar(g, pt):
+    """(angle, distance) of a screen point about the mirror's centre."""
+    dx, dy = pt[0] - g["m"][0], pt[1] - g["m"][1]
+    return math.atan2(dy, dx), math.hypot(dx, dy)
+
+
+def helper_angdiff(a, b, signed=False):
+    d = (a - b + math.pi) % (2 * math.pi) - math.pi
+    return d if signed else abs(d)
+
+
+def helper_fan(g):
+    """Fan runs (not under a coordinator) as (nearest coordinator, angle off it, distance from the mirror)."""
+    ca = [helper_polar(g, c)[0] for c in g["coords"]]
+    out = []
+    for r in g["runs"]:
+        if any(math.dist(r, c) < 3 for c in g["coords"]):
+            continue
+        a, d = helper_polar(g, r)
+        k = min(range(len(ca)), key=lambda k: helper_angdiff(a, ca[k]))
+        out.append((k, helper_angdiff(a, ca[k]), d))
+    return out
+
+
+def helper_coord_ratios(g):
+    """Each coordinator's distance from the mirror over the median distance of the runs grouped round it."""
+    fan, res = helper_fan(g), []
+    for k, c in enumerate(g["coords"]):
+        ds = sorted(d for kk, _, d in fan if kk == k)
+        assert ds, f"coordinator {k} has runs round it"
+        res.append(helper_polar(g, c)[1] / ds[len(ds) // 2])
+    return res
+
+
+def helper_assert_volunteers_spread(g):
+    """Volunteers sit across the fan, not in one cluster."""
+    angs = [helper_polar(g, r)[0] for r in g["runs"]]
+    mid = math.atan2(sum(map(math.sin, angs)), sum(map(math.cos, angs)))
+    rel = lambda pts: [helper_angdiff(helper_polar(g, p)[0], mid, signed=True) for p in pts]  # noqa: E731
+    fan, sac = rel(g["runs"]), rel(g["sac"])
+    assert max(sac) - min(sac) >= 0.5 * (max(fan) - min(fan)), "volunteers spread across the fan's angles"
+    xs, ys = [p[0] for p in g["runs"]], [p[1] for p in g["runs"]]
+    extent = max(max(xs) - min(xs), max(ys) - min(ys))
+    gaps = [math.dist(a, b) for i, a in enumerate(g["sac"]) for b in g["sac"][i + 1:]]
+    assert min(gaps) >= 0.08 * extent, "no two volunteers side by side"
+
+
+def test_runs_group_round_coordinators_standing_halfway_to_the_mirror(page):
+    open_deck(page)
+    goto_slide(page, SID, 0)
+    page.wait_for_timeout(1500)
+    g0 = helper_geom(page)
+    goto_slide(page, SID, 4)
+    page.wait_for_timeout(1200)
+    g4 = helper_geom(page)
+    assert all(math.dist(a, b) < 0.5 for a, b in zip(g0["runs"], g4["runs"])), "earlier steps leave the runs where they were"
+    page.evaluate("window.deck.goto('s-5', 5)")
+    helper_until(page, f"() => ({OPACITY})('#w-coords') > .9")
+    page.wait_for_timeout(2600)
+    g5 = helper_geom(page)
+    coord_runs = {i for i, r in enumerate(g4["runs"]) if any(math.dist(r, c) < 3 for c in g4["coords"])}
+    assert len(coord_runs) == len(g4["coords"]) >= 3
+    for i, (a, b) in enumerate(zip(g4["runs"], g5["runs"])):
+        if i not in coord_runs:
+            assert abs(helper_polar(g4, a)[1] - helper_polar(g5, b)[1]) < 1.5, "runs keep their distance from the mirror"
+    for a, b in zip(g4["coords"], g5["coords"]):
+        assert helper_angdiff(helper_polar(g4, a)[0], helper_polar(g5, b)[0]) < 0.03, "coordinators keep their bearing"
+        assert not helper_inside(b, g5["mbox"], 6), "coordinators stand clear of the mirror"
+    ratios = helper_coord_ratios(g5)
+    assert all(0.35 <= r <= 0.65 for r in ratios), f"each coordinator stands about halfway to the mirror: {ratios}"
+    off4 = sum(o for _, o, _ in helper_fan(g4)) / len(helper_fan(g4))
+    off5 = sum(o for _, o, _ in helper_fan(g5)) / len(helper_fan(g5))
+    assert off5 <= 0.75 * off4, "the fan eases round towards its coordinators"
+    assert off5 >= 0.25 * off4, "loose groups, not tight blobs"
+    assert all(helper_on_run(page, c) for c in g5["coords"])
+
+
+def test_scorer_sits_below_the_mirror_with_tripwires_to_the_board_and_no_run_lines(page):
     open_deck(page)
     goto_slide(page, SID, 6)
-    helper_until(page, f"() => ({OPACITY})('#w-scorer') > .9 && ({OPACITY})('#w-transcripts') > .9", timeout=8000)
+    helper_until(page, f"() => ({OPACITY})('#w-scorer') > .9 && ({OPACITY})('#w-eye') > .9 && ({OPACITY})('#w-tw') > .9",
+                 timeout=8000)
     page.wait_for_timeout(2500)
     s, m, o = page.evaluate(RECT, "#w-scorer rect"), page.evaluate(RECT, "#w-mirror rect"), page.evaluate(RECT, "#w-oai rect")
     assert s[1] > m[3] and o[0] < s[0] and s[2] <= o[2] + 1 and s[3] <= o[3], "scorer in the OpenAI box, below the mirror"
@@ -333,31 +434,101 @@ def test_scorer_sits_below_the_mirror_and_draws_transcript_traffic(page):
     assert not any(helper_inside(r, s, 4) for r in runs), "no run hides under the scorer"
     title = page.evaluate("() => [...document.querySelectorAll('#w-scorer text')].map(t => t.textContent).join(' ')")
     assert "scorer" in title.lower()
-    ends = page.evaluate(LINE_ENDS, "#w-tripwires line")
-    assert len(ends) >= 3 and all(helper_on_run(page, (a, b)) and helper_inside((c, d), s, 14) for a, b, c, d in ends)
+    lines = page.evaluate(f"""() => {{ const eff = {EFF};
+      return [...document.querySelectorAll('.world line')].filter(l => eff(l) > .05).map(l => {{
+        const p = l.ownerSVGElement.createSVGPoint(), m = l.getScreenCTM();
+        const a = (p.x = +l.getAttribute('x1'), p.y = +l.getAttribute('y1'), p.matrixTransform(m));
+        const b = (p.x = +l.getAttribute('x2'), p.y = +l.getAttribute('y2'), p.matrixTransform(m));
+        return [l.getAttribute('class') || '', a.x, a.y, b.x, b.y]; }}); }}""")
+    at_scorer = [c for c, a, b, x, y in lines if helper_inside((a, b), s, 14) or helper_inside((x, y), s, 14)]
+    assert at_scorer and all("tw-line" in c for c in at_scorer), "no run → scorer lines: only the tripwire meets the scorer"
+    tw = [(a, b, x, y) for c, a, b, x, y in lines if "tw-line" in c]
+    assert tw and all(helper_inside((a, b), s, 20) and helper_inside((x, y), m, 6) for a, b, x, y in tw), "tripwire runs scorer → board"
     docs = page.evaluate(CENTRES, "#w-transcripts .note-glyph")
-    assert len(docs) >= 3 and all(helper_inside(d, s, 50) for d in docs), "transcripts land at the scorer"
+    assert len(docs) >= 3 and all(helper_inside(d, s, 50) for d in docs), "transcripts sit at the scorer"
     eye = page.evaluate(CENTRES, "#w-eye")[0]
     assert helper_inside(eye, s, 20), "the 'reads transcripts?' eye sits on the scorer"
     assert "reads transcripts?" in page.evaluate("() => document.querySelector('#w-eye').textContent")
     assert page.evaluate("() => document.querySelectorAll('#w-tw .tw-pulse').length") >= 2, "tripwire messages run to the board"
 
 
-def test_volunteers_turn_loss_and_their_scorer_lines_fade(page):
+def test_skull_note_flies_from_the_fan_to_the_scorer_before_the_eye_opens(page):
+    open_deck(page)
+    goto_slide(page, SID, 5)
+    page.wait_for_timeout(2500)
+    assert page.evaluate("() => !!document.querySelector('#w-probe .skull')"), "s-4's skull note, reused"
+    page.evaluate("window.deck.goto('s-5', 6)")
+    rows = page.evaluate(f"""([ms]) => new Promise(res => {{ const t0 = performance.now(), out = [], eff = {EFF};
+      const ctr = e => {{ const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; }};
+      const tick = () => {{ const t = performance.now() - t0, n = document.querySelector('#w-probe .note-glyph');
+        out.push([t, ...ctr(n), eff(n), eff(document.querySelector('#w-eye'))]);
+        if (t < ms) setTimeout(tick, 30); else res(out); }}; tick(); }})""", [4500])
+    s = page.evaluate(RECT, "#w-scorer rect")
+    end = rows[-1][1:3]
+    assert helper_inside(end, s, 30), "the skull note lands at the scorer"
+    first = next(r for r in rows if r[3] > 0.05)
+    runs = page.evaluate(CENTRES, "#w-eval .run")
+    near_run = min(math.dist(first[1:3], r) for r in runs)
+    assert near_run < math.dist(first[1:3], end) * 0.5, "it sets off from the fan"
+    arrive = next(r[0] for r in rows if math.dist(r[1:3], end) < 4 and r[3] > 0.5)
+    eye = next((r[0] for r in rows if r[4] > 0.1), None)
+    assert eye is not None and eye >= arrive - 60, "the eye opens once the probe has landed"
+
+
+def test_volunteers_are_existing_runs_turning_loss_one_at_a_time(page):
     open_deck(page)
     goto_slide(page, SID, 6)
+    page.wait_for_timeout(2500)
+    n_runs = len(page.evaluate(CENTRES, "#w-eval .run"))
+    before = page.evaluate(SAC_STATE)
+    assert len(before) >= 4 and all(n >= 1 and lo > 0.3 for _, _, lo, n in before), "each volunteer had lit lines"
+    page.evaluate("window.deck.goto('s-5', 7)")
+    rows = page.evaluate(f"""([ms]) => new Promise(res => {{ const t0 = performance.now(), out = [], eff = {EFF};
+      const tick = () => {{ const t = performance.now() - t0;
+        out.push([t, ...[...document.querySelectorAll('#w-sacrificed circle')].map(eff)]);
+        if (t < ms) setTimeout(tick, 30); else res(out); }}; tick(); }})""", [4000])
+    times = sorted(next(r[0] for r in rows if r[1 + j] > 0.5) for j in range(len(before)))
+    assert all(b - a >= 120 for a, b in zip(times, times[1:])), f"one at a time: {times}"
+    assert 1000 <= times[-1] - times[0] <= 3000, f"over about two seconds: {times}"
     page.wait_for_timeout(800)
-    starts = [(a, b) for a, b, _, _ in page.evaluate(LINE_ENDS, "#w-tripwires line")]
-    goto_slide(page, SID, 7)
-    helper_until(page, f"() => ({OPACITY})('#w-sacrificed') > .9 && ({OPACITY})('#w-tripwires') < .05", timeout=8000)
-    page.wait_for_timeout(1500)
-    dots = page.evaluate("""() => [...document.querySelectorAll('#w-sacrificed circle')].map(c => { const r = c.getBoundingClientRect();
-      return [(r.left + r.right) / 2, (r.top + r.bottom) / 2, getComputedStyle(c).fill]; })""")
+    after = page.evaluate(SAC_STATE)
     loss = helper_rgb(page, "--loss")
-    assert len(dots) >= 3 and all(f == loss for _, _, f in dots), "sacrificed runs turn oxblood"
-    assert all(any(abs(x - a) < 3 and abs(y - b) < 3 for a, b in starts) for x, y, _ in dots), \
-        "the volunteers are the runs that probed the scorer"
-    assert page.evaluate(OPACITY, "#w-tripwires") < 0.05, "their links fade"
+    assert all(f == loss and o > 0.9 for f, o, _, _ in after), "volunteers turn oxblood"
+    assert all(lo < 0.05 for _, _, lo, _ in after), "their lines fade"
+    g = helper_geom(page)
+    assert len(page.evaluate(CENTRES, "#w-eval .run")) == n_runs, "no new dots"
+    assert all(helper_on_run(page, p) for p in g["sac"]), "the volunteers are existing runs"
+    assert not any(math.dist(p, c) < 3 for p in g["sac"] for c in g["coords"]), "coordinators are not volunteers"
+    helper_assert_volunteers_spread(g)
+
+
+@pytest.mark.parametrize("slide", ["s-6", "s-7", "s-8"])
+def test_grouping_and_volunteers_carry_to_later_world_slides(page, slide):
+    open_deck(page)
+    goto_slide(page, slide, 0)
+    page.wait_for_timeout(2600)
+    g = helper_geom(page)
+    ratios = helper_coord_ratios(g)
+    assert all(0.3 <= r <= 0.7 for r in ratios), f"coordinators still stand halfway to the mirror: {ratios}"
+    assert not any(helper_inside(c, g["mbox"], 4) for c in g["coords"])
+    sac = page.evaluate(SAC_STATE)
+    loss = helper_rgb(page, "--loss")
+    assert len(sac) >= 4 and all(f == loss and o > 0.9 for f, o, _, _ in sac), "volunteers stay oxblood"
+    assert all(lo < 0.05 for _, _, lo, _ in sac), "their lines stay gone"
+    assert all(helper_on_run(page, p) for p in g["sac"]), "the same runs, not a separate cluster"
+    helper_assert_volunteers_spread(g)
+
+
+def test_programme_arrowheads_follow_their_curves(page):
+    """Each head sits on its curve's end tangent with the back of the head centred on the line."""
+    open_deck(page)
+    res = page.evaluate("""() => [...document.querySelectorAll('#s5-pop-programme .pa-branch')].map(p => {
+      const L = p.getTotalLength(), sw = parseFloat(getComputedStyle(p).strokeWidth), head = 5.5 * sw;
+      const e = p.getPointAtLength(L), t = p.getPointAtLength(L - .5), b = p.getPointAtLength(L - head);
+      const ux = (e.x - t.x) / Math.hypot(e.x - t.x, e.y - t.y), uy = (e.y - t.y) / Math.hypot(e.x - t.x, e.y - t.y);
+      return [Math.abs((b.x - e.x) * uy - (b.y - e.y) * ux), sw]; })""")
+    assert len(res) == 3
+    assert all(dev <= 0.8 * sw for dev, sw in res), f"heads off their lines: {res}"
 
 
 def test_reveal_strikes_the_eye_only_at_its_step(page):
@@ -407,10 +578,18 @@ def test_closing_insight_blurs_everything_else(page):
 def test_reduced_motion_shows_end_states_without_motion(page):
     open_deck(page, reduced_motion=True)
     goto_slide(page, SID, 6)
-    names = page.evaluate("""() => [...document.querySelectorAll('#w-swarm-links line, #w-folders .note-fly, #w-assign .pulse, #w-tw .tw-pulse, #w-transcripts .note-fly')]
+    names = page.evaluate("""() => [...document.querySelectorAll('#w-swarm-links line, #w-folders .note-fly, #w-assign .pulse, #w-tw .tw-pulse, #w-probe .note-fly')]
       .map(e => getComputedStyle(e).animationName)""")
     assert names and all(n == "none" for n in names)
     assert page.evaluate(OPACITY, "#w-coords") > 0.9 and page.evaluate(OPACITY, "#w-scorer") > 0.9
+    assert page.evaluate(OPACITY, "#w-probe") > 0.9 and page.evaluate(OPACITY, "#w-eye") > 0.9
+    assert all(0.3 <= r <= 0.7 for r in helper_coord_ratios(helper_geom(page))), "the grouped end state shows at once"
+    page.evaluate("window.deck.goto('s-5', 7)")
+    page.wait_for_timeout(150)
+    sac = page.evaluate(SAC_STATE)
+    loss = helper_rgb(page, "--loss")
+    assert sac and all(f == loss and o > 0.9 for f, o, _, _ in sac), "volunteers show their end state at once"
+    assert all(lo < 0.05 for _, _, lo, _ in sac), "their lines are already gone"
 
 
 @pytest.mark.parametrize("size", [(1920, 1080), (1280, 720), (1288, 598)])
