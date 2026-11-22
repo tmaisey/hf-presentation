@@ -163,6 +163,19 @@ def test_s9_tile_headings_are_the_approved_findings():
     assert all(helper_norm(h) in voice for h in S9_HEADINGS), "approved headings are recorded in VOICE"
 
 
+S9_CHEAT = "Unprompted by humans, agents built a universal cheat within 4 hours; ~1,200 joined in all"
+
+
+def test_s9_cheat_bullet_keeps_the_4_hour_cheat_apart_from_the_1200_total():
+    """The cheat came within 4 hours of the 8 Jul board, when 50+ had joined; ~1,200 is everyone over the
+    whole period (Redwood). '~1,200 agents built a universal cheat in 4 hours' merges the two."""
+    sec = helper_section("s-9")
+    tile = helper_flat(sec[sec.index('id="s9-t1"'):sec.index('id="s9-t2"')])
+    assert "1,200 agents built" not in tile
+    assert helper_norm(S9_CHEAT) in tile
+    assert helper_norm(S9_CHEAT) in helper_storyboard("s-9 · Insights"), "storyboard carries the same bullet"
+
+
 def test_s9_is_a_backdrop_world_slide_with_one_tile_row_of_three_tiles():
     s9 = next(s for s in parse_slides() if s["attrs"]["id"] == "s-9")
     assert s9["attrs"].get("data-world") == "backdrop", "s-9 keeps the incident world as a backdrop, like s-8"
