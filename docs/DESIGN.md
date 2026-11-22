@@ -202,9 +202,12 @@ right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
 of several blocks is one wrapper `div[data-show-at][data-hide-at]`, e.g. table + `blockquote` +
 `p.cite`; a quote under a table keeps clear of its last rule, and on short screens table rows
 tighten so a phase fits under its title) ·
-`div.body.body--tiles` (tile row, S-026; s-8, s-9; built in situ: 2–4 equal-width, equal-height
-frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading +
-`p` lines (2–3 short) + optional `blockquote` + `p.cite` (report voice; italic, CSS quote marks)
+`div.body.body--tiles` (tile row, S-026; s-8, s-9, s-10; built in situ: 2–4 equal-width, equal-height
+frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading
+(**MUST** fit 2 lines at every size, using the tile's full width: no narrow balanced wrap that
+leaves unused space) + **a bulleted list** of short points (`ul`, presenter 22 Nov: prose tiles read
+poorly) + optional `blockquote` + `p.cite` (**one line**), the quote and cite **bottom-aligned** in
+the tile (pushed to the foot, level across the row) (report voice; italic, CSS quote marks)
 and/or in-flow `div.msg-card` (agent voice); links in text colour, underlined. On short screens
 (≤ 660px high) gaps tighten and the heading shrinks. Fit is tightest at 1288×598: trim a tile,
 moving detail to its note, rather than overflow).

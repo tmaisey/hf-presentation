@@ -426,7 +426,8 @@ see* (presenter approved, 22 Nov; the old s-9 title on readable reasoning is now
 ## s-10 · Pace, takeaway, discussion (1:00 + 4:00 Q&A) · M3, T
 
 **Rework (presenter, 22 Nov):** one title per phase, swapped by step; s-9's tile-row style for the
-pace phase; the separate Insight step folds into tile 1. Sources: `research_notes/AI capability pace
+pace phase (tile bodies as bullets, quote and one-line cite bottom-aligned, DESIGN tile row; the
+approved sentences below are converted to bullets without dropping facts); the separate Insight step folds into tile 1. Sources: `research_notes/AI capability pace
 2026/` (`capability_pace.md`, `public_sentiment.md`).
 - **Tiles phase** ✓ title: *Capability keeps accelerating as industry calls for restraint and public
   concern grows* (replaces "Capability, compute and spending are still accelerating despite pauses and
@@ -443,10 +444,10 @@ pace phase; the separate Insight step folds into tile 1. Sources: `research_note
      pressing OpenAI for details." Quote: OpenAI (Reuters, 5 Sep): "Our misalignment disclosure
      practices need to expand for this new phase of model capabilities." (AG suit = allegations; the
      letter page shows 1,386 signatures.)
-  3. **Public AI concern is rising, though safety remains secondary:** "Most Americans are concerned
+  3. **AI concern is rising, though safety remains secondary:** "Most Americans are concerned
      about AI, and 73% worry future AI could threaten human survival. But politics and markets focus
-     elsewhere: midterm voters weighed jobs, power bills and data centres, and AI-led market drops were
-     about spending and growth, not safety." (Quinnipiac Sep; NBC exit poll; AP 5 Nov. Most of the
+     elsewhere: polls and midterms weighed jobs, power bills and data centres, and AI-led market drops
+     were about spending and growth, not safety." (Quinnipiac Sep; NBC exit poll; AP 5 Nov. Most of the
      attitude shift predates the incident: never claim it caused it.)
 - **Controls phase** ✓ title: *Practical controls keep AI agents within the bounds their tasks need*.
   Table: Control · **Practical considerations for AI projects** (replaces "Where it failed in the

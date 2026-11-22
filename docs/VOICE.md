@@ -74,6 +74,12 @@ and add every new verdict here as an example pair. British spelling throughout.
 - The one place questions are allowed: 3 provocative, open questions that invite disagreement.
 - Specific and grounded in the talk, never generic ("What does this mean for us?").
 
+## Tile bullets (s-8, s-9, s-10; presenter, 22 Nov)
+
+- A tile body is 2–4 bullets, one fact or step each, short and concrete; keep every approved fact
+  (convert, don't cut: detail that won't fit goes to the note). Same accuracy and no-aphorism rules as
+  body text.
+
 ## Body text / subtext
 
 - Explain the mechanism plainly: cause → consequence, in full sentences.
