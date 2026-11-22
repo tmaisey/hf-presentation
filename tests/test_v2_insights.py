@@ -105,6 +105,20 @@ def test_titles_are_the_approved_storyboard_titles():
     assert helper_norm(S10_TITLES["pace"]) in helper_storyboard("s-10 · Pace")
 
 
+S9_HEADINGS = ["Behaviours reinforced in training re-emerged in evaluation",   # presenter, 22 Nov
+               "Penalising misaligned reasoning in training rewards concealing it",
+               "Opaque firings discourage transparency"]
+
+
+def test_s9_tile_headings_are_the_approved_findings():
+    """VOICE: one specific finding per heading; the presenter rejected two-clause, metaphor-led drafts."""
+    sec = helper_section("s-9")
+    got = [helper_norm(re.search(r"<h3>(.*?)</h3>", sec[sec.index(f'id="{t}"'):], re.S).group(1)) for t in TILES]
+    assert got == S9_HEADINGS
+    voice = helper_norm((ROOT / "docs" / "VOICE.md").read_text(encoding="utf-8"))
+    assert all(helper_norm(h) in voice for h in S9_HEADINGS), "approved headings are recorded in VOICE"
+
+
 def test_s9_is_a_backdrop_world_slide_with_one_tile_row_of_three_tiles():
     s9 = parse_slides()[-2]
     assert s9["attrs"].get("data-world") == "backdrop", "s-9 keeps the incident world as a backdrop, like s-8"
