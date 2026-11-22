@@ -144,7 +144,7 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
 | 5 | Storyboard v2 (~10 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | First draft built (10 slides), **rejected on quality** 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs reopened; draft markup is raw material. **Reusable:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
-| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); incident world + pop-overs built in situ (S-032); Training (S-020) built, awaiting presenter's verdict; Early evaluation next; narration tiles next | `design/prototypes/`, `docs/DESIGN.md` |
+| 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **In progress**: header bar prototyped, approved (P5, 21 Nov) and built (S-031); incident world + pop-overs built in situ (S-032); Training (S-020) built and reviewed (22 Nov); Early evaluation (S-021) designed with the presenter, captured in `STORYBOARD.md` s-4, **next to build**; narration tiles next | `design/prototypes/`, `docs/DESIGN.md` |
 
 ## Exclusions
 
@@ -155,6 +155,12 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 
 ## Decisions
 
+- **Scorer reveal stays on s-5 (presenter, 22 Nov):** the s-4 ExploitGym pop-over explains
+  capture-the-flag and unsolvable tasks only; "the scorer only checked the flag; nobody read the
+  agents' reasoning (no CoT monitoring running)" is revealed on s-5. There was no monitor that
+  failed: the scorer "did not review transcripts" and OpenAI's CoT monitor was not yet deployed.
+- **Humans are not drawn on the world (presenter, 22 Nov):** responders' actions (rebuilds, cut
+  access) show as state changes on the diagram; the timeline and voiceover say who acted.
 - **Incident-world diagrams are prototyped in situ** in `deck/deck-v2.html` (presenter, 21 Nov),
   one slide at a time, Training first; each step is judged by eye before the next slide starts.
   Pop-overs use real tasks: a possible one cheated (library answer copied → rewarded) and an

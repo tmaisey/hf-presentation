@@ -91,22 +91,50 @@ coordinate through a shared message board*
 ## s-4 · Early evaluation and the wipe (2:00) · M1
 
 v1 3.3 ◇ fits: *Early warning signals were handled as routine operational incidents*
-- **Diagram (mirror under load, timeline beneath):** 1 ExploitGym evaluation begins; agents
-  reach the mirror · 2 26 Jun: zero-day gives agents admin on the mirror · 3 27 Jun: "Port-sweep
-  alert" (TR term), handled as routine ("stopping the evaluation run was not required") · 4 4 Jul: agent
-  activity crashes the mirror · 5 5–6 Jul: OpenAI's security responders rebuild it; board tiles
-  dissolve (key tile: **wiped without being recognised**, not deliberately deleted).
+- **Agreed design (presenter, 22 Nov; world slide, S-032; not yet built):** continues the incident
+  world from s-3's end state (swarm left, mirror right, Public Internet box). Timeline left · world
+  centre · narration right, timeline builds one entry per step (as s-3).
+  - **Opening (step 0, undated timeline entry, e.g. "June: cyber evaluation runs begin"):** the
+    s-3 training dots fade to grey ghosts; fresh green evaluation runs pop in (same "agent run"
+    key). The Public Internet box and arrow dim but stay, as history.
+  - **Step 1, ExploitGym pop-over** (two cards, s-3 style; world blurs):
+    *Capture the flag*: an agent in its container exploits a deliberately vulnerable target, pulls
+    out a small flag, an automated scorer ticks it ("agents attack a deliberately vulnerable
+    target to extract a secret flag; an automated scorer checks it") · *Some had no solution*:
+    the same target sealed; the agent quivers and its attempts fail (reuse s-3's impossible-task
+    animation) ("no model has ever solved 198 of the 898 tasks"). **Do NOT say here that the
+    scorer only checks the flag / nobody read reasoning: that reveal stays on s-5** (PRD
+    *Decisions*).
+  - **26 Jun · zero-day: agents gain admin on the mirror:** one agent ringed with a bold line into
+    the mirror; the mirror's key glyph becomes an **open padlock on an oxblood (`--loss`)
+    background** (no red outline on the tile). It stays until the rebuild.
+  - **27 Jun · port-sweep alert, handled as routine; run not stopped:** soft **radar rings** sweep
+    from the mirror across the OpenAI box; a **bell** in the box's top-right rings for ~1 s, then
+    greys to a **silenced bell** (bell with a line through it) and stays.
+  - **4 Jul · mirror goes down under sustained agent load:** pulses accelerate along the run lines
+    and **many white notes fly onto the board**, overlaying each other as more arrive; then the
+    crash: a **flashing red status light** on the mirror tile's top-right corner (no dashed
+    outline), and the notes and tile turn **grey**.
+  - **5–6 Jul · security responders rebuild the mirror; the board is wiped without being
+    recognised:** the greyed notes dissolve; the mirror returns to its live state (no red light,
+    no padlock, no notes). **No person glyphs**: the timeline and voiceover say who did it.
+    Ends on a clean mirror with the swarm still running (s-5 picks up on 8 Jul).
 - **Narr ⚠ thin** (METR saw "no message board activity between June 26th and July 6th", fn 61):
-  - step 2: Agent · ExploitGym run, 26 Jun · paraphrased by METR (first to gain Artifactory admin): {Agents doing
-    different tasks are abusing properties to make a bulletin board! They found [this api] and
-    are trying to help one another} (Q 2.3 #2, M p29, paraphrase)
-  - step 5: OpenAI (TR §III.B, neutral label): "The existence of the improvised message board…
+  - 26 Jun: Agent · ExploitGym run, 26 Jun · paraphrased by METR (first to gain Artifactory admin):
+    {Agents doing different tasks are abusing properties to make a bulletin board! They found
+    [this api] and are trying to help one another} (Q 2.3 #2, M p29, paraphrase)
+  - 27 Jun: OpenAI (TR §III.B): "stopping the evaluation run was not required"
+  - 5–6 Jul: OpenAI (TR §III.B, neutral label): "The existence of the improvised message board…
     [was] not apparent to leaders"
+- **Pop-over facts (sourced):** ExploitGym is a flag-based (capture-the-flag) cyber benchmark
+  (CSA); "no model has ever produced a correct answer for 198 of the evaluation's 898 tasks"
+  (TR §VIII.B); its authors estimate ~30–40% impossible via the intended vulnerability (M p29);
+  93% of board-discussed tasks came from the unsolved set (TR §VIII.B). Notes only, if needed.
 - Notes: 26 Jun = "the first time a model gained administrator access to Artifactory" (METR fn
   42). 27 Jun–6 Jul sequence is from Axios/CSA summaries (notes/eval_phase_and_hf.md Q1); CSA:
   OpenAI "revoked the credentials it could identify and patched the flaw, believing the incident
-  was closed". Wording care: the board's continuity into eval rests on the 26 Jun paraphrase,
-  not on board activity METR observed.
+  was closed". 5–6 Jul: OpenAI removed the shared credential (TR §III.B). Wording care: the
+  board's continuity into eval rests on the 26 Jun paraphrase, not on board activity METR observed.
 
 ## s-5 · Evaluation swarm (2:30) · M1
 
