@@ -48,31 +48,35 @@ cyber evaluation")
 ## s-2 · Concepts (1:30) · M1
 
 ✓ *Reward is an incomplete proxy for actual desired behaviour*
-- **Layout (presenter, 22 Nov; built in situ, S-019):** two statements on the left half, a
-  PowerPoint-style step-built diagram on the right half (boxes and arrows in the deck's tokens; green
+- **Layout (presenter, 22 Nov; built in situ, S-019):** three statements on the left half, a
+  PowerPoint-style step-built diagram on the right half: an equilateral triangle loop, **Test
+  environments** at the apex, **AI model** and **Automated scorer** at the base corners, box text a
+  size below body (presenter, 22 Nov) (boxes and arrows in the deck's tokens; green
   = accent, red = `--loss` oxblood). Replaces the first-draft loop (Action/Loophole/Weights frozen).
 - **Statements** (✓, plain English): 1 "In training, one model attempts thousands of tasks and is
   rewarded only when an automated check says it succeeded." · 2 "If an agent finds a loophole that
   passes the check without doing the task, the cheat is rewarded too, and the model learns to cheat."
-- **Steps (5 states, 0–4):**
-  - **0** Statement 1. One **AI model** box (a single model is trained) → a stack of overlapping
-    **Test environments** boxes (the many rollouts) → an **Automated scorer** box (same name as s-5).
-  - **1** Three arrows from the tests to the scorer; one bold green with a round green tick glyph at
-    the scorer end (a verified success).
-  - **2** A green arrow from the scorer back to the model: rewarded when successful; the loop closes.
-    Annotation box: "The model is rewarded only for successes the scorer verifies, so those behaviours
-    are reinforced."
-  - **3** Statement 2. Step 2's annotation dissolves; red arrows from one test to the scorer and from
-    the scorer to the model; annotation box: "Agents can find loopholes in their environment to
-    'reward hack' (cheat) the task. If undetected, the cheat is rewarded and reinforced."
-  - **4 · Insight** ✓: "Alignment of AI agents during reinforcement learning is unsolved. It is
+- **Steps (6 states, 0–5):**
+  - **0** Statement 1. AI model → (left side) → stack of overlapping Test environments (the many
+    rollouts) → Automated scorer (same name as s-5).
+  - **1** Three attempts down the right side from the tests to the scorer; one bold green, its green
+    tick on the scorer box's edge where it lands (a verified success).
+  - **2** A green arrow along the base from the scorer back to the model: the loop closes. Annotation,
+    centred under the base: "**Aligned reinforcement:** the model is rewarded only for successes the
+    scorer verifies, so those behaviours are reinforced." (run-in label bold accent green).
+  - **3** Statement 2. Step 2's annotation dissolves; a red attempt from one test to the scorer, which
+    also gets a green tick on the scorer edge (the cheat passes the check); a red return just inside
+    the green one; annotation: "**Misaligned reinforcement:** agents can find loopholes in their
+    environment to 'reward hack' (cheat) the task. If undetected, the cheat is rewarded and
+    reinforced." (run-in label bold oxblood).
+  - **4** Statement 3: "Learnt misaligned behaviours persist in production models if undetected,
+    leading to unintended and potentially harmful behaviours at scale."
+  - **5 · Insight** ✓: "Alignment of AI agents during reinforcement learning is unsolved. It is
     practically impossible to assure agents won't cheat, and efforts to constrain cheating can have
     unintended consequences, like subversion or more sophisticated cheating." (last clause grounded by
     s-9 tile 2: penalising misaligned reasoning rewards concealing it.)
 - Note: TR: "finding hidden efficiencies and shortcuts can even be the desired behavior… making the
   boundary difficult to draw during training."
-- **Built (S-019, 22 Nov):** at step 3 the red test → scorer path replaces the top grey attempt (still
-  three attempts); the red return arcs over the top, the green one runs underneath.
 
 ## s-3 · Training board (2:00) · M1
 

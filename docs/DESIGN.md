@@ -140,7 +140,11 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   A more important object is **NEVER** occluded by a less important one. Tiles use a solid fill
   so converging lines vanish beneath them. [P4 layers](../design/prototypes/04-diagram-swarm.html#L96)
 - Arrows: `--ink-3`, ≥ 2px on screen, round caps; **gap** at both ends; arrowhead with concave
-  back, ≈6× the stroke (≥ 12px). [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
+  back, ≈6× the stroke (≥ 12px). **Arrowhead alignment (MUST; presenter, 22 Nov, after two
+  regressions):** the head's axis follows the line's end tangent and the midpoint of the head's base
+  sits on the line where the head meets it, never offset or skewed. A curved edge ends in a short
+  straight run along its final direction so the marker can't skew; a deck-wide test checks every
+  arrowhead. [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
 - **Key tiles** (the slide's most important object): accent-tinted fill + soft accent glow,
   text stays ink, still no border. A few per deck; at most one or two per diagram.
 - ~~Flagged tile~~ *retired* (unused since S-026 went text-led; CSS left in the deck). Context
@@ -275,8 +279,10 @@ pins for targets not on screen at that step hide (v1: always the last step).
 - Coloured edges (S-019, s-2): `.edge--ok` (accent) / `.edge--loss` (`--loss`), each with its own
   arrowhead marker (`#arr-ok` / `#arr-loss`, same shape as `#arr`); a verified success = the
   `.cred-badge.tick-badge` disc on the edge. A figure with annotations: `div.fig > svg.diagram +
-  div.fig-notes > p.annot[.annot--loss]` (callout on `--tile`, 4px accent or `--loss` left edge);
-  annotations swap by step in one shared cell. `.keep` = never break inside a phrase (embedded
+  div.fig-notes > p.annot` (plain card on `--tile` with the deck's lift shadow; **NEVER** a coloured
+  side bar or border stripe on any card: an AI-slide smell, presenter 22 Nov); an annotation may open
+  with a bold coloured run-in label (`strong.annot-lead`, `--accent-ink` or `--loss`); annotations
+  swap by step in one shared cell. `.keep` = never break inside a phrase (embedded
   fonts lack U+2011).
 - Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
   right-aligns), for a share-of-total split. *Unused* since S-023 moved s-6 onto the incident world
@@ -366,8 +372,10 @@ pins for targets not on screen at that step hide (v1: always the last step).
   where the activity entered; `g.act-stream[data-acts][data-along="#path"][data-dur=ms]` loops rings
   along a path (an entry edge) for sustained traffic, resting spread along it under reduced motion.
   A legend entry introduced later is a `span.world-key-item[data-world-at]` (optional
-  `data-world-until`) in the key, hidden on earlier world slides; the key wraps within the world
-  column and hidden entries keep their space, so its height (and the world) never changes between world slides: a run role gets one when it
+  `data-world-until`) in the key, hidden on earlier world slides; the key stays on **one row**
+  (presenter, 22 Nov): its text shrinks to fit the world column (below the diagram-text floor if it
+  must; labels are shortened only if the smaller text still won't fit); hidden entries keep their
+  space, so its height (and the world) never changes between world slides: a run role gets one when it
   first appears (s-5: research coordinator, sacrificed agent); keep labels short ("HF activity"). Moving dots, never marching dashes. The timeline
   builds: an entry shows at its step, never ahead; a dated entry's date (month in full) carries a quiet day count
   from day 0 (`+49 d`; PRD *Decisions*), derived from the date itself so it is never typed twice;
