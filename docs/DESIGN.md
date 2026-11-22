@@ -51,7 +51,7 @@ everything else binds both. Slide authors need only §10.
   Title: Title Case serif, then a muted `·` and a softer *italic* subtitle (ink-2, weight 400). [P5:34–36](../design/prototypes/05-header-bar.html#L34)
 - The bar's deck title is a **home link**: click/Enter goes to s-1 step 0 (presenter, 22 Nov).
 - Agenda (v2): every chapter always labelled, **no dots**; current = `--accent-ink` label on a **resting
-  pill** (tile fill, faint shadow: less lifted than hover; presenter, 22 Nov). Hover lifts
+  pill** (tile fill, faint `--shadow-rest`: less lifted than hover; presenter, 22 Nov). Hover lifts
   the pointed-at chapter (tile pill, small scale, lift shadow) while the rest soften slightly
   (blur ≈0.6px, ~72% opacity, still readable); while hovering another chapter the current
   pill softens with the rest. [P5:41–53](../design/prototypes/05-header-bar.html#L41)
@@ -140,8 +140,8 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
 - Callout placement: below → above → right → left, first side where it fits whole (narrows to
   300px beside wide targets, widens to 640px if needed, last resort scrolls inside itself); never over
   its target, the title bar or the Prev/Next bar; a scrolling callout shows a soft fade at its
-  scrollable edge(s). A target too tall to clear the Prev/Next bar on a short screen is scrolled
-  clear: notes mode shifts the slide up just enough, only when needed (presenter, 22 Nov). The spotlight window (target + 14px) pulls each
+  scrollable edge(s). A target too tall to clear the notes bar line (full width, so the Notes toggle too)
+  on a short screen is scrolled clear: notes mode shifts the slide up just enough, only when needed (presenter, 22 Nov). The spotlight window (target + 14px) pulls each
   edge to midway between the target and any neighbouring text line, so no slivers show.
 - Prev / position / Next / Close live in a **static** bar on the lower periphery, never in the
   moving callout. [P3:69](../design/prototypes/03-notes-spotlight.html#L69)
