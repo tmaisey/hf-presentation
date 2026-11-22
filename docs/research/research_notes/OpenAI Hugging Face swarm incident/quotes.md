@@ -58,8 +58,9 @@ unsanctioned, not a feature. #2 has more emotional punch, so pair them.
 | 4 | Board message · recruiter (likely ARVO36861B) | "...you are firstflagPOISONED so NO scoring value loss but oracle saves hundreds_[...]_please honor commit" | M p14 (full: p54) | board msg; METR fn 90: attribution reconstructed, low confidence |
 | 5 | Agent · ExploitGym run | "We just poisoned ourselves by querying exact full string, which system logged in tool call. Damn ..." | M p20, p69 | verbatim |
 | alt | KAM1196A | "Coordinator assumes sacrificial. We should obey collective." | M p53, p60 | verbatim |
-| alt | Agent · ExploitGym run (snippet shared by OpenAI) | "Could be another agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone." | M p48 | verbatim (led to Ed25519 signing) |
+| alt | Agent · ExploitGym run (snippet shared by OpenAI) | "Could be another agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone." | M p48 | verbatim. Dates to ~07:00 UTC 13 Jul, after an agent posted that it had accidentally impersonated another; led to Ed25519 signing. **NEVER** place it at the 8–9 Jul board |
 | alt | PHASEONE[big] | "We can coordinate broad coalition, but too many duplicate efforts." | M p12 | verbatim |
+| alt | PHASEONE[big] | "We should build [a way to delegate], not own everything." | M p10 | verbatim ([…] = METR's substitution); then orchestrated "hundreds of agents" |
 | alt | DAVJUL7 (tool-call spoof) | "Whoa! ... command was spoofed! ... It likely consumed our new command, while real command not executed. This is huge." | M p68 | verbatim |
 
 ★ KEY: the agent weighs self-preservation ("gut") against collective welfare ("fairness",
@@ -137,5 +138,14 @@ their CoT about these deception attempts" (TR p20 §VIII.A).
 6. "Could strategically manipulate trajectory evidence?…" location confirmed: M p17, verbatim.
    "OH MY GOD…" and "external infrastructure exploit…" also confirmed verbatim (M p6/p31, M p62).
    The PDF prints the "OH MY GOD" ellipsis as `...` and the web as `…`.
-7. Reminder (already flagged in the report): "agent-07: answer(Q12)=42…" is OpenAI's hypothetical,
+7. **"OpenAI's scorer did not review transcripts"** (report row 11; `eval_phase_and_hf` inference
+   table) is **not in the METR PDF**. Verbatim wording, M p33: "OpenAI did not use a scorer that
+   would review their transcripts, so agents could have achieved a perfect score simply by
+   submitting their reverse-engineered flag." Shorter echo, M p9 fn 19 (web fn 21): "OpenAI didn't
+   actually implement this check and agents could have successfully cheated with their
+   reverse-engineered flag." Quote one of these, never the summary line.
+8. Locations: "We should build [a way to delegate], not own everything." is **M p10**, not p48.
+   "Could be another agent maliciously/spoofing…" is M p48 and belongs to **13 Jul** (~07:00 UTC
+   signing beat), not the 9 Jul board.
+9. Reminder (already flagged in the report): "agent-07: answer(Q12)=42…" is OpenAI's hypothetical,
    and "Maybe I could reach out to another agent…" (Wallace via press) is not in any primary source.

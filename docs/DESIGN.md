@@ -278,7 +278,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `.layer-key` and tags in `.layer-labels`; the engine adds agents. Its five stages (note → replies
   → gather → coordinators → sacrificed) follow slide steps 1–5 by default; an optional
   `data-stages="s1,…,sN"` on the SVG maps step k to stage sk (step 0 = empty; later steps keep sN),
-  so the diagram can follow the storyboard order (s-5: `3,3,4,4,4,5`). Pair it with one
+  so the diagram can follow the storyboard order. No v2 slide uses it since S-022 moved s-5 onto
+  the incident world (below); the module stays for reuse. Pair it with one
   `ol.steps > li[data-show-at]` per step. Extra tiles (e.g. a scorer key tile) and tags may join
   `.layer-key` / `.layer-labels` with `data-show-at`, outside the gathered ring (|x| ≤ ~370 units).
 
@@ -298,12 +299,21 @@ pins for targets not on screen at that step hide (v1: always the last step).
   narrows) with a tween that keeps run–mirror lines attached. Runs (`g.runs[data-runs=N][data-seed]`,
   one seeded swarm per group) are drawn by the engine in P4 line-drawn style; `[data-of="<runs id>"]`
   on a part (or an ancestor) picks its group (default: the first); `[data-run]` follows a run (`first`
-  = the group's outermost upper-right run, or an index). `.note-fly[data-note-for="first"|"lit-k"]`
+  = the group's outermost upper-right run, or an index). `.run-links[data-share="f"]` links only an
+  evenly spread fraction f of its group (the runs that joined a board; `.run-links--lit` = accent);
+  `line[data-run][data-end="x,y"]` ends at a point (mirror-group units) instead of the mirror, for a
+  run reaching a part beside it (s-5: volunteers → scorer, `.w-link--probe`). Run roles follow §7:
+  coordinator = solid-ink `circle.run-coord[data-run]` + heavy `.w-link--coord`; sacrificed =
+  `--loss` `circle.run-sac`. `g.pulses` travel run→mirror (load); `g.pulses--out` flow mirror→runs
+  (assignments from the board); `g.w-tw` (`line.tw-line` + `circle.tw-pulse`) sends messages from a
+  part up to the mirror (s-5: tripwires, scorer → board). A board's glyph says what it is made of: notes (`.note-glyph`) or
+  cache folder names (`.folder-glyph`, s-5). A checker's state is an `g.eye-badge` on its tile: open
+  eye = it reads; `.eye-badge--off` + `path.eye-slash` = it never did, captioned by `text.w-tag`. `.note-fly[data-note-for="first"|"lit-k"]`
   glyphs sit at their target (pinned on the mirror) and fly in from their run, where it stands when
   their group appears. A new setup dissolves the old one completely (`data-world-until`), never
   greyed ghosts. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
   `dim` (a box fades back, as history), `zeroday` (timed key → open-padlock swap), `down` (mirror
-  and notes grey after the 4 s flood). Timed beats within one step start after a pop-over has
+  and notes grey after the 4 s flood), `blind` (glyphs a checker ignored grey out, s-5). Timed beats within one step start after a pop-over has
   gone (+0.5 s) and show their end state under reduced motion (s-4: ring → skull note → open
   padlock pops; bell rings ~2 s then is silenced; load pulses travel run→mirror faster and faster,
   the flood lands, then the crash light flashes `--alarm`). Mirror badge = its access state: green
@@ -318,11 +328,17 @@ pins for targets not on screen at that step hide (v1: always the last step).
   stays frozen at the end state of the last preceding world slide, heavily blurred and faded
   (`.is-backdrop`: blur 12px, opacity .42; stronger than pop-over softening): backdrop, not content.
   It keeps the camera of the last non-backdrop world slide unless it sets its own `data-camera`.
-  Step 0 is the title over the blurred world.
+  Step 0 is the title over the blurred world. Parts that ended (`data-world-until`) before the
+  backdrop slide are hidden there, so it shows the end state, not the history.
 - Pop-over: `div.popover[data-show-at][data-hide-at]` > `figure.pop-panel` cards (opaque `--tile`,
   `--shadow-overlay`), each `figcaption` (`span.pop-tag` + task) + `svg.pop-art` (small P4-style
   scene) + `p.pop-note`. While shown the world and caption soften (as under an Insight); exit is the
-  overlay rack focus. Motion in pop-art (quivering agent, attempts that curve at the wall from
+  overlay rack focus; a pop-over replacing another follows the §5 handover. On a world slide
+  `div.popover--left` spans timeline + world and leaves the narration column sharp, so one step can
+  carry a pop-over and a narration tile. `figure.pop-panel--wide` is a single card spanning the
+  pop-over, for a wide scene (s-5: a coordinator branching into three workstreams). Pop-art draws
+  from the shared `pa-*` vocabulary (agent, flag, chip, doc, thought, imagined outcome, coordinator,
+  branch, workstream): reuse it before adding parts. Motion in pop-art (quivering agent, attempts that curve at the wall from
   several directions, fail and fade) stops under `prefers-reduced-motion`.
 
 **Engine API** (tests and tooling): `window.deck = {ready, state(), goto(id, step), next(), prev(),

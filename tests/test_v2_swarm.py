@@ -38,7 +38,7 @@ RUN = "Agent · ExploitGym run"
 # timeline: (id, step, numbered?, text fragment)
 TIMELINE = [("s5-t1", 0, True, "8 Jul"), ("s5-t1a", 1, False, "1,200"), ("s5-t1b", 2, False, "4 hours"),
             ("s5-t1c", 3, False, "poisoned"), ("s5-t2", 4, True, "9 Jul"), ("s5-t2a", 5, False, "Coordinators"),
-            ("s5-t2b", 6, False, "scorer"), ("s5-t2c", 7, False, "sacrifice"), ("s5-t3", 8, True, "Aug")]
+            ("s5-t2b", 6, False, "scorer"), ("s5-t2c", 7, False, "sacrifice"), ("s5-t3", 8, True, "26 Aug")]
 # world parts at full opacity on s-5, carried from s-4's end state
 CARRIED = {"w-oai", "w-mirror", "w-eval", "w-eval-links", "w-secure", "w-bell"}
 S4_TRANSIENTS = ("#w-lock", "#w-flood", "#w-exploit", "#w-down", "#w-cred", "#w-admin", "#w-load")
@@ -126,6 +126,9 @@ def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
     assert "50" in got[1][3] and re.search(r"each lit dot .*agents", got[1][3], re.I), "illustrative scale stated"
     assert "cheat" in got[2][3] and "research programme" in got[4][3] and "legitimate" in got[4][3]
     assert "never read transcripts" in got[8][3]
+    # The sources date only the report (METR, 26 Aug 2026), not when investigators learned it
+    # (on site 29 Jul–16 Aug): the entry credits the report and never claims a finding date.
+    assert "METR" in got[8][3] and "report" in got[8][3] and not re.search(r"\bfind", got[8][3], re.I)
 
 
 def test_popovers_show_the_cheat_the_poisoned_belief_and_three_workstreams():
