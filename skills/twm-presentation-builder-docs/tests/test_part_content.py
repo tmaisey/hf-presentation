@@ -16,7 +16,7 @@ PART = "content/STORYBOARD.md"
 
 
 def _template() -> str:
-    blocks = fenced_blocks(section(read_part(PART), r"template"))
+    blocks = fenced_blocks(section(read_part(PART), r"^template$"))
     assert blocks, "a '## Template' section holds the fill-in template in a fenced block"
     return "\n".join(blocks)
 

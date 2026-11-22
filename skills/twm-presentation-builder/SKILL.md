@@ -31,4 +31,19 @@ both are binding, not advice.
 PRD (intent) → interview → research (with consent) → storyboard → prototype or in-situ choice →
 spec → TDD → assembled-screenshot look → done. Optional afterwards: PPTX hand-off, eval.
 
-Parts are linked below as they land; each says when to read it.
+## Parts
+
+Read a part only when its line applies. Parts never link each other; every part is linked here.
+
+- [content/STORYBOARD.md](content/STORYBOARD.md): storyboard method (message codes, chapters,
+  timings, title approval marks) and fill-in template. Read before planning, reordering or
+  building any slide.
+- [research/RESEARCH.md](research/RESEARCH.md): sourcing, citation, flagging and verbatim-quote
+  rules, plus index and note templates. Read before researching (ask first), before writing any
+  factual copy, and before putting a quote on a slide.
+- [voice/VOICE.md](voice/VOICE.md): how a voice profile is picked, applied and extended with
+  verdicts. Read before writing or editing any slide copy, Insight, tile or note.
+- [voice/profiles/twm.md](voice/profiles/twm.md): the presenter twm's voice profile (rules +
+  approved/rejected pairs). Read after `voice/VOICE.md` when twm is the presenter.
+
+More parts are linked here as they land.

@@ -118,7 +118,8 @@ def read_part(rel: str) -> str:
 def section(text: str, heading_re: str) -> str:
     """Return the body under the first markdown heading matching a pattern.
 
-    The body runs to the next heading of the same or a higher level.
+    The body runs to the next heading of the same or a higher level. Lines inside fenced code
+    blocks are never headings, so a template's own ``#`` lines stay in its section.
 
     Args:
         text: Markdown text.
@@ -127,16 +128,22 @@ def section(text: str, heading_re: str) -> str:
     Returns:
         The section body, or ``""`` when no heading matches.
     """
-    lines = text.splitlines()
+    lines, fenced, in_fence = text.splitlines(), [], False
+    for line in lines:
+        if line.startswith("```"):
+            in_fence = not in_fence
+            fenced.append(True)
+        else:
+            fenced.append(in_fence)
     for i, line in enumerate(lines):
-        m = re.match(r"^(#+)\s+(.*)$", line)
+        m = None if fenced[i] else re.match(r"^(#+)\s+(.*)$", line)
         if m and re.search(heading_re, m.group(2), re.I):
             level, body = len(m.group(1)), []
-            for nxt in lines[i + 1:]:
-                h = re.match(r"^(#+)\s", nxt)
+            for j in range(i + 1, len(lines)):
+                h = None if fenced[j] else re.match(r"^(#+)\s", lines[j])
                 if h and len(h.group(1)) <= level:
                     break
-                body.append(nxt)
+                body.append(lines[j])
             return "\n".join(body)
     return ""
 
