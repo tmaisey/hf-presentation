@@ -16,7 +16,7 @@ from helper_deck import open_deck, parse_slides, slides_source
 pytestmark = pytest.mark.deck("v2")
 
 SID = "s-1"
-TITLE = "OpenAI’s agents breaching Hugging Face was a clear public example of AI misalignment risks"
+TITLE = "OpenAI breaching Hugging Face was a public example of AI misalignment"
 SUB = "Flawed AI capability development methods led to autonomous cyber-attacks during routine testing"
 OLD = ["OpenAI’s agent swarm breached Hugging Face", "What happened, why, and what it means for AI safety"]
 
