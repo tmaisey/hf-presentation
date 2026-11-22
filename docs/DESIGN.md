@@ -163,6 +163,8 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   **surrounding** text colour; **NEVER** blue. [P3:66](../design/prototypes/03-notes-spotlight.html#L66)
 - Open in a new tab (`rel="noopener"`): the engine sets this on every slide link, so markup never
   repeats it. [P3 `focus()`](../design/prototypes/03-notes-spotlight.html#L146)
+- The same style holds for every `p.cite` link in any slide body (tiles, tables, quotes), not just
+  in notes: one shared rule, never per slide.
 
 ## 9 · Teams-share constraints
 
@@ -192,7 +194,10 @@ vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64
 its blocks with even spacing) · `div.body.body--split.body--flip` (64 / 36: wide content left, quotes
 right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
 `div.body.body--layers` (children share one grid cell and swap by step via `data-show-at` /
-`data-hide-at`: build phases that can't fit together, e.g. s-10 pace → controls → prompts) ·
+`data-hide-at`: build phases that can't fit together, e.g. s-10 pace → controls → prompts; a phase
+of several blocks is one wrapper `div[data-show-at][data-hide-at]`, e.g. table + `blockquote` +
+`p.cite`; a quote under a table keeps clear of its last rule, and on short screens table rows
+tighten so a phase fits under its title) ·
 `div.body.body--tiles` (tile row, S-026; s-8, s-9; built in situ: 2–4 equal-width, equal-height
 frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading +
 `p` lines (2–3 short) + optional `blockquote` + `p.cite` (report voice; italic, CSS quote marks)
