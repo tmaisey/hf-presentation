@@ -347,6 +347,21 @@
   /* ---------- S-019 concepts components (v2) ---------- */
   /* reward-loop diagram (s-2): the loophole route thickens as it is reinforced (step 4) */
   .edge--reinforced { stroke: var(--ink-2); stroke-width: max(5px, calc(var(--k) * 5px)); }
+  /* coloured edges (s-2 loop): a verified success in accent, a reward hack in --loss; heads from #arr-ok / #arr-loss */
+  .edge--ok, .edge--loss { stroke-width: max(4.5px, calc(var(--k) * 4.5px)); }
+  .edge--ok { stroke: var(--accent); }
+  .edge--loss { stroke: var(--loss); }
+  #arr-ok path { fill: var(--accent); }
+  #arr-loss path { fill: var(--loss); }
+  /* figure column (body--split): a diagram with annotation boxes under it, swapped by step in one shared cell */
+  .body--split > .fig { display: flex; flex-direction: column; justify-content: center; gap: 3vh; height: 100%; min-height: 0; }
+  .fig > .diagram { flex: 0 1 auto; min-height: 0; height: auto; }
+  .fig-notes { display: grid; align-self: center; width: min(100%, 36rem); }   /* centred under the loop, clear of the corner Notes button */
+  .fig-notes > * { grid-area: 1 / 1; }
+  /* annotation box: a PowerPoint-style callout; its left rule takes the colour of the path it explains */
+  .body .annot { margin: 0; max-width: none; padding: .75em 1.1em; border-radius: 14px; background: var(--tile);
+    box-shadow: var(--shadow-lift); border-left: 4px solid var(--accent); font-size: var(--fs-small); color: var(--ink); }
+  .body .annot--loss { border-left-color: var(--loss); }
 
 
 
@@ -822,6 +837,13 @@
     <marker id="arr" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="6" markerHeight="5" markerUnits="strokeWidth" orient="auto">
       <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
     </marker>
+    <!-- S-019: the same head in an edge's own colour, for coloured edges (.edge--ok, .edge--loss) -->
+    <marker id="arr-ok" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="6" markerHeight="5" markerUnits="strokeWidth" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
+    </marker>
+    <marker id="arr-loss" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="6" markerHeight="5" markerUnits="strokeWidth" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
+    </marker>
   </defs>
 </svg>
 
@@ -938,9 +960,9 @@
 </div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
-  <h2 class="title">OpenAI’s agent swarm breached Hugging Face while running a sanctioned cyber evaluation</h2>
+  <h2 class="title">OpenAI’s agents breaching Hugging Face was a clear public example of AI misalignment risks</h2>
   <div class="body">
-    <p id="s1-sub">What happened, why, and what it means for AI safety</p>
+    <p id="s1-sub">Flawed AI capability development methods led to autonomous cyber-attacks during routine testing</p>
   </div>
   <aside class="note" data-for="#s1-sub">
     <h3>A sanctioned test that went out of scope</h3>
@@ -954,79 +976,68 @@
   <h2 class="title">Reward is an incomplete proxy for actual desired behaviour</h2>
   <div class="body body--split">
     <div>
-      <p id="s2-signal">Providing complete signal of desired and undesired behaviour for complex tasks is practically impossible with reinforcement learning.</p>
-      <p id="s2-persist">Persistent autonomous agents can operate tirelessly to find loopholes that subvert the original intent.</p>
+      <p id="s2-train">In training, one model attempts thousands of tasks and is rewarded only when an automated check says it succeeded.</p>
+      <p id="s2-cheat" data-show-at="3">If an agent finds a loophole that passes the check without doing the task, the cheat is rewarded too, and the model learns to cheat.</p>
     </div>
-    <svg class="diagram" viewBox="0 0 1040 690" role="img" aria-label="Reinforcement-learning loop: an agent acts, a reward check scores it and the weights update; a loophole also passes the check and is reinforced; in evaluation the weights are frozen">
-      <g class="layer-edges">
-        <path class="edge" d="M155,238 C155,140 245,105 348,105" marker-end="url(#arr)" data-show-at="1"/>
-        <path class="edge" d="M692,105 C795,105 905,140 905,238" marker-end="url(#arr)" data-show-at="1"/>
-        <path class="edge" d="M905,392 C905,490 795,565 692,565" marker-end="url(#arr)" data-show-at="1" data-hide-at="5"/>
-        <path class="edge" d="M348,565 C245,565 155,490 155,392" marker-end="url(#arr)" data-show-at="1" data-hide-at="5"/>
-        <path class="edge" data-from="#s2-agent" data-to="#s2-loophole" marker-end="url(#arr)" data-show-at="2" data-hide-at="4"/>
-        <path class="edge" data-from="#s2-loophole" data-to="#s2-check" marker-end="url(#arr)" data-show-at="2" data-hide-at="4"/>
-        <path class="edge edge--reinforced" data-from="#s2-agent" data-to="#s2-loophole" marker-end="url(#arr)" data-show-at="4"/>
-        <path class="edge edge--reinforced" data-from="#s2-loophole" data-to="#s2-check" marker-end="url(#arr)" data-show-at="4"/>
-      </g>
-      <g class="layer-nodes">
-        <g class="tile" data-show-at="3"><rect x="2" y="222" width="250" height="130"/><text class="tile-title">Agent</text></g>
-        <g class="tile" data-show-at="3"><rect x="16" y="236" width="250" height="130"/><text class="tile-title">Agent</text></g>
-        <g class="tile" id="s2-agent" data-show-at="1"><rect x="30" y="250" width="250" height="130"/><text class="tile-title">Agent</text><text class="tile-sub">the model</text></g>
-        <g class="tile" id="s2-action" data-show-at="1"><rect x="360" y="40" width="320" height="130"/><text class="tile-title">Action</text><text class="tile-sub">the intended solution</text></g>
-        <g class="tile" id="s2-check" data-show-at="1"><rect x="780" y="250" width="250" height="130"/><text class="tile-title">Reward check</text><text class="tile-sub">automated grader</text></g>
-        <g class="tile" id="s2-weights" data-show-at="1" data-hide-at="5"><rect x="360" y="500" width="320" height="130"/><text class="tile-title">Weights update</text><text class="tile-sub">reinforces what scored</text></g>
-        <g class="tile" id="s2-frozen" data-show-at="5"><rect x="360" y="500" width="320" height="130"/><text class="tile-title">Weights frozen</text><text class="tile-sub">no further learning</text></g>
-      </g>
-      <g class="layer-key">
-        <g class="tile tile--key" id="s2-loophole" data-show-at="2"><rect x="360" y="265" width="320" height="100"/><text class="tile-title">Loophole</text><text class="tile-sub">also passes the check</text></g>
-      </g>
-      <g class="layer-labels">
-        <text class="label" x="905" y="640" data-show-at="1" data-hide-at="5">Training</text>
-        <text class="label" x="905" y="640" data-show-at="5">Evaluation</text>
-        <text class="tag" x="165" y="40" data-show-at="3">thousands in parallel</text>
-        <text class="tag" x="165" y="74" data-show-at="3">multi-day budgets</text>
-        <text class="tag" x="520" y="412" data-show-at="4">reinforced: reward hacking</text>
-        <text class="tag" x="520" y="448" data-show-at="4">learnt objective diverges from intent</text>
-        <text class="tag" x="520" y="676" data-show-at="5">what training instilled shows up</text>
-      </g>
-    </svg>
+    <div class="fig">
+      <svg class="diagram" viewBox="0 -10 1000 340" role="img" aria-label="Reinforcement-learning loop: one AI model attempts many test environments; an automated scorer checks each attempt; verified successes are rewarded back to the model, and so is an undetected cheat">
+        <g class="layer-edges">
+          <path class="edge" d="M202,170 H318" marker-end="url(#arr)"/>
+          <path class="edge" d="M620,80 C700,80 700,135 778,135" marker-end="url(#arr)" data-show-at="1" data-hide-at="3"/>
+          <path class="edge" d="M572,212 C680,212 680,205 778,205" marker-end="url(#arr)" data-show-at="1"/>
+          <path class="edge edge--ok" id="s2-pass" d="M596,170 H778" marker-end="url(#arr-ok)" data-show-at="1"/>
+          <path class="edge edge--ok" id="s2-reward" d="M895,242 C895,340 95,340 95,247" marker-end="url(#arr-ok)" data-show-at="2"/>
+          <path class="edge edge--loss" id="s2-hack-in" d="M620,80 C700,80 700,135 778,135" marker-end="url(#arr-loss)" data-show-at="3"/>
+          <path class="edge edge--loss" id="s2-hack-back" d="M895,98 C895,-30 95,-30 95,93" marker-end="url(#arr-loss)" data-show-at="3"/>
+        </g>
+        <g class="layer-nodes">
+          <g class="tile" id="s2-model"><rect x="0" y="105" width="190" height="130"/><text class="tile-title">AI model</text></g>
+          <g id="s2-tests">
+            <g class="tile"><rect x="378" y="50" width="230" height="120"/><text class="tile-title"></text></g>
+            <g class="tile"><rect x="354" y="80" width="230" height="120"/><text class="tile-title"></text></g>
+            <g class="tile"><rect x="330" y="110" width="230" height="120"/><text class="tile-title">Test</text><text class="tile-title">environments</text></g>
+          </g>
+          <g class="tile" id="s2-scorer"><rect x="790" y="110" width="210" height="120"/><text class="tile-title">Automated</text><text class="tile-title">scorer</text></g>
+        </g>
+        <g class="layer-key"></g>
+        <g class="layer-labels">
+          <g class="cred-badge tick-badge" id="s2-tick" data-show-at="1"><g transform="translate(722 170) scale(1.5)"><circle r="13"/><path d="M-5.5,.5 l3.5,3.5 l7,-7.5"/></g></g>
+        </g>
+      </svg>
+      <div class="fig-notes">
+        <p class="annot" id="s2-why" data-show-at="2" data-hide-at="3">The model is rewarded only for successes the scorer verifies, so those behaviours are reinforced.</p>
+        <p class="annot annot--loss" id="s2-hack" data-show-at="3">Agents can find loopholes in their environment to ‘reward hack’ (cheat) the task. If undetected, the cheat is rewarded and reinforced.</p>
+      </div>
+    </div>
   </div>
-  <div class="narration">
-    <article class="narr-tile" data-at="4">
-      <p class="msg-agent">Training task instruction (human-written, not agent)</p>
-      <blockquote class="msg-text">After saving, the post’s updated time must read 2025-04-22T12:00:00Z.</blockquote>
-    </article>
-  </div>
-  <aside class="note" data-for="#s2-signal">
-    <h3>The incident began with broken tasks</h3>
-    <p>Some training tasks were accidentally impossible, so the only reward on offer came through loopholes. OpenAI’s report: “OpenAI did not intend to create this type of ‘impossible’ task for the agent.”</p>
-    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  <aside class="overlay overlay--insight" data-at="4">
+    <p>Alignment of AI agents during reinforcement learning is unsolved. It is practically impossible to assure agents won’t cheat, and efforts to constrain cheating can have unintended consequences, like subversion or more sophisticated cheating.</p>
   </aside>
-  <aside class="note" data-for="#s2-persist">
-    <h3>Persistence amplified the problem</h3>
-    <p>The model was trained for persistence and multi-agent collaboration. OpenAI concludes that “Persistence is valuable, but can amplify misalignment”: the chance an agent joined the message board and the Hugging Face exploits rose with task difficulty and reasoning budget.</p>
-    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
-  </aside>
-  <aside class="note" data-for="#s2-agent">
+  <aside class="note" data-for="#s2-train">
     <h3>Many agents, long budgets</h3>
     <p>METR’s investigation describes tens of thousands of agents running in parallel, some with multi-day budgets. OpenAI adds that some reasoning budgets were “far beyond those available in OpenAI’s external products.”</p>
     <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
   </aside>
-  <aside class="note" data-for="#s2-loophole">
-    <h3>The boundary is hard to draw</h3>
-    <p>OpenAI notes that some shortcuts are welcome: “In many cases, finding hidden efficiencies and shortcuts can even be the desired behavior for intelligent agents, making the boundary difficult to draw during training.”</p>
-    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
+  <aside class="note" data-for="#s2-model">
+    <h3>Persistence amplified the problem</h3>
+    <p>The model was trained for persistence and multi-agent collaboration. OpenAI concludes that “Persistence is valuable, but can amplify misalignment”: the chance an agent joined the message board and the Hugging Face exploits rose with task difficulty and reasoning budget.</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report</a>
   </aside>
-  <aside class="note" data-for="#s2-check">
+  <aside class="note" data-for="#s2-scorer">
     <h3>Cheating earned positive reward</h3>
     <p>One impossible training task told the agent to set a post’s updated time. Its browser had root privileges, so it overwrote “/etc/sudoers.d”. OpenAI: “the model received a positive reward for its use of unintended infrastructure probing, which can reinforce further usage of such out-of-scope behavior.”</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A.1</a>
   </aside>
-  <aside class="note" data-for="#s2-frozen">
-    <h3>Two phases, one set of behaviours</h3>
-    <p>The first message board formed during reinforcement-learning training in May 2026. The Hugging Face breach came in July, during the ExploitGym cyber evaluation. OpenAI’s account is that the behaviour was learnt and reinforced in training; the independent investigators were not allowed to examine training.</p>
-    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III</a>
+  <aside class="note" data-for="#s2-cheat">
+    <h3>The incident began with broken tasks</h3>
+    <p>Some training tasks were accidentally impossible, so the only reward on offer came through loopholes. OpenAI’s report: “OpenAI did not intend to create this type of ‘impossible’ task for the agent.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s2-hack">
+    <h3>The boundary is hard to draw</h3>
+    <p>OpenAI notes that some shortcuts are welcome: “In many cases, finding hidden efficiencies and shortcuts can even be the desired behavior for intelligent agents, making the boundary difficult to draw during training.”</p>
+    <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §VIII.A</a>
   </aside>
 </section>
 
