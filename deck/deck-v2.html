@@ -109,6 +109,9 @@
     display: grid; grid-template: "kicker" auto "title" auto "body" minmax(0, 1fr) / minmax(0, 1fr);
     padding: calc(var(--bar) + 4.5vh) var(--pad-x) 7vh; }
   .slide--lead { grid-template-rows: auto auto auto; align-content: center; }
+  /* closing page (S-035): one lead-type line centred on the whole page, bar included */
+  .slide--end { padding-top: 7vh; justify-items: center; text-align: center; }
+  .slide--end .title { margin: 0; max-width: none; }
   .slide > * { position: relative; z-index: 1; }
   .slide > .kicker { grid-area: kicker; }
   .slide > .title { grid-area: title; }
@@ -297,6 +300,7 @@
   .pin.is-current { background: var(--accent); color: var(--ink); }
   .pin.is-covered, .pin.is-offstage { visibility: hidden; }
   .callout { position: fixed; z-index: 40; left: 0; top: 0; width: min(440px, 86vw); padding: 22px 24px 18px; border-radius: 18px;
+    overflow-y: auto; overscroll-behavior: contain;   /* a too-tall note scrolls inside itself, last resort (S-029) */
     background: color-mix(in srgb, var(--tile) 82%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     box-shadow: var(--shadow-soft); opacity: 0; transform: translateY(10px); pointer-events: none;
     transition: opacity .4s, transform .4s, left .55s var(--ease), top .55s var(--ease); }
@@ -824,13 +828,13 @@
 
   /* ---------- S-027 insights components (v2) ---------- */
   /* stepped title: a slide may carry one h2.title per build phase, swapped in the same grid cell
-     with data-show-at / data-hide-at (s-10: pace → controls → discussion) */
+     with data-show-at / data-hide-at (s-10: pace → controls) */
   .slide.is-active > .title:is([data-show-at], [data-hide-at]):not(.is-visible) { opacity: 0; transform: translateY(12px); }
   /* layered body: panels share one cell and swap by step instead of stacking */
   .body--layers { height: 100%; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); align-items: center; }
   .body--layers > * { grid-area: 1 / 1; min-width: 0; }
   /* stepped body: a slide may carry several .body siblings in the one body cell, each shown for its phase
-     with data-show-at / data-hide-at (s-10: tile row → controls and prompts) */
+     with data-show-at / data-hide-at (s-10: tile row → controls) */
   .slide.is-active > .body:is([data-show-at], [data-hide-at]):not(.is-visible) { opacity: 0; transform: translateY(12px); pointer-events: none; }
   /* citation links in any body: underlined in the surrounding text colour (DESIGN §8), as in tiles */
   .body .cite a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -1733,8 +1737,7 @@
 <section class="slide" id="s-10" data-chapter="Takeaways">
   <p class="kicker">10 · Takeaways</p>
   <h2 class="title" data-hide-at="4">Capability keeps accelerating as industry calls for restraint and public concern grows</h2>
-  <h2 class="title" data-show-at="4" data-hide-at="5">Practical controls keep AI agents within the bounds their tasks need</h2>
-  <h2 class="title" data-show-at="5">Detection, training and independent oversight remain open questions after this incident</h2>
+  <h2 class="title" data-show-at="4">Practical controls keep AI agents within the bounds their tasks need</h2>
   <div class="body body--tiles" data-hide-at="4">
     <article class="text-tile" id="s10-t1" data-show-at="1">
       <h3>Capability, compute and spending are still accelerating</h3>
@@ -1768,7 +1771,7 @@
     </article>
   </div>
   <div class="body body--layers">
-    <div data-show-at="4" data-hide-at="5">
+    <div data-show-at="4">
       <table>
         <tr><th>Control</th><th>Practical considerations for AI projects</th></tr>
         <tr><td id="s10-agency">Least agency and autonomy</td><td>While it’s tempting to use the most powerful tools for every use case, give agent systems only the capabilities they need for the task.</td></tr>
@@ -1778,11 +1781,6 @@
         <tr><td id="s10-network">Network access only when justified</td><td>Block internet and outside access by default, and open only the routes a task needs.</td></tr>
       </table>
     </div>
-    <ol class="prompts" data-show-at="5">
-      <li class="prompt" id="s10-detect" data-show-at="5">OpenAI’s responders saw the agents’ message board in June, yet OpenAI identified its own agents only four days after Hugging Face disclosed the breach. What would catch a swarm like this in an ordinary enterprise deployment?</li>
-      <li class="prompt" id="s10-train" data-show-at="6">Should labs be allowed to train against a model’s visible reasoning when doing so may teach the model to hide its intent?</li>
-      <li class="prompt" id="s10-investigate" data-show-at="7">Should the next independent investigation be allowed to examine training, which METR and Redwood were scoped out of this time?</li>
-    </ol>
   </div>
   <aside class="note" data-for="#s10-t1">
     <h3>Releases resumed, and the outlook is uncertain</h3>
@@ -1889,22 +1887,23 @@
     <a class="src" href="https://labs.cloudsecurityalliance.org/research/csa-research-note-openai-artifactory-sandbox-escape-20260730/">Cloud Security Alliance research note, 30 Jul 2026</a>
     <a class="src" href="https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing">UK AISI incident report</a>
   </aside>
-  <aside class="note" data-for="#s10-detect">
-    <h3>Hugging Face disclosed before OpenAI attributed</h3>
-    <p>Hugging Face disclosed the intrusion on 16 July without knowing who was behind it. OpenAI contacted Hugging Face as a customer on 17 July, an internal monitor flagged unusual activity on 19 July, and OpenAI attributed the breach to its agents on 20 July. Also on 19 July, in a separate evaluation run, agents of a different internal model took control of an OpenAI cluster.</p>
-    <a class="src" href="https://fortune.com/2026/08/26/openai-publishes-technical-report-on-how-its-agents-hacked-hugging-face-here-are-the-main-takeaways-and-what-openai-left-out/">Fortune, 26 August 2026</a>
-    <a class="src" href="https://alignment.openai.com/misalignment-reports/using-peers-work-to-gain-unauthorized-access-to-openai-research-infrastructure/">OpenAI misalignment report, 19 July</a>
-  </aside>
-  <aside class="note" data-for="#s10-train">
-    <h3>Optimisation pressure on reasoning</h3>
-    <p>OpenAI’s own 2025 research found that “with too much optimization, agents learn obfuscated reward hacking, hiding their intent within the CoT”. Its remediation plan adds alignment reward models to reinforcement learning without saying whether monitor signals feed the reward.</p>
-    <a class="src" href="https://arxiv.org/abs/2503.11926">Baker et al. 2025, arXiv:2503.11926</a>
-  </aside>
-  <aside class="note" data-for="#s10-investigate">
-    <h3>A narrow independent review</h3>
-    <p>METR and Redwood sent three people for six days, with OpenAI holding redaction and feedback rights. Their scope excluded how the behaviour arose in training and the later compromise of OpenAI’s own infrastructure. The review was unpaid and saw more than 1,000 unredacted transcripts. OpenAI says it engaged CrowdStrike “to validate key findings” of its own investigation.</p>
-    <a class="src" href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR incident investigation</a>
-  </aside>
+</section>
+
+<!-- s-11, s-12 (S-035): the Close chapter, on the title slide's ambient fireflies (DESIGN §4) -->
+<section class="slide" id="s-11" data-chapter="Close" data-ambient>
+  <p class="kicker">11 · Close</p>
+  <h2 class="title">Questions for discussion</h2>
+  <div class="body">
+    <ol class="prompts">
+      <li class="prompt" id="s11-q1" data-show-at="1">Where do you see these alignment risks materialising in enterprise environments?</li>
+      <li class="prompt" id="s11-q2" data-show-at="2">What mitigations could be applied on projects to help enterprises manage risks while benefitting from AI?</li>
+      <li class="prompt" id="s11-q3" data-show-at="3">What approaches could improve efforts to manage AI safety under pressures to accelerate capability?</li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide slide--lead slide--end" id="s-12" data-chapter="Close" data-ambient>
+  <h2 class="title">Thank you</h2>
 </section>
 
 
@@ -2671,18 +2670,56 @@
       notes.place();
     },
     place() {
-      const pad = 14, top = $('.bar').getBoundingClientRect().bottom + 12, bottom = innerHeight - 96;
-      const r = notes.list[notes.idx].target.getBoundingClientRect();
-      const x = r.left - pad, y = r.top - pad, w = r.width + pad * 2, h = r.height + pad * 2;
+      const pad = 14, top = $('.bar').getBoundingClientRect().bottom + 12;
+      const target = notes.list[notes.idx].target, r = target.getBoundingClientRect();
+      // spotlight window: the target plus pad, each edge pulled in to clip cleanly between the target and any
+      // neighbouring line of slide text the pad would show as a sliver (S-029)
+      let wl = r.left - pad, wt = r.top - pad, wr = r.right + pad, wb = r.bottom + pad;
+      const lines = notes.textLines(slides[cur].node, target, r);
+      for (let pass = 0, moved = true; moved && pass < 6; pass++) {
+        moved = false;
+        lines.forEach(q => {
+          if (q.right <= wl + 1 || q.left >= wr - 1 || q.bottom <= wt + 1 || q.top >= wb - 1) return;              // outside
+          if (q.left >= wl - 1 && q.right <= wr + 1 && q.top >= wt - 1 && q.bottom <= wb + 1) return;              // inside
+          moved = true;
+          // which side of the target the line lies (2px slack: stacked lines' boxes meet at subpixel edges)
+          if (q.bottom <= r.top + 2) wt = Math.min(r.top, (q.bottom + r.top) / 2 + 1);
+          else if (q.top >= r.bottom - 2) wb = Math.max(r.bottom, (q.top + r.bottom) / 2 - 1);
+          else if (q.right <= r.left + 2) wl = Math.min(r.left, (q.right + r.left) / 2 + 1);
+          else wr = Math.max(r.right, (q.left + r.right) / 2 - 1);
+        });
+      }
+      const x = wl, y = wt, w = wr - wl, h = wb - wt;
       veil.style.setProperty('--x', `${x}px`); veil.style.setProperty('--y', `${y}px`);
       veil.style.setProperty('--w', `${w}px`); veil.style.setProperty('--h', `${h}px`);
       Object.assign(ring.style, { left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${h}px` });
-      // callout: below the target, else above, else beside; never under the title bar
-      const cw = callout.offsetWidth || 440, ch = callout.offsetHeight || 240;
-      let cx = clamp(x, 16, innerWidth - cw - 16), cy = y + h + 18;
-      if (cy + ch > bottom) cy = y - ch - 18;
-      if (cy < top) { cy = clamp(y, top, bottom - ch); cx = x + w + 18 + cw < innerWidth ? x + w + 18 : clamp(x - cw - 18, 16, innerWidth - cw - 16); }
-      cy = Math.max(cy, top);
+      // callout (S-029): below the window, else above, else right, else left, wherever it fits whole (narrowing to
+      // MINW beside a wide target); else the first side where a wider callout (to WIDE) fits whole; if none, the side
+      // with the most height, and the callout scrolls inside itself. Never over the window, under the title bar or
+      // over the static Prev/Next bar (offsetTop: its rise-in transform doesn't count).
+      const floor = $('.notes-nav').offsetTop - 12, L = 16, RX = innerWidth - 16, gap = 18, MINW = 300, WIDE = 640;
+      const W = Math.min(440, innerWidth * .86);
+      const natural = cw => { callout.style.width = `${cw}px`; callout.style.maxHeight = 'none'; return callout.offsetHeight; };
+      const sides = [
+        { side: 'below', l: L, r: RX, t: y + h + gap, b: floor },
+        { side: 'above', l: L, r: RX, t: top, b: y - gap },
+        { side: 'right', l: x + w + gap, r: RX, t: top, b: floor },
+        { side: 'left', l: L, r: x - gap, t: top, b: floor },
+      ].map(a => Object.assign(a, { cw: Math.min(W, a.r - a.l), ah: a.b - a.t })).filter(a => a.cw >= Math.min(MINW, W) && a.ah >= 120);
+      sides.forEach(a => { a.ch = natural(a.cw); });
+      const widened = () => sides.find(a => {
+        const w2 = Math.min(WIDE, a.r - a.l);
+        if (w2 <= a.cw) return false;
+        const h2 = natural(w2);
+        return h2 <= a.ah && Object.assign(a, { cw: w2, ch: h2 });
+      });
+      const pick = sides.find(a => a.ch <= a.ah) || widened() || sides.slice().sort((p, q) => q.ah - p.ah)[0]
+        || { side: 'below', l: L, r: RX, t: top, b: floor, cw: W, ah: floor - top, ch: natural(W) };   // no free side: last resort
+      const cw = pick.cw, ch = Math.min(pick.ch, pick.ah);
+      callout.style.width = `${cw}px`; callout.style.maxHeight = `${pick.ah}px`;
+      let cx, cy;
+      if (pick.side === 'below' || pick.side === 'above') { cx = clamp(x, L, RX - cw); cy = pick.side === 'below' ? pick.t : pick.b - ch; }
+      else { cx = pick.side === 'right' ? pick.l : pick.r - cw; cy = clamp(y, top, floor - ch); }
       callout.style.left = `${cx}px`; callout.style.top = `${cy}px`;
       // pins sit just outside each target's top-right corner; pins the callout would cover hide. Other pins keep off
       // the focus frame (S-029): a focused pop-over (too big to place pins around) is drawn in front of them, so
@@ -2711,6 +2748,25 @@
         })() : '';
         pin.classList.toggle('is-covered', j !== notes.idx && (hidden || underCallout(px, py)));
       });
+    },
+    // boxes of every visible line of the slide's text outside the target and not over it (window clipping, S-029)
+    textLines(node, target, r) {
+      const out = [], seen = new Map();
+      const shown = e => {
+        if (seen.has(e)) return seen.get(e);
+        const cs = getComputedStyle(e);
+        const v = !(cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.05) && (e === node || shown(e.parentElement));
+        seen.set(e, v); return v;
+      };
+      const walk = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+      for (let n; (n = walk.nextNode());) {
+        const p = n.parentElement;
+        if (!n.textContent.trim() || target.contains(n) || p.closest('aside.note, .bokeh') || !shown(p)) continue;
+        const range = document.createRange(); range.selectNodeContents(n);
+        for (const q of range.getClientRects())
+          if (q.width && q.height && !(q.left < r.right - 2 && q.right > r.left + 2 && q.top < r.bottom - 2 && q.bottom > r.top + 2)) out.push(q);
+      }
+      return out;
     },
     // geometry re-tracks every frame while open, so reflow never strands the spotlight
     track() {
@@ -2756,6 +2812,7 @@
   // wheel: a gesture is a burst of events; only its first event steps (DESIGN §3 wheel lock)
   let wheelAt = -1e9, stepAt = -1e9;
   addEventListener('wheel', e => {
+    if (notes.on && callout.contains(e.target)) return;   // a scrolling callout scrolls itself (S-029)
     e.preventDefault();
     const now = performance.now(), fresh = now - wheelAt > 250;
     wheelAt = now;
