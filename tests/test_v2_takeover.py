@@ -8,7 +8,7 @@ strip dissolve); a separate evaluation's runs of a different, Astra-family model
 mirror; agents read cloud secrets and root a node running the mirror; that model's agents go via
 the board (mirror) to take cluster-admin on the OpenAI cluster running the mirror: a server-rack icon
 right of the mirror, a secret-file glyph on its corner, its padlock opening as s-6's clusters did.
-Coverage: happy (shell; four states; approved title; approved event lines with full month names;
+Coverage: happy (shell; five states (4 = closing Insight, the italic phrase in <em>, world and timeline softened); approved title; approved event lines with full month names;
 seals on the board folders at step 0 and still on them after the mirror moves; timeline builds an entry per step; world parts per step; the
 OpenAI box widens and holds every new part; the new runs are one compact group, apart from the
 HF-phase swarm, every run linked into the mirror, tagged above; the rack (stacked units, slot marks,
@@ -17,7 +17,7 @@ secret-file glyph on its corner with the 956 count; the mirror's padlock opens; 
 Astra runs → mirror → rack in that order, then the rack's padlock opens oxblood; verbatim source
 tiles; sourced notes) · edge (step 0 is s-6's end state exactly; going back to step 0 narrows OpenAI again; reduced
 motion shows end states; no tile, run or tag overlaps) · negative (Hugging Face parts gone from step
-1; no padlock change or new parts before their step; no seals before s-7; no "cuts access" entry
+1; no padlock change or new parts before their step; the Insight adds no world part; no seals before s-7; no "cuts access" entry
 (the cut is s-6's); no "same agents", "eval cluster", Aug 15, Sep
 DNS escape or post-scope compromises in the slide body; credential reuse only in a note; no
 standalone diagram; no console errors).
@@ -34,7 +34,12 @@ pytestmark = pytest.mark.deck("v2")
 
 SID = "s-7"
 TITLE = "Agents adopt assured identities for messages before a second model compromises OpenAI’s own cluster"
-STEPS = 3   # states 0–3
+STEPS = 4   # states 0–4 (4 = closing Insight)
+WORLD_STEPS = 3   # the world's last beat; the Insight overlay is not part of the world
+INSIGHT_EM = "aligned to other agents as a collective"
+INSIGHT = ("Agents discovered they needed their own security controls to remain " + INSIGHT_EM + ", and a model "
+           "from OpenAI’s next (Astra) family showed the ability to take control of their own internal compute "
+           "infrastructure.")   # STORYBOARD s-7, presenter 22 Nov
 TR_URL = "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf"
 # timeline: (id, step, numbered?, text fragments)
 T1 = "13 July Agents create secure identity standard to stop impersonated messages"   # VOICE, verbatim
@@ -96,13 +101,20 @@ def test_takeover_sits_between_breakout_and_investigation_as_a_world_slide():
     assert re.search(r'<p class="kicker">07 · Takeover</p>', helper_section())
 
 
-def test_shell_order_is_timeline_world_narration_notes_with_no_standalone_diagram():
+def test_shell_order_is_timeline_world_narration_insight_notes_with_no_standalone_diagram():
     sec = helper_section()
     order = [sec.index(x) for x in ('<div class="body body--timeline"', '<div class="world-slot"',
-                                    '<div class="narration"', '<aside class="note"')]
+                                    '<div class="narration"', '<div class="overlay overlay--insight"',
+                                    '<aside class="note"')]
     assert order == sorted(order)
     assert '<svg class="diagram"' not in sec, "the first-draft standalone diagram is replaced by the world"
-    assert "overlay--insight" not in sec, "a 1:00 slide: the title carries the finding"
+
+
+def test_insight_takes_the_last_step_verbatim_with_the_collective_phrase_in_italics():
+    m = re.search(r'<div class="overlay overlay--insight" id="s7-insight" data-at="(\d+)">\s*<p>(.*?)</p>',
+                  helper_section(), re.S)
+    assert m and int(m.group(1)) == STEPS and helper_text(re.sub(r"</?em>", "", m.group(2))) == INSIGHT
+    assert re.findall(r"<em>(.*?)</em>", m.group(2)) == [INSIGHT_EM], "only the collective phrase is italic"
 
 
 def test_timeline_has_one_entry_per_step_with_dates_and_sub_points():
@@ -225,7 +237,7 @@ def helper_settled(page, step):
     settle_animations(page, WORLD, still=WORLD_STILL)
 
 
-def test_slide_has_four_states(page):
+def test_slide_has_five_states(page):
     open_deck(page)
     assert dict(page.evaluate("window.deck.plan()"))[SID] == STEPS
 
@@ -244,7 +256,7 @@ def test_step_0_is_the_world_as_s6_left_it(page):
     assert abs(page.evaluate(OAI_SHARE) - share6) < .01, "no re-arrangement before 19 July"
 
 
-@pytest.mark.parametrize("step", range(0, STEPS + 1))
+@pytest.mark.parametrize("step", range(0, WORLD_STEPS + 1))
 def test_world_and_timeline_build_per_step(page, step):
     errors = open_deck(page)
     goto_slide(page, "s-6", dict(page.evaluate("window.deck.plan()"))["s-6"])
@@ -453,3 +465,23 @@ def test_reduced_motion_shows_the_end_state_at_once(page):
         assert page.evaluate(OPACITY, sel) > .9, sel
     assert page.evaluate(OPACITY, "#w-oai-secure") < .05
     assert page.evaluate(OAI_SHARE) > .9
+
+
+def test_closing_insight_blurs_everything_else_and_adds_no_world_part(page):
+    open_deck(page)
+    helper_settled(page, WORLD_STEPS)
+    assert page.evaluate(OPACITY, "#s7-insight") < 0.05, "the Insight takes its own step"
+    before = set(page.evaluate(VISIBLE_WORLD))
+    goto_slide(page, SID, STEPS)
+    helper_until(page, f"() => ({OPACITY})('#s7-insight') > .9")
+    settle_animations(page, "#s-7, .world", still=WORLD_STILL)
+    res = page.evaluate("""() => { const ins = document.querySelector('#s7-insight');
+      const blur = e => { const m = getComputedStyle(e).filter.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; };
+      return { shown: +getComputedStyle(ins).opacity > .9, text: ins.innerText.replace(/\\s+/g, ' ').trim(),
+               em: getComputedStyle(ins.querySelector('em')).fontStyle,
+               world: blur(document.querySelector('.world')), timeline: blur(document.querySelector('#s-7 > .body')),
+               tiles: document.querySelectorAll('#s-7 .narr-tile.is-shown').length }; }""")
+    assert res["shown"] and res["text"] == INSIGHT
+    assert res["em"] == "italic"
+    assert res["world"] > 1 and res["timeline"] > 1 and res["tiles"] == 0
+    assert set(page.evaluate(VISIBLE_WORLD)) == before, "the Insight is not part of the world"

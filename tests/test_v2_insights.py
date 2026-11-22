@@ -52,6 +52,7 @@ LINKS = {
     "s9-t3": ["fortune.com", "sfstandard.com"],
 }
 COXON = "One, it’s obvious that things are speeding up, and two, they’re not under control."
+PEW = "a majority of adults under 30 (55%) … more concerned than excited about AI"   # clipped verbatim (Pew, Jun 2026)
 S10_TILES = ["s10-t1", "s10-t2", "s10-t3"]   # row order = build step 1, 2, 3
 S10_COPY = {   # STORYBOARD s-10 (22 Nov): heading (verbatim), approved sentences as bullets, quote
     "s10-t1": ("Capability, compute and spending are still accelerating",
@@ -69,7 +70,7 @@ S10_COPY = {   # STORYBOARD s-10 (22 Nov): heading (verbatim), approved sentence
                ["Most Americans are concerned about AI, and 73% worry future AI could threaten human survival",
                 "But politics and markets focus elsewhere: polls and midterms weighed jobs, power bills and data centres",
                 "AI-led market drops were about spending and growth, not safety"],
-               None),
+               PEW),
 }
 S10_MOVED = {   # approved detail that did not fit 1288×598 as a bullet: it lives in the tile's notes instead
     "s10-t2": ["reinforcement learning runs", "senators", "Attorney General"],
@@ -77,7 +78,7 @@ S10_MOVED = {   # approved detail that did not fit 1288×598 as a bullet: it liv
 S10_LINKS = {   # hosts each tile's cite line links (research notes: capability_pace.md, public_sentiment.md)
     "s10-t1": ["metr.org", "time.com"],   # Epoch AI: #s10-compute note
     "s10-t2": ["thestar.com.my", "darioamodei.com", "pacingthefrontier.com"],   # PBS/AP: #s10-calls note
-    "s10-t3": ["techpolicy.press", "nbcnews.com", "boston.com"],   # NBC's own exit-poll page (56%)
+    "s10-t3": ["techpolicy.press", "nbcnews.com", "boston.com", "pewresearch.org"],   # NBC's own exit-poll page (56%)
 }
 CONTROLS = [   # control · practical consideration (approved, verbatim)
     ("Least agency and autonomy", "While it’s tempting to use the most powerful tools for every use case, "
@@ -229,7 +230,7 @@ S10_FIGURES = {   # every approved figure and claim of the storyboard sentences,
     "s10-t2": ["paused", "twice", "disclosure practices", "pacing the frontier", "OpenAI’s CEO", "1,300",
                "radical transparency"],   # disclosure: OpenAI's own words, in the quote
     "s10-t3": ["Most Americans", "73%", "human survival", "jobs, power bills and data centres", "spending and growth",
-               "not safety"],
+               "not safety", "under 30", "55%"],   # "under 30": all adults is 52% (public_sentiment.md)
 }
 
 
@@ -252,7 +253,9 @@ def test_s10_tile_quotes_are_verbatim_from_research_and_carry_no_typed_quote_mar
     sec, research = helper_section("s-10"), helper_research()
     for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", sec, re.S):
         assert not re.search(r'^["“”]|["“”]$', q.strip()), f"CSS adds quote marks: {q}"
-        assert helper_norm(q) in research, f"quote not found verbatim in docs/research: {q[:50]}"
+        # a clipped quote (…) is verbatim piece by piece
+        for piece in helper_norm(re.sub(r"<[^>]+>", "", q)).split("…"):
+            assert piece.strip() in research, f"quote not found verbatim in docs/research: {piece[:50]}"
     assert "{" not in sec and "}" not in sec and not re.search(r"\sstyle\s*=", sec)
 
 

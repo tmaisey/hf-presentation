@@ -35,9 +35,8 @@ pytestmark = pytest.mark.deck("v2")
 SID = "s-5"
 TITLE = "The swarm organised itself to defeat an automated scorer it misunderstood"
 STEPS = 9   # states 0–9 (9 = closing Insight)
-INSIGHT = ("Within a day of finding each other, the agents’ attacks became sophisticated, planned and coordinated: "
-           "coordinators assigned work across three workstreams to make their cheats look legitimate, and volunteers "
-           "gave up their runs to test a scorer that never read their transcripts.")
+INSIGHT = ("Within a day of finding each other, the agents’ attacks became sophisticated, planned and coordinated "
+           "across three large research workstreams.")   # one sentence, presenter 22 Nov
 RUN = "Agent · ExploitGym run"
 # timeline: (id, step, numbered?, text fragment)
 TIMELINE = [("s5-t1", 0, True, "8 July"), ("s5-t1a", 1, False, "~1,200"), ("s5-t1b", 2, False, "4 hours"),
