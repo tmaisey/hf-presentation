@@ -19,7 +19,7 @@ import re
 
 import pytest
 
-from helper_deck import deck_source, goto_slide, open_deck, parse_slides, slides_source
+from helper_deck import deck_source, goto_slide, open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -137,6 +137,7 @@ def test_fact_tile_shows_no_quote_marks(page):
     """A statement of fact is not a quote: the tile drops the CSS quote marks."""
     open_deck(page)
     goto_slide(page, SID, 5)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     marks = page.evaluate("""() => { const t = document.querySelector('#s-3 .narr-tile--fact .msg-text');
       return [getComputedStyle(t, '::before').content, getComputedStyle(t, '::after').content]; }""")
     assert all(m in ("none", "normal", '""') for m in marks)
@@ -171,6 +172,9 @@ PANELS = """() => Object.fromEntries([...document.querySelectorAll('#s-3 .pop-pa
   .map(e => [e.id, +getComputedStyle(e).opacity > .5 && +getComputedStyle(e.closest('.popover')).opacity > .5]))"""
 CENTRE = "sel => { const r = document.querySelector(sel).getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; }"
 
+# what a step's end state means here: the slide and the world calm, and the world's JS layout tween landed
+SETTLE_ON, SETTLE_STILL = "#s-3, .world", "#w-mirror rect, #w-oai rect, #w-runs"
+
 
 def test_slide_has_eight_states(page):
     open_deck(page)
@@ -181,6 +185,7 @@ def test_slide_has_eight_states(page):
 def test_world_popover_and_timeline_build_per_step(page, step):
     errors = open_deck(page)
     goto_slide(page, SID, step)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     expected = {w for k, v in WORLD_AT.items() if k <= step for w in v if step < WORLD_UNTIL.get(w, 99)}
     assert set(page.evaluate(VISIBLE_WORLD)) == expected
     panels = page.evaluate(PANELS)
@@ -197,12 +202,14 @@ def test_world_popover_and_timeline_build_per_step(page, step):
 def test_runs_appear_without_lines_then_all_link_to_one_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 0)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     dots = page.evaluate("() => document.querySelectorAll('#w-runs circle').length")
     assert dots >= 60
     shown_lines = """() => [...document.querySelectorAll('.world line')].filter(l =>
       +getComputedStyle(l.closest('[data-world-at]')).opacity > .1).length"""
     assert page.evaluate(shown_lines) == 0
     goto_slide(page, SID, 1)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     ends = page.evaluate("""() => { const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
       return [...document.querySelectorAll('#w-links line')].map(l => { const p = l.getBoundingClientRect(), svg = l.ownerSVGElement;
         const pt = svg.createSVGPoint(); pt.x = +l.getAttribute('x2'); pt.y = +l.getAttribute('y2');
@@ -214,6 +221,7 @@ def test_notes_fly_from_runs_outside_the_ring_onto_the_mirror(page):
     open_deck(page)
     goto_slide(page, SID, 4)   # stepped through, as presented: each note arrives (and flies) at its own step
     goto_slide(page, SID, 5)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     res = page.evaluate("""() => { const c = e => { const r = e.getBoundingClientRect(); return [(r.left + r.right) / 2, (r.top + r.bottom) / 2]; };
       const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
       const notes = [...document.querySelectorAll('#w-note1 .note-fly, #w-board .note-fly')];
@@ -231,8 +239,10 @@ def test_notes_fly_from_runs_outside_the_ring_onto_the_mirror(page):
 def test_internet_step_shifts_swarm_left_and_board_bridges_out(page):
     open_deck(page)
     goto_slide(page, SID, 5)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     before = page.evaluate(CENTRE, "#w-mirror rect")
     goto_slide(page, SID, 6)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     res = page.evaluate("""() => { const r = s => document.querySelector(s).getBoundingClientRect();
       const runs = [...document.querySelectorAll('#w-runs circle')].map(e => { const b = e.getBoundingClientRect(); return (b.left + b.right) / 2; });
       const m = r('#w-mirror rect'), oai = r('#w-oai rect'), net = r('#w-net rect');
@@ -250,6 +260,7 @@ def test_internet_step_shifts_swarm_left_and_board_bridges_out(page):
 def test_key_glyph_sits_at_the_mirror_bottom_right(page):
     open_deck(page)
     goto_slide(page, SID, 1)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     res = page.evaluate("""() => { const m = document.querySelector('#w-mirror rect').getBoundingClientRect();
       const k = document.querySelector('#w-cred').getBoundingClientRect();
       return [(k.left + k.right) / 2, (k.top + k.bottom) / 2, (m.left + m.right) / 2, (m.top + m.bottom) / 2, m.right + 20, m.bottom + 20]; }""")
@@ -260,6 +271,7 @@ def test_key_glyph_sits_at_the_mirror_bottom_right(page):
 def test_closing_insight_blurs_everything_else(page):
     open_deck(page)
     goto_slide(page, SID, STEPS)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     res = page.evaluate("""() => { const ins = document.querySelector('#s3-insight');
       const blur = e => { const m = getComputedStyle(e).filter.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; };
       return { shown: +getComputedStyle(ins).opacity > .9, text: ins.innerText.replace(/\\s+/g, ' ').trim(),
@@ -271,6 +283,7 @@ def test_closing_insight_blurs_everything_else(page):
 def test_impossible_task_agent_keeps_trying_from_many_directions(page):
     open_deck(page)
     goto_slide(page, SID, 3)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     tries = page.evaluate("""() => [...document.querySelectorAll('#s3-pop-impossible .pa-try')].map(g => {
       const p = g.querySelector('path'), L = p.getTotalLength(), a = p.getPointAtLength(L * .5);
       return [Math.round(a.y), getComputedStyle(p).animationName]; })""")
@@ -282,6 +295,7 @@ def test_impossible_task_agent_keeps_trying_from_many_directions(page):
 def test_reduced_motion_stops_the_attempt_animation(page):
     open_deck(page, reduced_motion=True)
     goto_slide(page, SID, 3)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     names = page.evaluate("""() => [...document.querySelectorAll('#s3-pop-impossible .pa-try path, #s3-pop-impossible .pa-agent')]
       .map(e => getComputedStyle(e).animationName)""")
     assert names and all(n == "none" for n in names)
@@ -292,6 +306,7 @@ def test_reduced_motion_stops_the_attempt_animation(page):
 def test_timeline_world_and_popover_stay_on_screen_below_the_title(page, size, step):
     open_deck(page, *size)
     goto_slide(page, SID, step)
+    settle_animations(page, SETTLE_ON, still=SETTLE_STILL)
     boxes = page.evaluate("""id => { const s = document.getElementById(id);
       const r = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom]; };
       const tl = s.querySelector(':scope > .body');

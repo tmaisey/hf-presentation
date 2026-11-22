@@ -9,7 +9,7 @@ before/after its step; hover softens siblings; notes button never covers an over
 
 import pytest
 
-from helper_deck import goto_slide, open_deck
+from helper_deck import goto_slide, open_deck, sample_at, settle_animations
 
 V1_ONLY = pytest.mark.deck("v1")  # clusters are v1 legacy (S-005); v2 uses narration tiles
 
@@ -37,9 +37,10 @@ def test_insight_rack_focus_exit_blurs_before_vanishing(page):
     open_deck(page)
     sid, at = page.evaluate(FIND, ".overlay--insight")
     goto_slide(page, sid, at)
+    settle_animations(page, f"#{sid}")
     page.evaluate("() => window.deck.prev()")
-    page.wait_for_timeout(300)
-    mid = _blur(page, f"document.querySelector('#{sid} .overlay--insight')")
+    mid = sample_at(page, 300, f"""() => {{ const f = getComputedStyle(document.querySelector('#{sid} .overlay--insight')).filter;
+      const m = f.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; }}""")
     assert mid > 1, "overlay should be visibly defocusing mid-exit"
 
 

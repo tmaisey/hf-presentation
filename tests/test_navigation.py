@@ -5,7 +5,7 @@ Coverage: happy (advance/back through slides and steps, agenda tracks chapter) Â
 (first/last slide clamps, wheel = one step) Â· negative (slide never left before its last step).
 """
 
-from helper_deck import goto_slide, open_deck, state
+from helper_deck import goto_slide, open_deck, settle_animations, state
 
 FIRST_STEPPED = """() => {
   const s = [...document.querySelectorAll('section.slide')].find(
@@ -24,17 +24,17 @@ def test_loads_without_errors_and_starts_on_first_slide(page):
 def test_arrow_keys_advance_and_go_back_one_slide(page):
     open_deck(page)
     page.keyboard.press("ArrowRight")
-    page.wait_for_timeout(900)
+    settle_animations(page)
     assert state(page)["index"] == 1
     page.keyboard.press("ArrowLeft")
-    page.wait_for_timeout(900)
+    settle_animations(page)
     assert state(page)["index"] == 0
 
 
 def test_back_on_first_slide_stays_put(page):
     open_deck(page)
     page.keyboard.press("ArrowLeft")
-    page.wait_for_timeout(400)
+    settle_animations(page)
     assert state(page)["index"] == 0
 
 
@@ -47,11 +47,11 @@ def test_stepped_slide_is_not_left_until_last_step(page):
     assert total >= 2
     for k in range(1, total + 1):
         page.keyboard.press("ArrowRight")
-        page.wait_for_timeout(250)
+        settle_animations(page, f"#{sid}")
         st = state(page)
         assert st["slide"] == sid and st["step"] == k
     page.keyboard.press("ArrowRight")
-    page.wait_for_timeout(900)
+    settle_animations(page)
     assert state(page)["slide"] != sid
 
 
@@ -84,7 +84,9 @@ def test_wheel_gesture_moves_one_step_only(page):
     page.mouse.move(400, 400)
     for _ in range(5):
         page.mouse.wheel(0, 120)
-    page.wait_for_timeout(900)
+    # the gesture lands (condition), then everything it set off settles before counting the steps it made
+    page.wait_for_function("() => window.deck.state().index >= 1", timeout=10000)
+    settle_animations(page)
     assert state(page)["index"] == 1
 
 

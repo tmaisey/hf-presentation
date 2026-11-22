@@ -28,7 +28,7 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, parse_slides, slides_source
+from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -193,6 +193,9 @@ OAI_SHARE = """() => document.querySelector('#w-oai rect').getBoundingClientRect
 LOSS = """() => { const d = document.createElement('div'); d.style.color = 'var(--loss)'; document.body.append(d);
   const c = getComputedStyle(d).color; d.remove(); return c; }"""
 
+# a step's end state: the world's finite animations done and its JS layout tween landed
+WORLD, WORLD_STILL = ".world", "#w-mirror rect, #w-oai rect, #w-oai-cluster"
+
 
 def helper_until(page, js, arg=None, timeout=8000):
     """Wait until ``js(arg)`` is truthy (transitions race fixed sleeps under parallel load); False on timeout."""
@@ -219,7 +222,7 @@ def helper_settled(page, step):
     want = OAI_SHARE + (" > .9" if step >= 1 else " < .3")
     helper_until(page, f"() => ({want})()")
     helper_until(page, "() => document.getAnimations().every(a => a.playState !== 'running' || a.effect.getComputedTiming().iterations === Infinity)")
-    page.wait_for_timeout(300)
+    settle_animations(page, WORLD, still=WORLD_STILL)
 
 
 def test_slide_has_four_states(page):
@@ -231,11 +234,11 @@ def test_step_0_is_the_world_as_s6_left_it(page):
     open_deck(page)
     goto_slide(page, "s-6", dict(page.evaluate("window.deck.plan()"))["s-6"])
     helper_until(page, f"() => ({OPACITY})('#w-hf-closed') > .9")
-    page.wait_for_timeout(1500)
+    settle_animations(page, WORLD, still=WORLD_STILL)
     end6 = set(page.evaluate(VISIBLE_WORLD))
     share6 = page.evaluate(OAI_SHARE)
     goto_slide(page, SID, 0)
-    page.wait_for_timeout(1200)
+    settle_animations(page, WORLD, still=WORLD_STILL)
     assert set(page.evaluate(VISIBLE_WORLD)) == end6 | WORLD_AT[0], "s-6's end state plus the seals"
     assert "w-signed" not in end6 and "w-hf-cut" in end6, "the seals are new; the plug carries over"
     assert abs(page.evaluate(OAI_SHARE) - share6) < .01, "no re-arrangement before 19 July"
@@ -246,7 +249,7 @@ def test_world_and_timeline_build_per_step(page, step):
     errors = open_deck(page)
     goto_slide(page, "s-6", dict(page.evaluate("window.deck.plan()"))["s-6"])
     helper_until(page, f"() => ({OPACITY})('#w-hf-closed') > .9")
-    page.wait_for_timeout(1500)
+    settle_animations(page, WORLD, still=WORLD_STILL)
     expected = set(page.evaluate(VISIBLE_WORLD))
     if step >= 1:
         expected -= HF_END
@@ -409,7 +412,7 @@ def test_takeover_goes_astra_runs_to_the_board_to_the_rack_then_its_padlock_open
     assert admin_done <= route_start + 60, "the lines reach the board before one runs on to the rack"
     assert route_done <= lock_open + 60, "the padlock opens once the line reaches the rack"
     assert all(r[4] > .5 for r in rows if r[0] < route_done - 100), "the rack stays locked until the line arrives"
-    page.wait_for_timeout(600)
+    settle_animations(page, WORLD, still=WORLD_STILL)
     mirror, rack = page.evaluate(RECT, "#w-mirror rect"), page.evaluate(RECT, "#w-oai-cluster .rack-body")
     astra = page.evaluate(RECTS, "#w-astra .run")
     ends = page.evaluate(LINE_ENDS, "#w-astra-admin line")
@@ -430,7 +433,7 @@ def test_takeover_goes_astra_runs_to_the_board_to_the_rack_then_its_padlock_open
 def test_seals_pop_onto_the_board_folders_at_step_0_and_move_with_the_mirror(page):
     open_deck(page)
     goto_slide(page, "s-6", dict(page.evaluate("window.deck.plan()"))["s-6"])
-    page.wait_for_timeout(900)
+    settle_animations(page, WORLD, still=WORLD_STILL)
     assert page.evaluate(OPACITY, "#w-signed") < .05, "no seals before s-7"
     for step in (0, 1):
         helper_settled(page, step)
@@ -445,7 +448,7 @@ def test_reduced_motion_shows_the_end_state_at_once(page):
     page.emulate_media(reduced_motion="reduce")
     open_deck(page)
     goto_slide(page, SID, 3)
-    page.wait_for_timeout(900)
+    settle_animations(page)
     for sel in ("#w-oai-cluster", "#w-oai-lock", "#w-oai-route", "#w-astra-admin", "#w-astra", "#w-root", "#w-secrets"):
         assert page.evaluate(OPACITY, sel) > .9, sel
     assert page.evaluate(OPACITY, "#w-oai-secure") < .05
