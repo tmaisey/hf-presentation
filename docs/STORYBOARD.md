@@ -45,7 +45,8 @@ written in full ("26 June", "5–6 July") on their own line with the day tag; th
 responsible for what its agents do; replaces "OpenAI's agents breaching… clear public example… risks" and ◇ "OpenAI's agent swarm breached Hugging Face while running a sanctioned
 cyber evaluation")
 - Sub ✓: "Flawed AI capability development methods led to autonomous cyber-attacks during routine
-  testing". Kicker "July 2026"; the existing reader note stays. Ambient bokeh, no diagram (S-034).
+  testing". No kicker (presenter, 22 Nov); byline "Tom Maisey, November 2026" bottom-left in small italic serif,
+  soft tone, not blurred; the existing reader note stays. Ambient bokeh, no diagram (S-034).
 
 ## s-2 · Concepts (1:30) · M1
 

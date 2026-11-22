@@ -67,7 +67,7 @@ and add every new verdict here as an example pair. British spelling throughout.
 
 ## Kickers (v2)
 
-- Slide number · chapter: "02 · Concepts" … "10 · Takeaways". s-1's kicker is the date ("July 2026").
+- Slide number · chapter: "02 · Concepts" … "10 · Takeaways". s-1 has no kicker; its byline reads "Tom Maisey, November 2026".
 
 ## Discussion prompts
 

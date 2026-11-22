@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/s-1-1920x1080-0.png" alt="Title slide: 'OpenAI breaching Hugging Face was a public example of AI misalignment', over soft drifting bokeh" width="760">
+  <img src="docs/images/s-1-1920x1080-0.png" alt="Title slide: 'OpenAI breaching Hugging Face was a public example of AI misalignment', subtitle, and the byline 'Tom Maisey, November 2026' over soft drifting bokeh" width="760">
 </p>
 
 **View the deck:** download [`deck/deck-v2.html`](deck/deck-v2.html) and open it in a browser. Arrow keys, space, click or the wheel step through it; `N` opens the reader notes, which carry the sources and caveats for every claim.
