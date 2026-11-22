@@ -375,6 +375,9 @@
   .slide[data-world] > .popover { grid-column: world-start / narr-end; grid-row: 3; }
   .body--timeline .steps li { font-size: var(--fs-small); line-height: 1.3; padding: .3em 0 .3em 2.1em; }
   .body--timeline .steps li::before { top: .3em; }
+  /* short screens (e.g. 1288×598 share): tighter entries so the longest world timeline fits its row */
+  @media (max-height: 660px) { .body--timeline .steps li { line-height: 1.2; padding-top: .16em; padding-bottom: .16em; }
+    .body--timeline .steps li::before { top: .16em; } .body--timeline .steps li.sub { padding-top: .06em; padding-bottom: .06em; } }
   .body--timeline strong { font-weight: 600; color: var(--ink); }
   /* the timeline builds: an entry appears at its step (current = accent), never ahead */
   .body--timeline .steps > li[data-show-at] { opacity: 0; transform: translateY(-8px); transition: opacity .6s ease, transform .6s var(--ease), color .5s; }
@@ -477,9 +480,7 @@
 
 
   /* ---------- S-021 early eval components (v2) ---------- */
-  /* world states (data-world-is): training runs ghost and the internet box dims as history */
-  .world .is-ghost.is-visible { opacity: .3; }
-  .runs.is-ghost .run { fill: var(--paper); stroke: var(--ink-3); transition: fill .7s, stroke .7s; }
+  /* world states (data-world-is): the internet box dims as history */
   .world .is-dim.is-visible { opacity: .35; }
   /* 26 Jun: one agent ringed, a bold line into the mirror; the key becomes an open padlock on oxblood */
   .w-link--admin { stroke: var(--accent-ink); stroke-width: 3.2; opacity: 1; stroke-linecap: round; }
@@ -487,6 +488,23 @@
   .lock-badge circle { fill: var(--loss); }
   .lock-badge .lock-shackle { fill: none; stroke: var(--paper); stroke-width: 2.4; stroke-linecap: round; }
   .lock-badge .lock-body { fill: var(--paper); }
+  /* zero-day beats, once the pop-over has gone (+0.5 s): ring + bold line (1.3 s), skull note sent
+     (1.9 s), then the key gives way to the open padlock, which pops (3.1 s) */
+  .world #w-admin.is-visible, .world #w-admin-ring.is-visible { transition-delay: 1.3s; }
+  #w-exploit.is-visible > .note-fly { animation-delay: 1.9s; }
+  .mirror-group.is-zeroday :is(#w-cred, #w-lock) { transition-delay: 3.1s; }
+  #w-lock { transform-box: fill-box; transform-origin: center; }
+  .mirror-group.is-zeroday #w-lock.is-visible { animation: lock-pop .7s 3.1s var(--ease) both; }
+  @keyframes lock-pop { 0% { transform: scale(.3); } 60% { transform: scale(1.45); } 100% { transform: none; } }
+  .skull circle:not(.skull-eye), .skull rect { fill: var(--ink); }
+  .skull-eye { fill: var(--tile); }
+  .skull-bones { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+  .mirror-group.is-down .skull :is(circle:not(.skull-eye), rect) { fill: var(--ink-3); transition: fill .6s 4s; }
+  .mirror-group.is-down .skull-bones { stroke: var(--ink-3); transition: stroke .6s 4s; }
+  /* 5–6 Jul: the rebuilt mirror is secured (patched, shared credential removed): closed padlock, green badge */
+  .secure-badge .lock-shackle { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+  .secure-badge .lock-body { fill: var(--ink); stroke: none; }
+  .world #w-secure.is-visible { transition-delay: .8s; }
   /* 27 Jun: radar rings sweep the OpenAI box; the bell rings, then greys to a silenced bell */
   .radar circle { fill: none; stroke: var(--ink-3); stroke-width: 1.6; vector-effect: non-scaling-stroke; opacity: 0;
     transform-box: fill-box; transform-origin: center; }
@@ -498,11 +516,11 @@
   .bell-waves { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; opacity: 0; }
   .bell-slash { fill: none; stroke: var(--ink-3); stroke-width: 2.6; stroke-linecap: round; opacity: 0; }
   .bell-ring { transform-box: fill-box; transform-origin: 50% 0; }
-  .bell.is-visible .bell-ring { animation: bell-ring 1.1s .3s ease-in-out both; }
-  .bell.is-visible .bell-waves { animation: bell-waves 1.1s .3s both; }
-  .bell.is-visible .bell-body { animation: bell-mute .4s 1.4s both; }
-  .bell.is-visible .bell-slash { animation: bell-slash .4s 1.4s both; }
-  @keyframes bell-ring { 0%, 100% { transform: none; } 12%, 52% { transform: rotate(16deg); } 32%, 72% { transform: rotate(-16deg); } 88% { transform: rotate(6deg); } }
+  .bell.is-visible .bell-ring { animation: bell-ring .55s .3s ease-in-out 4 both; }
+  .bell.is-visible .bell-waves { animation: bell-waves 2.2s .3s both; }
+  .bell.is-visible .bell-body { animation: bell-mute .4s 2.5s both; }
+  .bell.is-visible .bell-slash { animation: bell-slash .4s 2.5s both; }
+  @keyframes bell-ring { 0%, 100% { transform: none; } 25% { transform: rotate(16deg); } 75% { transform: rotate(-16deg); } }
   @keyframes bell-waves { 0%, 100% { opacity: 0; } 10%, 85% { opacity: 1; } }
   @keyframes bell-mute { to { stroke: var(--ink-3); } }
   @keyframes bell-slash { from { opacity: 0; } to { opacity: 1; } }
@@ -530,7 +548,7 @@
   .pa-tick { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   @media (prefers-reduced-motion: reduce) {
     .radar.is-visible circle, .pulses.is-visible .pulse, .bell.is-visible :is(.bell-ring, .bell-waves, .bell-body, .bell-slash),
-    .status.is-visible .status-light, .pop-panel.is-visible .pa-flag { animation: none; }
+    .status.is-visible .status-light, .pop-panel.is-visible .pa-flag, .mirror-group.is-zeroday #w-lock.is-visible { animation: none; }
     .bell.is-visible .bell-body { stroke: var(--ink-3); }
     .bell.is-visible .bell-slash, .status.is-visible .status-light { opacity: 1; }
     .mirror-group.is-down :is(.note-glyph, #w-mirror rect, #w-mirror text) { transition-delay: 0s; }
@@ -630,8 +648,8 @@
       <g class="layer-edges">
         <g class="domain" id="w-oai" data-world-at="s-3:0"><rect x="-312" y="-252" width="624" height="504" rx="24"/><text class="domain-label" x="-292" y="-224">OPENAI SERVERS</text></g>
         <g class="domain domain--out" id="w-net" data-world-at="s-3:6" data-world-is="dim s-4:0"><rect x="146" y="-252" width="166" height="504" rx="24"/><text class="domain-label" x="162" y="-224">PUBLIC</text><text class="domain-label" x="162" y="-200">INTERNET</text><g class="globe"><circle cx="229" cy="0" r="32"/><ellipse cx="229" cy="0" rx="13" ry="32"/><line x1="197" y1="0" x2="261" y2="0"/></g><path class="edge edge--breach" d="M120,0 H187" marker-end="url(#arr)"/></g>
-        <g class="run-links" id="w-links" data-world-at="s-3:1" data-world-is="ghost s-4:0"></g>
-        <g class="board-links" data-world-at="s-3:5" data-world-is="ghost s-4:0"></g>
+        <g class="run-links" id="w-links" data-world-at="s-3:1" data-world-until="s-4:0"></g>
+        <g class="board-links" data-world-at="s-3:5" data-world-until="s-4:0"></g>
         <g data-world-at="s-3:4" data-world-until="s-3:6"><line class="w-link w-link--lit" data-run="first"/></g>
         <!-- s-4 (S-021): evaluation runs replace training runs; the 26 Jun admin agent; 27 Jun radar; 4 Jul load -->
         <g class="run-links" id="w-eval-links" data-world-at="s-4:0" data-of="w-eval"></g>
@@ -640,15 +658,17 @@
         <g class="pulses" id="w-load" data-world-at="s-4:5" data-world-until="s-4:6" data-of="w-eval"></g>
       </g>
       <g class="layer-nodes">
-        <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96" data-world-is="ghost s-4:0"></g>
+        <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96" data-world-until="s-4:0"></g>
         <g class="runs" id="w-eval" data-world-at="s-4:0" data-runs="64" data-seed="29"></g>
-        <g class="mirror-group" data-world-is="down s-4:5 s-4:6">
+        <g class="mirror-group" data-world-is="zeroday s-4:3 s-4:4, down s-4:5 s-4:6">
           <g class="tile" id="w-mirror" data-world-at="s-3:1"><rect x="-70" y="-46" width="140" height="92"/><text class="tile-title">Package</text><text class="tile-title">mirror</text></g>
-          <g class="w-board" id="w-board" data-world-at="s-3:5" data-world-until="s-4:6"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-84,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-52,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M18,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M50,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M-34,-74 h20 l7,7 v27 h-27 z"/></g>
-          <g class="w-note" id="w-note1" data-world-at="s-3:4" data-world-until="s-4:6"><path class="note-glyph note-fly" data-note-for="first" d="M-16,-96 h20 l7,7 v27 h-27 z"/></g>
+          <g class="w-board" id="w-board" data-world-at="s-3:5" data-world-until="s-4:0"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-84,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-52,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M18,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M50,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M-34,-74 h20 l7,7 v27 h-27 z"/></g>
+          <g class="w-note" id="w-note1" data-world-at="s-3:4" data-world-until="s-4:0"><path class="note-glyph note-fly" data-note-for="first" d="M-16,-96 h20 l7,7 v27 h-27 z"/></g>
+          <g class="w-note" id="w-exploit" data-world-at="s-4:3" data-world-until="s-4:6" data-of="w-eval"><g class="note-fly" data-note-for="4"><path class="note-glyph" d="M-14,-102 h20 l7,7 v27 h-27 z"/><g class="skull"><circle cx="-0.5" cy="-87" r="6.5"/><rect x="-4" y="-83" width="7" height="4.5" rx="1"/><circle class="skull-eye" cx="-3" cy="-87.5" r="1.8"/><circle class="skull-eye" cx="2" cy="-87.5" r="1.8"/><path class="skull-bones" d="M-9,-77 L8,-71 M8,-77 L-9,-71"/></g></g></g>
           <g class="w-board" id="w-flood" data-world-at="s-4:5" data-world-until="s-4:6" data-of="w-eval"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-92,-106 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-62,-110 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M-30,-104 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M2,-110 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M30,-102 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-5" d="M-78,-88 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-6" d="M-46,-92 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-7" d="M-14,-86 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-8" d="M16,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-9" d="M-94,-70 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-10" d="M-62,-72 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-11" d="M-30,-68 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-12" d="M0,-74 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-13" d="M28,-66 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-14" d="M-80,-52 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-15" d="M-48,-54 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-16" d="M-16,-50 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-17" d="M14,-56 h20 l7,7 v27 h-27 z"/></g>
           <g class="cred-badge" id="w-cred" data-world-at="s-3:1" data-world-until="s-4:3"><circle cx="70" cy="46" r="13"/><path d="M63,46 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M66.5,46 H79 M76,46 v4 M72,46 v3.5"/></g>
           <g class="lock-badge" id="w-lock" data-world-at="s-4:3" data-world-until="s-4:6"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
+          <g class="cred-badge secure-badge" id="w-secure" data-world-at="s-4:6"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
           <g class="status" id="w-down" data-world-at="s-4:5" data-world-until="s-4:6"><circle class="status-light" cx="70" cy="-46" r="12"/></g>
         </g>
       </g>
@@ -943,9 +963,10 @@
   </aside>
   <aside class="note" data-for="#s4-t2">
     <h3>A board seen through one paraphrase</h3>
-    <p>OpenAI’s timeline records SSRF syntax first shared on the board on 26 June, and responders linked a “message board” to the 27 June alert. METR paraphrases a 26 June agent, the first to gain Artifactory admin, describing one. METR itself saw “no message board activity between June 26th and July 6th”, likely because its data came from the rebuilt instance.</p>
+    <p>OpenAI’s timeline records SSRF syntax first shared on the board on 26 June, and responders linked a “message board” to the 27 June alert. METR paraphrases a 26 June agent, the first to gain Artifactory admin, describing one. The training board had been shut down after May, so this board formed again during evaluation. METR itself saw “no message board activity between June 26th and July 6th”, likely because its data came from the rebuilt instance.</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, timeline</a>
     <a class="src" href="https://metr.org/hugging-face-incident-report-aug-2026.pdf">METR incident report, p29 and fn 61</a>
+    <a class="src" href="https://www.technologyreview.com/2026/08/26/1143013/the-inside-story-on-why-openai-agents-hacked-hugging-face/">MIT Technology Review, 26 Aug 2026</a>
   </aside>
   <aside class="note" data-for="#w-lock">
     <h3>Admin through a zero-day</h3>
@@ -1984,7 +2005,16 @@
     const at = parsePt(w.dataset.worldAt), until = parsePt(w.dataset.worldUntil);
     return [at.sid === s.id ? at.n : 0, until && until.sid === s.id ? until.n : Infinity];
   }
+  // one place for the world across world slides (S-032): each world slide's title reserves the
+  // tallest world title's height, so the slot (and the world's position and scale) never changes
+  function syncWorldTitles() {
+    const ts = slides.filter(x => x.world).map(x => $(':scope > .title', x.node)).filter(Boolean);
+    ts.forEach(t => { t.style.minHeight = ''; });
+    const h = Math.max(0, ...ts.map(t => t.offsetHeight));
+    ts.forEach(t => { t.style.minHeight = `${h}px`; });
+  }
   function fitWorld(s) {
+    syncWorldTitles();
     const b = $(':scope > .world-slot', s.node);
     if (!b) return;
     Object.assign(world.style, { left: `${b.offsetLeft}px`, top: `${b.offsetTop}px`, width: `${b.offsetWidth}px`, height: `${b.offsetHeight}px` });

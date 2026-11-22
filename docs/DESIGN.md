@@ -284,7 +284,9 @@ pins for targets not on screen at that step hide (v1: always the last step).
   stay for every later world slide. A world slide is `section.slide[data-world]`: title spans the
   top, then `div.body.body--timeline > ol.steps` (one dated entry per step, **dates live here, not
   on the diagram**) · empty `div.world-slot` · `div.narration`, at ~30 / 40 / 30%. The engine fits
-  the world to the slot. World units ≈ screen px at 1920 (viewBox ~640 × 520), so text floors
+  the world to the slot, and every world slide's title reserves the tallest world title's height,
+  so the world **never moves or rescales between world slides** (PRD *Decisions*). On short
+  screens (≤ 660px high) timeline entries tighten so the longest timeline fits its row. World units ≈ screen px at 1920 (viewBox ~640 × 520), so text floors
   stay in proportion; keep tile labels short (stack words) as the world shrinks. Soft-toned
   `g.domain` boxes (label top-left, uppercase) name where things run ("OpenAI servers", "Public
   Internet"). `data-split` on `.world` re-arranges the scene (swarm left, mirror right, OpenAI box
@@ -293,11 +295,14 @@ pins for targets not on screen at that step hide (v1: always the last step).
   on a part (or an ancestor) picks its group (default: the first); `[data-run]` follows a run (`first`
   = the group's outermost upper-right run, or an index). `.note-fly[data-note-for="first"|"lit-k"]`
   glyphs sit at their target (pinned on the mirror) and fly in from their run, where it stands when
-  their group appears. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
-  `ghost` (a past swarm greys, kept as history), `dim` (a box fades back), `down` (mirror and notes
-  grey after the 4 s flood). Timed beats within one step (s-4: bell rings then is silenced, load
-  pulses travel run→mirror faster and faster, the flood lands, then the crash light flashes
-  `--alarm`) show their end state under reduced motion. Moving dots, never marching dashes. The timeline
+  their group appears. A new setup dissolves the old one completely (`data-world-until`), never
+  greyed ghosts. `data-world-is="<name> <slide:step> [until]"` adds `.is-<name>` over a range:
+  `dim` (a box fades back, as history), `zeroday` (timed key → open-padlock swap), `down` (mirror
+  and notes grey after the 4 s flood). Timed beats within one step start after a pop-over has
+  gone (+0.5 s) and show their end state under reduced motion (s-4: ring → skull note → open
+  padlock pops; bell rings ~2 s then is silenced; load pulses travel run→mirror faster and faster,
+  the flood lands, then the crash light flashes `--alarm`). Mirror badge = its access state: green
+  key (shared credential), oxblood open padlock (admin taken), green closed padlock (secured). Moving dots, never marching dashes. The timeline
   builds: an entry shows at its step, never ahead; `li.sub` = un-numbered sub-point (dash);
   `span.tl-aside` = a quieter second line. A world slide may close with an Insight
   (`.overlay--insight`, spans world + narration; the world and timeline soften). A statement that
