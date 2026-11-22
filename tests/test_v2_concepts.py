@@ -114,8 +114,17 @@ def _section_src():
     return m.group(0)
 
 
+def _settle(page):
+    """Wait until the slide's finite transitions/animations have finished (robust under parallel load)."""
+    page.wait_for_function("""sid => { const s = document.getElementById(sid);
+      return document.getAnimations().every(a => a.playState !== 'running' || !(a.effect && a.effect.target
+        && s.contains(a.effect.target)) || a.effect.getComputedTiming().endTime === Infinity); }""",
+                           arg=SID, timeout=10000)
+
+
 def _state(page, k):
     goto_slide(page, SID, k)
+    _settle(page)
     st = page.evaluate(STATE, SID)
     st["text"] = [_norm(t) for t in st["text"]]
     st["insight"] = [_norm(t) for t in st["insight"]]
