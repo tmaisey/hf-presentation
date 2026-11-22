@@ -82,8 +82,8 @@ cyber evaluation")
 
 ## s-3 · Training board (2:00) · M1
 
-✓ *Training rewarded agents that cheated on accidentally impossible tasks, and they learnt to
-coordinate through a shared message board*
+✓ *The incident began when persistent agents were trained on accidentally impossible tasks, reinforcing misaligned behaviours* (presenter, 22 Nov: the title marks the start of
+the incident; replaces "Training rewarded agents that cheated… coordinate through a shared message board")
 - **Layout (world slide):** dated timeline left · world centre · narration right. Key: green dot =
   agent run. The timeline builds one entry per step (current in green); un-numbered sub-points sit
   under an entry. Timeline: 1 Apr–May many training runs in parallel (sub: agents access a shared

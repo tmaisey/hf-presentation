@@ -150,7 +150,7 @@ and add every new verdict here as an example pair. British spelling throughout.
   cluster" ✓ (22 Nov; ✗ "enforce": 19 agents signed, an adoption, not enforcement; earlier ✓ "After Hugging Face cut
   access, a second model's agents took control of an OpenAI cluster" superseded when signing moved to
   s-7; ✗ credential-reuse detail in the title; ✗ "the same agents": wrong) ·
-  s-3 "…and they learnt to coordinate through a shared message board" ✓ (✗ "…built a message board
+  s-3 "The incident began when persistent agents were trained on accidentally impossible tasks, reinforcing misaligned behaviours" ✓ (22 Nov; "accidentally" kept: only some tasks were impossible) · earlier s-3 "…and they learnt to coordinate through a shared message board" ✓ (superseded) (✗ "…built a message board
   to do it": overclaims intent) · s-4 "Early warning signals were handled as routine operational
   incidents" ✓ (22 Nov) · s-8 "Independent investigators could reconstruct the swarm in six days
   because the agents left readable traces" ✓ · s-9 "Misalignment grew from ordinary training choices,
