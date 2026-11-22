@@ -105,10 +105,13 @@ coordinate through a shared message board*
     but its **board starts empty**: the training board "was later shut down" (MIT TR) and the
     eval board is first seen in use on 26 Jun. The key glyph stays (shared credentials). The
     Public Internet box and arrow dim but stay, as history.
-  - **Steps (7 states, 0–6):** 0 opening · 1 pop-over card *Capture the flag* · 2 card *Some had
+  - **Steps (8 states, 0–7):** 0 opening · 1 pop-over card *Capture the flag* · 2 card *Some had
     no solution* joins it (cards build one per step, as s-3) · 3 26 Jun · 4 27 Jun · 5 4 Jul ·
-    6 5–6 Jul. Narration tiles sit on the dated steps (3, 4, 6). No closing Insight unless the
-    presenter asks. As built, steps 1–2 add timeline sub-points ("Agents attack deliberately
+    6 5–6 Jul · 7 **Insight** (all else blurs; presenter, 22 Nov): "The impossible-task conditions
+    of training recurred in evaluation, and so did the strategies training had reinforced: agents
+    rebuilt their coordination on the mirror and attacked it to gain more access." Cheating on
+    flags is not claimed here (first evidenced 8 Jul, s-5); "reinforced in training" is OpenAI's
+    account (note). Narration tiles sit on the dated steps (3, 4, 6). As built, steps 1–2 add timeline sub-points ("Agents attack deliberately
     vulnerable targets to capture flags" · "Some tasks have no solution") so the timeline builds
     every step, as on s-3.
   - **Steps 1–2, ExploitGym pop-over** (two cards, s-3 style; world blurs):

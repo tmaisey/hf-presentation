@@ -6,11 +6,12 @@ in on an empty board; an ExploitGym pop-over (capture the flag, then some tasks 
 then one dated event per step: 26 Jun admin (after a pause: ring, a skull note to the board, then
 the green key becomes an open padlock on oxblood), 27 Jun alert (radar rings, the bell rings ~2 s
 then is silenced), 4 Jul load (pulses, a flood of notes, then the crash: red light, mirror and notes
-grey), 5–6 Jul rebuild (notes dissolve, mirror live and secured with a closed padlock).
+grey), 5–6 Jul rebuild (notes dissolve, mirror live and secured with a closed padlock); then a
+closing Insight that training's conditions and reinforced strategies recurred in evaluation.
 Coverage: happy (shell; seven states; timeline builds an entry per step with sub-points; world parts
 per step; fresh runs on an empty board; zero-day beats in order; bell silenced after ~2 s; notes
 flood onto the mirror; crash after the flood; secured rebuild; pop-over panels per step; narration at
-26 Jun, 27 Jun, 5–6 Jul; sourced notes) · edge (zero-day waits for the pop-over to go; crash waits for
+26 Jun, 27 Jun, 5–6 Jul; closing Insight blurs the rest; sourced notes) · edge (zero-day waits for the pop-over to go; crash waits for
 the flood; reduced motion shows end states without motion; everything on screen below the title at
 three sizes at every step) · negative (timeline never shows ahead; no training runs or notes left;
 no scorer reveal on this slide; no "deleted"/deliberate-wipe claim; no red outline on the mirror; no
@@ -28,7 +29,9 @@ pytestmark = pytest.mark.deck("v2")
 
 SID = "s-4"
 TITLE = "Early warning signals were handled as routine operational incidents"
-STEPS = 6   # states 0–6
+STEPS = 7   # states 0–7 (7 = closing Insight)
+INSIGHT = ("The impossible-task conditions of training recurred in evaluation, and so did the strategies training "
+           "had reinforced: agents rebuilt their coordination on the mirror and attacked it to gain more access.")
 # timeline: (id, step, numbered?, text fragment)
 TIMELINE = [("s4-t1", 0, True, "June"), ("s4-t1a", 1, False, "capture flags"),
             ("s4-t1b", 2, False, "no solution"), ("s4-t2", 3, True, "26 Jun"), ("s4-t3", 4, True, "27 Jun"),
@@ -86,9 +89,8 @@ def test_title_kicker_chapter_and_world_marker():
 def test_shell_order_is_timeline_world_popover_narration_notes():
     sec = helper_section()
     order = [sec.index(x) for x in ('<div class="body body--timeline"', '<div class="world-slot"', '<div class="popover"',
-                                    '<div class="narration"', '<aside class="note"')]
+                                    '<div class="narration"', '<div class="overlay overlay--insight"', '<aside class="note"')]
     assert order == sorted(order)
-    assert "overlay--insight" not in sec, "no closing Insight unless the presenter asks"
 
 
 def test_timeline_has_one_entry_per_step_with_sub_points_and_dates():
@@ -169,7 +171,30 @@ def helper_until(page, js, arg=None, timeout=6000):
         return False
 
 
-def test_slide_has_seven_states(page):
+def test_insight_claims_coordination_and_attacks_not_flag_cheating():
+    """Flag cheating is first evidenced on 8 Jul (s-5); 'reinforced' is OpenAI's account, attributed in a note."""
+    ins = helper_text(re.search(r'<div class="overlay overlay--insight" id="s4-insight" data-at="7">(.*?)</div>',
+                                helper_section(), re.S).group(1))
+    assert ins == INSIGHT and "cheat" not in ins.lower() and "flag" not in ins.lower()
+    notes = helper_text("".join(re.findall(r'<aside class="note".*?</aside>', helper_section(), re.S)))
+    assert "OpenAI" in notes and "reinforced" in notes and "METR and Redwood were scoped out of training" in notes
+
+
+def test_closing_insight_blurs_everything_else(page):
+    open_deck(page)
+    goto_slide(page, SID, STEPS - 1)
+    assert page.evaluate(OPACITY, "#s4-insight") < 0.05, "the Insight takes its own step"
+    goto_slide(page, SID, STEPS)
+    res = page.evaluate("""() => { const ins = document.querySelector('#s4-insight');
+      const blur = e => { const m = getComputedStyle(e).filter.match(/blur\\(([\\d.]+)px\\)/); return m ? +m[1] : 0; };
+      return { shown: +getComputedStyle(ins).opacity > .9, text: ins.innerText.replace(/\\s+/g, ' ').trim(),
+               world: blur(document.querySelector('.world')), timeline: blur(document.querySelector('#s-4 > .body')),
+               tiles: document.querySelectorAll('#s-4 .narr-tile.is-shown').length }; }""")
+    assert res["shown"] and res["text"] == INSIGHT
+    assert res["world"] > 1 and res["timeline"] > 1 and res["tiles"] == 0
+
+
+def test_slide_has_eight_states(page):
     open_deck(page)
     assert dict(page.evaluate("window.deck.plan()"))[SID] == STEPS
 
@@ -392,6 +417,7 @@ def test_every_step_stays_on_screen_below_the_title(page, size):
           const tl = s.querySelector(':scope > .body'), out = { title: r(s.querySelector('.title')), vw: innerWidth, vh: innerHeight,
             clipped: tl.scrollHeight > tl.clientHeight + 1, boxes: { timeline: r(tl), world: r(document.querySelector('.world')) } };
           const pop = s.querySelector('.popover'); if (+getComputedStyle(pop).opacity > .5) out.boxes.pop = r(pop);
+          const ins = s.querySelector('.overlay--insight'); if (+getComputedStyle(ins).opacity > .5) out.boxes.insight = r(ins);
           s.querySelectorAll('.narr-tile.is-shown').forEach((t, i) => out.boxes['tile' + i] = r(t));
           return out; }""", SID)
         if res["clipped"]:
