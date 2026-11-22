@@ -154,7 +154,8 @@ SLIVERS = """() => {
     const range = document.createRange(); range.selectNodeContents(n);
     for (const r of range.getClientRects()) {
       if (!r.width || !r.height) continue;
-      if (r.left < tr.right && r.right > tr.left && r.top < tr.bottom && r.bottom > tr.top) continue;   // overlaps the target itself
+      // overlaps the target itself (2px slack: a stacked neighbour's line box meets the target at a subpixel edge)
+      if (r.left < tr.right - 2 && r.right > tr.left + 2 && r.top < tr.bottom - 2 && r.bottom > tr.top + 2) continue;
       const l = Math.max(r.left, w.left), rt = Math.min(r.right, w.right), tp = Math.max(r.top, w.top), bt = Math.min(r.bottom, w.bottom);
       if (rt - l <= 1 || bt - tp <= 1) continue;                                   // wholly outside
       if (r.left >= w.left - 1 && r.right <= w.right + 1 && r.top >= w.top - 1 && r.bottom <= w.bottom + 1) continue;   // wholly inside
