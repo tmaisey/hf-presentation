@@ -143,8 +143,8 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   back, ≈6× the stroke (≥ 12px). **Arrowhead alignment (MUST; presenter, 22 Nov, after two
   regressions):** the head's axis follows the line's end tangent and the midpoint of the head's base
   sits on the line where the head meets it, never offset or skewed. A curved edge ends in a short
-  straight run along its final direction so the marker can't skew; a deck-wide test checks every
-  arrowhead. [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
+  straight run (~18 units) along its final direction so the marker can't skew; `tests/test_arrowheads.py`
+  checks every arrowhead on every slide and step. [P3 `#arr`](../design/prototypes/03-notes-spotlight.html#L85)
 - **Key tiles** (the slide's most important object): accent-tinted fill + soft accent glow,
   text stays ink, still no border. A few per deck; at most one or two per diagram.
 - ~~Flagged tile~~ *retired* (unused since S-026 went text-led; CSS left in the deck). Context
@@ -281,7 +281,8 @@ pins for targets not on screen at that step hide (v1: always the last step).
   `.cred-badge.tick-badge` disc on the edge. A figure with annotations: `div.fig > svg.diagram +
   div.fig-notes > p.annot` (plain card on `--tile` with the deck's lift shadow; **NEVER** a coloured
   side bar or border stripe on any card: an AI-slide smell, presenter 22 Nov); an annotation may open
-  with a bold coloured run-in label (`strong.annot-lead`, `--accent-ink` or `--loss`); annotations
+  with a bold coloured run-in label (`.annot-lead`, `--accent-ink`; `.annot-lead--loss`, `--loss`);
+  `svg.diagram--compact` sets tile titles at the diagram sub size; annotations
   swap by step in one shared cell. `.keep` = never break inside a phrase (embedded
   fonts lack U+2011).
 - Mix bar: `g.mix > text.label + rect.mix-major + rect.mix-minor + text.mix-label` (`.mix-label--end`
