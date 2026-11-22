@@ -30,6 +30,7 @@ approval · ✎ = new for v2, needs approval.
 | s-9 | Insights | M1, M2 | 2:00 |
 | s-10 | Pace and takeaway | M3, T | 1:00 |
 | s-11 | Close: discussion | T | 4:00 Q&A |
+| s-12 | Close: thank you | — | 0:00 |
 | | **Total** (s-5 and s-6 each +0:30; presenter accepted the longer talk, 22 Nov) | | **21:00** |
 
 **Timeline copy (presenter, 22 Nov):** the step lines below describe each beat; the on-slide timeline
@@ -479,6 +480,11 @@ one per step (✓, presenter, 22 Nov):
 3. "What approaches could improve efforts to manage AI safety under pressures to accelerate
    capability?"
 Replaces s-10's discussion phase and its v1 6.1 ◇ title.
+
+## s-12 · Thank you (Close)
+
+Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's firefly template, a single
+"Thank you" centred on the page; no kicker line, no notes needed.
 
 ## Open items
 
