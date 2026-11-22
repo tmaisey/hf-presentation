@@ -33,7 +33,7 @@ STEPS = 6   # states 0–6
 TIMELINE = [("s4-t1", 0, True, "June"), ("s4-t1a", 1, False, "capture flags"),
             ("s4-t1b", 2, False, "no solution"), ("s4-t2", 3, True, "26 Jun"), ("s4-t3", 4, True, "27 Jun"),
             ("s4-t4", 5, True, "4 Jul"), ("s4-t5", 6, True, "5–6 Jul")]
-# world parts at full opacity on s-4, by step (ghosted/dimmed parts are below .5 and so excluded)
+# world parts at full opacity on s-4, by step (the dimmed internet box is below .5 and so excluded)
 CARRIED = {"w-oai", "w-mirror"}           # from s-3 (the training runs, lines and notes do not carry)
 TRAINING = ("#w-runs", "#w-links", "#w-board", "#w-note1")
 WORLD_AT = {0: {"w-eval", "w-eval-links"}, 3: {"w-admin", "w-admin-ring", "w-lock", "w-exploit"},
