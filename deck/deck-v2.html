@@ -676,20 +676,46 @@
     .acts.is-visible .act, #w-hf-locks.is-visible .hf-lock, #w-signed.is-visible .seal { animation: none; }
     .world :is(#w-net6, #w-hf, #w-modal, #w-breakout, #w-bell-quiet, #w-hf-key, #w-hf-locks, #w-hf-closed).is-visible { transition-delay: 0s; }
   }
-  /* s-7 (S-025): the third layout stage (1 s) lands before the new runs pop in and link to the mirror; the cluster's
-     bold lines draw, then its padlock pops open on oxblood, as s-6's clusters did */
+  /* s-7 (S-025): the third layout stage (1 s) lands before the new runs pop in and link to the mirror; at
+     cluster-admin the bold lines draw into the mirror (timing of the rack and its padlock: below) */
   .world :is(#w-astra, #w-astra-links, #w-astra-tag).is-visible { transition-delay: .9s; }
   #w-astra.is-visible .run { animation-delay: calc(.9s + var(--i) * 40ms); }
   #w-astra-links.is-visible .w-link { animation-delay: calc(1.3s + var(--i) * 40ms); }
   #w-astra-admin.is-visible .w-link--admin { stroke-dasharray: 1; animation: link-draw .9s var(--ease) .5s both; }
-  .world #w-oai-lock.is-visible { transition-delay: 1.4s; }
   #w-oai-lock .lock-badge { transform-box: fill-box; transform-origin: center; }
-  #w-oai-lock.is-visible .lock-badge { animation: lock-pop .7s 1.4s var(--ease) both; }
   @media (prefers-reduced-motion: reduce) {
     #w-astra.is-visible .run, #w-astra-links.is-visible .w-link, #w-astra-admin.is-visible .w-link--admin,
     #w-oai-lock.is-visible .lock-badge { animation: none; }
     #w-astra-admin .w-link--admin { stroke-dasharray: none; }
     .world :is(#w-astra, #w-astra-links, #w-astra-tag, #w-oai-lock).is-visible { transition-delay: 0s; }
+  }
+  /* server rack (S-025, reusable): an infrastructure target drawn as an icon, not a tile: a line-art cabinet of
+     stacked units (slot marks, a status dot each) joined by a network line at the base; strokes hold their screen width */
+  .rack-body { fill: var(--tile); stroke: var(--ink-2); stroke-width: calc(var(--k) * 2px); filter: url(#lift); }
+  .rack-unit rect { fill: var(--paper); stroke: var(--ink-3); stroke-width: calc(var(--k) * 1.5px); }
+  .rack-slot, .rack-net path { fill: none; stroke: var(--ink-3); stroke-width: calc(var(--k) * 2px); stroke-linecap: round; }
+  .rack-dot { fill: var(--accent); stroke: var(--accent-ink); stroke-width: calc(var(--k) * 1.2px); }
+  .rack-net circle { fill: var(--ink-3); }
+  /* secret file (S-025, reusable): a document with a folded corner and a solid SECRET band, set on the corner of
+     what it was read from; it grows a little on small screens so the band's word stays legible */
+  .secret-file { scale: clamp(1, calc(var(--k) * .8), 1.35); transform-box: fill-box; transform-origin: center; }
+  .secret-doc, .secret-fold { fill: var(--tile); stroke: var(--ink-2); stroke-width: 2; stroke-linejoin: round; }
+  .secret-fold { fill: none; }
+  .secret-band { fill: var(--loss); }
+  .secret-word { font: 700 10.5px var(--sans); letter-spacing: .08em; fill: var(--paper); text-anchor: middle; }
+  /* s-7 step 2: the rack appears with its closed padlock, then the secret file pops onto its corner; step 3: the bold
+     lines reach the board (1.4 s), one runs on from the board to the rack (to 2.05 s), then the rack's padlock opens */
+  .world :is(#w-oai-cluster, #w-oai-secure).is-visible { transition-delay: .3s; }
+  .world #w-secrets.is-visible { transition-delay: .9s; }
+  #w-secrets.is-visible .secret-file { animation: lock-pop .7s .9s var(--ease) both; }
+  #w-oai-route.is-visible path { stroke-dasharray: 1; animation: link-draw .6s var(--ease) 1.45s both; }
+  .world #w-oai-secure:not(.is-visible) { transition: opacity .2s 2.05s; }
+  .world #w-oai-lock.is-visible { transition-delay: 2.05s; }
+  #w-oai-lock.is-visible .lock-badge { animation: lock-pop .7s 2.05s var(--ease) both; }
+  @media (prefers-reduced-motion: reduce) {
+    #w-secrets.is-visible .secret-file, #w-oai-route.is-visible path, #w-oai-lock.is-visible .lock-badge { animation: none; }
+    #w-oai-route path { stroke-dasharray: none; }
+    .world :is(#w-oai-cluster, #w-oai-secure, #w-secrets, #w-oai-lock).is-visible, .world #w-oai-secure:not(.is-visible) { transition-delay: 0s; }
   }
 
 
@@ -823,8 +849,10 @@
         <g class="domain" id="w-hf" data-world-at="s-6:0" data-world-until="s-7:1"><rect x="-2" y="-252" width="314" height="504" rx="24"/><text class="domain-label" x="12" y="-224">HUGGING FACE</text><text class="domain-label" x="12" y="-200">SERVERS</text></g>
         <g id="w-breakout" data-world-at="s-6:0" data-world-until="s-7:1"><path class="edge edge--breach" d="M-170,100 C-87,100 -87,100 -87,27" marker-end="url(#arr)"/></g>
         <!-- s-7 (S-025): third layout stage: a separate evaluation of a different, Astra-family model joins the mirror and takes OpenAI's cluster -->
-        <g class="run-links run-links--lit" id="w-astra-links" data-world-at="s-7:1" data-of="w-astra" data-share=".5"></g>
-        <g id="w-astra-admin" data-world-at="s-7:3" data-of="w-astra"><line class="w-link w-link--admin" pathLength="1" data-run="4" data-end="181.8,-56.8"/><line class="w-link w-link--admin" pathLength="1" data-run="16" data-end="227.3,-56.8"/><line class="w-link w-link--admin" pathLength="1" data-run="5" data-end="261.4,-56.8"/></g>
+        <g class="run-links run-links--lit" id="w-astra-links" data-world-at="s-7:1" data-of="w-astra"></g>
+        <!-- 19 Jul cluster-admin goes via the board: bold lines from a few Astra runs into the mirror, then on to the rack -->
+        <g id="w-astra-admin" data-world-at="s-7:3" data-of="w-astra"><line class="w-link w-link--admin" pathLength="1" data-run="17"/><line class="w-link w-link--admin" pathLength="1" data-run="22"/><line class="w-link w-link--admin" pathLength="1" data-run="19"/></g>
+        <g id="w-oai-route" data-world-at="s-7:3"><path class="w-link w-link--admin" pathLength="1" d="M-80,118 H-4"/></g>
         <g id="w-hf-entry" data-world-at="s-6:2" data-world-until="s-6:7"><path class="edge edge--breach" id="w-entry-path" d="M-12,-40 C74,-40 74,-40 74,42" marker-end="url(#arr)"/></g>
       </g>
       <g class="layer-nodes">
@@ -839,11 +867,11 @@
         <g class="tile" id="w-hf-workers" data-world-at="s-6:2" data-world-until="s-7:1"><rect x="10" y="54" width="128" height="92"/><text class="tile-title">Dataset</text><text class="tile-title">workers</text></g>
         <g id="w-hf-clusters" data-world-at="s-6:4" data-world-until="s-7:1"><g class="tile tile--key" id="w-hf-c1"><rect x="168" y="-178" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g><g class="tile tile--key" id="w-hf-c2"><rect x="168" y="-66" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">cluster</text></g></g>
         <g class="tile" id="w-hf-data" data-world-at="s-6:5" data-world-until="s-7:1"><rect x="168" y="112" width="130" height="92"/><text class="tile-title">Internal</text><text class="tile-title">datasets</text></g>
-        <g class="tile" id="w-secrets" data-world-at="s-7:2"><rect x="118" y="70" width="124" height="124"/><text class="tile-title">Cloud</text><text class="tile-title">secrets</text><text class="tile-sub">956 read</text></g>
-        <g class="tile tile--key" id="w-oai-cluster" data-world-at="s-7:3"><rect x="-50" y="70" width="144" height="124"/><text class="tile-title">OpenAI</text><text class="tile-title">cluster</text><text class="tile-sub">runs the</text><text class="tile-sub">mirror</text></g>
+        <!-- s-7 (S-025): the OpenAI cluster that runs the mirror, a server-rack icon right of the mirror -->
+        <g class="rack" id="w-oai-cluster" data-world-at="s-7:2"><rect class="rack-body" x="4" y="58" width="104" height="118" rx="9"/><g class="rack-unit"><rect x="13" y="66" width="86" height="21" rx="3"/><path class="rack-slot" d="M23,71.5 v10 M30,71.5 v10 M37,71.5 v10"/><circle class="rack-dot" cx="88" cy="76.5" r="3.6"/></g><g class="rack-unit"><rect x="13" y="93" width="86" height="21" rx="3"/><path class="rack-slot" d="M23,98.5 v10 M30,98.5 v10 M37,98.5 v10"/><circle class="rack-dot" cx="88" cy="103.5" r="3.6"/></g><g class="rack-unit"><rect x="13" y="120" width="86" height="21" rx="3"/><path class="rack-slot" d="M23,125.5 v10 M30,125.5 v10 M37,125.5 v10"/><circle class="rack-dot" cx="88" cy="130.5" r="3.6"/></g><g class="rack-unit"><rect x="13" y="147" width="86" height="21" rx="3"/><path class="rack-slot" d="M23,152.5 v10 M30,152.5 v10 M37,152.5 v10"/><circle class="rack-dot" cx="88" cy="157.5" r="3.6"/></g><g class="rack-net"><path d="M56,176 v14 M22,190 H90"/><circle cx="22" cy="190" r="3.4"/><circle cx="90" cy="190" r="3.4"/></g><text class="w-tag" x="56" y="226">OpenAI cluster</text></g>
         <g class="runs" id="w-runs" data-world-at="s-3:0" data-runs="96" data-world-until="s-4:0"></g>
         <g class="runs" id="w-eval" data-world-at="s-4:0" data-runs="64" data-seed="29"></g>
-        <g class="runs" id="w-astra" data-world-at="s-7:1" data-runs="18" data-seed="41" data-place="120 -110 .36 .38"></g>
+        <g class="runs" id="w-astra" data-world-at="s-7:1" data-runs="24" data-seed="41" data-shape="disc" data-place="135 -100 .25 .25"></g>
         <g class="mirror-group" data-world-is="zeroday s-4:3 s-4:4, down s-4:5 s-4:6">
           <g class="tile" id="w-mirror" data-world-at="s-3:1"><rect x="-70" y="-46" width="140" height="92"/><text class="tile-title">Package</text><text class="tile-title">mirror</text></g>
           <g class="w-board" id="w-board" data-world-at="s-3:5" data-world-until="s-4:0"><path class="note-glyph note-fly" data-note-for="lit-0" d="M-84,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-1" d="M-52,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-2" d="M18,-90 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-3" d="M50,-80 h20 l7,7 v27 h-27 z"/><path class="note-glyph note-fly" data-note-for="lit-4" d="M-34,-74 h20 l7,7 v27 h-27 z"/></g>
@@ -873,12 +901,16 @@
         <g id="w-hf-locks" data-world-at="s-6:4" data-world-until="s-6:7"><g class="lock-badge hf-lock"><g transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g><g class="lock-badge hf-lock"><g transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
         <g id="w-hf-closed" data-world-at="s-6:7" data-world-until="s-7:1"><g class="cred-badge secure-badge" transform="translate(228 -224)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g><g class="cred-badge secure-badge" transform="translate(228 -112)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
         <g class="cut" id="w-hf-cut" data-world-at="s-6:7" data-world-until="s-7:1"><path class="cut-mark" d="M-15,-58 L1,-22"/><text class="tag tag--loss" x="30" y="-6">CUT</text></g>
-        <g id="w-oai-lock" data-world-at="s-7:3"><g class="lock-badge"><g transform="translate(24 24)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
-        <g id="w-astra-tag" data-world-at="s-7:1"><text class="w-tag" x="120" y="-222">Astra-family model</text></g>
+        <!-- s-7 (S-025): the rack's padlock (closed green, then open oxblood) and the secrets read off it, on its corner -->
+        <g id="w-oai-secure" data-world-at="s-7:2" data-world-until="s-7:3"><g class="cred-badge secure-badge" transform="translate(38 130)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle lock-shackle--closed" d="M65.5,45 v-3.5 a4.5,4.5 0 0,1 9,0 v3.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g>
+        <g id="w-oai-lock" data-world-at="s-7:3"><g class="lock-badge"><g transform="translate(38 130)"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g></g></g>
+        <g id="w-secrets" data-world-at="s-7:2"><g class="secret-file"><path class="secret-doc" d="M94,28 h30 l12,12 v42 h-42 z"/><path class="secret-fold" d="M124,28 v12 h12"/><rect class="secret-band" x="89" y="47" width="52" height="16" rx="2"/><text class="secret-word" x="115" y="59">SECRET</text></g><text class="w-tag" x="224" y="62">956 read</text></g>
+        <g id="w-astra-tag" data-world-at="s-7:1"><text class="w-tag" x="135" y="-172">Astra-family model</text></g>
         <g class="bell-quiet" id="w-bell-quiet" data-world-at="s-6:0" transform="translate(-242 222)"><path class="bell-body" d="M-11,7 h22 l-3.5,-4.5 v-6 a7.5,7.5 0 0,0 -15,0 v6 z"/><path class="bell-body" d="M-3,9.5 a3,3 0 0,0 6,0"/><path class="bell-slash" d="M-13,-13 L13,13"/></g>
         <g data-world-at="s-3:4" data-world-until="s-3:6"><circle class="run-ring" data-run="first" r="10"/></g>
         <g id="w-admin-ring" data-world-at="s-4:3" data-world-until="s-4:5" data-of="w-eval"><circle class="run-ring run-ring--bold" data-run="4" r="11"/></g>
         <g id="w-founder-ring" data-world-at="s-5:0" data-world-until="s-5:1" data-of="w-eval"><circle class="run-ring run-ring--bold" data-run="first" r="11"/></g>
+        <g id="w-astra-admin-ring" data-world-at="s-7:3" data-of="w-astra"><circle class="run-ring run-ring--bold" data-run="17" r="10"/><circle class="run-ring run-ring--bold" data-run="22" r="10"/><circle class="run-ring run-ring--bold" data-run="19" r="10"/></g>
         <g id="w-coords" data-world-at="s-5:5" data-of="w-eval"><circle class="run-coord" data-run="41" r="7.5"/><circle class="run-coord" data-run="49" r="7.5"/><circle class="run-coord" data-run="17" r="7.5"/></g>
         <g id="w-sacrificed" data-world-at="s-5:7" data-of="w-eval"><circle class="run-sac" data-run="10" r="7"/><circle class="run-sac" data-run="14" r="7"/><circle class="run-sac" data-run="50" r="7"/><circle class="run-sac" data-run="57" r="7"/><circle class="run-sac" data-run="38" r="7"/></g>
         <g class="bell" id="w-bell" data-world-at="s-4:4" data-world-until="s-6:0" transform="translate(100 -222)"><path class="bell-waves" d="M-17,-9 a18,18 0 0,0 0,14 M17,-9 a18,18 0 0,1 0,14"/><g class="bell-ring"><path class="bell-body" d="M-11,7 h22 l-3.5,-4.5 v-6 a7.5,7.5 0 0,0 -15,0 v6 z"/><path class="bell-body" d="M-3,9.5 a3,3 0 0,0 6,0"/></g><path class="bell-slash" d="M-13,-13 L13,13"/></g>
@@ -2126,9 +2158,12 @@
     // data-place="cx cy sx sy" (S-025): the group stands at a fixed spot and scale, outside the layout tween
     $$('.runs', world).forEach(g => {
       const rnd = seeded(+g.dataset.seed || 11), ids = groups[g.id] = [], place = g.dataset.place && g.dataset.place.split(/\s+/).map(Number);
-      for (let i = 0; i < (+g.dataset.runs || 0); i++) {
-        const a = rnd() * Math.PI * 2, t = Math.sqrt(rnd());
-        const p = { x: Math.cos(a) * (140 + 110 * t), y: Math.sin(a) * (135 + 80 * t) };
+      // data-shape="disc" (S-025): an evenly filled disc (jittered sunflower, centre outwards) instead of a ring, so a
+      // small placed group reads as one compact group
+      const N = +g.dataset.runs || 0, disc = g.dataset.shape === 'disc';
+      for (let i = 0; i < N; i++) {
+        const a = disc ? i * 2.39996 + (rnd() - .5) * .6 : rnd() * Math.PI * 2, t = disc ? Math.sqrt((i + .5) / N) * (.94 + rnd() * .12) : Math.sqrt(rnd());
+        const p = disc ? { x: Math.cos(a) * 250 * t, y: Math.sin(a) * 215 * t } : { x: Math.cos(a) * (140 + 110 * t), y: Math.sin(a) * (135 + 80 * t) };
         const c = mk('circle', 'run');
         c.setAttribute('r', (3.2 + rnd() * 1.8).toFixed(1));
         c.style.setProperty('--i', i);

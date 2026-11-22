@@ -42,7 +42,7 @@ HF_END = {"w-net6", "w-hf", "w-modal", "w-breakout", "w-hf-workers", "w-hf-clust
           "w-hf-closed", "w-hf-cut", "w-key-act"}
 WORLD_AT = {1: {"w-astra", "w-astra-links", "w-astra-tag"},
             2: {"w-secrets", "w-root", "w-oai-cluster", "w-oai-secure"},
-            3: {"w-astra-admin", "w-oai-route", "w-oai-lock"}}
+            3: {"w-astra-admin", "w-astra-admin-ring", "w-oai-route", "w-oai-lock"}}
 ENDS = {"w-secure": 2, "w-oai-secure": 3}   # each closed padlock gives way to the open one
 NARR_AT = {
     0: [("METR investigation", "agents compromised OpenAI infrastructure between July 13th and July 19th")],
