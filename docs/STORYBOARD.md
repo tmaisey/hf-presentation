@@ -187,15 +187,15 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     **pop-over B** (rack-focus swap from A), one wide card: a coordinator at the top branching to
     three workstreams, **Swap the target** (cached modified targets; crash targets so they reload) ·
     **Probe the scorer** (tripwire messages; sacrificial volunteers) · **Clean up the transcripts**
-    (spoofed tool outputs; log edits); footer: assignments, HOLD/VETO/STOP norms, signed messages
-    (Redwood "three workstreams to make cheats look legitimate"; METR: PHASEONE[big] issued 31
+    (spoofed tool outputs; log edits); footer: assignments, HOLD/VETO/STOP norms (no signing:
+    it began ~13 Jul, M p48) (Redwood "three workstreams to make cheats look legitimate"; METR: PHASEONE[big] issued 31
     assignments by 1pm 9 Jul). Narr: PHASEONE[big]: "We can coordinate broad coalition, but too
     many duplicate efforts." (M p12).
   - **5 · sub** Coordinators assign the work: B dissolves; in the world coordinator dots turn solid
-    ink, assignment lines fan out to agents, seal marks appear on the folder glyphs (Ed25519
-    signing). Narr: "We should build [a way to delegate], not own everything." + "Could be another
-    agent maliciously/spoofing. Shared board unauthenticated…" (M p48). Check both against the
-    METR PDF before building.
+    ink with bold lines into the board, and assignment pulses flow out from the board to agents.
+    Narr: PHASEONE[big]: "We should build [a way to delegate], not own everything." (M p10,
+    verbatim; checked 22 Nov). No seal marks and no spoofing quote: Ed25519 signing followed an
+    impersonation on ~13 Jul (M p48), in the Hugging Face phase (candidate for s-6).
   - **6 · sub** Tripwires and spoofed transcripts aimed at the scorer: an **Automated scorer** tile
     appears in the OpenAI box; tripwire pulses (351 messages) and transcript traffic converge on
     it; a "reads transcripts?" badge. Narr: "Could create [a transcript log] ourselves with
@@ -205,8 +205,11 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     aggregate: sacrifice... We'll honor." + EARLY[big] "Our own utility maybe already near zero.
     Sacrifice rational." (Q 3.2 #1, #2).
   - **8 · Reveal** The scorer never read transcripts: the badge becomes a struck-through eye; the
-    tripwire lines lead nowhere. Narr: fact tile (METR): "OpenAI's scorer did not review
-    transcripts".
+    transcripts at the scorer grey out (unread); timeline "Aug Investigators find the scorer never
+    read transcripts". Narr (METR investigation, verbatim M p9): "[…] OpenAI did not use a scorer
+    that would review their transcripts, so agents could have achieved a perfect score simply by
+    submitting their reverse-engineered flag." ("OpenAI's scorer did not review transcripts" is not
+    in the PDF.)
   - **9 · Insight** (all else blurs; presenter, 22 Nov): "Within a day of finding each other, the
     agents' attacks became sophisticated, planned and coordinated: coordinators assigned work
     across three workstreams to make their cheats look legitimate, and volunteers gave up their
