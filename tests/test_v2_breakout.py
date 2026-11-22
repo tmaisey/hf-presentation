@@ -402,7 +402,11 @@ def test_cut_is_an_unplugged_plug_and_socket_pulled_apart_on_the_path_into_hf(pa
     gap = sock[0] - plug[2]
     assert gap >= 6, f"plug and socket face each other, pulled apart (gap {gap:.1f}px)"
     assert abs((plug[1] + plug[3]) / 2 - (sock[1] + sock[3]) / 2) < 3, "on one line"
-    assert plug[3] - plug[1] >= 10 and sock[3] - sock[1] >= 10, "big enough to read"
+    badge = page.evaluate(RECT, "#w-hf-closed circle")
+    bh = badge[3] - badge[1]
+    for name, h in (("plug", plug[3] - plug[1]), ("socket", sock[3] - sock[1])):
+        # presenter, 22 Nov: the first draft (~1.3x a badge) was clunky; icon-sized, like the padlock badges
+        assert 0.5 * bh <= h <= bh, f"{name} head is icon-sized ({h:.1f}px vs badge {bh:.1f}px)"
     cables = page.evaluate(RECTS, "#w-hf-cut .unplug-cable")
     assert len(cables) == 2
     assert min(c[0] for c in cables) <= modal[2] + 3, "the plug's cable runs from the Modal sandbox"
