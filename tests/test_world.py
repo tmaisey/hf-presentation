@@ -183,7 +183,8 @@ def test_board_glyphs_from_earlier_steps_rest_on_the_board_after_a_jump(page):
     points = [(sid, k) for sid in order[order.index("s-5"):] for k in range(plan[sid] + 1) if (sid, k) != ("s-5", 0)]
     bad = []
     for sid, k in points:
-        goto_slide(page, "s-2", 0)
+        page.evaluate("() => window.deck.goto('s-3', 0)")   # a world point before every s-5 part: a real jump from there
+        page.wait_for_timeout(100)
         page.evaluate("([id, s]) => window.deck.goto(id, s)", [sid, k])
         page.wait_for_timeout(250)
         *glyphs, mirror = page.evaluate(BOARD_GLYPHS)

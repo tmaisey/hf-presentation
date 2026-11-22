@@ -431,6 +431,8 @@
   .is-visible > .note-fly { animation: note-fly 1.1s var(--ease) both; animation-delay: calc(var(--n, 0) * 160ms); }
   @keyframes note-fly { from { opacity: 0; transform: translate(var(--fx), var(--fy)) scale(.7); }
     15% { opacity: 1; } to { opacity: 1; transform: none; } }
+  /* a world part carried onto screen by a jump (engine: .is-settled) is already at rest: no fly-in */
+  .is-settled.is-visible > .note-fly { animation: none; }
   .note-glyph { fill: var(--tile); stroke: var(--ink-2); stroke-width: 1.4; stroke-linejoin: round; filter: url(#lift); }
   .w-date { font: 600 18px var(--sans); font-size: max(18px, calc(var(--k) * var(--fs-d-sub))); fill: var(--accent-ink); text-anchor: middle; }
   .edge--breach { stroke: var(--accent-ink); }
@@ -672,10 +674,10 @@
   .world-key-item { display: inline-flex; gap: .5em; align-items: center; margin-left: 1.4em; white-space: nowrap; }
   /* S-022 key dots for run roles: shown whole (the world's .run-sac waits for its group's stagger) */
   .world-key .run-sac { opacity: 1; transition: none; }
-  /* S-022 the key wraps once run roles join it (four entries never fit one row of the world column): entries
-     sit 1.4em apart in both rows, a dot .5em from its label; hidden entries keep their place, so the key's
-     height (and the world above it) holds still from slide to slide */
-  .world-key { flex-wrap: wrap; column-gap: 1.4em; row-gap: .15em; }
+  /* S-032 the key stays on one row (presenter, 22 Nov): entries sit 1.4em apart, a dot .5em from its label;
+     the engine (fitWorld) shrinks its text until the row fits the world column; hidden entries keep their
+     place, so the key's height (and the world above it) holds still from slide to slide */
+  .world-key { flex-wrap: nowrap; white-space: nowrap; column-gap: 1.4em; }
   .world-key > svg { margin-right: -.9em; }
   .world-key .world-key-item { margin-left: 0; }
   .acts.is-visible .act { animation: act-in 1s var(--ease) both; animation-delay: calc(.5s + var(--n) * 70ms); }
@@ -935,12 +937,12 @@
           <g class="w-board" id="w-cache" data-world-at="s-5:0" data-of="w-eval"><path class="note-glyph folder-glyph note-fly" data-note-for="first" d="M-15,-66 v18 h30 v-18 h-15 l-3,-4 h-12 z"/></g>
           <g class="w-board" id="w-folders" data-world-at="s-5:1" data-of="w-eval"><path class="note-glyph folder-glyph note-fly" data-note-for="lit-0" d="M-76,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-1" d="M-44,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-2" d="M-12,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-3" d="M20,-124 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-4" d="M-60,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-5" d="M-28,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-6" d="M4,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-7" d="M36,-106 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-8" d="M-76,-88 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-9" d="M-44,-88 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-10" d="M20,-88 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-11" d="M-60,-70 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-12" d="M4,-70 v18 h30 v-18 h-15 l-3,-4 h-12 z"/><path class="note-glyph folder-glyph note-fly" data-note-for="lit-13" d="M36,-70 v18 h30 v-18 h-15 l-3,-4 h-12 z"/></g>
           <g class="w-tw" id="w-tw" data-world-at="s-5:6" data-world-until="s-5:8"><line class="tw-line" x1="40" y1="100" x2="40" y2="54"/><circle class="tw-pulse" cx="40" cy="100" r="4"/><circle class="tw-pulse" cx="40" cy="100" r="4"/><circle class="tw-pulse" cx="40" cy="100" r="4"/></g>
-          <g class="tile" id="w-scorer" data-world-at="s-5:6" data-world-until="s-6:0"><rect x="-120" y="116" width="170" height="84"/><text class="tile-title">Automated</text><text class="tile-title">scorer</text></g>
+          <g class="tile" id="w-scorer" data-world-at="s-5:6" data-world-until="s-6:0"><rect x="-135" y="116" width="200" height="84"/><text class="tile-title">Automated</text><text class="tile-title">scorer</text></g>
           <g class="w-board" id="w-transcripts" data-world-at="s-5:6" data-world-until="s-6:0" data-world-is="blind s-5:8"><path class="note-glyph" d="M-86,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-64,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-42,84 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M-20,78 h20 l7,7 v27 h-27 z"/><path class="note-glyph" d="M2,84 h20 l7,7 v27 h-27 z"/></g>
           <!-- s-5 (S-022): agents probe the scorer: s-4's skull note flies from the fan onto the scorer's corner (no run → scorer lines) -->
-          <g class="w-note" id="w-probe" data-world-at="s-5:6" data-world-until="s-6:0" data-of="w-eval"><g class="note-fly" data-note-for="50"><path class="note-glyph" d="M-149,104 h20 l7,7 v27 h-27 z"/><g class="skull"><circle cx="-135.5" cy="119" r="6.5"/><rect x="-139" y="123" width="7" height="4.5" rx="1"/><circle class="skull-eye" cx="-138" cy="118.5" r="1.8"/><circle class="skull-eye" cx="-133" cy="118.5" r="1.8"/><path class="skull-bones" d="M-144,129 L-127,135 M-127,129 L-144,135"/></g></g></g>
-          <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/></g>
-          <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="50" cy="120" r="15"/><path class="eye" d="M38,120 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="50" cy="120" r="3.6"/><path class="eye-slash" d="M40,109 L60,131"/><text class="w-tag" x="-35" y="227">never read transcripts</text></g>
+          <g class="w-note" id="w-probe" data-world-at="s-5:6" data-world-until="s-6:0" data-of="w-eval"><g class="note-fly" data-note-for="50"><path class="note-glyph" d="M-163,96 h20 l7,7 v27 h-27 z"/><g class="skull"><circle cx="-149.5" cy="111" r="6.5"/><rect x="-153" y="115" width="7" height="4.5" rx="1"/><circle class="skull-eye" cx="-152" cy="110.5" r="1.8"/><circle class="skull-eye" cx="-147" cy="110.5" r="1.8"/><path class="skull-bones" d="M-158,121 L-141,127 M-141,121 L-158,127"/></g></g></g>
+          <g class="eye-badge" id="w-eye" data-world-at="s-5:6" data-world-until="s-5:8"><circle cx="65" cy="116" r="15"/><path class="eye" d="M53,116 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="65" cy="116" r="3.6"/></g>
+          <g class="eye-badge eye-badge--off" id="w-eye-off" data-world-at="s-5:8" data-world-until="s-6:0"><circle cx="65" cy="116" r="15"/><path class="eye" d="M53,116 q12,-11 24,0 q-12,11 -24,0 z"/><circle class="eye-pupil" cx="65" cy="116" r="3.6"/><path class="eye-slash" d="M55,105 L75,127"/><text class="w-tag" x="-35" y="240">never read transcripts</text></g>
           <g class="lock-badge" id="w-root" data-world-at="s-7:2"><circle cx="70" cy="46" r="13"/><path class="lock-shackle" d="M65.5,45 v-5 a4.5,4.5 0 0,1 9,0 v-1.5"/><rect class="lock-body" x="63" y="45" width="14" height="10" rx="2"/></g>
           <!-- s-7 (S-025): 13 July, after an impersonation, agents adopt their own identity standard: signed board messages (Ed25519) -->
           <g class="w-seals" id="w-signed" data-world-at="s-7:0"><g class="seal"><circle cx="-50" cy="-110" r="7"/><path class="seal-tick" d="M-53.5,-110 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="-2" cy="-92" r="7"/><path class="seal-tick" d="M-5.5,-92 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="46" cy="-74" r="7"/><path class="seal-tick" d="M42.5,-74 l2.5,2.5 l4.5,-5"/></g><g class="seal"><circle cx="62" cy="-56" r="7"/><path class="seal-tick" d="M58.5,-56 l2.5,2.5 l4.5,-5"/></g></g>
@@ -967,7 +969,7 @@
       </g>
     </g>
   </svg>
-  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent run<span class="world-key-item" id="w-key-coord" data-world-at="s-5:5"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run-coord" r="6"/></svg>Research coordinator</span><span class="world-key-item" id="w-key-sac" data-world-at="s-5:7"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run-sac" r="6"/></svg>Sacrificed agent</span><span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-6:6"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>HF activity</span></p>
+  <p class="world-key"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run" r="6"/></svg>Agent Run<span class="world-key-item" id="w-key-coord" data-world-at="s-5:5"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run-coord" r="6"/></svg>Coordinator</span><span class="world-key-item" id="w-key-sac" data-world-at="s-5:7"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="run-sac" r="6"/></svg>Sacrificed</span><span class="world-key-item" id="w-key-act" data-world-at="s-6:2" data-world-until="s-6:6"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle class="act" r="6"/></svg>HF activity</span></p>
 </div>
 <section class="slide slide--lead" id="s-1" data-chapter="Title" data-ambient>
   <p class="kicker">July 2026</p>
@@ -2431,13 +2433,27 @@
     const b = $(':scope > .world-slot', s.node);
     if (!b) return;
     Object.assign(world.style, { left: `${b.offsetLeft}px`, top: `${b.offsetTop}px`, width: `${b.offsetWidth}px`, height: `${b.offsetHeight}px` });
+    // the key stays on one row (S-032): its text shrinks (below the diagram-text floor if it must) until every
+    // entry, hidden ones included, fits the world column; its height is then the same on every world slide
+    const key = $('.world-key', world);
+    if (key) {
+      key.style.fontSize = '';
+      const need = key.scrollWidth, have = key.clientWidth;
+      if (need > have) key.style.fontSize = `${(parseFloat(getComputedStyle(key).fontSize) * have / need * .98).toFixed(2)}px`;
+    }
     layoutDiagram(worldSvg);
   }
   function renderWorld(s, k) {
     if (!world) return;
     world.classList.toggle('is-on', s.world);
     if (!s.world) return;
-    worldItems.forEach(({ e, at, until }) => e.classList.toggle('is-visible', reached(at, s, k) && !reached(until, s, k)));
+    // a part arriving on screen at any point but its own (a jump ahead, or back past its end) is settled: it shows
+    // at rest, never replaying its entrance (e.g. a note's fly-in) from a start worked out for another layout stage
+    worldItems.forEach(({ e, at, until }) => {
+      const on = reached(at, s, k) && !reached(until, s, k);
+      if (on && !e.classList.contains('is-visible')) e.classList.toggle('is-settled', !(at.sid === s.id && at.n === k));
+      e.classList.toggle('is-visible', on);
+    });
     worldStates.forEach(({ e, cls, at, until }) => e.classList.toggle(cls, reached(at, s, k) && !reached(until, s, k)));
     lay.sac.forEach(({ l, host }) => l.classList.toggle('is-gone', host.classList.contains('is-visible')));   // S-022
     setGrouping(lay.groups.some(G => reached(G.at, s, k)) ? 1 : 0);

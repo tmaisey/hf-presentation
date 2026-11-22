@@ -220,8 +220,8 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     So they read as coordinators (presenter, 22 Nov): each sits about halfway between the fan and
     the mirror, and the runs keep their distance from the mirror but ease partway round (by angle)
     towards the nearest coordinator, so the fan forms loose groups round them. The grouping carries
-    on to every later world slide and the s-8/s-9 backdrops. The key gains **Research coordinator**
-    (black dot) here and **Sacrificed agent** (red dot) at step 7, never before (presenter, 22 Nov).
+    on to every later world slide and the s-8/s-9 backdrops. The key gains **Coordinator**
+    (black dot) here and **Sacrificed** (red dot) at step 7, never before (presenter, 22 Nov).
     Narr: PHASEONE[big]: "We should build [a way to delegate], not own everything." (M p10,
     verbatim; checked 22 Nov). No seal marks and no spoofing quote: Ed25519 signing followed an
     impersonation on ~13 Jul (M p48), in the Hugging Face phase (candidate for s-6).
