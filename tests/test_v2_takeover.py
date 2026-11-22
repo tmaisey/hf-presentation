@@ -113,7 +113,7 @@ def test_shell_order_is_timeline_world_narration_insight_notes_with_no_standalon
 def test_insight_takes_the_last_step_verbatim_with_the_collective_phrase_in_italics():
     m = re.search(r'<div class="overlay overlay--insight" id="s7-insight" data-at="(\d+)">\s*<p>(.*?)</p>',
                   helper_section(), re.S)
-    assert m and int(m.group(1)) == STEPS and helper_text(m.group(2)) == INSIGHT
+    assert m and int(m.group(1)) == STEPS and helper_text(re.sub(r"</?em>", "", m.group(2))) == INSIGHT
     assert re.findall(r"<em>(.*?)</em>", m.group(2)) == [INSIGHT_EM], "only the collective phrase is italic"
 
 

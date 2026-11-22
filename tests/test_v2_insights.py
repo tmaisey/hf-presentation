@@ -191,9 +191,7 @@ def test_s9_quotes_are_verbatim_from_research_and_carry_no_typed_quote_marks():
     sec, research = helper_section("s-9"), helper_research()
     for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", sec, re.S):
         assert not re.search(r'^["“”]|["“”]$', q.strip()), f"CSS adds quote marks: {q}"
-        # a clipped quote (…) is verbatim piece by piece
-        for piece in helper_norm(re.sub(r"<[^>]+>", "", q)).split("…"):
-            assert piece.strip() in research, f"quote not found verbatim in docs/research: {piece[:50]}"
+        assert helper_norm(q) in research, f"quote not found verbatim in docs/research: {q[:50]}"
     assert "{" not in sec and "}" not in sec and not re.search(r"\sstyle\s*=", sec)
 
 
@@ -255,7 +253,9 @@ def test_s10_tile_quotes_are_verbatim_from_research_and_carry_no_typed_quote_mar
     sec, research = helper_section("s-10"), helper_research()
     for q in re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", sec, re.S):
         assert not re.search(r'^["“”]|["“”]$', q.strip()), f"CSS adds quote marks: {q}"
-        assert helper_norm(q) in research, f"quote not found verbatim in docs/research: {q[:50]}"
+        # a clipped quote (…) is verbatim piece by piece
+        for piece in helper_norm(re.sub(r"<[^>]+>", "", q)).split("…"):
+            assert piece.strip() in research, f"quote not found verbatim in docs/research: {piece[:50]}"
     assert "{" not in sec and "}" not in sec and not re.search(r"\sstyle\s*=", sec)
 
 
