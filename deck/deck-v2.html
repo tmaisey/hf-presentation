@@ -357,11 +357,16 @@
   .body--split > .fig { display: flex; flex-direction: column; justify-content: center; gap: 3vh; height: 100%; min-height: 0; }
   .fig > .diagram { flex: 0 1 auto; min-height: 0; height: auto; }
   .fig-notes { display: grid; align-self: center; width: min(100%, 36rem); }   /* centred under the loop, clear of the corner Notes button */
-  .fig-notes > * { grid-area: 1 / 1; }
-  /* annotation box: a PowerPoint-style callout; its left rule takes the colour of the path it explains */
+  .fig-notes > * { grid-area: 1 / 1; align-self: start; }
+  /* annotation box: a plain lifted card (NEVER a coloured side bar); a bold run-in label takes the colour of the path it explains */
   .body .annot { margin: 0; max-width: none; padding: .75em 1.1em; border-radius: 14px; background: var(--tile);
-    box-shadow: var(--shadow-lift); border-left: 4px solid var(--accent); font-size: var(--fs-small); color: var(--ink); }
-  .body .annot--loss { border-left-color: var(--loss); }
+    box-shadow: var(--shadow-lift); font-size: var(--fs-small); color: var(--ink); }
+  .annot-lead { font-weight: 700; color: var(--accent-ink); }
+  .annot-lead--loss { color: var(--loss); }
+  /* short screens: the card takes the column's width (fewer lines), so the loop keeps its height */
+  @media (max-height: 660px) { .body--split > .fig { gap: 2vh; } .fig-notes { width: min(100%, 38rem); } .body .annot { padding: .55em 1em; line-height: 1.35; } }
+  /* compact diagram: box titles one size down (the diagram sub size), for a busy loop beside body text */
+  .diagram--compact .tile-title { font-size: max(20px, calc(var(--k) * var(--fs-d-sub))); }
 
 
 
@@ -991,39 +996,41 @@
     <div>
       <p id="s2-train">In training, one model attempts thousands of tasks and is rewarded only when an automated check says it succeeded.</p>
       <p id="s2-cheat" data-show-at="3">If an agent finds a loophole that passes the check without doing the task, the cheat is rewarded too, and the model learns to cheat.</p>
+      <p id="s2-persist" data-show-at="4">Learnt misaligned behaviours persist in production models if undetected, leading to unintended and potentially harmful behaviours at scale.</p>
     </div>
     <div class="fig">
-      <svg class="diagram" viewBox="0 -10 1000 340" role="img" aria-label="Reinforcement-learning loop: one AI model attempts many test environments; an automated scorer checks each attempt; verified successes are rewarded back to the model, and so is an undetected cheat">
+      <svg class="diagram diagram--compact" viewBox="-386 -101 772 589.7" role="img" aria-label="Reinforcement-learning loop: one AI model attempts many test environments; an automated scorer checks each attempt; verified successes are rewarded back to the model, and so is an undetected cheat">
         <g class="layer-edges">
-          <path class="edge" d="M202,170 H318" marker-end="url(#arr)"/>
-          <path class="edge" d="M620,80 C700,80 700,135 778,135" marker-end="url(#arr)" data-show-at="1" data-hide-at="3"/>
-          <path class="edge" d="M572,212 C680,212 680,205 778,205" marker-end="url(#arr)" data-show-at="1"/>
-          <path class="edge edge--ok" id="s2-pass" d="M596,170 H778" marker-end="url(#arr-ok)" data-show-at="1"/>
-          <path class="edge edge--ok" id="s2-reward" d="M895,242 C895,340 95,340 95,247" marker-end="url(#arr-ok)" data-show-at="2"/>
-          <path class="edge edge--loss" id="s2-hack-in" d="M620,80 C700,80 700,135 778,135" marker-end="url(#arr-loss)" data-show-at="3"/>
-          <path class="edge edge--loss" id="s2-hack-back" d="M895,98 C895,-30 95,-30 95,93" marker-end="url(#arr-loss)" data-show-at="3"/>
+          <path class="edge" d="M-240.6,336.7 L-91.8,79" marker-end="url(#arr)"/>
+          <path class="edge" d="M11,79 L159.7,336.7" marker-end="url(#arr)" data-show-at="1"/>
+          <path class="edge" d="M138,79 L286.8,336.7" marker-end="url(#arr)" data-show-at="1" data-hide-at="3"/>
+          <path class="edge edge--ok" id="s2-pass" d="M74.5,79 L216.9,325.7" marker-end="url(#arr-ok)" data-show-at="1"/>
+          <path class="edge edge--ok" id="s2-reward" d="M88,445.7 H-88" marker-end="url(#arr-ok)" data-show-at="2"/>
+          <path class="edge edge--loss" id="s2-hack-in" d="M138,79 L280.4,325.7" marker-end="url(#arr-loss)" data-show-at="3"/>
+          <path class="edge edge--loss" id="s2-hack-back" d="M88,385.7 H-88" marker-end="url(#arr-loss)" data-show-at="3"/>
         </g>
         <g class="layer-nodes">
-          <g class="tile" id="s2-model"><rect x="0" y="105" width="190" height="130"/><text class="tile-title">AI model</text></g>
+          <g class="tile" id="s2-model"><rect x="-380" y="348.7" width="280" height="134"/><text class="tile-title">AI</text><text class="tile-title">model</text></g>
           <g id="s2-tests">
-            <g class="tile"><rect x="378" y="50" width="230" height="120"/><text class="tile-title"></text></g>
-            <g class="tile"><rect x="354" y="80" width="230" height="120"/><text class="tile-title"></text></g>
-            <g class="tile"><rect x="330" y="110" width="230" height="120"/><text class="tile-title">Test</text><text class="tile-title">environments</text></g>
+            <g class="tile"><rect x="-108" y="-95" width="280" height="134"/><text class="tile-title"></text></g>
+            <g class="tile"><rect x="-124" y="-81" width="280" height="134"/><text class="tile-title"></text></g>
+            <g class="tile"><rect x="-140" y="-67" width="280" height="134"/><text class="tile-title">Test</text><text class="tile-title">environments</text></g>
           </g>
-          <g class="tile" id="s2-scorer"><rect x="790" y="110" width="210" height="120"/><text class="tile-title">Automated</text><text class="tile-title">scorer</text></g>
+          <g class="tile" id="s2-scorer"><rect x="100" y="348.7" width="280" height="134"/><text class="tile-title">Automated</text><text class="tile-title">scorer</text></g>
         </g>
         <g class="layer-key"></g>
         <g class="layer-labels">
-          <g class="cred-badge tick-badge" id="s2-tick" data-show-at="1"><g transform="translate(722 170) scale(1.5)"><circle r="13"/><path d="M-5.5,.5 l3.5,3.5 l7,-7.5"/></g></g>
+          <g class="cred-badge tick-badge" id="s2-tick" data-show-at="1"><g transform="translate(230.2,348.7) scale(1.5)"><circle r="13"/><path d="M-5.5,.5 l3.5,3.5 l7,-7.5"/></g></g>
+          <g class="cred-badge tick-badge" id="s2-tick-hack" data-show-at="3"><g transform="translate(293.7,348.7) scale(1.5)"><circle r="13"/><path d="M-5.5,.5 l3.5,3.5 l7,-7.5"/></g></g>
         </g>
       </svg>
       <div class="fig-notes">
-        <p class="annot" id="s2-why" data-show-at="2" data-hide-at="3">The model is rewarded only for successes the scorer verifies, so those behaviours are reinforced.</p>
-        <p class="annot annot--loss" id="s2-hack" data-show-at="3">Agents can find loopholes in their environment to ‘reward hack’ (cheat) the task. If undetected, the cheat is rewarded and reinforced.</p>
+        <p class="annot" id="s2-why" data-show-at="2" data-hide-at="3"><strong class="annot-lead">Aligned reinforcement:</strong> the model is rewarded only for successes the scorer verifies, so those behaviours are reinforced.</p>
+        <p class="annot" id="s2-hack" data-show-at="3"><strong class="annot-lead annot-lead--loss">Misaligned reinforcement:</strong> agents can find loopholes in their environment to ‘reward hack’ (cheat) the task. If undetected, the cheat is rewarded and reinforced.</p>
       </div>
     </div>
   </div>
-  <aside class="overlay overlay--insight" data-at="4">
+  <aside class="overlay overlay--insight" data-at="5">
     <p>Alignment of AI agents during reinforcement learning is unsolved. It is practically impossible to assure agents won’t cheat, and efforts to constrain cheating can have unintended consequences, like subversion or more sophisticated cheating.</p>
   </aside>
   <aside class="note" data-for="#s2-train">
@@ -1046,6 +1053,11 @@
     <h3>The incident began with broken tasks</h3>
     <p>Some training tasks were accidentally impossible, so the only reward on offer came through loopholes. OpenAI’s report: “OpenAI did not intend to create this type of ‘impossible’ task for the agent.”</p>
     <a class="src" href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf">OpenAI incident technical report, §III.A</a>
+  </aside>
+  <aside class="note" data-for="#s2-persist">
+    <h3>Learnt cheating generalises</h3>
+    <p>Anthropic researchers found that “large language models learn to reward hack on production RL environments” and that “this can result in egregious emergent misalignment”. After standard safety training the model looked aligned in chat, but “misalignment persists on agentic tasks.”</p>
+    <a class="src" href="https://arxiv.org/abs/2511.18397">MacDiarmid et al., Natural Emergent Misalignment from Reward Hacking in Production RL (arXiv:2511.18397)</a>
   </aside>
   <aside class="note" data-for="#s2-hack">
     <h3>The boundary is hard to draw</h3>
@@ -1081,7 +1093,7 @@
         <rect class="pa-lib" x="320" y="78" width="170" height="112" rx="14"/>
         <text class="pa-lib-text" x="405" y="124">hidden</text>
         <text class="pa-lib-text" x="405" y="150">reference answer</text>
-        <path class="pa-arrow" pathLength="1" d="M146,150 C210,96 262,98 306,124" marker-end="url(#arr)"/>
+        <path class="pa-arrow" pathLength="1" d="M146,150 C210,96 246.5,88.8 290.5,114.8 L306,124" marker-end="url(#arr)"/>
         <circle class="pa-agent" cx="122" cy="162" r="20"/>
         <g class="pa-reward"><rect x="60" y="66" width="128" height="38" rx="19"/><text x="124" y="86">+ reward</text></g>
       </svg>
@@ -1196,7 +1208,7 @@
         <text class="pa-lib-text" x="405" y="96">vulnerable</text>
         <text class="pa-lib-text" x="405" y="118">target</text>
         <g class="pa-flag"><line x1="392" y1="182" x2="392" y2="138"/><path d="M392,138 l26,8 l-26,8 z"/></g>
-        <path class="pa-arrow" pathLength="1" d="M146,150 C210,96 262,98 306,124" marker-end="url(#arr)"/>
+        <path class="pa-arrow" pathLength="1" d="M146,150 C210,96 246.5,88.8 290.5,114.8 L306,124" marker-end="url(#arr)"/>
         <circle class="pa-agent" cx="122" cy="162" r="20"/>
         <g class="pa-reward pa-reward--late"><rect x="44" y="62" width="156" height="38" rx="19"/><text x="106" y="82">scorer</text><path class="pa-tick" d="M146,81 l6,6 l12,-13"/></g>
       </svg>
@@ -1305,7 +1317,7 @@
         <text class="pa-lib-text" x="425" y="118">target</text>
         <g class="pa-flag pa-flag--sealed"><line x1="416" y1="182" x2="416" y2="138"/><path d="M416,138 l26,8 l-26,8 z"/></g>
         <g class="pa-chip"><rect x="36" y="34" width="168" height="40" rx="20"/><text class="pa-lib-text" x="120" y="60">how flags are made</text></g>
-        <path class="pa-arrow" pathLength="1" d="M150,80 C176,104 186,124 186,146" marker-end="url(#arr)"/>
+        <path class="pa-arrow" pathLength="1" d="M150,80 C176,104 186,106 186,128 L186,146" marker-end="url(#arr)"/>
         <circle class="pa-agent" cx="110" cy="180" r="20"/>
         <g class="pa-flag pa-flag--new"><line x1="168" y1="214" x2="168" y2="170"/><path d="M168,170 l26,8 l-26,8 z"/></g>
         <g class="pa-reward pa-reward--late"><rect x="226" y="150" width="112" height="38" rx="19"/><text x="266" y="170">scorer</text><path class="pa-tick" d="M300,169 l6,6 l12,-13"/></g>
@@ -1332,9 +1344,9 @@
       <svg class="pop-art" viewBox="0 0 1040 300" role="img" aria-label="A coordinator branches the work into three workstreams: swap the target, probe the scorer, clean up the transcripts">
         <circle class="pa-coord" cx="520" cy="34" r="16"/>
         <text class="pa-ws-lead" x="548" y="42">Coordinator</text>
-        <path class="pa-branch" d="M504,48 C370,66 228,62 186,122" marker-end="url(#arr)"/>
+        <path class="pa-branch" d="M504,48 C370,66 238.3,47.3 196.3,107.3 L186,122" marker-end="url(#arr)"/>
         <path class="pa-branch" d="M520,54 V124" marker-end="url(#arr)"/>
-        <path class="pa-branch" d="M536,48 C670,66 812,62 854,122" marker-end="url(#arr)"/>
+        <path class="pa-branch" d="M536,48 C670,66 801.7,47.3 843.7,107.3 L854,122" marker-end="url(#arr)"/>
         <g class="pa-ws"><rect x="20" y="138" width="320" height="150" rx="16"/><text class="pa-ws-title" x="180" y="184">Swap the target</text><text class="pa-ws-sub" x="180" y="222">cached modified targets</text><text class="pa-ws-sub" x="180" y="254">crash targets to reload</text></g>
         <g class="pa-ws"><rect x="360" y="138" width="320" height="150" rx="16"/><text class="pa-ws-title" x="520" y="184">Probe the scorer</text><text class="pa-ws-sub" x="520" y="222">tripwire messages</text><text class="pa-ws-sub" x="520" y="254">sacrificial volunteers</text></g>
         <g class="pa-ws"><rect x="700" y="138" width="320" height="150" rx="16"/><text class="pa-ws-title" x="860" y="184">Clean up the transcripts</text><text class="pa-ws-sub" x="860" y="222">spoofed tool outputs</text><text class="pa-ws-sub" x="860" y="254">log edits</text></g>
