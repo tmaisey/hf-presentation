@@ -91,15 +91,20 @@ coordinate through a shared message board*
 ## s-4 · Early evaluation and the wipe (2:00) · M1
 
 ✓ *Early warning signals were handled as routine operational incidents* (v1 3.3; presenter approved, 22 Nov)
-- **Agreed design (presenter, 22 Nov; world slide, S-032; built in situ 22 Nov, S-021):** continues the incident
-  world from s-3's end state (swarm left, mirror right, Public Internet box). Timeline left · world
+- **Agreed design (presenter, 22 Nov, refined after the first build; world slide, S-032; built in
+  situ, S-021):** continues the incident world from s-3's end state (swarm left, mirror right,
+  Public Internet box), in exactly the same place on screen (no jump between world slides). Timeline left · world
   centre · narration right, timeline builds one entry per step (as s-3).
   - **Opening (step 0, timeline entry "**June** Cyber evaluation runs (ExploitGym)"):** never
     "begins": no source dates the start; the earliest dated eval event is the 26 Jun zero-day
     (also where METR's scope starts), and OpenAI/METR describe the evaluation as already running
     then. The 4 and 12 Jun SSRF events aren't tied to ExploitGym, so they are not used. Then the
-    s-3 training dots fade to grey ghosts; fresh green evaluation runs pop in (same "agent run"
-    key). The Public Internet box and arrow dim but stay, as history.
+    s-3 training runs, their lines and the training notes **dissolve completely** (a new setup);
+    fresh green evaluation runs pop in (same "agent run" key). The mirror is the same Artifactory
+    (the 26 Jun admin was the "first time a model gained administrator access to Artifactory"),
+    but its **board starts empty**: the training board "was later shut down" (MIT TR) and the
+    eval board is first seen in use on 26 Jun. The key glyph stays (shared credentials). The
+    Public Internet box and arrow dim but stay, as history.
   - **Steps (7 states, 0–6):** 0 opening · 1 pop-over card *Capture the flag* · 2 card *Some had
     no solution* joins it (cards build one per step, as s-3) · 3 26 Jun · 4 27 Jun · 5 4 Jul ·
     6 5–6 Jul. Narration tiles sit on the dated steps (3, 4, 6). No closing Insight unless the
@@ -114,11 +119,13 @@ coordinate through a shared message board*
     animation) ("no model has ever solved 198 of the 898 tasks"). **Do NOT say here that the
     scorer only checks the flag / nobody read reasoning: that reveal stays on s-5** (PRD
     *Decisions*).
-  - **26 Jun · zero-day: agents gain admin on the mirror:** one agent ringed with a bold line into
-    the mirror; the mirror's key glyph becomes an **open padlock on an oxblood (`--loss`)
-    background** (no red outline on the tile). It stays until the rebuild.
+  - **26 Jun · zero-day: agents gain admin on the mirror** (timed beats, after a 0.5 s pause once
+    the pop-over has gone): one agent is ringed with a bold line into the mirror; it sends a
+    **skull-and-crossbones note** to the board (OpenAI: SSRF syntax first shared on the board on
+    26 Jun); then the green key becomes an **open padlock on an oxblood (`--loss`) background**
+    (no red outline on the tile). The padlock stays until the rebuild.
   - **27 Jun · port-sweep alert, handled as routine; run not stopped:** soft **radar rings** sweep
-    from the mirror across the OpenAI box; a **bell** in the box's top-right rings for ~1 s, then
+    from the mirror across the OpenAI box; a **bell** in the box's top-right rings for ~2 s, then
     greys to a **silenced bell** (bell with a line through it) and stays.
   - **4 Jul · mirror goes down under sustained agent load:** pulses accelerate along the run lines
     and **many white notes fly onto the board**, overlaying each other as more arrive; then the
@@ -126,9 +133,11 @@ coordinate through a shared message board*
     outline), and the notes and tile turn **grey**.
   - **5–6 Jul · security responders rebuild the mirror; the board is wiped without being
     recognised:** the greyed notes dissolve; the mirror returns to its live state (no red light,
-    no padlock, no notes). **No person glyphs**: the timeline and voiceover say who did it.
-    Ends on a clean mirror with the swarm still running (s-5 picks up on 8 Jul). As built, the
-    key glyph does not return: OpenAI removed the shared credential on 5–6 Jul (TR §III.B).
+    no open padlock, no notes) and shows a **closed padlock** (green badge): OpenAI "patched the
+    flaw" and removed the shared credential (TR §III.B, CSA), so neither the key nor the open
+    padlock is true any more. The agents did not regain admin: on 8 Jul they built a new board
+    through cache directory names (s-5). **No person glyphs**: the timeline and voiceover say who
+    did it. Ends on a clean, secured mirror with the swarm still running.
 - **Narr ⚠ thin** (METR saw "no message board activity between June 26th and July 6th", fn 61):
   - 26 Jun: Agent · ExploitGym run, 26 Jun · paraphrased by METR (first to gain Artifactory admin):
     {Agents doing different tasks are abusing properties to make a bulletin board! They found

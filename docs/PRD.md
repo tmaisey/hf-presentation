@@ -159,6 +159,8 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   capture-the-flag and unsolvable tasks only; "the scorer only checked the flag; nobody read the
   agents' reasoning (no CoT monitoring running)" is revealed on s-5. There was no monitor that
   failed: the scorer "did not review transcripts" and OpenAI's CoT monitor was not yet deployed.
+- **The world holds one place on screen across world slides (presenter, 22 Nov):** a longer or
+  shorter title never moves or rescales it, so shared parts stay put as the slide changes.
 - **Humans are not drawn on the world (presenter, 22 Nov):** responders' actions (rebuilds, cut
   access) show as state changes on the diagram; the timeline and voiceover say who acted.
 - **Incident-world diagrams are prototyped in situ** in `deck/deck-v2.html` (presenter, 21 Nov),

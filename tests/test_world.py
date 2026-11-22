@@ -2,7 +2,7 @@
 
 Incident world: one persistent diagram shared by world slides (s-3 onward), plus pop-over cards.
 Coverage: happy (world shows on a world slide between timeline and narration under the title, with
-a run key; builds with steps; pop-over softens the world then sharpens it; notes spotlight world parts) · edge (going back to a
+a run key; it holds one place and scale from one world slide to the next; builds with steps; pop-over softens the world then sharpens it; notes spotlight world parts) · edge (going back to a
 non-world slide hides it; re-entering resets to that step) · negative (world never on a non-world
 slide; world never over the title; pop-over exit is a rack focus, not a cut).
 """
@@ -52,6 +52,22 @@ def test_world_sits_between_timeline_and_narration_below_the_title(page, w, h):
     widths = [tl[2] - tl[0], r - l, nr[2] - nr[0]]
     assert widths[1] > widths[0] and widths[1] > widths[2], "the world gets the widest column"
     assert r <= box["vw"] and b <= box["vh"]
+
+
+@pytest.mark.parametrize("w,h", [(1920, 1080), (1280, 720), (1288, 598)])
+def test_world_holds_its_place_and_scale_between_world_slides(page, w, h):
+    """Titles of different lengths must not move or rescale the world: shared parts stay put."""
+    open_deck(page, w, h)
+    ids = page.evaluate("() => [...document.querySelectorAll('section.slide[data-world]')].map(s => s.id)")
+    assert len(ids) >= 2
+    boxes = []
+    for sid in ids:
+        steps = dict(page.evaluate("window.deck.plan()"))[sid]
+        goto_slide(page, sid, 0)
+        boxes.append(page.evaluate("""() => { const r = e => { const b = e.getBoundingClientRect();
+          return [b.left, b.top, b.width, b.height].map(Math.round); };
+          return [r(document.querySelector('.world')), r(document.querySelector('#w-oai rect'))]; }"""))
+    assert all(b[0] == boxes[0][0] for b in boxes), f"world box moves between world slides: {boxes}"
 
 
 def test_world_key_shows_an_agent_run_dot(page):
