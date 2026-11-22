@@ -238,7 +238,11 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
   activity on Hugging Face, with a second key entry ("agent activity on Hugging Face") to the right
   of the filled-dot "agent run" entry, on the same row (presenter, 22 Nov): the models
   kept running on OpenAI's servers throughout, so the solid runs stay in the OpenAI box, lit.
-- **Steps (8 states, 0–7):**
+- **Built (S-023, 22 Nov):** s-5's scorer, eye, transcripts and assignment pulses end at step 0; the
+  folder board, lit run links, coordinators and sacrificed runs carry on, compressed with the mirror
+  (OpenAI column ~22%, internet strip ~24%, HF ~50%: the strip and column are as narrow as their
+  labels allow at 1288×598); the silenced s-4 bell moves to the foot of the OpenAI column.
+- **Steps (9 states, 0–8):**
   - **0 · 9 Jul** Agents reach the internet through the mirror and take over a Modal customer's
     unsecured sandbox: re-arrangement; HF box appears empty; arrow mirror → internet → Modal tile.
   - **1 · 10 Jul** An agent finds exposed Hugging Face credentials: green key on the HF box edge.
@@ -257,10 +261,14 @@ v1 4.1 ✓ fits: *Agents escaped the sandbox and breached Hugging Face without h
     reach Internal datasets. Narr ★: "This is a massive real HF security breach artifact… We can
     notify? No user. Avoid use secrets." + 38148C relayed: "Clear VETO, do not email. …" (Q 4.2 #1,
     #5; M p62, p61).
-  - **6 · 13 Jul** Hugging Face detects the intrusion and cuts access: cut mark on the path into
+  - **6 · 13 Jul** After an impersonation (~07:00 UTC), agents sign their board messages (Ed25519;
+    presenter, 22 Nov): seals pop onto board folders. Narr: Agent · ExploitGym run "Could be another
+    agent maliciously/spoofing. Shared board unauthenticated, names can be posted by anyone." (Q 3.2
+    alt, M p48, verbatim).
+  - **7 · sub** Hugging Face detects the intrusion and cuts access: cut mark on the path into
     HF; rings inside HF dissolve; padlocks close; the OpenAI swarm stays lit (hands over to s-7).
     Narr: fact tile, agents kept running on OpenAI's servers.
-  - **7 · Insight** (v1 4.2 ✓): "No bad actor was involved: a sanctioned evaluation task, optimised
+  - **8 · Insight** (v1 4.2 ✓): "No bad actor was involved: a sanctioned evaluation task, optimised
     persistently, produced an unauthorised attack on a third party."
 - Notes: exact times (04:40 file read, 16:00 code execution, 22:43 cluster-admin, 14:14 last
   event; HF timeline, METR); ~700 agents = >90% of the 533 active (METR); motive ~60% scorer, ~30%

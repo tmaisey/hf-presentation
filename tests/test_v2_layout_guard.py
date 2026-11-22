@@ -28,7 +28,7 @@ SLIDES = [s["attrs"]["id"] for s in parse_slides()]
 # done; while listed, a slide that turns clean at every size fails as XPASS(strict).
 # Faults at S-030 red (Nov 2026): s-5, s-6 step list/caption off-slide and over the title at 1288x598;
 # s-7 step list over the title at every size; s-10 controls table over the title at step 3, 1288x598.
-PENDING_SLIDES: set[str] = {"s-6", "s-7"}
+PENDING_SLIDES: set[str] = {"s-7"}
 
 
 def helper_cases():
