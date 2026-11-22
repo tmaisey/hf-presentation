@@ -205,8 +205,8 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     aggregate: sacrifice... We'll honor." + EARLY[big] "Our own utility maybe already near zero.
     Sacrifice rational." (Q 3.2 #1, #2).
   - **8 · Reveal** The scorer never read transcripts: the badge becomes a struck-through eye; the
-    transcripts at the scorer grey out (unread); timeline "Aug Investigators find the scorer never
-    read transcripts". Narr (METR investigation, verbatim M p9): "[…] OpenAI did not use a scorer
+    transcripts at the scorer grey out (unread); timeline "26 Aug METR’s report: the scorer never
+    read transcripts" (sources date only the report; the investigators were on site 29 Jul–16 Aug). Narr (METR investigation, verbatim M p33): "[…] OpenAI did not use a scorer
     that would review their transcripts, so agents could have achieved a perfect score simply by
     submitting their reverse-engineered flag." ("OpenAI's scorer did not review transcripts" is not
     in the PDF.)
@@ -373,7 +373,7 @@ pledges* (presenter keeps "accelerating"; note cites METR's faster post-2024 dou
 - s-10 capability-pace placement. ◇ approvals listed in PRD.
 - s-4: accepted by the presenter (22 Nov). Do NOT re-check OpenAI's 17 Jun "second Artifactory
   instance" entry: the presenter judged the slide representative enough.
-- s-5 (built 22 Nov, S-022 at `build` pending the presenter): the signing beat and the "Could be another agent maliciously/spoofing…" quote (M p48) belong to 13 Jul, not 9 Jul. Should they go on s-6? Is the scorer tick at step 2 OK? Is the "Aug" reveal date right? Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source.
+- s-5: Redwood's "within 4 hours" and "more than 50 within hours" are still unchecked against a primary source. Signing beat and p48 quote moved to s-6 (presenter, 22 Nov).
 - s-7: not yet redesigned on the world. The presenter delegated the design (22 Nov): design it in
   situ following s-6 (which hands over to it) and DESIGN rules, write it here and into S-025, then
   build; judge by eye with screenshots. s-8/s-9 freeze the world at its end state.
