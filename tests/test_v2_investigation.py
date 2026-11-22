@@ -16,7 +16,7 @@ Notes button at 1920×1080, 1280×720 and 1288×598; tile row styled in the comp
 slide) · negative (no tile before its step; no funnel diagram or narration column; never claims the
 firings were caused by the investigation, and states OpenAI's side; no quote marks, braces, inline
 styles or "suicide" in the markup; no console errors) · component (every tile-row slide, all three
-sizes: body is one list of 2–4 bullets, never prose; quote and cite pushed to the tile foot, cites
+sizes: body is one list of 2–4 bullets, never prose, each marked by a round accent dot (not a dash) centred on its first line; quote and cite pushed to the tile foot, cites
 level across the row and one line each; headings ≤ 2 lines filling the tile's width, never a narrow
 balanced wrap).
 """
@@ -347,3 +347,29 @@ def test_tile_headings_fit_two_lines_using_the_full_tile_width(page, sid, size):
         assert h["h3"] >= h["inner"] - 1, f"{h['id']}: heading narrower than its tile"
         if h["fill"] is not None:
             assert h["fill"] > h["inner"], f"{h['id']}: line 1 breaks early, leaving space a word would fill"
+
+
+BULLETS = """sid => [...document.querySelectorAll('#' + sid + ' .body--tiles .points > li')].map(li => {
+  const b = getComputedStyle(li, '::before'), cs = getComputedStyle(li), h = parseFloat(b.height);
+  const probe = document.createElement('i'); probe.style.color = 'var(--accent)'; li.append(probe);
+  const accent = getComputedStyle(probe).color; probe.remove();
+  return { text: li.textContent.trim().slice(0, 30), w: parseFloat(b.width), h, radius: parseFloat(b.borderRadius),
+    bg: b.backgroundColor, accent, centre: parseFloat(b.top) + h / 2, mid: parseFloat(cs.lineHeight) / 2,
+    pad: parseFloat(cs.paddingLeft) }; })"""
+
+
+@pytest.mark.parametrize("size", SIZES)
+@pytest.mark.parametrize("sid", TILE_SLIDES)
+def test_tile_bullets_are_round_accent_dots_centred_on_the_first_line(page, sid, size):
+    """Presenter, 22 Nov: round accent dots, not dashes; each dot sits on its first line's middle, clear of the text."""
+    open_deck(page, *size)
+    goto_slide(page, sid, 3)
+    settle(page, f"#{sid} .text-tile:last-child")
+    dots = page.evaluate(BULLETS, sid)
+    assert dots
+    for d in dots:
+        assert abs(d["w"] - d["h"]) < .5 and 5 <= d["w"] <= 12, f"{d['text']}: a round dot, not a dash ({d['w']}×{d['h']})"
+        assert d["radius"] >= d["w"] / 2 - .01 or d["radius"] == 50, f"{d['text']}: fully rounded ({d['radius']})"
+        assert d["bg"] == d["accent"], f"{d['text']}: dot in the accent colour"
+        assert abs(d["centre"] - d["mid"]) <= 1.5, f"{d['text']}: dot centre {d['centre']:.1f} vs line middle {d['mid']:.1f}"
+        assert d["pad"] >= d["w"] * 2, f"{d['text']}: text clear of the dot"

@@ -39,9 +39,8 @@ ANNOT_REWARD = (f"{LEAD_OK} the model is rewarded only for successes the scorer 
                 "are reinforced.")
 ANNOT_HACK = (f"{LEAD_LOSS} agents can find loopholes in their environment to 'reward hack' (cheat) the task. "
               "If undetected, the cheat is rewarded and reinforced.")
-INSIGHT = ("Alignment of AI agents during reinforcement learning is unsolved. It is practically impossible to "
-           "assure agents won't cheat, and efforts to constrain cheating can have unintended consequences, "
-           "like subversion or more sophisticated cheating.")
+INSIGHT = ("Alignment of AI agents during reinforcement learning is unsolved. It's practically impossible to "
+           "assure that agents won't cheat without unintended consequences.")   # shortened, presenter 22 Nov
 TR = "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/"
 SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 
