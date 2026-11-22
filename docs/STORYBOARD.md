@@ -495,9 +495,10 @@ Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's fire
 - s-7 accepted by the presenter (22 Nov: third layout stage, timeline copy, no Insight, no
   narration on step 2).
 - Round 3 (22 Nov: two-line timelines, short copy, one-row key, signing on s-7, s-1/s-2 rework, tile
-  bullets on s-8–s-10) built, merged and accepted. Next: s-11/s-12 Close (S-035) and the notes callout
-  fixes at 1288×598 (a long callout can cover its own target or the Prev/Next bar, e.g. s-5 note 5,
-  s-8 note 1; the s-6 timeline sub-item spotlight is tight).
+  bullets on s-8–s-10) built, merged and accepted. s-11/s-12 Close (S-035) and the notes callout fixes built
+  (22 Nov; s-10's old discussion notes dropped with its prompts). Open: at 1288×598 some spotlit
+  targets themselves run under the notes Prev/Next bar (s-5 note 4 'Poisoned' pop-over, s-6 note 8,
+  s-8 notes 3–4).
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check
   its tests and Definition of done before relying on it; flip or finish it.
 - S-030 layout guard is built (22 Nov); all slides now pass (`PENDING_SLIDES` empty).

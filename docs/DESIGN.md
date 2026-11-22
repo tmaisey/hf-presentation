@@ -63,7 +63,8 @@ everything else binds both. Slide authors need only §10.
 
 - Bokeh: three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs (5 / 6 / 6), slow
   drift (peak ~13px/s: perceptible, still subtle; presenter, 22 Nov) + slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
-- Ambient **only** on title / summary / Insight / close pages (s-1, s-11, s-12); **NEVER** on detail or diagram pages. [P2 detail chapter](../design/prototypes/02-chapters-depth.html#L123)
+- Ambient **only** on title / summary / Insight / close pages (s-1, s-11, s-12; s-12 is a
+  `slide--end` closing page: one centred line, no kicker); **NEVER** on detail or diagram pages. [P2 detail chapter](../design/prototypes/02-chapters-depth.html#L123)
 - Respect `prefers-reduced-motion` (no drift, no rise). Reduced-motion CSS is keyed on `:root.still` (set by the engine from
   `prefers-reduced-motion` and while notes mode is open), **NEVER** a bare `@media` block; notes mode also
   sets `:root.instant` (zero-duration transitions/animations). [P2:93](../design/prototypes/02-chapters-depth.html#L93)
@@ -133,6 +134,10 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   being nudged (presenter, 22 Nov). Opening notes mode keeps its 0.5 s veil fade-in (presenter, 22 Nov:
   chrome, not a build state; only build states are instant). The callout never rises under the
   title bar. [P3:51](../design/prototypes/03-notes-spotlight.html#L51)
+- Callout placement: below → above → right → left, first side where it fits whole (narrows to
+  300px beside wide targets, widens to 640px if needed, last resort scrolls inside itself); never over
+  its target, the title bar or the Prev/Next bar. The spotlight window (target + 14px) pulls each
+  edge to midway between the target and any neighbouring text line, so no slivers show.
 - Prev / position / Next / Close live in a **static** bar on the lower periphery, never in the
   moving callout. [P3:69](../design/prototypes/03-notes-spotlight.html#L69)
 - **Instant build states (v2):** moving to a note sets its slide to the target's step with every
