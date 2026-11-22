@@ -106,6 +106,10 @@ review, internal update) through profiles, without duplicating criteria.
 - **Python token generator over Style Dictionary/Terrazzo:** keeps the skill uv-only; the
   generator writes the CSS theme blocks and the PPTX `clrScheme`/`fontScheme` from one DTCG source.
 - **The HF deck is not migrated** onto the skill's engine: it stays the accepted reference.
+- **Process carried by an injected `AGENTS.md`, no hooks (presenter, 22 Nov):** the skill installs
+  its `AGENTS.md` template (workflow, spec model, test authoring, definition of done incl. looking
+  at assembled screenshots) into the deck project (`CLAUDE.md` = `@AGENTS.md`), so the dev approach
+  persists across sessions; compliance is measured by the process eval, never enforced by hooks.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
@@ -115,13 +119,12 @@ review, internal update) through profiles, without duplicating criteria.
 
 ## Exclusions
 
-- No plugin packaging, agent definitions, hooks-as-plugin or API judge runner (for now).
+- No hooks (process is instructed via the injected `AGENTS.md` and measured by the eval); no
+  plugin packaging, agent definitions or API judge runner (for now).
 - No new component designs or prototyped second visual language (for now).
 - No generalised voice; no presenter-calibration set (for now).
 - No speaker-timer/presenter view; no framework or build step for viewing the deck.
 
 ## Open questions
 
-- Should the screenshot gate be enforced by a hook in `SKILL.md` frontmatter, or stay prose plus
-  the process gate?
 - Exact second palette (e.g. dark): settle in PB-008's red.
