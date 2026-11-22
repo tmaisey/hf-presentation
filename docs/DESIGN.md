@@ -223,7 +223,8 @@ right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
 of several blocks is one wrapper `div[data-show-at][data-hide-at]`, e.g. table + `blockquote` +
 `p.cite`; a quote under a table keeps clear of its last rule, and on short screens table rows
 tighten so a phase fits under its title) ·
-`div.body.body--tiles` (tile row, S-026; s-8, s-9, s-10; built in situ: 2–4 equal-width, equal-height
+`div.body.body--tiles` (tile row, S-026; s-8, s-9, s-10; a single heading-less `text-tile` with a
+body `p` may also sit in a `body--split body--flip`, as on s-11; built in situ: 2–4 equal-width, equal-height
 frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading
 (**MUST** fit 2 lines at every size, using the tile's full width: normal wrapping, not
 `balance`/`pretty`, which leave unused space; `.keep` stops hyphen splits; spacing tightens on short
