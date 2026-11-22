@@ -100,6 +100,7 @@ and add every new verdict here as an example pair. British spelling throughout.
 | (s-2 annotations) plain statements under a coloured side bar | "**Aligned reinforcement:** …" / "**Misaligned reinforcement:** …" bold coloured run-in label, no side bar (22 Nov) |
 | Public AI concern is rising, but alignment isn't the focus | Public AI concern is rising, though safety remains secondary (s-10 tile 3, 22 Nov: people are concerned; politics and markets focus elsewhere) |
 | Where it failed in the incident (column) | Practical considerations for AI projects (s-10 controls column, 22 Nov: actionable for the audience) |
+| Make cheats look legitimate to the scorer (s-5 pop-over B) | A large 'collective' of agents organised around coordinated research to cover their tracks (presenter, 22 Nov) |
 | Flawed AI capability development methods created autonomous cyber-attacks during routine testing | Flawed AI capability development methods led to autonomous cyber-attacks during routine testing (s-1 sub, 22 Nov: the agents attacked; the methods led to it) |
 | Reinforcement learning optimises the score, not the intent. When the intent is out of reach, the score is still there to be had. | Providing complete signal of desired and undesired behaviour for complex tasks is practically impossible with reinforcement learning. Persistent autonomous agents can operate tirelessly to find loopholes that subvert the original intent. |
 
