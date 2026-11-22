@@ -160,7 +160,7 @@ def test_open_compact_list_hides_slide_content_beneath(page):
 SHADOWS = r"""sel => { const s = getComputedStyle(document.querySelector(sel)).boxShadow;
   if (s === 'none') return [];
   return s.split(/,(?![^(]*\))/).filter(p => !p.includes('inset')).map(p => {
-    const n = p.replace(/rgba?\([^)]*\)/, '').trim().split(/\s+/).map(parseFloat);
+    const n = p.replace(/[a-z-]+\([^)]*\)/g, '').trim().split(/\s+/).map(parseFloat);
     return [n[1], n[2]]; }); }"""
 LOOK = """sel => { const b = document.querySelector(sel), cs = getComputedStyle(b);
   return {bg: cs.backgroundColor, op: +cs.opacity, blur: cs.filter.includes('blur'),
