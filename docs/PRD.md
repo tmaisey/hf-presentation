@@ -175,7 +175,9 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
   The eval has two uses: **iterating on the skill** (bundled test briefs: same deck, same deck with
   a different design, new deck(s) of other types) and **assessing any deck built with the skill**.
   Together the briefs **MUST** cover every skill feature; before a run the user is prompted to
-  choose its scope (which briefs/decks, which concerns, output and/or process). Process evidence =
+  choose its scope (which briefs/decks, which concerns, output and/or process). New-deck briefs
+  start **synthetic** (short pitch and data-review briefs, each with a small fixed research pack);
+  real topics are assessed later via the any-built-deck mode. Process evidence =
   repo artefacts (git history, docs, SPEC states, outputs incl. screenshots); Claude Code session
   transcripts **only** with the user's approval for that run. The skill **NEVER** makes the agent
   keep a self-reported process log.
