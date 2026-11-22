@@ -394,7 +394,10 @@ def test_cut_is_an_unplugged_plug_and_socket_pulled_apart_on_the_path_into_hf(pa
     helper_until(page, f"() => ({OPACITY})('#w-hf-cut') > .9", timeout=8000)
     page.wait_for_timeout(1800)
     assert page.evaluate("() => document.querySelector('#w-hf-cut').matches('g.unplug')"), "reusable g.unplug component"
-    plug, sock = page.evaluate(RECT, "#w-hf-cut .unplug-plug"), page.evaluate(RECT, "#w-hf-cut .unplug-socket")
+    def head(sel):   # the plug or socket itself, without its cable
+        rs = page.evaluate(RECTS, f"#w-hf-cut {sel} :not(.unplug-cable)")
+        return [min(r[0] for r in rs), min(r[1] for r in rs), max(r[2] for r in rs), max(r[3] for r in rs)]
+    plug, sock = head(".unplug-plug"), head(".unplug-socket")
     modal, hf, workers = (page.evaluate(RECT, s) for s in ("#w-modal rect", "#w-hf rect", "#w-hf-workers rect"))
     gap = sock[0] - plug[2]
     assert gap >= 6, f"plug and socket face each other, pulled apart (gap {gap:.1f}px)"
@@ -405,7 +408,8 @@ def test_cut_is_an_unplugged_plug_and_socket_pulled_apart_on_the_path_into_hf(pa
     assert min(c[0] for c in cables) <= modal[2] + 3, "the plug's cable runs from the Modal sandbox"
     assert helper_inside(((sock[0] + sock[2]) / 2, (sock[1] + sock[3]) / 2), hf), "the socket is Hugging Face's side"
     assert any(helper_hits(c, workers) or abs(c[3] - workers[1]) < 4 for c in cables), "the socket's cable leads to the workers"
-    tile = page.evaluate("() => getComputedStyle(document.querySelector('.world .tile rect')).fill")
+    tile = page.evaluate("() => { const d = document.createElement('div'); d.style.color = 'var(--tile)'; document.body.append(d); "
+                         "const c = getComputedStyle(d).color; d.remove(); return c; }")
     assert page.evaluate("() => getComputedStyle(document.querySelector('#w-hf-cut .unplug-body')).fill") == tile, "line art on tile fill"
 
 
@@ -448,7 +452,7 @@ def test_reduced_motion_shows_end_states_without_motion(page):
     goto_slide(page, SID, 7)
     page.wait_for_timeout(300)
     assert all(n == "none" for n in page.evaluate(
-        "() => [...document.querySelectorAll('#w-hf-cut > *')].map(e => getComputedStyle(e).animationName)")), "plug rests apart"
+        "() => [...document.querySelectorAll('#w-hf-cut *')].map(e => getComputedStyle(e).animationName)")), "plug rests apart"
 
 
 @pytest.mark.parametrize("size", [(1920, 1080), (1280, 720), (1288, 598)])
