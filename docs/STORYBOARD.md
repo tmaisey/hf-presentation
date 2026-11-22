@@ -496,7 +496,7 @@ Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's fire
   narration on step 2).
 - Round 3 (22 Nov: two-line timelines, short copy, one-row key, signing on s-7, s-1/s-2 rework, tile
   bullets on s-8–s-10) built, merged and accepted. s-11/s-12 Close (S-035) and the notes callout fixes built
-  (22 Nov; s-10's old discussion notes dropped with its prompts). Open: at 1288×598 some spotlit
+  (22 Nov; s-10's old discussion notes dropped with its prompts). In build (presenter: scroll clear + soft fade): at 1288×598 some spotlit
   targets themselves run under the notes Prev/Next bar (s-5 note 4 'Poisoned' pop-over, s-6 note 8,
   s-8 notes 3–4).
 - S-018 (narration tiles) is still `todo` though the component is built and tested on s-3/s-4: check

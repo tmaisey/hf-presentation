@@ -136,7 +136,9 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   title bar. [P3:51](../design/prototypes/03-notes-spotlight.html#L51)
 - Callout placement: below → above → right → left, first side where it fits whole (narrows to
   300px beside wide targets, widens to 640px if needed, last resort scrolls inside itself); never over
-  its target, the title bar or the Prev/Next bar. The spotlight window (target + 14px) pulls each
+  its target, the title bar or the Prev/Next bar; a scrolling callout shows a soft fade at its
+  scrollable edge(s). A target too tall to clear the Prev/Next bar on a short screen is scrolled
+  clear: notes mode shifts the slide up just enough, only when needed (presenter, 22 Nov). The spotlight window (target + 14px) pulls each
   edge to midway between the target and any neighbouring text line, so no slivers show.
 - Prev / position / Next / Close live in a **static** bar on the lower periphery, never in the
   moving callout. [P3:69](../design/prototypes/03-notes-spotlight.html#L69)
