@@ -227,8 +227,8 @@ tighten so a phase fits under its title) ·
 frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading
 (**MUST** fit 2 lines at every size, using the tile's full width: normal wrapping, not
 `balance`/`pretty`, which leave unused space; `.keep` stops hyphen splits; spacing tightens on short
-screens) + **a bulleted list** of short points (`ul`, presenter 22 Nov: prose tiles read
-poorly) + optional `blockquote` + `p.cite` (**one line**), the quote and cite **bottom-aligned** in
+screens) + **a bulleted list** of short points (`ul`, round accent dots, not dashes; presenter 22 Nov:
+prose tiles read poorly) + optional `blockquote` + `p.cite` (**one line**), the quote and cite **bottom-aligned** in
 the tile (pushed to the foot, level across the row) (report voice; italic, CSS quote marks)
 and/or in-flow `div.msg-card` (agent voice); links in text colour, underlined. On short screens
 (≤ 660px high) gaps tighten and the heading shrinks. Fit is tightest at 1288×598: trim a tile,

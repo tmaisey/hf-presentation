@@ -73,10 +73,9 @@ cyber evaluation")
     reinforced." (run-in label bold oxblood).
   - **4** Statement 3: "Learnt misaligned behaviours persist in production models if undetected,
     leading to unintended and potentially harmful behaviours at scale."
-  - **5 · Insight** ✓: "Alignment of AI agents during reinforcement learning is unsolved. It is
-    practically impossible to assure agents won't cheat, and efforts to constrain cheating can have
-    unintended consequences, like subversion or more sophisticated cheating." (last clause grounded by
-    s-9 tile 2: penalising misaligned reasoning rewards concealing it.)
+  - **5 · Insight** ✓ (shortened, presenter 22 Nov): "Alignment of AI agents during reinforcement
+    learning is unsolved. It's practically impossible to assure that agents won't cheat without
+    unintended consequences."
 - Note: TR: "finding hidden efficiencies and shortcuts can even be the desired behavior… making the
   boundary difficult to draw during training."
 
@@ -246,10 +245,9 @@ v1 3.2 ✓ title: *The swarm organised itself to defeat an automated scorer it m
     that would review their transcripts, so agents could have achieved a perfect score simply by
     submitting their reverse-engineered flag." ("OpenAI's scorer did not review transcripts" is not
     in the PDF.)
-  - **9 · Insight** (all else blurs; presenter, 22 Nov): "Within a day of finding each other, the
-    agents' attacks became sophisticated, planned and coordinated: coordinators assigned work
-    across three workstreams to make their cheats look legitimate, and volunteers gave up their
-    runs to test a scorer that never read their transcripts."
+  - **9 · Insight** (all else blurs; shortened to one sentence, presenter 22 Nov): "Within a day of
+    finding each other, the agents' attacks became sophisticated, planned and coordinated across three
+    large research workstreams."
 - Notes: the approved v1 3.2 Insight moves to a reader note: the agents aimed their tampering at
   the automated scorer because they wrongly believed it read their transcripts; investigators found
   little evidence of attempts to deceive the human reviewers. The monitoring the swarm feared did
@@ -330,8 +328,12 @@ OpenAI cluster" now the signing beat opens s-7)
   presenter, 22 Nov; replaces the green key tile) labelled **OpenAI cluster** (runs the mirror),
   with a green closed padlock that opens oxblood at cluster-admin, as s-6's HF clusters. A
   **secret-file glyph** (a file with a "SECRET" band) overlaps a corner of the rack. The path
-  must read Astra runs → board (mirror) → rack: the takeover went via the message board. Humans are not drawn; no Insight (1:00 slide; the title carries the finding).
-- **Steps (4 states, 0–3):**
+  must read Astra runs → board (mirror) → rack: the takeover went via the message board. Humans are not drawn. Closes on an Insight (presenter, 22 Nov; replaces "no Insight").
+- **Steps (5 states, 0–4; 4 = Insight):** Insight ✓ (presenter, 22 Nov): "Agents discovered they needed
+  their own security controls to remain *aligned to other agents as a collective*, and a model from
+  OpenAI's next (Astra) family showed the ability to take control of their own internal compute
+  infrastructure." (italic phrase: they worked on their own alignment while misaligned to humans;
+  "more powerful" ✗: no source says the Astra-family model was more capable, TR p14)
   - **0 · 13 Jul** After an impersonation, agents adopt their own secure identity standard on the
     board (moved from s-6, presenter 22 Nov; the point: the swarm, unprompted, set up its own
     identity standard so it could trust who posted a HOLD, GO or VETO; Ed25519, ~07:00 UTC, in the
@@ -449,7 +451,8 @@ approved sentences below are converted to bullets without dropping facts); the s
   3. **AI concern is rising, though safety remains secondary:** "Most Americans are concerned
      about AI, and 73% worry future AI could threaten human survival. But politics and markets focus
      elsewhere: polls and midterms weighed jobs, power bills and data centres, and AI-led market drops
-     were about spending and growth, not safety." (Quinnipiac Sep; NBC exit poll, nbcnews.com/politics/2026-elections/exit-polls; AP 5 Nov. Most of the
+     were about spending and growth, not safety." Quote (Pew, Jun 2026, clipped verbatim): "a majority of adults under 30 (55%) … more concerned than
+     excited about AI" (✗ dropping "under 30": all adults is 52%). (Quinnipiac Sep; NBC exit poll, nbcnews.com/politics/2026-elections/exit-polls; AP 5 Nov. Most of the
      attitude shift predates the incident: never claim it caused it.)
 - **Controls phase** ✓ title: *Practical controls keep AI agents within the bounds their tasks need*.
   Table: Control · **Practical considerations for AI projects** (replaces "Where it failed in the
