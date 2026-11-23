@@ -60,5 +60,12 @@ Read a part only when its line applies. Parts never link each other; every part 
 - [evals/CRITERIA.md](evals/CRITERIA.md): eval criterion library, flaw taxonomy and deck-type
   profiles. Read before judging a deck or process, or before adding or changing a criterion or
   profile; not needed to build a deck.
+- [evals/EVAL.md](evals/EVAL.md): eval run protocol: scope prompt, evidence capture, gates, judge
+  dispatch, aggregation, where results go. Read whenever the user asks to evaluate a deck, its
+  PPTX or its build process, before asking anything else.
+- Judge prompt templates ([output](evals/judges/output-judge.md),
+  [process](evals/judges/process-judge.md), [pairwise](evals/judges/pairwise-judge.md)): filled
+  and sent to judge subagents as `evals/EVAL.md` directs. Never read them to build or judge
+  yourself.
 
 More parts are linked here as they land.
