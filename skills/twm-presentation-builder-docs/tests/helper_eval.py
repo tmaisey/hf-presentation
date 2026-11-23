@@ -15,6 +15,9 @@ CRITERIA = EVAL_DIR / "criteria.jsonl"
 FLAWS = EVAL_DIR / "flaws.json"
 PROFILES_DIR = EVAL_DIR / "profiles"
 LOADER = EVAL_DIR / "criteria.py"
+AGGREGATOR = EVAL_DIR / "aggregate.py"
+EVAL_MD = EVAL_DIR / "EVAL.md"
+JUDGES_DIR = EVAL_DIR / "judges"
 RESEARCH_DIR = REPO / "skills" / "twm-presentation-builder-docs" / "research"
 
 FIELD_ORDER = ("id", "concern", "target", "scope", "evidence", "profile", "question", "form",
@@ -80,17 +83,30 @@ def read_profiles(directory: Path = PROFILES_DIR) -> dict[str, dict]:
     return {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in sorted(directory.glob("*.json"))}
 
 
+def _import(path: Path, name: str):
+    assert path.is_file(), f"eval script missing: {path.name}"
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def loader():
     """Import the shipped eval loader module by path (it is a script, not a package).
 
     Returns:
         The imported module.
     """
-    assert LOADER.is_file(), f"eval loader missing: {LOADER.name}"
-    spec = importlib.util.spec_from_file_location("skill_eval_criteria", LOADER)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+    return _import(LOADER, "skill_eval_criteria")
+
+
+def aggregator():
+    """Import the shipped verdict aggregator module by path.
+
+    Returns:
+        The imported module.
+    """
+    return _import(AGGREGATOR, "skill_eval_aggregate")
 
 
 def copy_eval(tmp_path: Path) -> Path:
