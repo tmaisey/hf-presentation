@@ -32,3 +32,7 @@ PRD (intent) → interview → research (with consent) → storyboard → protot
 spec → TDD → assembled-screenshot look → done. Optional afterwards: PPTX hand-off, eval.
 
 Parts are linked below as they land; each says when to read it.
+
+- [eval/CRITERIA.md](eval/CRITERIA.md): eval criterion library, flaw taxonomy and deck-type
+  profiles. Read before judging a deck or process, or before adding or changing a criterion or
+  profile; not needed to build a deck.
