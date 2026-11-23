@@ -148,6 +148,22 @@ review, internal update) through profiles, without duplicating criteria.
   sources the gold deck cites; synthetic packs use `*.example.org` sources. Known gap: no brief uses
   the internal-update profile, and the skill has no chart component (data-review draws charts from
   the diagram kit).
+- **DL-02 label floor (agent, 23 Nov; review):** the 15 px @1280 / 20 px @1920 floor is for reading
+  text; uppercase tracked labels (letter-spacing ≥ 0.05 em: kicker, sender, pop-tag, table headers)
+  and `.cite`/`.quote-from` source lines take 12 px / 18 px (`params.min_label_px_*` in every
+  profile), detected by computed style, not a class list.
+- **Deliberate stacks are not collisions (agent, 23 Nov; review):** DL-01 ignores a textless tile
+  stacked with a shape in its own diagram and a focus card (Insight, pop-over) over body content;
+  content blurred under a focus layer is not contrast-checked. A focus card over a title or chrome,
+  or two labelled tiles overlapping, still fail.
+- **A lone diagram needs `body--stack`, never a flow body (agent, 23 Nov):** a flow body cannot cap
+  an SVG's height, so at short heights it rises under the title. Anchor deck-layer styling uses ids.
+- **PX criteria run through the gate runner (agent, 23 Nov):** `evals/gates.py --pptx` calls
+  `pptx/scripts/check.verdicts`; without `--pptx` they report missing.
+- **Known findings on the accepted example (agent, 23 Nov; presenter to rule):** pop-over
+  illustration words at 10 px @1280 (DL-02 gate, DS-01); accent-green "ok" edges at 2.05:1 (DP-02
+  gate); build-up slides over the 40-word CN-04 budget; illustration "tries" loop forever (DS-03).
+  For each: fix the content, accept as an exception, or change the criterion.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
