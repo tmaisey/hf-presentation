@@ -73,8 +73,8 @@ uv run scripts/assemble.py check deck.html   # endpoint-safety faults (§1); new
 `new` embeds the faces of every font family the style names (`assets/fonts/fonts.json` maps family →
 woff2 + OFL licence; a family with no file is refused) and includes modules by trigger (§9). `swap`
 rewrites only FONTS, COMPONENTS, PALETTE and STYLE (unchanged parts default to the names recorded in each
-block's first-line comment); `--refresh-engine` also rewrites ARCH, DEFS, MODULES and ENGINE. SLIDES,
-DECK and all bytes outside the blocks are copied unchanged; the same swap twice gives the same bytes;
+block's first-line comment, so `swap deck.html` alone re-embeds fonts); `--refresh-engine` also
+rewrites ARCH, DEFS, MODULES and ENGINE. SLIDES, DECK and all bytes outside the blocks are copied unchanged; the same swap twice gives the same bytes;
 a missing or duplicated marker is refused and the file left untouched.
 
 `arch.css` holds only what the engine relies on (fixed chrome positions, snapping, hidden-until-step

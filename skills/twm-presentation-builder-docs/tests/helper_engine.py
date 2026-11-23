@@ -3,8 +3,8 @@
 Assembly delegates to the shipped ``scripts/assemble.py`` (one assembler): ``assemble`` builds a
 fixture deck with given block contents (stand-in CSS in DECK); ``assemble_themed`` adds the shipped
 components layer, a generated palette/style and the style's embedded fonts; ``block`` is an
-independent marker reader for assertions; ``layout_faults`` is a generic layout guard
-(overlap/overflow/off-canvas per step).
+independent marker reader for assertions; ``settle`` and ``layout_faults`` delegate to the shipped
+``scripts/layout_guard.py`` (one layout guard).
 """
 
 from __future__ import annotations
@@ -350,31 +350,15 @@ def assemble(out: Path, slides: str = FIXTURE_SLIDES, title: str = "Fixture Deck
     return out
 
 
-_BUSY = """sel => (sel ? [...document.querySelectorAll(sel)].flatMap(e => e.getAnimations({subtree: true}))
-    : document.getAnimations()).filter(a => (a.playState === 'running' || a.pending)
-    && isFinite(a.effect && a.effect.getComputedTiming().endTime))"""
-
-
 def settle(page, quiet: int = 150, timeout: int = 15000) -> None:
-    """Wait until no finite animation/transition runs and scrolling has stopped (never a fixed sleep).
+    """Wait until no finite animation/transition runs and scrolling has stopped (delegates to the shipped guard).
 
     Args:
         page: Playwright page with a deck loaded.
         quiet: How long the page must stay calm, in ms.
         timeout: Give up after this many ms.
     """
-    calm = page.evaluate(
-        f"""([quiet, timeout]) => new Promise(res => {{ const t0 = performance.now(); let since = null, last = null;
-          const deck = document.querySelector('.deck');
-          const tick = () => {{ const now = performance.now(), sig = deck ? deck.scrollTop : 0;
-            if (({_BUSY})(null).length || sig !== last) since = null;
-            else if (since === null) since = now;
-            else if (now - since >= quiet) return res(true);
-            last = sig;
-            if (now - t0 > timeout) return res(false);
-            setTimeout(tick, 30); }};
-          requestAnimationFrame(tick); }})""", [quiet, timeout])
-    assert calm, f"page still animating after {timeout} ms"
+    assert _guard().settle(page, quiet, timeout), f"page still animating after {timeout} ms"
 
 
 def open_deck(page, path: Path) -> None:
@@ -611,85 +595,29 @@ def assemble_themed(out: Path, slides: str = COMPONENT_SLIDES, title: str = "Com
                     components=comp, palette=pal, style=sty, fonts=fonts_css(style))
 
 
-# ---------- layout guard (generic port of the deck's S-030 idea) ----------
+# ---------- layout guard: the shipped scripts/layout_guard.py (one implementation) ----------
 
-# Faults on the current slide at the current step (and the scene, when the slide shows it): visible text off the slide, text clipped by an overflow
-# box, a block or text covering a title's glyph lines, a title under the bar, a visible overlay or card under
-# the always-visible Notes button, and the bar title meeting the agenda.
-LAYOUT_CHECK = r"""id => {
-  const s = document.getElementById(id), bad = [], sr = s.getBoundingClientRect();
-  const name = e => (e.id ? '#' + e.id : (e.getAttribute('class') || e.tagName).split(' ')[0]) + ' "'
-    + (e.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 36) + '"';
-  const shown = e => {
-    const cs = getComputedStyle(e);
-    if (cs.visibility === 'hidden' || cs.display === 'none') return false;
-    let op = 1;
-    for (let n = e; n && n.nodeType === 1; n = n.parentElement) {
-      const c = getComputedStyle(n); if (c.display === 'none') return false; op *= +c.opacity; }
-    const r = e.getBoundingClientRect();
-    return op > 0.05 && r.width > 0 && r.height > 0;
-  };
-  const outside = (r, b) => r.left < b.left - 1 || r.right > b.right + 1 || r.top < b.top - 1 || r.bottom > b.bottom + 1;
-  const hit = (a, b) => a.left < b.right - 1 && a.right > b.left + 1 && a.top < b.bottom - 1 && a.bottom > b.top + 1;
-  const TEXT = '.title, .kicker, p, li, blockquote, dt, dd, th, td, h3, text, figcaption, .msg-agent, .byline';
-  const inNote = e => !!e.closest('.note');
-  const view = {left: 0, top: 0, right: innerWidth, bottom: innerHeight};
-  const scene = s.hasAttribute('data-scene') ? document.querySelector('.scene') : null;
-  const scopes = [[s, sr]].concat(scene ? [[scene, view]] : []);
-  const texts = [];
-  scopes.forEach(([root, bounds]) => root.querySelectorAll(TEXT).forEach(e => {
-    if (inNote(e) || !shown(e)) return;
-    texts.push(e);
-    const r = e.getBoundingClientRect();
-    if (outside(r, bounds)) bad.push('off-slide: ' + name(e));
-    if (e instanceof HTMLElement && getComputedStyle(e).overflowX !== 'visible' && e.scrollWidth > e.clientWidth + 2)
-      bad.push('clipped (x): ' + name(e));
-    if (e instanceof HTMLElement && getComputedStyle(e).overflowY !== 'visible' && e.scrollHeight > e.clientHeight + 2)
-      bad.push('clipped (y): ' + name(e));
-    for (let a = e.parentElement; a && a !== root.parentElement; a = a.parentElement) {
-      const c = getComputedStyle(a);
-      if (c.overflowX === 'visible' && c.overflowY === 'visible') continue;
-      if (outside(r, a.getBoundingClientRect())) { bad.push('clipped by ' + name(a).split(' ')[0] + ': ' + name(e)); break; }
-    }
-  }));
-  s.querySelectorAll('.body, .steps, .overlay, table, .fig-notes, .narration, .narr-tile, .popover, .pop-panel, .text-tile').forEach(e => {
-    if (inNote(e) || !shown(e)) return;
-    const c = getComputedStyle(e);
-    if (c.overflowY !== 'visible' && e.scrollHeight > e.clientHeight + 2) bad.push('clipped (y): ' + name(e));
-    if (c.overflowX !== 'visible' && e.scrollWidth > e.clientWidth + 2) bad.push('clipped (x): ' + name(e));
-  });
-  const bar = document.querySelector('.bar').getBoundingClientRect();
-  const BLOCK = '.body, .steps, svg.diagram, .overlay, table, .prompts, .msg-card, .fig-notes, .narration > *, .popover, .pop-panel, .text-tile';
-  const blockers = [...s.querySelectorAll(BLOCK)].filter(e => !inNote(e) && shown(e))
-    .concat(texts.filter(e => !e.matches('.title, .kicker') && !e.closest('.title')))
-    .concat(scene && shown(scene) ? [scene.querySelector('svg') || scene] : []);
-  s.querySelectorAll('.title').forEach(t => {
-    if (!shown(t)) return;
-    const range = document.createRange(); range.selectNodeContents(t);
-    const lines = [...range.getClientRects()].filter(r => r.width > 0 && r.height > 0);
-    if (!lines.length) return;
-    if (Math.min(...lines.map(r => r.top)) < bar.bottom - 1) bad.push('title under bar: ' + name(t));
-    if (lines.some(r => outside(r, sr))) bad.push('off-slide: ' + name(t));
-    blockers.forEach(b => {
-      if (b.contains(t)) return;
-      const br = b.getBoundingClientRect();
-      if (lines.some(l => hit(l, br))) bad.push('covers title: ' + name(b));
-    });
-  });
-  const btn = document.querySelector('.notes-btn').getBoundingClientRect();
-  s.querySelectorAll('.overlay, .msg-card, .fig-notes > *, .narr-tile, .pop-panel, .text-tile').forEach(e => {
-    if (shown(e) && hit(e.getBoundingClientRect(), btn)) bad.push('under notes button: ' + name(e)); });
-  const bt = document.querySelector('.bar-title').getBoundingClientRect();
-  const compact = !!document.querySelector('.bar--compact');
-  const nav = document.querySelector(compact ? '.nav-current' : '.agenda');
-  if (nav && hit(bt, nav.getBoundingClientRect())) bad.push('bar title meets agenda');
-  if (bt.right > innerWidth || bt.left < 0) bad.push('bar title off-screen');
-  return [...new Set(bad)];
-}"""
+GUARD = SKILL_DIR / "scripts" / "layout_guard.py"
+_GUARD = None
+
+
+def _guard():
+    """Return the shipped layout guard module, loaded once by path."""
+    global _GUARD
+    if _GUARD is None:
+        import importlib.util
+        import sys
+        spec = importlib.util.spec_from_file_location("pb_layout_guard_helper", GUARD)
+        _GUARD = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = _GUARD
+        spec.loader.exec_module(_GUARD)
+    return _GUARD
 
 
 def layout_faults(page, slide_id: str, shoot=None) -> list[str]:
     """Step through one slide from step 0 to its last step and collect every layout fault.
+
+    Delegates to the shipped guard's ``slide_faults``.
 
     Args:
         page: Playwright page with a deck loaded at the viewport under test.
@@ -699,14 +627,4 @@ def layout_faults(page, slide_id: str, shoot=None) -> list[str]:
     Returns:
         Fault strings ``"<slide>@<step>: <fault>"``; empty when the slide is clean at every step.
     """
-    steps = dict(page.evaluate("deck.plan()"))[slide_id]
-    faults: list[str] = []
-    for k in range(steps + 1):
-        page.evaluate("([id, k]) => deck.goto(id, k)", [slide_id, k])
-        page.wait_for_function("([id, k]) => deck.state().slide === id && deck.state().step === k",
-                               arg=[slide_id, k])
-        settle(page)
-        if shoot:
-            shoot(k)
-        faults += [f"{slide_id}@{k}: {f}" for f in page.evaluate(LAYOUT_CHECK, slide_id)]
-    return faults
+    return _guard().slide_faults(page, slide_id, shoot)

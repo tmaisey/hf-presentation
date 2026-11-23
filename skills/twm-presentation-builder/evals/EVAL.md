@@ -39,8 +39,8 @@ trust, a self-reported process log.
 
 Capture once per run into `evidence/`, before any judge starts; judges read only these files.
 
-- **Screenshots:** every slide × step × review size of the assembled deck (the deck project's
-  screenshot tool, or Playwright at the review sizes its `AGENTS.md` names). Name files
+- **Screenshots:** every slide × step × review size of the assembled deck (the skill's
+  `scripts/shoot.py`, at the review sizes the deck's `AGENTS.md` names). Name files
   `<slide>-<step>-<w>x<h>.png` so a judge can cite slide, step and size.
 - **PPTX renders:** when pptx is in scope, render each PPTX slide to PNG (judges can't open
   PPTX) and keep the `.pptx` for deterministic checks.

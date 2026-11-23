@@ -1,7 +1,7 @@
 ---
 name: twm-presentation-builder
 description: Builds presenter-driven, single-file HTML slide decks (step-built diagrams, overlays, reader notes, sourced claims, swappable design themes), converts them to editable PowerPoint, and evaluates the deck and its build process with rubric-based LLM judges. Use whenever the user asks to build, design, restyle or edit HTML slides, an HTML slide deck or an HTML presentation, to turn such a deck into PPTX, or to evaluate one.
-compatibility: Needs uv, Python 3.12+ and Playwright with Chromium for screenshots, layout checks and PPTX measurement.
+compatibility: Needs uv, Python 3.12+, Playwright and an installed Google Chrome (Playwright channel "chrome") for screenshots, layout checks and PPTX measurement.
 ---
 
 # twm-presentation-builder
@@ -67,5 +67,9 @@ Read a part only when its line applies. Parts never link each other; every part 
   [process](evals/judges/process-judge.md), [pairwise](evals/judges/pairwise-judge.md)): filled
   and sent to judge subagents as `evals/EVAL.md` directs. Never read them to build or judge
   yourself.
+- Tools (`scripts/`, `uv run scripts/<tool>.py --help` from the skill folder): `assemble.py` builds,
+  re-themes and checks a deck (and owns font embedding); `shoot.py` screenshots every slide × step ×
+  review size; `layout_guard.py` checks the same states for overlap, overflow, off-canvas and
+  occlusion. When to run each: [process/PROCESS.md](process/PROCESS.md) *Tools*.
 
 More parts are linked here as they land.
