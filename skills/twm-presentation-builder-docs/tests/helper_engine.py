@@ -257,6 +257,24 @@ MODULE_CSS = FIXTURE_CSS + """
 """
 
 
+ASSEMBLE = SKILL_DIR / "scripts" / "assemble.py"
+
+
+def load_assemble():
+    """Import the shipped assembler by path (``scripts/`` is not a package).
+
+    Returns:
+        The imported ``assemble`` module.
+    """
+    import importlib.util
+    import sys
+    spec = importlib.util.spec_from_file_location("pb_assemble", ASSEMBLE)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def block(text: str, name: str) -> re.Match | None:
     """Find a named insertion block (``/* NAME:BEGIN */…/* NAME:END */`` or the HTML-comment form).
 
