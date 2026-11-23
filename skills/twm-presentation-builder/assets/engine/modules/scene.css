@@ -1,0 +1,16 @@
+/* Optional engine module: scene (mechanics only). Contract: architecture/ARCHITECTURE.md §9.
+   The scene is fixed behind the slide text and placed by the module; hidden parts keep their place. The
+   soft and backdrop filters are functional defaults (a scene behind focus must read as behind); the style
+   layer re-tunes them and adds every transition (camera, parts, filters). */
+@layer arch {
+  .scene { position: fixed; z-index: 0; left: 0; top: 0; width: 0; height: 0; display: flex; flex-direction: column;
+    pointer-events: none; opacity: 0; visibility: hidden; }
+  .scene.is-on { opacity: 1; visibility: visible; }
+  .scene > svg { display: block; flex: 1 1 0; min-height: 0; width: 100%; }
+  /* camera: translate in viewBox units, scale about the viewBox centre (origin set by the module) */
+  .scene .cam { transform-box: view-box; }
+  .scene [data-scene-at]:not(.is-visible) { opacity: 0; }
+  .scene.is-on.is-soft { filter: blur(3px); opacity: .55; }
+  .scene.is-on.is-backdrop { filter: blur(12px); opacity: .42; }
+  .notes-on .scene { translate: 0 calc(-1 * var(--notes-shift, 0px)); }
+}

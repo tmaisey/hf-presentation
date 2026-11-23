@@ -526,7 +526,7 @@
 
   // ---------- start ----------
   const api = {
-    slides, $, $$, el, seeded, clamp,
+    slides, $, $$, el, seeded, clamp, layoutDiagram,
     state: () => ({ slide: slides[cur].id, index: cur, step, steps: slides[cur].steps }),
     show, goto, next, prev, render: (s, k) => render(s, k, notes.on), settle,
     get still() { return still; }, get instant() { return instant; }, get notesOn() { return notes.on; },

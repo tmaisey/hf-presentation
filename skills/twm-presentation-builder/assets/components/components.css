@@ -26,6 +26,17 @@
     --comp-overlay-pad: clamp(18px, 2vw, 40px) clamp(20px, 2.3vw, 46px);
     --comp-card-pad: clamp(16px, 1.6vw, 32px) clamp(18px, 1.8vw, 36px);
     --comp-rule: 2px solid var(--sys-color-paper-deep);
+    /* optional modules: narration column, pop-over and tile-row cards, scene backdrop */
+    --comp-gap-narr: clamp(20px, 2.6vw, 52px);
+    --comp-narr-width: clamp(300px, 25vw, 540px);
+    --comp-narr-pad: clamp(14px, 1.3vw, 28px) clamp(16px, 1.5vw, 32px);
+    --comp-pop-pad: clamp(14px, 1.4vw, 30px) clamp(16px, 1.6vw, 34px);
+    --comp-tile-pad: clamp(16px, 1.6vw, 34px) clamp(18px, 1.7vw, 36px);
+    --comp-card-frost: color-mix(in srgb, var(--sys-color-paper) 84%, transparent);
+    --comp-tile-frost: color-mix(in srgb, var(--sys-color-paper) 62%, transparent);
+    --comp-inset-fill: color-mix(in srgb, var(--sys-color-paper-deep) 75%, transparent);
+    --comp-backdrop-blur: 12px;
+    --comp-backdrop-opacity: .42;
     /* chrome type: fixed chrome sizes, not slide roles */
     --comp-bar-title-size: clamp(15px, 1.1vw, 20px);
     --comp-agenda-size: clamp(12px, .8vw, 15px);
@@ -159,7 +170,7 @@
   .body--split.body--flip { grid-template-columns: minmax(0, 64fr) minmax(0, 36fr); }
   .body--split > .diagram { height: 100%; }
   .body--split > div:not(.msg-card) { display: flex; flex-direction: column; gap: var(--comp-gap-stack); }
-  .body--split > div > * { margin-top: 0; margin-bottom: 0; }
+  .body--split > div:not(.msg-card) > * { margin-top: 0; margin-bottom: 0; }
   .body--stack { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: var(--comp-gap-stack); }
   .body--stack > :not(.diagram) { align-self: flex-start; }
   .body--stack > .diagram { flex: 1 1 0; min-height: 0; }
@@ -346,7 +357,125 @@
   .notes-nav button:hover { background: var(--sys-color-paper-deep); }
   .notes-pos { min-width: 3.5em; text-align: center; color: var(--sys-color-ink-3); font-variant-numeric: tabular-nums; }
 
+  /* =============== optional modules (ARCHITECTURE §9): look only; a deck without them never matches these =============== */
+
+  /* ---------- scene: three-column scene layout (body · scene slot · narration), title spanning the top ---------- */
+  .slide[data-scene] { grid-template: "kicker kicker kicker" auto "title title title" auto "body slot narr" minmax(0, 1fr)
+      / minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr); column-gap: var(--comp-gap-narr); }
+  .slide[data-scene] > .title { max-width: none; }
+  .slide[data-scene] > .body { grid-area: body; align-self: center; min-height: 0; }
+  .slide[data-scene] > .scene-slot { grid-area: slot; min-height: 0; }
+  .slide[data-scene] > .narration { grid-area: narr; }
+  .slide[data-scene] > :is(.popover, .overlay) { grid-column: slot-start / narr-end; grid-row: 3; }
+  .slide[data-scene] > .body--tiles { grid-column: body-start / narr-end; grid-row: 3; }
+  /* the scene's body column is narrow: its step list runs at the small size */
+  .slide[data-scene] > .body .steps li { font-size: var(--sys-type-small-size); line-height: 1.3; padding: .3em 0 .3em 2.1em; }
+  .slide[data-scene] > .body .steps li::before { top: .3em; }
+  @media (max-height: 660px) {
+    .slide[data-scene] > .body .steps li { line-height: 1.2; padding-top: .16em; padding-bottom: .16em; }
+    .slide[data-scene] > .body .steps li::before { top: .16em; }
+  }
+  .scene { transition: opacity var(--sys-motion-duration-base) ease, visibility 0s linear var(--sys-motion-duration-base),
+    filter var(--comp-motion-entry) var(--sys-motion-ease-rack); }
+  .scene.is-on { transition: opacity var(--comp-motion-entry) ease calc(var(--sys-motion-duration-fast)), visibility 0s,
+    filter var(--comp-motion-entry) var(--sys-motion-ease-rack); }
+  .scene > svg { overflow: visible; }
+  /* soft: a pop-over or Insight has focus, the scene softens as a body does; backdrop: frozen, far behind the body */
+  .scene.is-on.is-soft { filter: blur(var(--comp-soften-blur)); opacity: var(--comp-soften-opacity); transition-delay: 0s; }
+  .scene.is-on.is-backdrop { filter: blur(var(--comp-backdrop-blur)) saturate(var(--sys-material-veil-saturate));
+    opacity: var(--comp-backdrop-opacity); transition-delay: 0s; }
+  .scene .cam { transition: transform var(--sys-motion-duration-camera) var(--sys-motion-ease); }
+  .scene [data-scene-at] { transition: opacity calc(var(--sys-motion-duration-slow) * .875) ease; }
+  .scene [data-scene-at].is-visible { opacity: 1; }
+  .scene .is-settled { transition: none; }
+
+  /* ---------- narration tiles: message cards in a right-hand column (the module places them) ---------- */
+  .slide:has(> .narration):not([data-scene]) { grid-template: "kicker narr" auto "title narr" auto "body narr" minmax(0, 1fr)
+      / minmax(0, 1fr) var(--comp-narr-width); column-gap: var(--comp-gap-narr); }
+  .slide:has(> .narration):not([data-scene]) > .narration { grid-area: narr; }
+  .slide:has(> .narration):not([data-scene]) > :is(.overlay, .popover) { grid-column: body-start / narr-end; }
+  .slide > .narration { margin-bottom: var(--comp-notes-clear); }
+  .narr-tile { width: 88%; border-radius: var(--comp-radius-card); padding: var(--comp-narr-pad);
+    background: var(--comp-card-frost); box-shadow: var(--sys-shadow-overlay);
+    backdrop-filter: var(--comp-frost-filter); -webkit-backdrop-filter: var(--comp-frost-filter);
+    /* hidden = exit: rack focus (blur out, fade late), then the module's arch hides it */
+    opacity: 0; filter: blur(var(--comp-rack-blur)); transform: translateY(30px) scale(.98);
+    transition: filter var(--comp-motion-entry) var(--sys-motion-ease-rack), opacity var(--comp-motion-entry) var(--sys-motion-ease-late),
+      transform var(--comp-motion-entry) ease-out; }
+  .narr-tile.was-shown { transform: scale(1.015); }
+  /* shown = entry: rises into place, sharp from its first visible frame */
+  .narr-tile.is-shown { opacity: 1; filter: none; transform: none;
+    transition: opacity var(--sys-motion-duration-base) ease, transform calc(var(--sys-motion-duration-slow) * .875) var(--sys-motion-ease), filter 0s; }
+  .narr-tile.is-shown.is-delayed { transition-delay: var(--comp-motion-handover); }
+  .narr-tile .msg-agent, .narr-tile .msg-from { margin-bottom: .55em; }
+  .msg-from { margin: 0 0 .7em; font: var(--sys-type-kicker-weight) var(--sys-type-kicker-size)/1.3 var(--sys-type-kicker-family);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--sys-color-ink-2); }
+
+  /* ---------- pop-overs: frosted, shadowed tiles over the softened scene for a step range ---------- */
+  .slide > .popover { grid-area: body; }
+  .popover { align-self: center; min-height: 0; max-height: 100%; display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 40px); margin-bottom: var(--comp-notes-clear);
+    /* hidden = exit: rack focus like an overlay */
+    visibility: hidden; filter: blur(var(--comp-rack-blur)); transform: translateY(30px) scale(.98);
+    transition: filter var(--comp-motion-entry) var(--sys-motion-ease-rack), opacity var(--comp-motion-entry) var(--sys-motion-ease-late),
+      transform var(--comp-motion-entry) ease-out, visibility 0s linear var(--comp-motion-entry); }
+  .popover.is-visible { visibility: visible; opacity: 1; filter: none; transform: none;
+    transition: opacity var(--sys-motion-duration-base) ease, filter calc(var(--sys-motion-duration-slow) * .625) ease-out,
+      transform calc(var(--sys-motion-duration-slow) * .875) var(--sys-motion-ease), visibility 0s; }
+  .slide > .popover ~ .popover.is-visible { transition-delay: var(--comp-motion-handover); }
+  .pop-panel { margin: 0; min-height: 0; display: flex; flex-direction: column; gap: .7em; padding: var(--comp-pop-pad);
+    border-radius: var(--comp-radius-overlay); background: var(--sys-material-pane); box-shadow: var(--sys-shadow-overlay);
+    backdrop-filter: blur(var(--sys-material-pane-blur)) saturate(var(--sys-material-saturate));
+    -webkit-backdrop-filter: blur(var(--sys-material-pane-blur)) saturate(var(--sys-material-saturate)); }
+  .pop-panel--wide { grid-column: 1 / -1; }
+  .pop-panel figcaption { font: var(--sys-type-msg-weight) var(--sys-type-msg-size)/1.3 var(--sys-type-msg-family); color: var(--sys-color-ink); }
+  .pop-panel p { margin: 0; max-width: none; font-size: var(--sys-type-small-size); line-height: 1.4; color: var(--sys-color-ink-2); }
+  .pop-panel svg { display: block; flex: 1 1 auto; min-height: 0; width: 100%; max-height: 32vh; overflow: visible; }
+
+  /* ---------- tile row: 2–4 equal frosted tiles, built one per step; tighter when the module sets .is-tight ---------- */
+  .body--tiles { align-self: center; align-items: stretch; gap: clamp(16px, 1.8vw, 36px); max-height: 100%;
+    margin-bottom: var(--comp-notes-clear); }
+  .text-tile { display: flex; flex-direction: column; gap: .75em; margin: 0; border-radius: var(--comp-radius-overlay);
+    padding: var(--comp-tile-pad); background: var(--comp-tile-frost); box-shadow: var(--sys-shadow-overlay);
+    backdrop-filter: var(--comp-frost-filter); -webkit-backdrop-filter: var(--comp-frost-filter); }
+  .text-tile[data-show-at] { transform: translateY(30px);
+    transition: opacity var(--sys-motion-duration-base) ease, transform calc(var(--sys-motion-duration-slow) * .875) var(--sys-motion-ease); }
+  .text-tile[data-show-at].is-visible { transform: none; }
+  .text-tile h3 { margin: 0 0 .1em; font: var(--sys-type-title-weight) var(--sys-type-overlay-size)/1.15 var(--sys-type-title-family);
+    color: var(--sys-color-ink); text-wrap: wrap; }
+  .text-tile > .points { max-width: none; margin-bottom: auto; }
+  .text-tile .points li { margin: 0 0 .4em; font-size: var(--sys-type-small-size); line-height: 1.4; color: var(--sys-color-ink-2); }
+  .text-tile .points li:last-child { margin-bottom: 0; }
+  .text-tile .points li::before { top: .5em; width: .4em; height: .4em; border-radius: 50%; }
+  .body .text-tile p { margin: 0; max-width: none; font-size: var(--sys-type-small-size); line-height: 1.4; color: var(--sys-color-ink-2); }
+  .body .text-tile blockquote:not(.msg-text) { margin: .15em 0 0; max-width: none; color: var(--sys-color-ink); quotes: "\201C" "\201D";
+    font: italic var(--sys-type-msg-weight) var(--sys-type-msg-size)/var(--sys-type-msg-leading) var(--sys-type-msg-family); }
+  .text-tile blockquote:not(.msg-text)::before { content: open-quote; }
+  .text-tile blockquote:not(.msg-text)::after { content: close-quote; }
+  .body .text-tile .cite { margin: -.35em 0 0; font: 500 var(--sys-type-kicker-size)/1.4 var(--sys-font-sans); color: var(--sys-color-ink-2); }
+  .text-tile a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .text-tile .msg-card { max-width: none; padding: .8em 1em; border-radius: 16px; box-shadow: none; background: var(--comp-inset-fill); }
+  .text-tile .msg-card .msg-agent { margin-bottom: .45em; }
+  .text-tile .msg-card .msg-text { font-size: var(--sys-type-small-size); }
+  .text-tile .msg-card .cite { margin-top: .6em; }
+  .keep { white-space: nowrap; }
+  @media (max-height: 660px) {
+    .text-tile { gap: .4em; padding: 12px 16px; }
+    .text-tile h3 { font-size: clamp(18px, 1.5vw, 26px); line-height: 1.1; }
+    .text-tile .points li { margin-bottom: .15em; line-height: 1.3; padding-left: 1.1em; }
+    .text-tile .points li::before { top: .45em; }
+    .text-tile .msg-card { padding: .5em .8em; }
+  }
+  .body--tiles.is-tight { gap: clamp(10px, 1.2vw, 24px); }
+  .body--tiles.is-tight .text-tile { gap: .4em; padding: 12px 16px; }
+  .body--tiles.is-tight .text-tile h3 { font-size: clamp(18px, 1.5vw, 26px); line-height: 1.1; }
+  .body--tiles.is-tight .text-tile .points li { margin-bottom: .15em; line-height: 1.3; }
+
   /* ---------- reduced motion (:root.still, set by the engine): fades only, no travel, scale or blur motion ---------- */
+  :root.still .narr-tile { transform: none !important; filter: none !important;
+    transition: opacity calc(var(--sys-motion-duration-slow) / 2) ease !important; }
+  :root.still :is(.popover, .text-tile[data-show-at]) { transform: none !important; filter: none !important; }
+  :root.still .scene .cam { transition: none; }
   :root.still .agenda li:hover button, :root.still .bar--compact .agenda li:hover button, :root.still .bar--compact .agenda { transform: none; }
   :root.still :is(.slide > .kicker, .slide > .title, .slide > .body, [data-show-at], [data-hide-at]) {
     transform: none !important; transition: opacity calc(var(--sys-motion-duration-slow) * .375) ease, filter calc(var(--sys-motion-duration-slow) * .375) ease !important; }

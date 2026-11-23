@@ -19,7 +19,7 @@ import pytest
 from playwright.sync_api import sync_playwright
 
 import helper_components as hc
-from helper_engine import (BANNED, COMPONENT_SLIDES, REVIEW_SIZES, assemble_themed, components_css,
+from helper_engine import (BANNED, COMPONENT_SLIDES, MODULE_SLIDES, REVIEW_SIZES, assemble_themed, components_css,
                            layout_faults, open_deck, settle, theme_blocks)
 from helper_skill import SKILL_DIR
 from helper_tokens import DECK_V2
@@ -121,8 +121,10 @@ def test_components_css_reads_only_defined_sys_and_comp_tokens(css, theme_css):
 
 
 def test_components_css_names_no_organisation_or_incident(css):
+    """Module class names (ARCHITECTURE §9: narration, ``narr-``, popover) are contract, not incident names."""
     text = css.lower()
-    assert [w for w in BANNED if re.search(rf"\b{w}", text)] == []
+    contract = {r"narr-", r"narration", r"popover"}
+    assert [w for w in BANNED if w not in contract and re.search(rf"\b{w}", text)] == []
 
 
 @pytest.mark.parametrize("snippet, fault", [
@@ -165,11 +167,12 @@ def test_layout_part_documents_every_component_and_variant():
                 ".kicker", ".title", ".body--split", ".body--flip", ".body--stack", ".body--layers", ".steps",
                 ".points", ".overlay--insight", ".is-overlaid", ".tile", ".tile--key", ".edge", ".label",
                 ".tag", "--k", ".callout", ".pin", ".ring", ".veil", ".notes-btn", ".notes-nav", ".orb",
-                "a.src", ".cite", ".byline", ".msg-card", ".fig", ".annot"):
+                "a.src", ".cite", ".byline", ".msg-card", ".fig", ".annot", ".scene", ".scene-slot", ".is-soft",
+                ".is-backdrop", ".narration", ".narr-tile", ".popover", ".pop-panel", ".body--tiles", ".text-tile",
+                ".is-tight"):
         assert cls in doc, f"LAYOUT.md does not document {cls}"
     assert len(re.findall(r"(?im)^.*use when", doc)) >= 5, "each layout variant says when to use it"
-    assert re.search(r"(?i)three-column scene", doc) and "PB-003" in doc, \
-        "the scene layout and module styling are named as following the optional modules"
+    assert re.search(r"(?i)three-column scene", doc), "the scene layout is a documented variant"
 
 
 def test_layout_part_lists_every_comp_token_and_every_sys_token_read(css):
@@ -177,7 +180,8 @@ def test_layout_part_lists_every_comp_token_and_every_sys_token_read(css):
     doc = LAYOUT_MD.read_text(encoding="utf-8")
     missing = [p for p in sorted(hc.defined_props(css)) if p.startswith("--comp-") and p not in doc]
     assert missing == [], f"comp tokens not documented: {missing}"
-    wild = re.findall(r"(--sys-[\w-]*?)-?\*", doc)
+    rows = "\n".join(l for l in doc.splitlines() if l.startswith("|"))   # per-component rows only
+    wild = [w for w in re.findall(r"(--sys-[\w-]*?)-?\*", rows) if w not in ("--sys-", "--sys-color")]
     unlisted = [v for v in sorted(hc.var_reads(css)) if v.startswith("--sys-")
                 and v not in doc and not any(v.startswith(w) for w in wild)]
     assert unlisted == [], f"sys tokens read but not listed per component: {unlisted}"
@@ -385,3 +389,82 @@ def test_reduced_motion_reveals_without_travel(browser, deck_file):
         return t
     assert transform_on_reveal(reduced_motion="reduce") == "none"
     assert transform_on_reveal() != "none", "control: with motion, a revealed part rises into place"
+
+
+# ---------- optional modules: scene, narration tiles, pop-overs, tile row ----------
+
+MODULE_IDS = re.findall(r'<section class="[^"]*" id="([\w-]+)"', MODULE_SLIDES)
+
+
+@pytest.fixture(scope="module")
+def module_file(tmp_path_factory):
+    return assemble_themed(tmp_path_factory.mktemp("mod") / "modules.html", slides=MODULE_SLIDES,
+                           title="Module Fixture", subtitle="Layout layer")
+
+
+@pytest.fixture(scope="module")
+def module_pages(browser, module_file):
+    cf, fixture, ef = _open(browser, module_file)
+    cv, v2, ev = _open(browser, DECK_V2)
+    yield fixture, v2
+    cf.close()
+    cv.close()
+    assert ef == [] and ev == [], f"page errors: {ef + ev}"
+
+
+CARD = ("backgroundColor", "backdropFilter", "borderRadius", "boxShadow", "paddingTop", "paddingLeft")
+MODULE_PAIRS = [
+    ("scene grid", ("m-2", 0, "#m-2"), ("s-3", 0, "#s-3"), ("gridTemplateColumns", "columnGap", "paddingTop"), None),
+    ("scene on", ("m-2", 1, ".scene"), ("s-3", 1, ".world"), ("opacity", "filter"), None),
+    ("scene soft", ("m-3", 1, ".scene"), ("s-3", 2, ".world"), ("opacity", "filter"), None),
+    ("scene backdrop", ("m-4", 3, ".scene"), ("s-8", 3, ".world"), ("opacity", "filter"), None),
+    ("scene camera motion", ("m-2", 2, ".scene .cam"), ("s-3", 2, ".world .cam"),
+     ("transitionDuration", "transitionTimingFunction"), None),
+    ("scene step list", ("m-2", 2, "#m2-s2"), ("s-3", 3, "#s-3 .steps li.is-current:not(.sub)"),
+     ("fontSize", "lineHeight", "paddingTop", "paddingLeft", "color"), None),
+    ("narration tile", ("m-2", 1, "#n-1"), ("s-3", 4, "#s-3 .narr-tile.is-shown"),
+     CARD + ("opacity", "filter", "transform"), None),
+    ("narration quote", ("m-2", 1, "#n-1 .msg-text"), ("s-3", 4, "#s-3 .narr-tile.is-shown .msg-text"), TYPE, None),
+    ("narration sender", ("m-2", 1, "#n-1 .msg-from"), ("s-3", 4, "#s-3 .narr-tile.is-shown .msg-agent"),
+     TYPE + ("marginBottom",), None),
+    ("pop-over", ("m-3", 1, "#m3-pop"), ("s-3", 2, "#s3-pop"),
+     ("display", "columnGap", "opacity", "filter", "transform", "visibility", "marginBottom", "alignSelf"), None),
+    ("pop-over tile", ("m-3", 1, "#m3-pop .pop-panel"), ("s-3", 2, "#s3-pop .pop-panel"),
+     ("borderRadius", "boxShadow", "paddingTop", "paddingLeft", "display"), None),
+    ("pop-over caption", ("m-3", 1, "#m3-pop-cap"), ("s-3", 2, "#s3-pop .pop-panel figcaption"), TYPE, None),
+    ("tile row", ("m-4", 3, "#m-4 .body--tiles"), ("s-9", 3, "#s-9 .body--tiles"),
+     ("columnGap", "alignSelf", "marginBottom"), None),
+    ("text tile", ("m-4", 3, "#t-1"), ("s-9", 3, "#s9-t1"), CARD + ("opacity", "transform", "rowGap"), None),
+    ("text tile heading", ("m-4", 3, "#t-1 h3"), ("s-9", 3, "#s9-t1 h3"), TYPE, None),
+]
+
+
+@pytest.mark.parametrize("what, fix, ref, props, pseudo", MODULE_PAIRS, ids=[p[0] for p in MODULE_PAIRS])
+def test_module_component_computes_like_deck_v2(module_pages, what, fix, ref, props, pseudo):
+    fixture, v2 = module_pages
+    want = _probe(v2, *ref, props, pseudo)
+    got = _probe(fixture, *fix, props, pseudo)
+    assert got == want, what
+
+
+def test_popover_tile_is_frosted_not_an_opaque_panel(module_pages):
+    """The skill's pop-over tile frosts over the softened scene (deck-v2's is an opaque tile)."""
+    fixture, _ = module_pages
+    got = _probe(fixture, "m-3", 1, "#m3-pop .pop-panel", ("backgroundColor", "backdropFilter"))
+    alpha = re.search(r"/ ([\d.]+)\)$|rgba\(.*, ([\d.]+)\)$", got["backgroundColor"])
+    assert alpha and 0 < float(alpha.group(1) or alpha.group(2)) < 1, got["backgroundColor"]
+    assert got["backdropFilter"].startswith("blur("), got
+
+
+@pytest.mark.parametrize("size", REVIEW_SIZES, ids=[f"{w}x{h}" for w, h in REVIEW_SIZES])
+def test_module_slides_have_no_overlap_clipping_or_offcanvas_text(browser, module_file, size):
+    w, h = size
+    c, pg, errors = _open(browser, module_file, w, h)
+    ARTIFACTS.mkdir(parents=True, exist_ok=True)
+    faults = []
+    for sid in MODULE_IDS:
+        faults += layout_faults(pg, sid, shoot=lambda k, sid=sid: pg.screenshot(
+            path=str(ARTIFACTS / f"modules-{sid}-{k}-{w}x{h}.png")))
+    c.close()
+    assert errors == []
+    assert faults == [], "\n".join(faults)
