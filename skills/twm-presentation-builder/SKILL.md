@@ -32,3 +32,8 @@ PRD (intent) → interview → research (with consent) → storyboard → protot
 spec → TDD → assembled-screenshot look → done. Optional afterwards: PPTX hand-off, eval.
 
 Parts are linked below as they land; each says when to read it.
+
+- [Architecture contract](architecture/ARCHITECTURE.md): layer order, skeleton blocks, the
+  data-attribute authoring contract, component API, shared SVG defs, engine API and module hooks.
+  Read before writing slide markup, styling a design layer, writing an engine module or assembling
+  a deck.

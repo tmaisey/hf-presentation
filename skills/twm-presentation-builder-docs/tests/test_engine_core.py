@@ -63,7 +63,7 @@ def press(page, key, times=1):
 
 
 def at(page, slide, step):
-    page.wait_for_function("([s, k]) => deck.state().slide === s && deck.state().step === k", [slide, step])
+    page.wait_for_function("([s, k]) => deck.state().slide === s && deck.state().step === k", arg=[slide, step])
 
 
 # ---------- static contract ----------
@@ -382,8 +382,9 @@ def test_reduced_motion_lands_instantly_and_the_ambient_holds_still(browser, dec
 
 def test_diagram_edges_are_drawn_gapped_between_tiles_and_tile_text_is_centred(page):
     d = page.evaluate("document.querySelector('#d-edge').getAttribute('d')")
-    nums = [float(v) for v in re.findall(r"-?\d+(?:\.\d+)?", d)]
-    assert 300 < nums[0] < 330 and 570 < nums[-2] < 600, "starts after tile A, ends before tile B"
+    m = re.fullmatch(r"M([\d.]+),130 H([\d.]+)", d)
+    assert m, f"tiles on one row get a straight edge at their centre line: {d}"
+    assert 300 < float(m.group(1)) < 330 and 570 < float(m.group(2)) < 600, "starts after tile A, ends before tile B"
     xs = page.evaluate("[...document.querySelectorAll('#d-b text')].map(t => +t.getAttribute('x'))")
     ys = page.evaluate("[...document.querySelectorAll('#d-b text')].map(t => +t.getAttribute('y'))")
     assert xs == [730, 730] and ys[0] < 130 < ys[1], "lines centred as a block in the rect"
