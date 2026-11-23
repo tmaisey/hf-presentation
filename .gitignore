@@ -5,3 +5,4 @@ __pycache__/
 tests/artifacts/
 .claude/worktrees/
 skills/*/tests/artifacts/
+skills/twm-presentation-builder-docs/evals-runs/*/builds/
