@@ -1,0 +1,502 @@
+{
+ "run": {
+  "label": "pb008-bright",
+  "date": "261123",
+  "target": "skills/twm-presentation-builder/examples/hf-incident/deck-bright.html",
+  "profile": "editorial-talk",
+  "concerns": [
+   "design-palette",
+   "design-style"
+  ],
+  "depth": "judges",
+  "k": 3,
+  "transcripts": false,
+  "mode": "pointwise",
+  "judge_model": "Claude Opus 5.5 (generic general-purpose subagents, model inherited)",
+  "scope_source": "PB-008 build brief (presenter asleep; orchestrator-authorised autonomous run): no scope prompt was asked; answers recorded here instead",
+  "judged": [
+   "DP-04",
+   "DP-06",
+   "DS-02",
+   "DS-04",
+   "DS-05",
+   "DS-06"
+  ],
+  "sizes": [
+   "1920x1080",
+   "1288x598"
+  ],
+  "units": {
+   "DP-04": "per slide, all steps at 1920x1080 (step-scoped criterion judged one slide per judge to bound judge count)",
+   "DS-02": "per slide, all steps at 1920x1080 and 1288x598 (line breaks change with width)",
+   "DS-04": "per slide, all steps at 1920x1080 and 1288x598 (the short-wide window stands in for a small viewer)",
+   "DS-05": "per slide with depth effects (s-2, s-4, s-5, s-9), all steps at 1920x1080",
+   "DP-06": "deck, every step at 1920x1080",
+   "DS-06": "deck, every step at 1920x1080"
+  },
+  "not_run": {
+   "D criteria (DP-01, DP-02, DP-03, DP-05, DS-01, DS-03, DS-07)": "no gate runner (evals/gates.py) on this branch; listed as missing, never judged by an LLM (EVAL.md 3). Contrast of declared pairs is covered by scripts/tokens.py check; the swap and layout by tests/test_palette_bright.py",
+   "DP-07": "T criterion on the repo, not a screenshot criterion; organisation naming is checked deterministically by tests/test_palette_bright.py"
+  },
+  "dispatch": "each judge got one filled output-judge.md prompt (stored in prompts/) by path, nothing else",
+  "evidence_note": "screenshots are git-ignored (regenerate with scripts/shoot.py, see .gitignore); evidence/shots.json lists them"
+ },
+ "calibration": "Calibration: agreement with the presenter is unmeasured until a calibration set exists.",
+ "outcome": "incomplete",
+ "gates": [
+  {
+   "criterion": "DP-01",
+   "status": "missing"
+  },
+  {
+   "criterion": "DP-02",
+   "status": "missing"
+  }
+ ],
+ "concerns": {
+  "design-palette": {
+   "score": 0.9166666666666667,
+   "coverage": 0.2857142857142857
+  },
+  "design-style": {
+   "score": 0.7111111111111111,
+   "coverage": 0.6428571428571429
+  }
+ },
+ "overall": {
+  "score": 0.7743589743589744,
+  "coverage": 0.4642857142857143
+ },
+ "criteria": {
+  "DP-01": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DP-02": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DP-03": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DP-04": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.8333333333333334,
+   "units": {
+    "s-12": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "fail",
+      "pass"
+     ],
+     "flags": [
+      "high-spread"
+     ]
+    },
+    "s-1": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-9": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-05": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DP-06": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-07": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DS-01": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DS-02": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.3333333333333333,
+   "units": {
+    "s-12": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-1": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-9": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-03": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  },
+  "DS-04": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.6666666666666666,
+   "units": {
+    "s-12": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-9": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-05": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-9": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "pass",
+      "pass"
+     ],
+     "flags": [
+      "high-spread"
+     ]
+    }
+   }
+  },
+  "DS-06": {
+   "concern": "design-style",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.8,
+   "units": {
+    "deck": {
+     "outcome": 4,
+     "score": 0.8,
+     "k": 3,
+     "results": [
+      4,
+      4,
+      4
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-07": {
+   "concern": "design-style",
+   "weight": 1,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {}
+  }
+ },
+ "flags": [
+  {
+   "criterion": "DP-04",
+   "unit": "s-12",
+   "flags": [
+    "high-spread"
+   ]
+  },
+  {
+   "criterion": "DS-05",
+   "unit": "s-9",
+   "flags": [
+    "high-spread"
+   ]
+  }
+ ]
+}

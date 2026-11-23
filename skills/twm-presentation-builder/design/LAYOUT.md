@@ -10,7 +10,8 @@ File: `assets/components/components.css`, pasted between the skeleton's `COMPONE
 assembler. It is the deck's calm editorial look: serif titles over sans body, charcoal on paper, one
 accent, frosted cards (opaque, shadowed pop-over tiles), line-drawn diagrams and illustrations, generous
 type for screen-share. A worked example built with it (`examples/hf-incident/`) is checked against the
-reference deck it came from.
+reference deck it came from; `deck-bright.html` beside it is the same deck after `swap --palette
+bright-primaries` (slides byte-identical), proof the layer reads roles only.
 
 ## 1 · Rules (binding)
 

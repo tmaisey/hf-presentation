@@ -13,6 +13,7 @@ generator `scripts/tokens.py` (stdlib only, PEP 723 header).
 | Shipped | What |
 | --- | --- |
 | palette `paper-green` | Warm paper ground, charcoal inks, a single green accent (`accent-ink` for accent text) |
+| palette `bright-primaries` | Plain white ground, near-black and grey inks, light-grey quiet fills; a bright blue accent (darker `accent-ink` for text), bright red alarm, deep red loss; bright yellow `caution` and green `ok` roles fill PPTX `accent3`/`accent4` only (no component reads them yet) |
 | style `editorial` | Newsreader titles over Inter, frosted cards, three-plane bokeh, soft ink-tinted shadows, slow eased motion |
 
 ## 1 · Tiers (ref → sys → comp)

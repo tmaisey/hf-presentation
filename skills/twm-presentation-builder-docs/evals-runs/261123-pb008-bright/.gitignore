@@ -1,0 +1,2 @@
+# Screenshots (~10 MB) are regenerable: uv run scripts/shoot.py examples/hf-incident/deck-bright.html <this>/evidence --sizes 1920x1080,1288x598
+evidence/*.png
