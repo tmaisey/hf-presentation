@@ -15,14 +15,10 @@ import re
 import pytest
 from playwright.sync_api import sync_playwright
 
-from helper_engine import (ARCH_CSS, ARCHITECTURE, BLOCKS, ENGINE_JS, LAYER_ORDER, SKELETON,
+from helper_engine import (ARCH_CSS, ARCHITECTURE, BANNED, BLOCKS, ENGINE_JS, LAYER_ORDER, SKELETON,
                            RECORDER_MODULE, assemble, block, open_deck, opacity, settle, state)
 
 NEXT = ("ArrowRight", "ArrowDown", "PageDown", " ")
-# organisations and the source deck's incident-specific modules/names (word-bounded regexes)
-BANNED = (r"hugging", r"openai", r"modal\b", r"metr\b", r"deloitte", r"anthropic", r"incident", r"swarm",
-          r"world", r"narr-", r"narration", r"popover", r"mirror", r"day0", r"tl-day")
-
 
 # ---------- fixtures ----------
 
