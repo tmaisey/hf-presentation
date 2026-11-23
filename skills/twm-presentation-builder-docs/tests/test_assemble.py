@@ -97,8 +97,8 @@ def deck_file(tmp_path_factory, slides_file):
 def other_palette(tmp_path_factory):
     """A gate-passing palette that differs from paper-green only in its accent hue."""
     tree = json.loads(PALETTE_SRC.read_text(encoding="utf-8"))
-    tree["ref"]["color"]["green"]["500"]["$value"] = {"colorSpace": "srgb", "components": [0.2314, 0.5098, 0.9647],
-                                                     "hex": "#3b82f6"}
+    tree["ref"]["color"]["green"]["500"]["$value"] = {"colorSpace": "srgb", "components": [0.4863, 0.7686, 0.9804],
+                                                     "hex": "#7cc4fa"}
     f = tmp_path_factory.mktemp("pal") / "test-blue.tokens.json"
     f.write_text(json.dumps(tree, indent=2), encoding="utf-8")
     return f
@@ -289,7 +289,7 @@ def test_swap_palette_changes_only_the_palette_block(deck_file, other_palette, t
     assert r.returncode == 0, r.stderr
     after = f.read_text(encoding="utf-8")
     assert changed(before, after) == {"PALETTE"}
-    assert "#3b82f6" in block(after, "PALETTE").group(1)
+    assert "#7cc4fa" in block(after, "PALETTE").group(1)
     for name in CONTENT:   # byte-identical, not just equal after decoding
         assert block(after, name).group(1).encode() == block(before, name).group(1).encode()
 

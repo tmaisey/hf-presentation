@@ -37,7 +37,7 @@ mechanics), `assets/engine/engine.js` (the core engine), `assets/engine/modules/
 Declared first in the one `<style>`; a later layer overrides an earlier one regardless of
 specificity, and an `!important` in an earlier layer beats a later one (used only by `arch`'s
 notes-mode rule, §8). Each block below is filled once, between its markers, by the assembler; a
-theme swap replaces only `PALETTE`/`STYLE` (and `COMPONENTS` for a layout swap), never `SLIDES`.
+theme swap replaces only `PALETTE`/`STYLE`/`FONTS` (and `COMPONENTS` for a layout swap), never `SLIDES`.
 
 | Block (markers) | Holds | Owner |
 | --- | --- | --- |
@@ -60,6 +60,22 @@ hand-edited.
 `{{title}}` and `{{subtitle}}` in the skeleton are the deck title and its subtitle (bar and
 `<title>`). The skeleton also carries the fixed chrome: `header.bar`, the notes chrome and the
 `svg.defs` host (§5).
+
+**Assembling a deck** (`scripts/assemble.py`, stdlib, run from the skill folder; never hand-fill blocks):
+
+```bash
+uv run scripts/assemble.py new deck.html --title "…" --subtitle "…" [--slides slides.html] \
+  [--palette paper-green] [--style editorial] [--layout components]   # names or file paths
+uv run scripts/assemble.py swap deck.html [--palette P] [--style S] [--layout L] [--refresh-engine] [-o out.html]
+uv run scripts/assemble.py check deck.html   # endpoint-safety faults (§1); new/swap refuse unsafe output
+```
+
+`new` embeds the faces of every font family the style names (`assets/fonts/fonts.json` maps family →
+woff2 + OFL licence; a family with no file is refused) and includes modules by trigger (§9). `swap`
+rewrites only FONTS, COMPONENTS, PALETTE and STYLE (unchanged parts default to the names recorded in each
+block's first-line comment); `--refresh-engine` also rewrites ARCH, DEFS, MODULES and ENGINE. SLIDES,
+DECK and all bytes outside the blocks are copied unchanged; the same swap twice gives the same bytes;
+a missing or duplicated marker is refused and the file left untouched.
 
 `arch.css` holds only what the engine relies on (fixed chrome positions, snapping, hidden-until-step
 states, the veil mask, notes-mode instant). It uses CSS system colours (`Canvas`, `CanvasText`,

@@ -71,8 +71,8 @@ uv run scripts/tokens.py pptx  --palette paper-green --style editorial   # a:clr
 
 Run from the skill folder (or prefix `${CLAUDE_SKILL_DIR}/`). `--palette`/`--style` take a shipped
 name or a `.tokens.json` path. Output is deterministic. Exit 1 with `FAIL` lines on stderr for any
-validation or gate failure. The assembler pastes the `css` blocks between the skeleton's markers;
-the PPTX emitter writes the `pptx` XML into `theme1.xml`.
+validation or gate failure. The assembler (`scripts/assemble.py`) writes these blocks between the
+deck's markers; the PPTX emitter writes the `pptx` XML into `theme1.xml`.
 
 ## 5 · Adding a palette
 
@@ -93,4 +93,6 @@ the PPTX emitter writes the `pptx` XML into `theme1.xml`.
    token paths components read; change values, fonts (`ref.font`) and curves (`ref.curve`).
 3. Colours only by alias to palette roles (with `mix` for tints); no colour literals.
 4. Give every effect a `band` with a `note` saying what PowerPoint does instead.
-5. Embed any new fonts, run `check` and `css`, then look at the assembled deck at every review size.
+5. Ship any new font: woff2 + licence in `assets/fonts/` and a `fonts.json` entry (the assembler
+   embeds by family). Run `check`, rebuild with `scripts/assemble.py`, then look at the assembled
+   deck at every review size.
