@@ -308,7 +308,13 @@ def test_blind_eval_run_has_a_valid_report_with_the_calibration_line(tmp_path):
     json_path, md_path = agg.run(copy)
     report = json.loads(json_path.read_text(encoding="utf-8"))
     committed = json.loads((RUN_DIR / f"{stem}.json").read_text(encoding="utf-8"))
-    assert report == committed, "the committed report is the aggregator's output for the committed verdicts"
+    # Runs are dated records, never re-written; the aggregator may later add explanatory fields
+    # (PB-026: reasons, an `incomplete` list), so compare what the verdicts decide, not every key.
+    def decided(r):
+        return (r["outcome"], r.get("overall"),
+                {c: (v.get("status"), v.get("score")) for c, v in r["criteria"].items()})
+    assert decided(report) == decided(committed), \
+        "the committed report's outcome and scores are the aggregator's for the committed verdicts"
     assert agg.CALIBRATION_LINE in (RUN_DIR / f"{stem}.md").read_text(encoding="utf-8")
     assert report["calibration"] == agg.CALIBRATION_LINE
     for cid in JUDGED:

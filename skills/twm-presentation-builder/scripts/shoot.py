@@ -163,11 +163,13 @@ def shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: li
     """
     import concurrent.futures
     with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
-        return pool.submit(_shoot, deck, out, sizes, slides, settle_ms, notes).result()
+        return pool.submit(_shoot, deck, out, sizes, slides, settle_ms, notes, contact,
+                           contact_grid).result()
 
 
 def _shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: list[str] | None = None,
-           settle_ms: int = 0, notes: bool = False) -> dict:
+           settle_ms: int = 0, notes: bool = False, contact: str | None = None,
+           contact_grid=CONTACT_GRID) -> dict:
     """Screenshot every chosen slide at every step and size; write and return the index.
 
     Args:
@@ -228,10 +230,13 @@ def _shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: l
         finally:
             browser.close()
     rank = {s: i for i, (s, _) in enumerate(order)}
-    shots = sorted(kept, key=lambda e: rank.get(e.get("slide"), 0)) + shots
-    shots.sort(key=lambda e: rank.get(e["slide"], 0))  # stable: deck order, each slide's shots as taken
+    # Contact sheets span slides (no "slide"): they follow the per-slide shots, in sheet order.
+    sheets = [e for e in shots if e.get("mode") == "contact"]
+    shots = [e for e in kept if e.get("mode") != "contact"] + [e for e in shots if e.get("mode") != "contact"]
+    shots.sort(key=lambda e: rank.get(e.get("slide"), 0))  # stable: deck order, each slide's shots as taken
     steps = dict(order)
     shot_ids = sorted({e["slide"] for e in shots}, key=lambda s: rank.get(s, 0))
+    shots += sheets
     size_ids = [lg.size_id(s) for s in sizes]
     size_ids += [z for z in dict.fromkeys(e["size"] for e in kept) if z not in size_ids]
     index = {"tool": "shoot", "version": 1, "deck": str(deck), "sizes": size_ids,
