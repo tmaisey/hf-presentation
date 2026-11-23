@@ -77,7 +77,9 @@ Read a part only when its line applies. Parts never link each other; every part 
   re-themes and checks a deck (and owns font embedding); `shoot.py` screenshots every slide × step ×
   review size; `layout_guard.py` checks the same states for overlap, overflow, off-canvas and
   occlusion. When to run each: [process/PROCESS.md](process/PROCESS.md) *Tools*. `evals/gates.py`
-  runs every deterministic eval criterion (deck, PPTX, repo) as `evals/EVAL.md` §3 directs.
+  runs every deterministic eval criterion (deck, PPTX, repo) as `evals/EVAL.md` §3 directs; the
+  other eval tools (`extract.py`, `prompts.py`, `aggregate.py`, `accuracy.py`) are run where
+  `evals/EVAL.md` names them.
 
 - [examples/hf-incident/EXAMPLE.md](examples/hf-incident/EXAMPLE.md): the HF incident deck as a
   worked case, with cited excerpts per part and the rejected first draft. Read when you want to see

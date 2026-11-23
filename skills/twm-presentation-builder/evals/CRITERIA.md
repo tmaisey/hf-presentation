@@ -10,7 +10,8 @@ later). Gates and judge prompts consume it; they never restate a criterion.
 | `profiles/<id>.json` | One deck-type profile each: which criteria, how much they weigh, which gate |
 | `criteria.py` | Loader and validator (`check`, `resolve <profile>`); run it, don't read it |
 | `anchors/anchors.json`, `anchors/an-NN.html` | Deliberately flawed decks + a clean control, each labelled `must_fail`/`must_pass`; judge them like any deck, a judge or gate that passes a `must_fail` is wrong |
-| `EVAL.md`, `judges/`, `gates.py`, `aggregate.py` | Run protocol, judge prompt templates, the deterministic gate runner (`D` criteria), verdict validation and aggregation |
+| `EVAL.md`, `judges/`, `gates.py`, `aggregate.py` | Run protocol, judge prompt templates, the deterministic gate runner (`D` criteria), verdict validation and aggregation (single runs and suites of several targets) |
+| `extract.py`, `prompts.py`, `accuracy.py` | Run tools `EVAL.md` names: per-slide, per-step text for text judges; judge prompts filled from a plan; the anchor judge-accuracy table |
 | `briefs/BRIEFS.md`, `briefs/<id>/` | Bundled test briefs for iterating on the skill: `brief.json` (profile, concerns, features) + a fixed research pack |
 | `features.json`, `coverage.py` | Every skill feature → the criteria that judge it; the check that every feature is claimed and judged by a brief (run after changing a criterion, profile, brief or feature) |
 

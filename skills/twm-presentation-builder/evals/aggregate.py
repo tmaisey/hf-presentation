@@ -20,7 +20,19 @@ verdict per judge call or gate check). Aggregation, per (criterion, unit):
 Per criterion, a unit score is 1/0 (binary) or median/5 (scale); the criterion score is the mean
 over decided units. Concern and overall scores are weight-averaged over decided criteria; coverage
 is the decided share of the expected weight. Any failed gate fails the deck whatever the score; a
-gate that is missing or insufficient makes it ``incomplete``.
+gate that is missing or insufficient makes it ``incomplete``, and the report lists each such gate
+with the reason it has no decided verdict (``incomplete``), so "incomplete" never reads as a pass
+or a failure. A criterion with no verdict carries a ``reason``: the manifest's ``not_judged``
+entry, else the gate runner's (``evidence/gates.json``: ``judge_inputs``, e.g. PX-06 without a
+PPTX renderer, or a gate's ``missing``), else "no verdict in this run".
+
+**Several targets in one run (a suite).** Each target is its own sub-run folder (its own
+``manifest.json``, ``evidence/`` and ``verdicts/``, so verdict names never collide). The suite
+folder's ``manifest.json`` holds only ``label``, ``date`` and ``runs`` (sub-folder names; a
+sub-run may itself be a suite). Aggregating the suite aggregates every sub-run (each writes its
+own report) and writes a roll-up ``<yymmdd>-<label>.json``/``.md`` beside them: each target's
+outcome, failed and undecided gates and overall score. The suite fails when any target fails, is
+incomplete when any is incomplete, else passes (pairwise sub-runs are listed, not counted).
 
 Usage::
 
@@ -46,6 +58,8 @@ PAIR_RESULTS = ("first", "second", "tie")
 ORDERS = {"AB": {"first": "A", "second": "B"}, "BA": {"first": "B", "second": "A"}}
 MANIFEST_FIELDS = ("label", "date", "target", "profile", "concerns", "depth", "k", "transcripts",
                    "mode")
+SUITE_FIELDS = ("label", "date", "runs")
+OUTCOME_RANK = {"pass": 0, "incomplete": 1, "fail": 2}
 DEPTHS = {"gates", "judges"}
 RATIONALE_MAX_CHARS = 600
 SCALE_SPREAD_FLAG = 2
@@ -148,6 +162,35 @@ def _check_manifest(manifest: dict) -> None:
         _fail("manifest", "pairwise runs name versions A and B")
 
 
+def is_suite(manifest: dict) -> bool:
+    """True when a manifest describes a suite of sub-runs (several targets), not a single run.
+
+    Args:
+        manifest: A parsed ``manifest.json``.
+
+    Returns:
+        Whether it carries ``runs``.
+    """
+    return isinstance(manifest, dict) and "runs" in manifest
+
+
+def _check_suite(manifest: dict, run_dir: Path) -> None:
+    missing = [f for f in SUITE_FIELDS if f not in manifest]
+    if missing:
+        _fail("suite manifest", f"missing field(s): {', '.join(missing)}")
+    if not re.fullmatch(r"\d{6}", str(manifest["date"])):
+        _fail("suite manifest", "date must be yymmdd")
+    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", str(manifest["label"])):
+        _fail("suite manifest", "label must be kebab-case")
+    runs = manifest["runs"]
+    if not isinstance(runs, list) or not runs or len(set(map(str, runs))) != len(runs):
+        _fail("suite manifest", "runs must be a non-empty list of distinct sub-folder names")
+    for name in runs:
+        bad = not isinstance(name, str) or Path(name).is_absolute() or ".." in Path(name).parts
+        if bad or not (run_dir / name / "manifest.json").is_file():
+            _fail("suite manifest", f"run {name!r} is not a sub-folder holding a manifest.json")
+
+
 def _expected(manifest: dict, library: dict, profile: dict) -> dict[str, dict]:
     resolve = _criteria_module().resolve
     out = {}
@@ -230,7 +273,7 @@ def _weighted(rows: list[tuple[int, float | None]], key: str) -> dict:
 
 
 def aggregate(verdicts: list[dict], manifest: dict, library: dict[str, dict],
-              profile: dict) -> dict:
+              profile: dict, reasons: dict[str, str] | None = None) -> dict:
     """Aggregate a run's verdicts into a report.
 
     Args:
@@ -238,11 +281,14 @@ def aggregate(verdicts: list[dict], manifest: dict, library: dict[str, dict],
         manifest: The run's scope-prompt answers (``MANIFEST_FIELDS``).
         library: Output of ``criteria.load_library``.
         profile: Output of ``criteria.load_profile`` for ``manifest['profile']``.
+        reasons: Why a criterion has no verdict, by id (e.g. from the gate log); the manifest's
+            ``not_judged`` entries take precedence.
 
     Returns:
-        The report: run manifest, calibration line, deck outcome, per-criterion statuses with
-        per-unit outcomes, concern and overall scores (pointwise) or preferences (pairwise), and
-        every flagged unit.
+        The report: run manifest, calibration line, deck outcome, the undecided gates behind an
+        ``incomplete`` outcome with their reasons, per-criterion statuses with per-unit outcomes
+        (and a ``reason`` when missing), concern and overall scores (pointwise) or preferences
+        (pairwise), and every flagged unit.
 
     Raises:
         VerdictError: On a malformed verdict or manifest, a verdict outside the run's scope, a
@@ -295,6 +341,8 @@ def aggregate(verdicts: list[dict], manifest: dict, library: dict[str, dict],
             else:
                 status = "scored"
         entry.update(status=status, score=score, units=units)
+        if status == "missing":
+            entry["reason"] = _reason(cid, crit, manifest, reasons or {})
         criteria[cid] = entry
 
     key = "preference" if pairwise else "score"
@@ -312,8 +360,25 @@ def aggregate(verdicts: list[dict], manifest: dict, library: dict[str, dict],
         statuses = {g["status"] for g in gates}
         outcome = ("fail" if "fail" in statuses
                    else "incomplete" if statuses - {"pass"} else "pass")
+    undecided = [{"criterion": g["criterion"], "status": g["status"],
+                  "reason": criteria[g["criterion"]].get("reason")
+                  or "judged, but more than half the repeats found the evidence insufficient"}
+                 for g in gates if g["status"] not in ("pass", "fail")]
     return {"run": manifest, "calibration": CALIBRATION_LINE, "outcome": outcome, "gates": gates,
+            "incomplete": undecided if outcome == "incomplete" else [],
             "concerns": concerns, "overall": overall, "criteria": criteria, "flags": flagged}
+
+
+def _reason(cid: str, crit: dict, manifest: dict, reasons: dict[str, str]) -> str:
+    """Why a criterion has no verdict: the manifest's ``not_judged``, the gate log, or a default."""
+    given = manifest.get("not_judged") if isinstance(manifest.get("not_judged"), dict) else {}
+    if given.get(cid):
+        return str(given[cid])
+    if reasons.get(cid):
+        return reasons[cid]
+    if crit["evidence"] == "D":
+        return "no gate verdict in this run (gates.py was not given the target this criterion checks)"
+    return "no judge verdict in this run (not dispatched)"
 
 
 def _fmt(x) -> str:
@@ -342,6 +407,10 @@ def render_markdown(report: dict) -> str:
            f"{'yes (approved for this run)' if run['transcripts'] else 'no'}",
            f"- **Outcome: {report['outcome']}** · overall {key} {_fmt(report['overall'][key])}"
            f" (coverage {_fmt(report['overall']['coverage'])})", ""]
+    if report.get("incomplete"):
+        out += ["Outcome incomplete: no gate failed, but these gates have no decided verdict, so the deck "
+                "is neither passed nor failed. Gate or judge them to settle it:", ""]
+        out += [f"- {g['criterion']} ({g['status']}): {g['reason']}" for g in report["incomplete"]] + [""]
     if pairwise:
         out += [f"Versions: A = `{run['versions']['A']}`, B = `{run['versions']['B']}`; "
                 "preference runs from −1 (B) to +1 (A).", ""]
@@ -355,21 +424,40 @@ def render_markdown(report: dict) -> str:
             "| --- | --- | --- | --- | --- | --- |"]
     out += [f"| {cid} | {c['concern']} | {c['weight']} | {'yes' if c['gate'] else ''} "
             f"| {c['status']} | {_fmt(c['score'])} |" for cid, c in report["criteria"].items()]
+    missing = [(cid, c) for cid, c in report["criteria"].items() if c["status"] == "missing"]
+    if missing:
+        out += ["", "## Missing criteria", ""]
+        out += [f"- {cid}{' (gate)' if c['gate'] else ''}: {c.get('reason', 'no verdict')}"
+                for cid, c in missing]
     out += ["", "## Flagged for the presenter", ""]
     out += ([f"- {f['criterion']} @ {f['unit']}: {', '.join(f['flags'])}" for f in report["flags"]]
             or ["- none"])
     return "\n".join(out) + "\n"
 
 
-def run(run_dir: Path, eval_dir: Path = EVAL_DIR) -> tuple[Path, Path]:
-    """Aggregate a run folder and write its dated report files.
+def _gate_reasons(run_dir: Path) -> dict[str, str]:
+    """Missing reasons the gate runner logged (``evidence/gates.json``), by criterion id."""
+    path = run_dir / "evidence" / "gates.json"
+    if not path.is_file():
+        return {}
+    try:
+        log = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    out = {cid: c["missing"] for cid, c in (log.get("criteria") or {}).items() if c.get("missing")}
+    out |= {cid: c["missing"] for cid, c in (log.get("judge_inputs") or {}).items() if c.get("missing")}
+    return out
+
+
+def load_run(run_dir: Path, eval_dir: Path = EVAL_DIR) -> dict:
+    """Validate and aggregate one run folder in memory, writing nothing.
 
     Args:
-        run_dir: Folder with ``manifest.json`` and ``verdicts/*.json``.
+        run_dir: Folder with ``manifest.json`` (a single run, not a suite) and ``verdicts/*.json``.
         eval_dir: The eval folder whose library and ``profiles/`` the run uses.
 
     Returns:
-        Paths of the written ``<yymmdd>-<label>.json`` and ``.md``.
+        The report, as ``aggregate`` returns it (missing reasons from the manifest and gate log).
 
     Raises:
         VerdictError: On any protocol breach; the message names the offending verdict file.
@@ -393,12 +481,117 @@ def run(run_dir: Path, eval_dir: Path = EVAL_DIR) -> tuple[Path, Path]:
         except (json.JSONDecodeError, VerdictError) as e:
             raise VerdictError(f"{path.name}: {e}") from e
         verdicts.append(v)
-    report = aggregate(verdicts, manifest, library, profile)
+    return aggregate(verdicts, manifest, library, profile, _gate_reasons(run_dir))
+
+
+def _write(run_dir: Path, manifest: dict, report: dict, markdown: str) -> tuple[Path, Path]:
     stem = f"{manifest['date']}-{manifest['label']}"
     json_path, md_path = run_dir / f"{stem}.json", run_dir / f"{stem}.md"
     json_path.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    md_path.write_text(render_markdown(report), encoding="utf-8")
+    md_path.write_text(markdown, encoding="utf-8")
     return json_path, md_path
+
+
+def _rollup_row(name: str, sub: Path, report: dict, report_path: Path, suite_dir: Path) -> dict:
+    rel = report_path.relative_to(suite_dir).as_posix()
+    if report.get("tool") == "aggregate-suite":
+        return {"run": name, "label": report["label"], "target": None, "outcome": report["outcome"],
+                "gates_failed": [], "gates_undecided": [], "overall": None, "flags": None, "report": rel,
+                "runs": report["runs"]}
+    return {"run": name, "label": report["run"]["label"], "target": report["run"]["target"],
+            "outcome": report["outcome"],
+            "gates_failed": [g["criterion"] for g in report["gates"] if g["status"] == "fail"],
+            "gates_undecided": [g["criterion"] for g in report.get("incomplete", [])],
+            "overall": report["overall"], "flags": len(report["flags"]), "report": rel}
+
+
+def render_suite_markdown(rollup: dict) -> str:
+    """Render a suite roll-up as markdown: one row per target, worst outcome first in the headline.
+
+    Args:
+        rollup: Output of ``run_suite`` (the roll-up JSON).
+
+    Returns:
+        Markdown text, always including ``CALIBRATION_LINE``.
+    """
+    out = [f"# Eval roll-up: {rollup['label']} ({rollup['date']})", "", f"**{CALIBRATION_LINE}**", "",
+           f"- **Outcome: {rollup['outcome']}** over {len(rollup['runs'])} run(s); each target's own report "
+           "holds its detail.", "",
+           "| Run | Target | Outcome | Gates failed | Gates undecided | Overall (coverage) | Flags |",
+           "| --- | --- | --- | --- | --- | --- | --- |"]
+
+    def rows(entries, prefix=""):
+        for r in entries:
+            path = f"{prefix}{r['run']}"
+            if r.get("runs") is not None:
+                out.append(f"| {path} | (suite) | {r['outcome']} | | | | |")
+                rows(r["runs"], path + "/")
+                continue
+            ov = r["overall"] or {}
+            key = "score" if "score" in ov else "preference"
+            out.append(f"| {path} | `{r['target']}` | {r['outcome']} | {', '.join(r['gates_failed']) or '–'} "
+                       f"| {', '.join(r['gates_undecided']) or '–'} | {_fmt(ov.get(key))} ({_fmt(ov.get('coverage'))}) "
+                       f"| {r['flags']} |")
+
+    rows(rollup["runs"])
+    return "\n".join(out) + "\n"
+
+
+def run_suite(suite_dir: Path, eval_dir: Path = EVAL_DIR) -> tuple[Path, Path]:
+    """Aggregate every sub-run of a suite (several targets) and write the dated roll-up.
+
+    Args:
+        suite_dir: Folder whose ``manifest.json`` names ``label``, ``date`` and ``runs``.
+        eval_dir: The eval folder whose library and profiles the sub-runs use.
+
+    Returns:
+        Paths of the written roll-up ``<yymmdd>-<label>.json`` and ``.md``.
+
+    Raises:
+        VerdictError: On a malformed suite manifest or any sub-run's protocol breach (named).
+    """
+    suite_dir = Path(suite_dir)
+    manifest = json.loads((suite_dir / "manifest.json").read_text(encoding="utf-8"))
+    _check_suite(manifest, suite_dir)
+    rows = []
+    for name in manifest["runs"]:
+        sub = suite_dir / name
+        try:
+            json_path, _ = run(sub, eval_dir)
+        except VerdictError as e:
+            raise VerdictError(f"{name}/{e}") from e
+        rows.append(_rollup_row(name, sub, json.loads(json_path.read_text(encoding="utf-8")), json_path, suite_dir))
+    ranked = [r["outcome"] for r in rows if r["outcome"] in OUTCOME_RANK]
+    outcome = max(ranked, key=OUTCOME_RANK.get) if ranked else "–"
+    rollup = {"tool": "aggregate-suite", "label": manifest["label"], "date": manifest["date"],
+              "calibration": CALIBRATION_LINE, "outcome": outcome, "runs": rows}
+    return _write(suite_dir, manifest, rollup, render_suite_markdown(rollup))
+
+
+def run(run_dir: Path, eval_dir: Path = EVAL_DIR) -> tuple[Path, Path]:
+    """Aggregate a run folder (or a suite of sub-runs) and write its dated report files.
+
+    Args:
+        run_dir: Folder with ``manifest.json`` and ``verdicts/*.json``, or a suite folder whose
+            ``manifest.json`` names its sub-runs (``runs``).
+        eval_dir: The eval folder whose library and ``profiles/`` the run uses.
+
+    Returns:
+        Paths of the written ``<yymmdd>-<label>.json`` and ``.md`` (the roll-up for a suite).
+
+    Raises:
+        VerdictError: On any protocol breach; the message names the offending verdict file.
+        criteria.EvalFormatError: If the library or the named profile is invalid or unknown.
+    """
+    run_dir = Path(run_dir)
+    mpath = run_dir / "manifest.json"
+    if not mpath.is_file():
+        raise VerdictError(f"{run_dir}: no manifest.json (a run, or a suite naming its runs)")
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    if is_suite(manifest):
+        return run_suite(run_dir, eval_dir)
+    report = load_run(run_dir, eval_dir)
+    return _write(run_dir, manifest, report, render_markdown(report))
 
 
 def main(argv: list[str]) -> int:

@@ -61,19 +61,20 @@ records what happened to each.
 | Title, kicker, body text, lists | Text in layout placeholders; points → bullets, steps → autonumber | native (marker circles approximated) |
 | Cards (Insight, narration, message, pop-over, tile card, annotation, term) | Named round rectangle holding its text | native |
 | Diagram tiles, edges, labels | Named `roundRect` + text; connectors or `cubicBezTo` freeforms with arrowheads; text boxes | native |
+| Inline SVG illustrations (pop-over art, key glyphs) | Named native shapes, their words as text boxes (`<id>`, `<id>#n`) | native |
 | Tables | Native table; split into stacked tables when rows build on separate steps | native / approximated |
 | Shadows (`sys.shadow`), SVG lift | `a:outerShdw` (spread → shadow scale) | approximated: the inset highlight is lost |
 | Frost (`sys.material.frost*`) | Translucent fill | approximated: backdrop blur and saturate lost |
 | Bokeh orbs (`sys.ambient`) | Radial-gradient ellipse, `a:softEdge`, alpha; marked decorative | approximated: drift lost |
 | Fonts (`sys.font`) | Theme major/minor names, not embedded | approximated: PowerPoint substitutes if missing |
 | Deck chrome, notes pane, veil | Not exported | lost |
-| Components-layer softening (scene backdrop blur) | Opacity kept as alpha; blur dropped | `undeclared` in the report |
+| Components-layer softening (scene backdrop blur), shape opacity | Opacity kept as alpha; blur dropped | `undeclared`, listed in the report |
 
 ## 4 · Steps
 
 One click per HTML step, in order (`animations.py`, PB-022): entrances fade in or appear, exits
-fade out or disappear, dimming is a Transparency emphasis, fills recolour, moves are motion
-paths. Text inside a placeholder builds **by paragraph**. Policy for deltas with no native effect
+fade out or disappear, dimming is a Transparency emphasis, fills recolour (to a theme colour
+reference when the new fill is a palette colour), moves are motion paths. Text inside a placeholder builds **by paragraph**. Policy for deltas with no native effect
 (PRD *PPTX step-delta policy*):
 
 - a scene **camera move** starts a duplicate slide with a **Morph** transition (`!!`-named shapes

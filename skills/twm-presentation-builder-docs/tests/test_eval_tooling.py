@@ -108,8 +108,10 @@ def _dom(browser, deck: Path) -> dict:
         });
         const body = s.cloneNode(true);
         body.querySelectorAll('aside.note, title, desc, script, style').forEach(x => x.remove());
+        const w = document.createTreeWalker(body, NodeFilter.SHOW_TEXT), words = [];
+        for (let n = w.nextNode(); n; n = w.nextNode()) words.push(n.nodeValue);  // SVG <text> nodes stay apart
         return {id: s.id, title: (q('.title') || {}).textContent || '', kicker: q('.kicker') ? q('.kicker').textContent : null,
-                notes, words: body.textContent};
+                notes, words: words.join(' ')};
     })""")
     page.close()
     return {d["id"]: d for d in data}
@@ -179,10 +181,9 @@ def test_extract_states_follow_the_build_steps(hf_text):
     assert _has(index, "s-2", 3, hack) and not _has(index, "s-2", 2, hack), "data-show-at adds it"
     insight = "Alignment of AI agents during reinforcement learning is unsolved"
     assert _has(index, "s-2", 5, insight) and not _has(index, "s-2", 4, insight), "overlay at its step"
-    key5 = [ln for ln in _lines(index, "s-5", 5) if ln["text"].startswith("Agent Run")]
-    assert key5 and "Coordinator" in key5[0]["text"], "shared scene text belongs to the slide showing it"
-    key0 = [ln for ln in _lines(index, "s-5", 0) if ln["text"].startswith("Agent Run")]
-    assert key0 and "Coordinator" not in key0[0]["text"], "a scene part enters at its data-scene-at step"
+    key = lambda step: " ".join(ln["text"] for ln in _lines(index, "s-5", step) if "scene-key" in ln["region"])  # noqa: E731
+    assert "Agent Run" in key(0) and "Coordinator" in key(5), "shared scene text belongs to the slide showing it"
+    assert "Coordinator" not in key(0), "a scene part enters at its data-scene-at step"
     new = [ln for ln in _lines(index, "s-2", 3) if ln["new"]]
     assert any(hack in ln["text"] for ln in new)
     assert all(ln["new"] for ln in _lines(index, "s-2", 0)), "everything is new on entry"

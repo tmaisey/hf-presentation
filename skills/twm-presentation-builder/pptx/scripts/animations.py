@@ -74,9 +74,13 @@ _PARAMS = {
     "fade_out": set(),
     "transparency": {"opacity"},
     "grow_shrink": {"scale"},
-    "fill_colour": {"rgb"},
+    "fill_colour": {"rgb", "scheme"},
     "motion_path": {"path"},
 }
+
+#: Scheme colour names a `fill_colour` may reference instead of a literal (ST_SchemeColorVal).
+SCHEME_COLOURS = {"bg1", "tx1", "bg2", "tx2", "accent1", "accent2", "accent3", "accent4", "accent5",
+                  "accent6", "hlink", "folHlink", "dk1", "lt1", "dk2", "lt2", "phClr"}
 
 _PATH_TOKEN = re.compile(r"[MLCZEmlcze]|-?\d*\.?\d+(?:[eE]-?\d+)?")
 
@@ -146,6 +150,8 @@ def _check_params(effect: str, params: dict) -> None:
         rgb = params.get("rgb")
         if not isinstance(rgb, str) or not re.fullmatch(r"[0-9A-Fa-f]{6}", rgb):
             raise ValueError(f"fill_colour needs rgb as 6 hex digits, got {rgb!r}")
+        if params.get("scheme") is not None and params["scheme"] not in SCHEME_COLOURS:
+            raise ValueError(f"fill_colour scheme must be one of {sorted(SCHEME_COLOURS)}, got {params['scheme']!r}")
     elif effect == "motion_path":
         path = params.get("path")
         if not isinstance(path, str) or not path.strip().startswith("M"):
@@ -203,7 +209,10 @@ def _behaviours(lst, ids: _Ids, spid: int, effect: str, params: dict) -> None:
         clr = _p("animClr", lst, clrSpc="rgb", dir="cw")
         _cbhvr(clr, ids, spid, dur, ["fillcolor"])
         to = _p("to", clr)
-        etree.SubElement(to, f"{{{_A}}}srgbClr").set("val", params["rgb"].upper())
+        if params.get("scheme"):  # a theme colour stays a theme reference (re-themes with the deck)
+            etree.SubElement(to, f"{{{_A}}}schemeClr").set("val", params["scheme"])
+        else:
+            etree.SubElement(to, f"{{{_A}}}srgbClr").set("val", params["rgb"].upper())
         _set(lst, ids, spid, "fill.type", "solid", dur=dur, delay=None)
         _set(lst, ids, spid, "fill.on", "true", dur=dur, delay=None)
     elif effect == "motion_path":
@@ -231,7 +240,8 @@ def write_steps(slide, steps: Sequence[Sequence[tuple]]):
             - `appear`, `fade_in`: entrances.
             - `disappear`, `fade_out`: exits.
             - `transparency` (`opacity`: 0–1 end opacity), `grow_shrink` (`scale`: > 0, e.g.
-              1.5 grows 150 %), `fill_colour` (`rgb`: `"RRGGBB"`): emphasis.
+              1.5 grows 150 %), `fill_colour` (`rgb`: `"RRGGBB"`; optional `scheme`: a scheme
+              colour name such as `accent1`, written instead of the literal): emphasis.
             - `motion_path` (`path`: PowerPoint path string in slide-size fractions, relative
               to the shape, e.g. `"M 0 0 L 0.25 0 E"`).
 

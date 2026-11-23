@@ -41,7 +41,8 @@ before each state, never a fixed sleep.
 - `uv run scripts/shoot.py deck.html [out_dir] [--sizes …] [--slides …] [--settle ms] [--notes]`:
   writes `<slide>-<step>-<w>x<h>.png` (with `--notes`, `<slide>-n<i>-<w>x<h>.png` per reader
   note) and `shots.json`, into `shots/` beside the deck by default. `--settle` adds an extra wait
-  only for timed beats that run after the page looks still.
+  only for timed beats that run after the page looks still. `--contact [WxH]` also tiles every
+  step of one size into labelled contact sheets (`contact-<w>x<h>-<n>.png`), for a whole-deck look.
 - Fonts: `assemble.py` embeds them on `new`; `uv run scripts/assemble.py swap deck.html` with no
   options re-embeds them (and the theme) from the names the deck records.
 
