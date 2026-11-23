@@ -72,4 +72,8 @@ Read a part only when its line applies. Parts never link each other; every part 
   review size; `layout_guard.py` checks the same states for overlap, overflow, off-canvas and
   occlusion. When to run each: [process/PROCESS.md](process/PROCESS.md) *Tools*.
 
+- [examples/hf-incident/EXAMPLE.md](examples/hf-incident/EXAMPLE.md): the HF incident deck as a
+  worked case, with cited excerpts per part and the rejected first draft. Read when you want to see
+  a finished case.
+
 More parts are linked here as they land.

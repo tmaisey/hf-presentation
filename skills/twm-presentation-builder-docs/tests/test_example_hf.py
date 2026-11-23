@@ -74,8 +74,8 @@ def _quotes(text: str) -> list[str]:
             if line.strip():
                 quotes.append(line)
             continue
-        if line.startswith(">"):
-            body = line[1:].strip()
+        if line.lstrip().startswith(">"):  # quotes nested in list items count too
+            body = line.lstrip()[1:].strip()
             if body:
                 para.append(body)
             elif para:
@@ -146,9 +146,10 @@ def test_excerpt_names_a_real_part_and_a_source(name):
 
 
 @pytest.mark.parametrize("name", [
-    "prd-core-message.md", "storyboard-rows.md", "voice-pairs.md", "design-decisions.md",
+    "prd-core-message.md", "storyboard-rows.md", "design-decisions.md",
     "adr-001.md", "spec-commits.md", "first-draft-failure.md"])
 def test_quoted_text_is_verbatim_from_its_sources(name):
+    """Blockquotes and fenced lines; voice pairs are table cells, checked by their own test."""
     text = _part(name)
     source = "\n".join(_read_source(p, c) for p, c in _sources(text))
     quotes = _quotes(text)

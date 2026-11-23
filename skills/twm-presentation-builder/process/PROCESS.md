@@ -65,6 +65,8 @@ commit will be read.
 
 ## Lessons from the worked example
 
+The full case, with before/after screenshots, is `examples/hf-incident/first-draft-failure.md`.
+
 - **A green suite is not a look.** An early draft shipped titles overlapping step lists with every
   test passing, because layout tests were off and only per-slide component shots were taken.
 - **Prototype before parallel builds.** The same draft skipped prototypes for new visuals and fell
