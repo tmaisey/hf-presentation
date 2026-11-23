@@ -12,6 +12,7 @@ later). Gates and judge prompts consume it; they never restate a criterion.
 | `anchors/anchors.json`, `anchors/an-NN.html` | Deliberately flawed decks + a clean control, each labelled `must_fail`/`must_pass`; judge them like any deck, a judge or gate that passes a `must_fail` is wrong |
 | `EVAL.md`, `judges/`, `gates.py`, `aggregate.py` | Run protocol, judge prompt templates, the deterministic gate runner (`D` criteria), verdict validation and aggregation |
 | `briefs/BRIEFS.md`, `briefs/<id>/` | Bundled test briefs for iterating on the skill: `brief.json` (profile, concerns, features) + a fixed research pack |
+| `features.json`, `coverage.py` | Every skill feature → the criteria that judge it; the check that every feature is claimed and judged by a brief (run after changing a criterion, profile, brief or feature) |
 
 Validate after any edit: `uv run ${CLAUDE_SKILL_DIR}/evals/criteria.py check`. A runner gets a
 profile's rubric with `uv run ${CLAUDE_SKILL_DIR}/evals/criteria.py resolve <profile>` (JSON list:

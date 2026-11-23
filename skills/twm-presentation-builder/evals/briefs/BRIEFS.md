@@ -20,7 +20,7 @@ time, so skill versions compare. Never use a brief for a user's own deck.
    research further. Synthetic packs are invented and marked so; never present them as real.
 3. Play the presenter from the brief: answer interview questions from `audience`, `length`,
    `core_message` and `constraints`; approve titles that follow them.
-4. Build with the skill as for any deck, exercising every `features` id.
+4. Build with the skill as for any deck, exercising every `features` id (`evals/features.json`).
 5. Eval with the brief's `profile` and `concerns`; compare with `gold_reference` only after the
    build. Results go in the deck project, never here.
 
@@ -41,4 +41,13 @@ Fields in this order; all paths relative to the skill folder.
 | `audience` · `length` · `core_message` | Who, `{minutes, slides}`, message codes `M1…` with full sentences |
 | `constraints` | Binding instructions the presenter would give |
 | `concerns` | Eval concerns in scope (`evals/CRITERIA.md`) |
-| `features` | Feature ids the build must exercise |
+| `features` | Feature ids (`evals/features.json`) the build must exercise |
+
+## Feature coverage
+
+Together the briefs **MUST** cover every skill feature. `evals/features.json` lists each observable
+capability with the criteria that judge it; a brief covers a feature when it claims it and its
+profile selects one of those criteria in a concern the brief scopes. Check after adding or changing
+a feature, brief, criterion or profile: `uv run ${CLAUDE_SKILL_DIR}/evals/coverage.py` (`--list`
+shows each feature's briefs); it exits 1 with a `FAIL` line per gap. A new capability adds its
+feature, a criterion that judges it and a brief that exercises it.
