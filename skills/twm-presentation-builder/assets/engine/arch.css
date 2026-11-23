@@ -1,0 +1,76 @@
+/* Architecture layer: the mechanics the engine relies on, nothing a design layer chooses.
+   Contract: architecture/ARCHITECTURE.md. No palette, type, depth or motion lives here: colours are
+   CSS system colours (Canvas, CanvasText, Highlight, GrayText) so a deck works before any design
+   layer lands, and every later layer overrides these rules regardless of specificity. */
+@layer arch {
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: Canvas; color: CanvasText; }
+  button { font: inherit; }
+
+  /* shared SVG defs host: kept renderable (not display:none) so url(#id) resolves everywhere */
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  /* title bar: fixed over the deck; the engine measures it (agenda fit, notes placement) */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; }
+  .nav { position: relative; }
+  .agenda { display: flex; list-style: none; margin: 0; padding: 0; }
+  .agenda button { white-space: nowrap; cursor: pointer; }
+  .nav-current { display: none; }
+  /* compact agenda (engine sets .bar--compact when the row would crowd the title): current chapter
+     button + a list that drops on hover, focus or click (.nav.is-open) */
+  .bar--compact .nav-current { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .nav-current svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+  .bar--compact .agenda { position: absolute; top: 100%; right: 0; flex-direction: column; min-width: 200px;
+    background: Canvas; opacity: 0; visibility: hidden; }
+  .bar--compact .agenda::before { content: ""; position: absolute; inset: -12px 0 auto 0; height: 12px; }
+  .bar--compact .nav:hover .agenda, .bar--compact .nav:focus-within .agenda, .bar--compact .nav.is-open .agenda {
+    opacity: 1; visibility: visible; }
+  .bar--compact .agenda button { width: 100%; text-align: left; }
+  .progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: Highlight; }
+
+  /* snapping slides: one slide = one viewport; scroll stops at every slide */
+  .deck { position: relative; height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scrollbar-width: none; }
+  .deck::-webkit-scrollbar { display: none; }
+  .slide { position: relative; height: 100vh; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; }
+  .slide > * { position: relative; z-index: 1; }
+  .note { display: none; }
+
+  /* steps: hidden until revealed (the engine sets .is-visible); hidden parts keep their space */
+  :where([data-show-at], [data-hide-at]):not(.is-visible) { opacity: 0; pointer-events: none; }
+  /* step-only elements (overlays, module tiles): shown at exactly their step (.is-shown) */
+  :where([data-at]):not(.is-shown) { opacity: 0; pointer-events: none; }
+
+  /* ambient layer: engine-built behind the slide's content on data-ambient slides */
+  .slide > .ambient { position: absolute; inset: -10%; z-index: 0; pointer-events: none; }
+  .ambient .orb { position: absolute; border-radius: 50%; will-change: transform; }
+
+  /* diagrams: --k = SVG units per screen px (engine-set), for screen-size floors in later layers */
+  .diagram { --k: 1; display: block; overflow: visible; }
+
+  /* reader notes chrome: positioned by the engine; shown only in notes mode */
+  .notes-btn { position: fixed; right: 24px; bottom: 24px; z-index: 50; cursor: pointer; }
+  .veil { position: fixed; inset: 0; z-index: 20; pointer-events: none; opacity: 0;
+    background: color-mix(in srgb, Canvas 60%, transparent);
+    --x: 50vw; --y: 50vh; --w: 0px; --h: 0px;
+    -webkit-mask: linear-gradient(black 0 0), linear-gradient(black 0 0) var(--x) var(--y) / var(--w) var(--h) no-repeat;
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) var(--x) var(--y) / var(--w) var(--h) no-repeat; }
+  .ring { position: fixed; z-index: 21; pointer-events: none; opacity: 0; outline: 2px solid Highlight; }
+  .notes-focus .veil, .notes-focus .ring { opacity: 1; }
+  .pin { position: fixed; z-index: 30; cursor: pointer; }
+  .pin.is-covered, .pin.is-offstage { visibility: hidden; }
+  .callout { position: fixed; z-index: 40; left: 0; top: 0; overflow-y: auto; overscroll-behavior: contain;
+    background: Canvas; opacity: 0; pointer-events: none; }
+  .notes-focus .callout { opacity: 1; pointer-events: auto; }
+  .notes-nav { position: fixed; z-index: 45; left: 50%; bottom: 28px; transform: translateX(-50%); display: flex;
+    align-items: center; opacity: 0; pointer-events: none; }
+  .notes-on .notes-nav { opacity: 1; pointer-events: auto; }
+  /* a target that would run under the notes bar is scrolled clear (engine sets --notes-shift) */
+  .notes-on .slide.is-active > * { translate: 0 calc(-1 * var(--notes-shift, 0px)); }
+
+  /* notes mode lands every build state at its end at once (:root.instant); reduced motion = :root.still.
+     #_ in :is() only lifts specificity over later !important fades in the same layer */
+  :root.instant :is(#_, .deck, .deck *), :root.instant :is(#_, .deck *)::before, :root.instant :is(#_, .deck *)::after {
+    transition-duration: 0s !important; transition-delay: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; }
+}

@@ -47,5 +47,9 @@ Read a part only when its line applies. Parts never link each other; every part 
   verdicts. Read before writing or editing any slide copy, Insight, tile or note.
 - [voice/profiles/twm.md](voice/profiles/twm.md): the presenter twm's voice profile (rules +
   approved/rejected pairs). Read after `voice/VOICE.md` when twm is the presenter.
+- [architecture/ARCHITECTURE.md](architecture/ARCHITECTURE.md): layer order, skeleton blocks, the
+  data-attribute authoring contract, component API, shared SVG defs, engine API and module hooks.
+  Read before writing slide markup, styling a design layer, writing an engine module or assembling
+  a deck.
 
 More parts are linked here as they land.

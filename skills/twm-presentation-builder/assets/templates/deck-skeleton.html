@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} · {{subtitle}}</title>
+<style>
+  /* Deck skeleton. Contract: architecture/ARCHITECTURE.md. Each block below is filled once by the
+     assembler; slides carry no styling. Later layers override earlier ones regardless of specificity. */
+  @layer arch, components, palette, style, deck;
+
+  /* FONTS:BEGIN */
+  /* FONTS:END */
+
+  /* ARCH:BEGIN */
+  /* ARCH:END */
+
+  /* COMPONENTS:BEGIN */
+  /* COMPONENTS:END */
+
+  /* PALETTE:BEGIN */
+  /* PALETTE:END */
+
+  /* STYLE:BEGIN */
+  /* STYLE:END */
+
+  /* DECK:BEGIN */
+  /* DECK:END */
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+<!-- DEFS:BEGIN -->
+    <filter id="lift" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-opacity=".08"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-opacity=".12"/>
+    </filter>
+    <filter id="lift-key" x="-30%" y="-40%" width="160%" height="190%">
+      <feDropShadow class="glow" dx="0" dy="0" stdDeviation="9" flood-opacity=".45"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-opacity=".08"/>
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-opacity=".16"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="6" markerHeight="5" markerUnits="strokeWidth" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
+    </marker>
+    <marker id="arr-ok" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="4.15" markerHeight="3.46" markerUnits="strokeWidth" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
+    </marker>
+    <marker id="arr-loss" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="4.15" markerHeight="3.46" markerUnits="strokeWidth" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Q3.5,5 0,0 Z"/>
+    </marker>
+<!-- DEFS:END -->
+  </defs>
+</svg>
+
+<header class="bar">
+  <p class="bar-title"><a class="bar-home" href="#" aria-label="Go to first slide">{{title}}<span>·</span><em>{{subtitle}}</em></a></p>
+  <nav class="nav" aria-label="Chapters">
+    <button class="nav-current" type="button" aria-haspopup="true"><span></span>
+      <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5"/></svg></button>
+    <ol class="agenda"></ol>
+  </nav>
+  <div class="progress"></div>
+</header>
+
+<main class="deck">
+<!-- SLIDES:BEGIN -->
+<!-- SLIDES:END -->
+</main>
+
+<div class="veil"></div>
+<div class="ring"></div>
+<div class="callout" role="dialog" aria-live="polite" aria-label="Reader note"></div>
+<nav class="notes-nav" aria-label="Notes navigation">
+  <button type="button" data-notes="prev">‹ Prev</button><span class="notes-pos"></span><button type="button" data-notes="next">Next ›</button><button type="button" data-notes="close">Close · Esc</button>
+</nav>
+<button type="button" class="notes-btn" aria-pressed="false" title="Reader notes (N)">Notes</button>
+
+<script>
+/* MODULES:BEGIN */
+/* MODULES:END */
+
+/* ENGINE:BEGIN */
+/* ENGINE:END */
+</script>
+</body>
+</html>
