@@ -39,16 +39,20 @@ TITLE, SUBTITLE = "The Hugging Face Attack", "Misaligned Agents"
 PORTED = ["s-1", "s-2", "s-4", "s-5", "s-9", "s-12"]
 ARTIFACTS = Path(__file__).parent / "artifacts" / "pb-007"
 BAR_CROP = 66   # the bar (64 px) and its progress hairline: agenda and progress differ by design (6 of 12 slides)
+# ambient orbs are seeded by a slide's place among the ambient slides (s-12 is 2nd here, 3rd in deck-v2) and drift
+# with time; their look is PB-004's parity test, so both decks hide them for the image comparison
+HIDE_AMBIENT = "document.querySelectorAll('.ambient, .orb').forEach(a => a.style.visibility = 'hidden')"
 TYPE = ("fontFamily", "fontSize", "fontWeight", "fontStyle", "lineHeight", "letterSpacing", "color", "textTransform")
 CARD = ("backgroundColor", "backdropFilter", "borderRadius", "boxShadow", "paddingTop", "paddingLeft")
 
-# Mean absolute per-channel difference (0–255) over the slide area below the bar, per slide, at 1920×1080.
-# Two renders of deck-v2 itself differ by ~0.3 (ambient drift, looping pop-art); a text block moved by a
-# line, or one card missing, costs > 2. Bounds are the measured value plus headroom, and stay far below a
-# different slide (the negative control, > 8). The scene slides carry a hand-placed subset of deck-v2's
-# engine-built world (no seeded crowds, radar sweeps, pulses or day tags: ARCHITECTURE §9 leaves them out),
-# so their bound is looser; the backdrop is the scene blurred at 42%.
-BOUNDS = {"s-1": 1.0, "s-2": 1.5, "s-4": 3.0, "s-5": 3.5, "s-9": 2.0, "s-12": 1.0}
+# Mean absolute per-channel difference (0–255) over the slide area below the bar (ambient hidden), per slide,
+# at 1920×1080. A missing pop-over card or Insight costs ~8–15 and an unstyled scene ~20, a different slide
+# > 8 (the negative control). Bounds are the measured maximum plus headroom. The scene slides carry deck-v2's
+# world as static markup without its engine-only beats (radar sweeps, pulses, flying notes, day tags, skull
+# marks: ARCHITECTURE §9 leaves them out) and the narration module places tiles by its own seeded layout, so
+# their bound is looser; the backdrop is that scene blurred at 42%.
+# measured (23 Nov): s-1, s-2, s-12 0.00 · s-4 ≤ 2.73 · s-5 ≤ 3.16 · s-9 ≤ 0.85
+BOUNDS = {"s-1": 0.5, "s-2": 0.5, "s-4": 3.5, "s-5": 4.0, "s-9": 1.5, "s-12": 0.5}
 DIFFERENT = 8.0
 
 
@@ -236,8 +240,10 @@ PAIRS = [
     ("ink dot", "s-5", 5, "#w-coords circle", None, ("fill", "stroke", "strokeWidth"), None),
     ("ink link", "s-5", 5, "#w-coord-links line", None, ("stroke", "strokeWidth", "opacity"), None),
     ("loss dot", "s-5", 7, "#w-sacrificed circle", None, ("fill", "stroke", "opacity"), None),
-    ("scene key", "s-5", 7, ".scene-key", ".world-key", ("fontSize", "color", "display", "columnGap", "marginTop"), None),
-    ("narration tile", "s-4", 3, "#s-4 .narr-tile.is-shown", None, CARD + ("width", "opacity", "filter", "transform"), None),
+    # deck-v2's engine shrinks its key to fit a fourth entry the subset never shows, so size and gap are not compared
+    ("scene key", "s-5", 7, ".scene-key", ".world-key", ("color", "display", "alignItems", "marginTop", "whiteSpace"), None),
+    # width and place are the narration module's seeded layout (generalised from deck-v2's), not the look
+    ("narration tile", "s-4", 3, "#s-4 .narr-tile.is-shown", None, CARD + ("opacity", "filter", "transform"), None),
     ("narration sender", "s-4", 3, "#s-4 .narr-tile.is-shown .msg-agent", None, TYPE + ("marginBottom",), None),
     ("narration quote", "s-4", 3, "#s-4 .narr-tile.is-shown .msg-text", None, TYPE, None),
     ("fact tile, no quote marks", "s-4", 5, "#s-4 .narr-tile--fact .msg-text", None, ("content",), "::before"),
@@ -326,6 +332,7 @@ def _shots(browser, path, tag, w=1920, h=1080, slides=PORTED) -> dict[tuple[str,
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     c, pg, errors = _open(browser, path, w, h)
     plan = dict(pg.evaluate("deck.plan()"))
+    pg.evaluate(HIDE_AMBIENT)
     out = {}
     for sid in slides:
         for k in range(plan[sid] + 1):

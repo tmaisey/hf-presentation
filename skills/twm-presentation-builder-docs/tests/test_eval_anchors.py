@@ -191,7 +191,9 @@ def test_no_incident_terms_outside_reference_verdict_anchors(anchors):
     for a in anchors:
         if a["provenance"]["origin"] == "reference-verdict":
             continue
-        text = _html(a) + json.dumps({k: v for k, v in a.items() if k != "provenance"})
+        # embedded fonts are base64, where any short letter run can occur by chance: they are not copy
+        page = re.sub(r"data:[\w/+.-]+;base64,[A-Za-z0-9+/=]+", "data:", _html(a))
+        text = page + json.dumps({k: v for k, v in a.items() if k != "provenance"})
         hit = INCIDENT_TERMS.search(text)
         assert not hit, f"{a['id']}: {hit.group(0)!r}"
 
