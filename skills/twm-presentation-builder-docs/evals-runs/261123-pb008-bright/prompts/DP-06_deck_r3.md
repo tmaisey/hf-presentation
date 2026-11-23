@@ -64,36 +64,36 @@ copy their subject matter.
 Unit: `deck` (repeat 3). Evidence files (screenshots are named
 `<slide>-<step>-<w>x<h>.png`):
 
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-1-0-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-0-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-1-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-2-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-3-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-4-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-5-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-0-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-1-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-2-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-3-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-4-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-5-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-6-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-7-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-0-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-1-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-2-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-3-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-4-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-5-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-6-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-7-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-8-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-9-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-0-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-1-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-2-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-3-1920x1080.png`
-- `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-12-0-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-1-0-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-0-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-1-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-2-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-3-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-4-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-2-5-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-0-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-1-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-2-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-3-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-4-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-5-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-6-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-4-7-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-0-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-1-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-2-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-3-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-4-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-5-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-6-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-7-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-8-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-5-9-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-0-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-1-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-2-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-9-3-1920x1080.png`
+- `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/evidence/s-12-0-1920x1080.png`
 
 ## How to judge
 
@@ -109,7 +109,7 @@ not your concern. Concision is not a flaw and length is not a merit.
 
 ## Verdict
 
-Write exactly this JSON object, fields in this order, to `/Users/twm/code/projects/hf-presentation/.claude/worktrees/agent-a8f6081a19a698ffd/skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/verdicts/DP-06_deck_r3.json`, then reply with only
+Write exactly this JSON object, fields in this order, to `skills/twm-presentation-builder-docs/evals-runs/261123-pb008-bright/verdicts/DP-06_deck_r3.json`, then reply with only
 the path and the result:
 
 - `criterion`: the criterion id.

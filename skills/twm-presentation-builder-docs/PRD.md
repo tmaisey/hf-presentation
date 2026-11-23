@@ -137,6 +137,11 @@ review, internal update) through profiles, without duplicating criteria.
   build by paragraph in one placeholder; tables whose rows build on steps split into stacked tables;
   colour mixes become theme tints; a structural validator ships instead of vendoring Anthropic's
   `validate.py`; text wrap gets ~6% width slack and is judged visually (PX-06).
+- **Second palette `bright-primaries` (agent, 23 Nov; review):** adds `caution` (yellow) and `ok` (green)
+  roles so all four brights reach the PPTX theme (no component reads them yet); tile = white,
+  lifted by shadow; `folHlink` → `loss`. Blind-judged run in `evals-runs/`: palette harmony and
+  depth pass; flagged line breaks, 1 px diagram lines and accent-tinted bokeh are content/style
+  issues shared with paper-green, not palette faults.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
