@@ -124,6 +124,10 @@ review, internal update) through profiles, without duplicating criteria.
   not frosted; fixed in PB-007.
 - **Fonts ship in the skill (PB-006):** woff2 files under `assets/fonts/` with their SIL OFL 1.1
   licences; `fonts.json` maps family → files, and the assembler embeds every family a style names.
+- **PPTX step-delta policy (agent, 23 Nov, presenter asleep; review):** scene camera moves use
+  duplicated slides + Morph; text/line colour changes (e.g. step-list current/done) are dropped and
+  the slide keeps its final look, unless an emphasis effect can express them; blur softening is
+  lost. The scene is measured at its final visible step with reduced motion (`pptx/scene.schema.json`).
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
