@@ -1,0 +1,106 @@
+{
+  "$description": "paper-green: warm paper ground, charcoal inks and a single green accent. Editorial and quiet, built for screen-share (big soft shapes, no grain).",
+  "$extensions": {
+    "com.twm.palette": {
+      "pairs": [
+        {"fg": "{sys.color.ink}", "bg": "{sys.color.paper}", "use": "text", "$description": "titles and body on the page"},
+        {"fg": "{sys.color.ink}", "bg": "{sys.color.paper-deep}", "use": "text", "$description": "text on quiet fills and pills"},
+        {"fg": "{sys.color.ink}", "bg": "{sys.color.tile}", "use": "text", "$description": "tile titles and card text"},
+        {"fg": "{sys.color.ink-2}", "bg": "{sys.color.paper}", "use": "text", "$description": "secondary text on the page"},
+        {"fg": "{sys.color.ink-2}", "bg": "{sys.color.paper-deep}", "use": "text", "$description": "secondary text on quiet fills"},
+        {"fg": "{sys.color.ink-2}", "bg": "{sys.color.tile}", "use": "text", "$description": "tile subtitles"},
+        {"fg": "{sys.color.accent-ink}", "bg": "{sys.color.paper}", "use": "text", "$description": "kickers and links on the page"},
+        {"fg": "{sys.color.accent-ink}", "bg": "{sys.color.paper-deep}", "use": "text", "$description": "current chapter on a quiet pill"},
+        {"fg": "{sys.color.accent-ink}", "bg": "{sys.color.tile}", "use": "text", "$description": "tags and the current chapter on a tile"},
+        {"fg": "{sys.color.loss}", "bg": "{sys.color.paper}", "use": "text", "$description": "loss figures and labels"},
+        {"fg": "{sys.color.paper}", "bg": "{sys.color.ink}", "use": "text", "$description": "inverse chips (notes button, pins)"},
+        {"fg": "{sys.color.ink}", "bg": "{sys.color.accent}", "use": "text", "$description": "numerals on accent badges"},
+        {"fg": "{sys.color.ink-3}", "bg": "{sys.color.paper}", "use": "large-text", "$description": "labels of 24px or more, sources"},
+        {"fg": "{sys.color.ink-3}", "bg": "{sys.color.tile}", "use": "large-text", "$description": "large labels on tiles"},
+        {"fg": "{sys.color.ink-3}", "bg": "{sys.color.paper}", "use": "non-text", "$description": "arrows and muted strokes"},
+        {"fg": "{sys.color.alarm}", "bg": "{sys.color.paper}", "use": "non-text", "$description": "the alarm status light"},
+        {"fg": "{sys.color.accent}", "bg": "{sys.color.paper}", "use": "decorative", "$description": "glows, fills, progress: never the only carrier of meaning, so no minimum; reported for the record"}
+      ]
+    }
+  },
+  "ref": {
+    "color": {
+      "$type": "color",
+      "sand": {
+        "50": {"$value": {"colorSpace": "srgb", "components": [0.9922, 0.9882, 0.9765], "hex": "#fdfcf9"}},
+        "100": {"$value": {"colorSpace": "srgb", "components": [0.9647, 0.9529, 0.9255], "hex": "#f6f3ec"}},
+        "200": {"$value": {"colorSpace": "srgb", "components": [0.9294, 0.9098, 0.8667], "hex": "#ede8dd"}}
+      },
+      "charcoal": {
+        "500": {"$value": {"colorSpace": "srgb", "components": [0.5412, 0.5255, 0.4941], "hex": "#8a867e"}},
+        "700": {"$value": {"colorSpace": "srgb", "components": [0.3608, 0.3529, 0.3333], "hex": "#5c5a55"}},
+        "900": {"$value": {"colorSpace": "srgb", "components": [0.1686, 0.1647, 0.1529], "hex": "#2b2a27"}}
+      },
+      "green": {
+        "500": {"$value": {"colorSpace": "srgb", "components": [0.5255, 0.7373, 0.1451], "hex": "#86bc25"}},
+        "800": {"$value": {"colorSpace": "srgb", "components": [0.2941, 0.4314, 0.0627], "hex": "#4b6e10"}}
+      },
+      "oxblood": {
+        "800": {"$value": {"colorSpace": "srgb", "components": [0.4784, 0.1216, 0.1686], "hex": "#7a1f2b"}}
+      },
+      "red": {
+        "600": {"$value": {"colorSpace": "srgb", "components": [0.8235, 0.2235, 0.1725], "hex": "#d2392c"}}
+      }
+    }
+  },
+  "sys": {
+    "color": {
+      "$type": "color",
+      "paper": {
+        "$value": "{ref.color.sand.100}",
+        "$description": "Page ground behind every slide; inverse text on ink chips. Paper feel comes from colour, never texture or grain.",
+        "$extensions": {"com.twm.pptx": {"slots": ["lt1"]}, "com.twm.palette": {"textSafe": true}}
+      },
+      "paper-deep": {
+        "$value": "{ref.color.sand.200}",
+        "$description": "Quiet fills, active pills and rules. A surface: never text, and too close to paper to carry meaning alone.",
+        "$extensions": {"com.twm.pptx": {"slots": ["lt2"]}, "com.twm.palette": {"textSafe": false}}
+      },
+      "tile": {
+        "$value": "{ref.color.sand.50}",
+        "$description": "Raised surface: diagram tiles, cards, menus and the inset highlight of every shadow. A surface: never text.",
+        "$extensions": {"com.twm.pptx": {"slots": ["accent6"]}, "com.twm.palette": {"textSafe": false}}
+      },
+      "ink": {
+        "$value": "{ref.color.charcoal.900}",
+        "$description": "Titles and body text, and the tint of every shadow. Text-safe on every surface (12.9:1 on paper).",
+        "$extensions": {"com.twm.pptx": {"slots": ["dk1"]}, "com.twm.palette": {"textSafe": true}}
+      },
+      "ink-2": {
+        "$value": "{ref.color.charcoal.700}",
+        "$description": "Secondary text: subtitles, labels, the Insight label (6.2:1 on paper).",
+        "$extensions": {"com.twm.pptx": {"slots": ["dk2", "folHlink"]}, "com.twm.palette": {"textSafe": true}}
+      },
+      "ink-3": {
+        "$value": "{ref.color.charcoal.500}",
+        "$description": "Muted strokes, arrows and sources. As text only at 24px or larger (3.2:1 on paper: large text and non-text only, never body text).",
+        "$extensions": {"com.twm.pptx": {"slots": ["accent5"]}, "com.twm.palette": {"textSafe": true}}
+      },
+      "accent": {
+        "$value": "{ref.color.green.500}",
+        "$description": "The single accent: glows, fills, strokes, progress, bokeh. Fills/strokes only, never text (2.0:1 on paper); decorative, so never the only carrier of meaning.",
+        "$extensions": {"com.twm.pptx": {"slots": ["accent1"]}, "com.twm.palette": {"textSafe": false}}
+      },
+      "accent-ink": {
+        "$value": "{ref.color.green.800}",
+        "$description": "The accent as text: kickers, the current chapter, links (5.3:1 on paper). Use it wherever accent colour must be read.",
+        "$extensions": {"com.twm.pptx": {"slots": ["accent2", "hlink"]}, "com.twm.palette": {"textSafe": true}}
+      },
+      "loss": {
+        "$value": "{ref.color.oxblood.800}",
+        "$description": "Deep oxblood for sacrifice and irreversible loss. Sparingly; text-safe (9.2:1 on paper).",
+        "$extensions": {"com.twm.pptx": {"slots": ["accent3"]}, "com.twm.palette": {"textSafe": true}}
+      },
+      "alarm": {
+        "$value": "{ref.color.red.600}",
+        "$description": "Signal red: a status light that something is down. Only for alarm lights, never text or fills.",
+        "$extensions": {"com.twm.pptx": {"slots": ["accent4"]}, "com.twm.palette": {"textSafe": false}}
+      }
+    }
+  }
+}

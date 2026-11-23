@@ -10,6 +10,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import re
+import sys
 from pathlib import Path
 
 from helper_skill import REPO, SKILL_DIR
@@ -34,6 +35,7 @@ def load_script():
     """
     spec = importlib.util.spec_from_file_location("pb_tokens", SCRIPT)
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module  # dataclasses resolve annotations through sys.modules
     spec.loader.exec_module(module)
     return module
 
