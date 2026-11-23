@@ -55,11 +55,22 @@ ignore it, so the artefact stays as shipped.
 
 ## 3 · Deterministic gates
 
-Run the deterministic gate runner over the deck and repo for every selected `D` criterion in
-scope. It emits verdicts in the judge format (§4) with `repeat` 1 into `verdicts/`. Until the
-runner ships, a `D` criterion has no verdict and the report lists it as `missing`; never judge a
-`D` criterion with an LLM instead. A failed gate already fails the deck, but still run the judges
-the user asked for: the report is for improving the deck.
+Write `manifest.json` first, then run the gate runner once over the deck and/or repo:
+
+```bash
+uv run ${CLAUDE_SKILL_DIR}/evals/gates.py <run-dir> [--deck deck/<name>.html] [--repo .] [--no-rerun]
+```
+
+It reads profile and concerns from the manifest (or `--profile`, `--concerns`), checks every
+selected `D` criterion in scope and writes one verdict per unit in the judge format (§4,
+`repeat` 1) into `verdicts/`, plus `evidence/gates.json`: each criterion's rule, or why it is
+`missing`. Deck checks render every slide × step × review size in Chrome with the network blocked;
+repo checks read git history only (never a process log) and re-run each spec's tests at its red
+and done commits in throwaway worktrees under the run folder (`--no-rerun` skips that, leaving
+`PR-02` missing). Exit 0 all pass, 1 any fail, 2 unusable input. A `D` criterion it lists as
+missing (e.g. PPTX ones, until their checks ship) stays missing in the report; never judge a `D`
+criterion with an LLM instead. A failed gate already fails the deck, but still run the judges the
+user asked for: the report is for improving the deck.
 
 ## 4 · Judge dispatch
 
@@ -114,7 +125,7 @@ In the deck project (never the skill folder), one dated folder per run:
 evals/runs/yymmdd-<label>/
   manifest.json              scope answers: label, date (yymmdd), target, profile, concerns,
                              depth, k, transcripts, mode (+ versions for A/B, judge model)
-  evidence/                  screenshots, PPTX renders, text extracts, repo facts
+  evidence/                  screenshots, PPTX renders, text extracts, repo facts, gates.json
   verdicts/*.json            one per gate check or judge call
   yymmdd-<label>.json        report (aggregate.py)
   yymmdd-<label>.md          report for the presenter
