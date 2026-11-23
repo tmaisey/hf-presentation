@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "pb-scene/1",
+  "description": "A deck measured for the PPTX emitter by pptx/scripts/scene.py: per slide, final-state geometry, entry looks and a step timeline in the PB-022 effect vocabulary. Coordinates are slide CSS px (emu_per_px converts). Field meanings: scene.py module docstring.",
+  "type": "object",
+  "required": ["schema", "deck", "size", "palette", "fonts", "chrome", "slides"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "pb-scene/1"},
+    "deck": {
+      "type": "object",
+      "required": ["file", "title", "subtitle", "layout", "palette", "style"],
+      "additionalProperties": false,
+      "properties": {
+        "file": {"type": "string"},
+        "title": {"type": "string"},
+        "subtitle": {"type": "string"},
+        "layout": {"type": ["string", "null"]},
+        "palette": {"type": ["string", "null"]},
+        "style": {"type": ["string", "null"]}
+      }
+    },
+    "size": {
+      "type": "object",
+      "required": ["width", "height", "unit", "emu_per_px"],
+      "additionalProperties": false,
+      "properties": {
+        "width": {"type": "integer", "minimum": 1},
+        "height": {"type": "integer", "minimum": 1},
+        "unit": {"const": "px"},
+        "emu_per_px": {"const": 9525}
+      }
+    },
+    "palette": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["rgb", "slots"],
+        "additionalProperties": false,
+        "properties": {
+          "rgb": {"$ref": "#/$defs/rgb"},
+          "slots": {"type": "array", "items": {"enum": ["dk1", "lt1", "dk2", "lt2", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6", "hlink", "folHlink"]}}
+        }
+      }
+    },
+    "fonts": {
+      "type": ["object", "null"],
+      "required": ["major", "minor"],
+      "additionalProperties": false,
+      "properties": {"major": {"type": ["string", "null"]}, "minor": {"type": ["string", "null"]}}
+    },
+    "chrome": {
+      "type": "object",
+      "required": ["bar"],
+      "additionalProperties": false,
+      "properties": {
+        "bar": {
+          "type": ["object", "null"],
+          "required": ["box", "fill"],
+          "additionalProperties": false,
+          "properties": {"box": {"$ref": "#/$defs/box"}, "fill": {"$ref": "#/$defs/colourOrNull"}}
+        }
+      }
+    },
+    "slides": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/slide"}}
+  },
+  "$defs": {
+    "rgb": {"type": "string", "pattern": "^[0-9A-F]{6}$"},
+    "box": {
+      "type": "object",
+      "required": ["x", "y", "w", "h"],
+      "additionalProperties": false,
+      "properties": {"x": {"type": "number"}, "y": {"type": "number"}, "w": {"type": "number", "minimum": 0}, "h": {"type": "number", "minimum": 0}}
+    },
+    "colour": {
+      "type": "object",
+      "required": ["rgb", "alpha", "role"],
+      "additionalProperties": false,
+      "properties": {
+        "rgb": {"$ref": "#/$defs/rgb"},
+        "alpha": {"type": "number", "minimum": 0, "maximum": 1},
+        "role": {"type": ["string", "null"]}
+      }
+    },
+    "colourOrNull": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/colour"}]},
+    "stroke": {
+      "type": "object",
+      "required": ["rgb", "alpha", "role", "width"],
+      "additionalProperties": false,
+      "properties": {
+        "rgb": {"$ref": "#/$defs/rgb"},
+        "alpha": {"type": "number", "minimum": 0, "maximum": 1},
+        "role": {"type": ["string", "null"]},
+        "width": {"type": "number", "minimum": 0}
+      }
+    },
+    "run": {
+      "type": "object",
+      "required": ["text", "font", "size", "weight", "italic", "caps", "tracking", "underline", "colour", "href"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {"type": "string", "pattern": "."},
+        "font": {"type": "string"},
+        "size": {"type": "number", "minimum": 0},
+        "weight": {"type": "integer", "minimum": 1, "maximum": 1000},
+        "italic": {"type": "boolean"},
+        "caps": {"type": "boolean"},
+        "tracking": {"type": "number"},
+        "underline": {"type": "boolean"},
+        "colour": {"$ref": "#/$defs/colourOrNull"},
+        "href": {"type": ["string", "null"]}
+      }
+    },
+    "text": {
+      "type": "object",
+      "required": ["runs", "align", "line_height", "lines", "box", "padding"],
+      "additionalProperties": false,
+      "properties": {
+        "runs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/run"}},
+        "align": {"enum": ["left", "center", "right", "justify"]},
+        "line_height": {"type": "number", "minimum": 0},
+        "lines": {"type": "integer", "minimum": 1},
+        "box": {"$ref": "#/$defs/box"},
+        "padding": {"type": "array", "items": {"type": "number"}, "minItems": 4}
+      }
+    },
+    "primitive": {
+      "anyOf": [
+        {"type": "object", "additionalProperties": false,
+         "required": ["type", "x", "y", "w", "h", "rx", "ry", "fill", "stroke", "stroke_width", "marker_start", "marker_end"],
+         "properties": {"type": {"const": "rect"}, "x": {"type": "number"}, "y": {"type": "number"}, "w": {"type": "number", "minimum": 0}, "h": {"type": "number", "minimum": 0},
+           "rx": {"type": "number", "minimum": 0}, "ry": {"type": "number", "minimum": 0},
+           "fill": {"$ref": "#/$defs/colourOrNull"}, "stroke": {"$ref": "#/$defs/colourOrNull"}, "stroke_width": {"type": "number", "minimum": 0},
+           "marker_start": {"type": ["string", "null"]}, "marker_end": {"type": ["string", "null"]}}},
+        {"type": "object", "additionalProperties": false,
+         "required": ["type", "cx", "cy", "rx", "ry", "fill", "stroke", "stroke_width", "marker_start", "marker_end"],
+         "properties": {"type": {"const": "ellipse"}, "cx": {"type": "number"}, "cy": {"type": "number"}, "rx": {"type": "number", "minimum": 0}, "ry": {"type": "number", "minimum": 0},
+           "fill": {"$ref": "#/$defs/colourOrNull"}, "stroke": {"$ref": "#/$defs/colourOrNull"}, "stroke_width": {"type": "number", "minimum": 0},
+           "marker_start": {"type": ["string", "null"]}, "marker_end": {"type": ["string", "null"]}}},
+        {"type": "object", "additionalProperties": false,
+         "required": ["type", "x1", "y1", "x2", "y2", "fill", "stroke", "stroke_width", "marker_start", "marker_end"],
+         "properties": {"type": {"const": "line"}, "x1": {"type": "number"}, "y1": {"type": "number"}, "x2": {"type": "number"}, "y2": {"type": "number"},
+           "fill": {"$ref": "#/$defs/colourOrNull"}, "stroke": {"$ref": "#/$defs/colourOrNull"}, "stroke_width": {"type": "number", "minimum": 0},
+           "marker_start": {"type": ["string", "null"]}, "marker_end": {"type": ["string", "null"]}}},
+        {"type": "object", "additionalProperties": false,
+         "required": ["type", "d", "box", "fill", "stroke", "stroke_width", "marker_start", "marker_end"],
+         "properties": {"type": {"const": "path"}, "d": {"type": "string", "pattern": "^M( -?[0-9.]+){2}( ([MLC]( -?[0-9.]+)+|Z))*$"}, "box": {"$ref": "#/$defs/box"},
+           "fill": {"$ref": "#/$defs/colourOrNull"}, "stroke": {"$ref": "#/$defs/colourOrNull"}, "stroke_width": {"type": "number", "minimum": 0},
+           "marker_start": {"type": ["string", "null"]}, "marker_end": {"type": ["string", "null"]}}},
+        {"type": "object", "additionalProperties": false,
+         "required": ["type", "x", "y", "anchor", "baseline", "box", "runs", "fill", "stroke", "stroke_width", "marker_start", "marker_end"],
+         "properties": {"type": {"const": "text"}, "x": {"type": "number"}, "y": {"type": "number"}, "anchor": {"type": "string"}, "baseline": {"type": "string"},
+           "box": {"$ref": "#/$defs/box"}, "runs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/run"}},
+           "fill": {"$ref": "#/$defs/colourOrNull"}, "stroke": {"$ref": "#/$defs/colourOrNull"}, "stroke_width": {"type": "number", "minimum": 0},
+           "marker_start": {"type": ["string", "null"]}, "marker_end": {"type": ["string", "null"]}}}
+      ]
+    },
+    "effect": {
+      "type": "object",
+      "required": ["kind", "value", "token", "band"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"enum": ["shadow", "backdrop-blur", "blur", "svg-filter", "filter", "opacity"]},
+        "value": {"type": "string"},
+        "token": {"type": ["string", "null"]},
+        "band": {"enum": ["native", "approximated", "lost", "undeclared"]}
+      }
+    },
+    "role": {
+      "enum": ["kicker", "title", "byline", "body", "paragraph", "heading", "point", "step-item", "prompt", "stat", "quote", "cite",
+        "caption", "table", "cell", "term", "term-title", "term-text", "insight", "overlay", "message-card", "sender", "message",
+        "annotation", "narration-tile", "popover", "pop-panel", "tile-card", "scene", "diagram", "tile", "key-tile", "edge",
+        "label", "tag", "shape", "image", "orb", "marker", "generated-text"]
+    },
+    "element": {
+      "type": "object",
+      "required": ["id", "role", "tag", "classes", "parent", "z", "pseudo", "scene_part", "box", "measured_at", "look_at",
+        "visible_steps", "opacity", "fill", "gradient", "stroke", "radius", "effects", "text", "svg", "image", "viewbox", "frames"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "."},
+        "role": {"$ref": "#/$defs/role"},
+        "tag": {"type": "string"},
+        "classes": {"type": "array", "items": {"type": "string"}},
+        "parent": {"type": ["string", "null"]},
+        "z": {"type": "integer", "minimum": 0},
+        "pseudo": {"enum": [null, "before", "after"]},
+        "scene_part": {"type": "boolean"},
+        "box": {"$ref": "#/$defs/box"},
+        "measured_at": {"type": "integer", "minimum": 0},
+        "look_at": {"type": "integer", "minimum": 0},
+        "visible_steps": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
+        "opacity": {"type": "number", "minimum": 0, "maximum": 1},
+        "fill": {"$ref": "#/$defs/colourOrNull"},
+        "gradient": {"type": ["string", "null"]},
+        "stroke": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/stroke"}]},
+        "radius": {"type": ["number", "null"], "minimum": 0},
+        "effects": {"type": "array", "items": {"$ref": "#/$defs/effect"}},
+        "text": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/text"}]},
+        "svg": {"type": ["array", "null"], "items": {"$ref": "#/$defs/primitive"}},
+        "image": {"type": ["object", "null"], "required": ["src", "alt"], "additionalProperties": false,
+          "properties": {"src": {"type": "string"}, "alt": {"type": "string"}}},
+        "viewbox": {"type": ["array", "null"], "items": {"type": "number"}},
+        "frames": {"type": ["array", "null"], "items": {"type": "object", "required": ["step", "box", "svg"], "additionalProperties": false,
+          "properties": {"step": {"type": "integer", "minimum": 0}, "box": {"$ref": "#/$defs/box"},
+            "svg": {"type": ["array", "null"], "items": {"$ref": "#/$defs/primitive"}}}}}
+      }
+    },
+    "delta": {
+      "type": "object",
+      "required": ["el", "kind", "property", "effect", "params"],
+      "additionalProperties": false,
+      "properties": {
+        "el": {"type": "string"},
+        "kind": {"enum": ["enter", "exit", "change"]},
+        "property": {"enum": ["visibility", "opacity", "fill", "stroke", "text-colour", "filter", "scale", "size", "position", "camera"]},
+        "effect": {"enum": ["appear", "fade_in", "disappear", "fade_out", "transparency", "grow_shrink", "fill_colour", "motion_path", "unsupported"]},
+        "params": {"type": "object", "additionalProperties": false, "properties": {
+          "duration_ms": {"type": "integer", "minimum": 1}, "opacity": {"type": "number", "minimum": 0, "maximum": 1},
+          "scale": {"type": "number", "minimum": 0}, "rgb": {"$ref": "#/$defs/rgb"}, "path": {"type": "string", "pattern": "^M "}}},
+        "role": {"type": ["string", "null"]},
+        "reason": {"type": "string", "pattern": "."},
+        "fallback": {"enum": ["morph", "none"]},
+        "band": {"enum": ["native", "approximated", "lost", "undeclared"]},
+        "from": {},
+        "to": {}
+      }
+    },
+    "note": {
+      "type": "object",
+      "required": ["for", "target", "heading", "text", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "for": {"type": "string"},
+        "target": {"type": ["string", "null"]},
+        "heading": {"type": "string"},
+        "text": {"type": "array", "items": {"type": "string"}},
+        "sources": {"type": "array", "items": {"type": "object", "required": ["text", "href"], "additionalProperties": false,
+          "properties": {"text": {"type": "string"}, "href": {"type": "string"}}}}
+      }
+    },
+    "slide": {
+      "type": "object",
+      "required": ["id", "index", "chapter", "classes", "scene", "ambient", "steps", "background", "elements", "timeline", "notes", "notes_text"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "."},
+        "index": {"type": "integer", "minimum": 0},
+        "chapter": {"type": "string"},
+        "classes": {"type": "array", "items": {"type": "string"}},
+        "scene": {"enum": ["none", "live", "backdrop"]},
+        "ambient": {"type": "boolean"},
+        "steps": {"type": "integer", "minimum": 0},
+        "background": {"$ref": "#/$defs/colourOrNull"},
+        "elements": {"type": "array", "items": {"$ref": "#/$defs/element"}},
+        "timeline": {"type": "array", "minItems": 1, "items": {
+          "type": "object", "required": ["step", "visible", "deltas"], "additionalProperties": false,
+          "properties": {"step": {"type": "integer", "minimum": 0}, "visible": {"type": "array", "items": {"type": "string"}},
+            "deltas": {"type": "array", "items": {"$ref": "#/$defs/delta"}}}}},
+        "notes": {"type": "array", "items": {"$ref": "#/$defs/note"}},
+        "notes_text": {"type": "string"}
+      }
+    }
+  }
+}
