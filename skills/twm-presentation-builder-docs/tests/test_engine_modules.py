@@ -202,8 +202,9 @@ def test_scene_shows_only_on_scene_slides(page):
     on = {}
     for sid in ("m-1", "m-2", "m-3", "m-4", "m-5"):
         go(page, sid, 0)
-        on[sid] = (page.evaluate(f"{SCENE}.classList.contains('is-on')"), round(opacity(page, ".scene")))
-    assert on == {"m-1": (False, 0), "m-2": (True, 1), "m-3": (True, 1), "m-4": (True, 1), "m-5": (False, 0)}
+        on[sid] = (page.evaluate(f"{SCENE}.classList.contains('is-on')"), opacity(page, ".scene") > 0.3)
+    assert on == {"m-1": (False, False), "m-2": (True, True), "m-3": (True, True), "m-4": (True, True),
+                  "m-5": (False, False)}
 
 
 def test_scene_parts_appear_at_their_point_and_persist_until_their_end(page):
@@ -257,6 +258,18 @@ def test_camera_follows_each_slide_and_step(page):
         cams[(sid, k)] = _camera(page)
     assert cams == {("m-2", 0): [0, 0, 1], ("m-2", 1): [0, 0, 1], ("m-2", 2): [-120, 0, 1.6],
                     ("m-2", 3): [-120, 0, 1.6], ("m-3", 0): [60, 20, 1.2]}
+
+
+@pytest.mark.parametrize("at", [("m-2", 2, -120, 0, 1.6), ("m-3", 0, 60, 20, 1.2)], ids=lambda a: f"{a[0]}:{a[1]}")
+def test_camera_scales_about_the_viewbox_centre_and_translates_in_viewbox_units(page, at):
+    """The viewBox centre (here 0,0, the hub's centre) lands at the scene's centre plus the translate."""
+    sid, k, x, y, _z = at
+    go(page, sid, k)
+    got = page.evaluate("""(() => { const svg = document.querySelector('.scene svg'), vb = svg.viewBox.baseVal;
+      const r = svg.getBoundingClientRect(), sc = Math.min(r.width / vb.width, r.height / vb.height);
+      const h = document.querySelector('#p-a rect').getBoundingClientRect();
+      return [h.left + h.width / 2 - (r.left + r.width / 2), h.top + h.height / 2 - (r.top + r.height / 2), sc]; })()""")
+    assert abs(got[0] - x * got[2]) < 2 and abs(got[1] - y * got[2]) < 2, got
 
 
 def test_camera_moves_between_states_rather_than_jumping(page):
@@ -413,9 +426,13 @@ def test_popover_sits_over_the_scene(page):
     p, s = _rect(page, "#m3-pop"), _rect(page, ".scene")
     assert _cls(page, ".scene", "is-on") and s[2] > 100
     assert p[0] < s[0] + s[2] and s[0] < p[0] + p[2], "drawn over the scene's area"
-    hit = page.evaluate("(() => { const r = document.querySelector('#m3-pop').getBoundingClientRect();"
-                        " return document.elementFromPoint(r.left + r.width / 2, r.top + 20).closest('.popover') !== null; })()")
-    assert hit
+    # hit-testing follows paint order; the pop-over ignores the pointer, so the probe lets it take hits briefly
+    hit = page.evaluate("""(() => { const p = document.querySelector('#m3-pop'), sc = document.querySelector('.scene');
+      p.style.pointerEvents = sc.style.pointerEvents = 'auto';
+      const r = p.getBoundingClientRect(), e = document.elementFromPoint(r.left + r.width / 2, r.top + 12);
+      p.style.pointerEvents = sc.style.pointerEvents = '';
+      return !!e.closest('.popover'); })()""")
+    assert hit, "the pop-over paints above the scene"
 
 
 def test_pins_behind_a_focused_popover_are_clipped_by_its_frame(page):

@@ -234,7 +234,7 @@ MODULE_CSS = FIXTURE_CSS + """
   .scene { transition: opacity .5s ease, filter .6s ease; }
   .scene .cam { transition: transform 1s ease; }
   .scene [data-scene-at] { transition: opacity .5s ease; }
-  .scene .is-dim { opacity: .35; }
+  .scene .is-dim.is-visible { opacity: .6; }
   .narr-tile { padding: 12px 18px; border-radius: 16px; background: Canvas; border: 1px solid GrayText;
     font-size: .8em; transform: translateY(20px); transition: opacity .5s ease, filter .5s ease, transform .5s ease; }
   .narr-tile.is-shown { transform: none; }
