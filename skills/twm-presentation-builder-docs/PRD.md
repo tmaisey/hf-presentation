@@ -126,12 +126,17 @@ review, internal update) through profiles, without duplicating criteria.
   licences; `fonts.json` maps family → files, and the assembler embeds every family a style names.
 - **PPTX step-delta policy (agent, 23 Nov, presenter asleep; review):** scene camera moves use
   duplicated slides + Morph; text/line colour changes (e.g. step-list current/done) are dropped and
-  the slide keeps its final look, unless an emphasis effect can express them; blur softening is
+  each element keeps its entry look, unless an emphasis effect can express them; blur softening is
   lost. The scene is measured at its final visible step with reduced motion (`pptx/scene.schema.json`).
 - **Reference visuals ported under PB-007 (agent, 23 Nov):** the reference deck's diagram and
   illustration kit (domains, dots/links, badges, glyphs, timeline body, scene key and dim/muted
   states) moved into the components layer as gap fixes, not new visual language. Anchor decks now
   embed fonts so judges see the real look (~5 MB across 10 anchors).
+- **PPTX emitter calls (agent, 23 Nov; review):** 16:9 slides scaled 2/3 from the 1920 px stage; six
+  layouts in one generated master (lead, standard, split, three-column scene, tile row, end); points
+  build by paragraph in one placeholder; tables whose rows build on steps split into stacked tables;
+  colour mixes become theme tints; a structural validator ships instead of vendoring Anthropic's
+  `validate.py`; text wrap gets ~6% width slack and is judged visually (PX-06).
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
