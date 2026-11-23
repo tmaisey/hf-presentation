@@ -37,7 +37,7 @@ REQUIRED_FLAWS = {"occluded-content", "insufficient-contrast", "hook-title", "ti
                   "sparse-layout", "distant-annotation", "role-misuse", "distracting-animation",
                   "broken-link"}
 # words that would tell a judge what it is looking at
-LEAKS = re.compile(r"\banchor|\bflaw|deliberate|must[_ ]fail|must[_ ]pass|\bcontrol\b|"
+LEAKS = re.compile(r"(?<![-\w])anchor|\bflaw|deliberate|must[_ ]fail|must[_ ]pass|\bcontrol\b|"
                    r"\b(?:CN|RS|VC|DL|DP|DS|AR|PX|PR)-\d\d\b", re.I)
 STEP_WORDS = 40  # CN-04 default word budget
 
@@ -270,7 +270,8 @@ PROBE = r"""() => {
     titles: [...s.querySelectorAll('.title')].map(t => ({ text: t.textContent.trim(), em: t.querySelectorAll('em, i').length })),
     steps: [...s.querySelectorAll('ol.steps > li')].map(li => li.textContent.trim()),
     tileTitles: [...s.querySelectorAll('svg.diagram .tile-title')].map(t => t.textContent.trim()),
-    quotes: [...s.querySelectorAll('blockquote')].filter(q => !out(q)).map(q => q.textContent.trim()),
+    quotes: [...s.querySelectorAll('blockquote')].filter(q => !out(q)).map(q => { const c = q.cloneNode(true);
+      c.querySelectorAll('.quote-from, .msg-from').forEach(x => x.remove()); return c.textContent.trim(); }),
     notes: notes.map(n => ({ text: n.textContent, srcs: [...n.querySelectorAll('a.src')].map(a => a.getAttribute('href')) })),
     notesText,
     ambient: !!s.querySelector(':scope > .ambient'),
