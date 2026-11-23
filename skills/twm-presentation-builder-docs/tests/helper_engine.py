@@ -300,6 +300,8 @@ COMPONENT_SLIDES = """
   <aside class="overlay overlay--insight" id="c2-insight" data-at="3">
     <p>An Insight card frosts over the body for one step, then racks out of focus as the slide sharpens.</p>
   </aside>
+  <aside class="note" data-for="#c2-lede"><h3>Settling in</h3><p>Entry is a rise and fade, staggered.</p>
+    <a class="src" href="https://example.org/entry">Entry source</a></aside>
   <aside class="note" data-for="#c2-b"><h3>Accumulating points</h3><p>Nothing is replaced; the list grows.</p>
     <a class="src" href="https://example.org/points">Points source</a></aside>
 </section>

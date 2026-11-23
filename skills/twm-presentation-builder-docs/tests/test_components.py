@@ -222,10 +222,10 @@ PAIRS = [
     ("arrowhead ok", ("c-3", 3, "#arr-ok path"), ("s-2", 4, "#arr-ok path"), ("fill",), None),
     ("lift shadow", ("c-3", 3, "#lift feDropShadow"), ("s-2", 4, "#lift feDropShadow"), ("floodColor",), None),
     ("key glow", ("c-3", 3, "#lift-key .glow"), ("s-2", 4, "#lift-key .glow"), ("floodColor",), None),
-    ("step current", ("c-3", 2, "#c3-s2"), ("s-3", 2, "#s-3 .steps li.is-current:not(.sub)"), ("color",), None),
-    ("step current disc", ("c-3", 2, "#c3-s2"), ("s-3", 2, "#s-3 .steps li.is-current:not(.sub)"),
+    ("step current", ("c-3", 2, "#c3-s2"), ("s-3", 3, "#s-3 .steps li.is-current:not(.sub)"), ("color",), None),
+    ("step current disc", ("c-3", 2, "#c3-s2"), ("s-3", 3, "#s-3 .steps li.is-current:not(.sub)"),
      ("backgroundColor", "borderTopColor", "color", "borderRadius"), "::before"),
-    ("step done disc", ("c-3", 2, "#c3-s1"), ("s-3", 2, "#s-3 .steps li.is-done:not(.sub)"),
+    ("step done disc", ("c-3", 2, "#c3-s1"), ("s-3", 3, "#s-3 .steps li.is-done:not(.sub)"),
      ("backgroundColor", "borderTopColor", "color"), "::before"),
     ("prompt", ("c-7", 0, "#c7-q1"), ("s-11", 0, "#s11-q1"), TYPE + ("paddingLeft",), None),
     ("prompt disc", ("c-7", 0, "#c7-q1"), ("s-11", 0, "#s11-q1"), ("backgroundColor", "color", "fontSize"), "::before"),
@@ -284,7 +284,7 @@ NOTES = [("callout", ".callout", ("backgroundColor", "backdropFilter", "borderRa
          ("notes button on", ".notes-btn", ("backgroundColor", "color", "borderTopColor"), None)]
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def notes_pages(pages):
     """Both decks in notes mode on a slide with two or more notes (so a non-current pin exists)."""
     fixture, v2 = pages
@@ -342,7 +342,7 @@ def test_fixture_slides_have_no_overlap_clipping_or_offcanvas_text(browser, deck
 
 def test_layout_guard_catches_a_body_pushed_over_the_title(browser, tmp_path):
     """Negative control: the guard must see a real collision, or a green run proves nothing."""
-    f = assemble_themed(tmp_path / "bad.html", deck_css="@layer deck { #c-2 > .body { margin-top: -3em; } }")
+    f = assemble_themed(tmp_path / "bad.html", deck_css="@layer deck { #c-2 > .body { translate: 0 -30vh; } }")
     c, pg, _ = _open(browser, f)
     faults = layout_faults(pg, "c-2")
     c.close()
@@ -352,14 +352,15 @@ def test_layout_guard_catches_a_body_pushed_over_the_title(browser, tmp_path):
 # ---------- title bar: compact agenda ----------
 
 def test_compact_agenda_drops_an_opaque_list_inside_the_viewport(browser, tmp_path):
-    f = assemble_themed(tmp_path / "long.html", title="A Considerably Longer Deck Title For Crowding",
-                        subtitle="With a subtitle that keeps going")
-    c, pg, errors = _open(browser, f, 1288, 598)
+    f = assemble_themed(tmp_path / "long.html", title="A Considerably Longer Deck Title For Crowding The Agenda Row",
+                        subtitle="With a subtitle that keeps going and going")
+    c, pg, errors = _open(browser, f, 1000, 598)
     assert pg.evaluate("document.querySelector('.bar').classList.contains('bar--compact')")
     pg.click(".nav-current")
     pg.wait_for_function("+getComputedStyle(document.querySelector('.agenda')).opacity === 1")
+    settle(pg)
     got = pg.evaluate("""() => { const a = document.querySelector('.agenda'), r = a.getBoundingClientRect(),
-        bar = document.querySelector('.bar').getBoundingClientRect(), s = getComputedStyle(a);
+        bar = document.querySelector('.nav-current').getBoundingClientRect(), s = getComputedStyle(a);
         const cur = getComputedStyle(document.querySelector('.agenda li.is-current button'));
         return { bg: s.backgroundColor, shadow: s.boxShadow, right: r.right, top: r.top, barBottom: bar.bottom,
                  bottom: r.bottom, vw: innerWidth, vh: innerHeight, current: cur.color,
