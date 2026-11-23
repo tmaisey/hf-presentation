@@ -1,4 +1,4 @@
-"""Spec: PB-004
+"""Spec: PB-004, PB-007
 
 The layout/components design layer: a LAYOUT part one hop from SKILL.md and a components CSS in
 ``@layer components`` that styles the core component API (ARCHITECTURE §5) through sys/comp tokens
@@ -430,7 +430,7 @@ MODULE_PAIRS = [
     ("pop-over", ("m-3", 1, "#m3-pop"), ("s-3", 2, "#s3-pop"),
      ("display", "columnGap", "opacity", "filter", "transform", "visibility", "marginBottom", "alignSelf"), None),
     ("pop-over tile", ("m-3", 1, "#m3-pop .pop-panel"), ("s-3", 2, "#s3-pop .pop-panel"),
-     ("borderRadius", "boxShadow", "paddingTop", "paddingLeft", "display"), None),
+     ("backgroundColor", "backdropFilter", "borderRadius", "boxShadow", "paddingTop", "paddingLeft", "display"), None),
     ("pop-over caption", ("m-3", 1, "#m3-pop-cap"), ("s-3", 2, "#s3-pop .pop-panel figcaption"), TYPE, None),
     ("tile row", ("m-4", 3, "#m-4 .body--tiles"), ("s-9", 3, "#s-9 .body--tiles"),
      ("columnGap", "alignSelf", "marginBottom"), None),
@@ -447,13 +447,12 @@ def test_module_component_computes_like_deck_v2(module_pages, what, fix, ref, pr
     assert got == want, what
 
 
-def test_popover_tile_is_frosted_not_an_opaque_panel(module_pages):
-    """The skill's pop-over tile frosts over the softened scene (deck-v2's is an opaque tile)."""
+def test_popover_tile_is_opaque_and_shadowed_not_frosted(module_pages):
+    """Presenter, 23 Nov (PB-007): the pop-over tile is an opaque, shadowed tile as in deck-v2, not frosted."""
     fixture, _ = module_pages
-    got = _probe(fixture, "m-3", 1, "#m3-pop .pop-panel", ("backgroundColor", "backdropFilter"))
-    alpha = re.search(r"/ ([\d.]+)\)$|rgba\(.*, ([\d.]+)\)$", got["backgroundColor"])
-    assert alpha and 0 < float(alpha.group(1) or alpha.group(2)) < 1, got["backgroundColor"]
-    assert got["backdropFilter"].startswith("blur("), got
+    got = _probe(fixture, "m-3", 1, "#m3-pop .pop-panel", ("backgroundColor", "backdropFilter", "boxShadow"))
+    assert re.fullmatch(r"rgb\(\d+, \d+, \d+\)", got["backgroundColor"]), f"alpha must be 1: {got['backgroundColor']}"
+    assert got["backdropFilter"] == "none" and got["boxShadow"] != "none", got
 
 
 @pytest.mark.parametrize("size", REVIEW_SIZES, ids=[f"{w}x{h}" for w, h in REVIEW_SIZES])

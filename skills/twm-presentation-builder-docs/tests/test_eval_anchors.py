@@ -1,11 +1,12 @@
-"""Spec: PB-020
+"""Spec: PB-020, PB-007
 
 Flawed anchor decks: small self-contained decks under ``evals/anchors/``, each carrying one or a few
 deliberate flaws and labelled in ``anchors.json`` with the criteria it must fail and a few it must
 still pass, so a lenient judge or a broken gate is caught without a presenter-scored calibration set.
 
 Coverage: happy (label schema, every id and tag resolves through the loader, files exist, single-file,
-offline and small; a clean control) · edge (a collision present only at the short-wide size; the
+offline and within budget; built by the real assembler with the shipped components layer and embedded
+fonts, so they look like any skill-built deck; a clean control) · edge (a collision present only at the short-wide size; the
 required flaw kinds are all covered; labels agree with the criteria's own flaw tags) · negative (each
 labelled flaw a code check can see is measurably present when rendered in Chrome, and each listed
 must-pass check finds nothing; no incident terms outside reference-verdict anchors; no label leaks
@@ -22,12 +23,13 @@ from playwright.sync_api import sync_playwright
 
 from helper_engine import REVIEW_SIZES, block, open_deck, settle
 from helper_eval import EVAL_DIR, INCIDENT_TERMS, ORIGINS, loader
+from helper_skill import SKILL_DIR
 
 ANCHOR_DIR = EVAL_DIR / "anchors"
 LABELS = ANCHOR_DIR / "anchors.json"
 ANCHOR_FIELDS = ("id", "file", "name", "flaws", "must_fail", "must_pass", "where", "provenance",
                  "description")
-MAX_BYTES = 150_000
+MAX_BYTES = 650_000   # the embedded editorial fonts are ~440 kB of base64
 SHORT_WIDE = (1288, 598)
 SHORT_WIDE_ANCHOR = "AN-01"  # the collision that only the short-wide window shows
 # flaw kinds PB-020 must cover (brief + kernel): collisions, contrast, voice-rejected titles,
@@ -148,7 +150,7 @@ def test_every_file_exists_is_one_html_file_within_budget(anchors):
         assert src.lstrip().lower().startswith("<!doctype html>")
         assert src.count("<script") == 1, "modules and engine in one script"
         assert path.stat().st_size < MAX_BYTES, f"{a['file']}: {path.stat().st_size} bytes"
-        assert "@font-face" not in src, "no embedded fonts: anchors stay small"
+        assert src.count("@font-face") >= 3, "the style's fonts are embedded, as in any skill-built deck"
 
 
 def test_only_anchor_files_and_labels_live_in_the_folder(anchors):
@@ -174,13 +176,15 @@ def test_slides_carry_no_styling_or_scripts(anchors):
         assert not re.search(r"#[0-9a-f]{3,8}\b(?![-\w])|rgba?\(", slides, re.I), a["file"]
 
 
-def test_theme_blocks_are_the_generated_paper_green_editorial_theme(anchors):
+def test_theme_blocks_are_the_shipped_paper_green_editorial_theme(anchors):
+    """Anchors are assembled like any skill-built deck: generated theme, the shipped components layer."""
+    components = (SKILL_DIR / "assets" / "components" / "components.css").read_text(encoding="utf-8")
     for a in anchors:
         src = _html(a)
         pal, sty = block(src, "PALETTE").group(1), block(src, "STYLE").group(1)
         assert "@layer palette" in pal and "--sys-color-accent:" in pal, a["file"]
         assert "@layer style" in sty and "--sys-type-title-size:" in sty, a["file"]
-        assert "@layer components" in block(src, "COMPONENTS").group(1), a["file"]
+        assert components.strip() in block(src, "COMPONENTS").group(1), a["file"]
 
 
 def test_no_incident_terms_outside_reference_verdict_anchors(anchors):
