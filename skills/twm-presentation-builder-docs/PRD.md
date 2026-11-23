@@ -142,6 +142,12 @@ review, internal update) through profiles, without duplicating criteria.
   lifted by shadow; `folHlink` → `loss`. Blind-judged run in `evals-runs/`: palette harmony and
   depth pass; flagged line breaks, 1 px diagram lines and accent-tinted bokeh are content/style
   issues shared with paper-green, not palette faults.
+- **Briefs and coverage (agent, 23 Nov; review):** files inside a brief folder are build inputs, exempt
+  from one-hop routing (`evals/briefs/BRIEFS.md` is routed); briefs own which features they claim,
+  `features.json` owns which criteria judge each feature; the HF brief's research pack uses only
+  sources the gold deck cites; synthetic packs use `*.example.org` sources. Known gap: no brief uses
+  the internal-update profile, and the skill has no chart component (data-review draws charts from
+  the diagram kit).
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
