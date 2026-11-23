@@ -2,19 +2,21 @@
 
 v2 closing slides. s-9 Insights reuses s-8's tile row over the frozen, blurred incident world: three
 text tiles built one per step (how misalignment happened from training to evaluation; why it is hard
-to design out and unsolved; opaque firings discourage transparency, both sides stated). s-10
-Takeaways, in phases with a title each: three pace tiles in the same tile row (capability still
-accelerating; industry calls for pacing and disclosure; public concern rising, safety secondary),
-then controls with practical considerations for AI projects (its discussion phase moved to s-11, S-035).
+to design out and unsolved; opaque firings discourage transparency, both sides stated). Takeaways
+is two slides under one agenda entry, each with its own title and notes: s-10 three pace tiles in the
+same tile row (capability still accelerating; industry calls for pacing and disclosure; public concern
+rising, safety secondary); s-11 controls with practical considerations for AI projects, all shown on
+arrival (discussion is s-12, S-035).
 Coverage: happy (slides close the deck in order with approved titles/kickers; s-9 and s-10 build one
-tile per step with sourced facts, verbatim quotes and links; s-10 swaps tiles → controls) ·
+tile per step with sourced facts, verbatim quotes and links; s-11 shows the controls at step 0; each
+Takeaways slide's notes stay on that slide) ·
 edge (s-9 world frozen in s-8's place and state; tiles read left to right in one row at every review
 size; s-10's Coxon quote sits in tile 1 and leaves with the tiles; s-10 tiles keep every approved
 figure as bullets, moved detail lives in the tile's notes; notes target elements on their slide;
 each control's incident failure lives in its note) · negative (s-9 has no loop diagram,
 narration or separate Insight; s-10 has no Insight step or comparison table; no slide-scoped tile
 CSS; no causal claim on the firings or on the sentiment shift; quotes verbatim from research;
-Hubinger not repeated on s-10; no weakly sourced Anthropic pause; no "suicide", "same agents" or
+Hubinger not repeated on s-10; s-10 never shows the controls and s-11 never the tiles; no weakly sourced Anthropic pause; no "suicide", "same agents" or
 firm-specific advice).
 """
 
@@ -27,10 +29,11 @@ from helper_deck import ROOT, deck_source, goto_slide, open_deck, parse_slides, 
 pytestmark = pytest.mark.deck("v2")
 
 S9_TITLE = "Misalignment emerged from flawed training objectives, but creating robust fixes is extremely difficult"
-S10_TITLES = {  # visible title per step: tiles (✓ 22 Nov) → controls (✓ 22 Nov); discussion is s-11 (S-035)
-    "tiles": "Capability keeps accelerating as industry calls for restraint and public concern grows",
-    "controls": "Practical controls keep AI agents within the bounds their tasks need",
+TAKEAWAY_TITLES = {  # one title per Takeaways slide: tiles (✓ 22 Nov), controls (✓ 22 Nov); discussion is s-12 (S-035)
+    "s-10": "Capability keeps accelerating as industry calls for restraint and public concern grows",
+    "s-11": "Practical controls keep AI agents within the bounds their tasks need",
 }
+TAKEAWAY_STORY = {"s-10": "s-10 · Pace", "s-11": "s-11 · Controls"}   # STORYBOARD headings
 SIZES = [(1920, 1080), (1280, 720), (1288, 598)]
 TILES = ["s9-t1", "s9-t2", "s9-t3"]   # row order = build step 1, 2, 3
 FACTS = {   # per tile: what its visible text must state
@@ -130,11 +133,12 @@ def helper_flat(html: str) -> str:
 def test_insights_and_takeaways_close_the_deck_in_order():
     slides = parse_slides()
     ids = [s["attrs"]["id"] for s in slides]
-    assert ids[ids.index("s-9"):ids.index("s-9") + 2] == ["s-9", "s-10"]
-    s9, s10 = slides[ids.index("s-9")], slides[ids.index("s-10")]
-    assert s9["attrs"]["data-chapter"] == "Insights" and s10["attrs"]["data-chapter"] == "Takeaways"
+    assert ids[ids.index("s-9"):ids.index("s-9") + 3] == ["s-9", "s-10", "s-11"]
+    chapters = [slides[ids.index(s)]["attrs"]["data-chapter"] for s in ("s-9", "s-10", "s-11")]
+    assert chapters == ["Insights", "Takeaways", "Takeaways"], "both takeaway slides sit in one chapter"
     assert '<p class="kicker">09 · Insights</p>' in helper_section("s-9")
     assert '<p class="kicker">10 · Takeaways</p>' in helper_section("s-10")
+    assert '<p class="kicker">11 · Takeaways</p>' in helper_section("s-11")
 
 
 def test_titles_are_the_approved_storyboard_titles():
@@ -142,10 +146,10 @@ def test_titles_are_the_approved_storyboard_titles():
     assert s9["title"] == S9_TITLE
     assert helper_norm(S9_TITLE) in helper_storyboard("s-9 · Insights")
     assert helper_norm(S9_TITLE) in helper_norm((ROOT / "docs" / "VOICE.md").read_text(encoding="utf-8"))
-    titles = re.findall(r'<h2 class="title"[^>]*>(.*?)</h2>', helper_section("s-10"), re.S)
-    assert titles == list(S10_TITLES.values())
-    for phase in ("tiles", "controls"):
-        assert helper_norm(S10_TITLES[phase]) in helper_storyboard("s-10 · Pace"), phase
+    for sid, title in TAKEAWAY_TITLES.items():
+        titles = re.findall(r'<h2 class="title"[^>]*>(.*?)</h2>', helper_section(sid), re.S)
+        assert titles == [title], f"{sid} has one title, no swap"
+        assert helper_norm(title) in helper_storyboard(TAKEAWAY_STORY[sid]), sid
 
 
 S9_HEADINGS = ["Reinforced training behaviours re-emerged in evaluation",   # presenter, 22 Nov (round 2)
@@ -216,8 +220,8 @@ def helper_s10_tile(tid: str) -> str:
 
 def test_s10_tiles_phase_reuses_the_tile_row_one_tile_per_step():
     sec = helper_section("s-10")
-    row = re.search(r'<div class="body body--tiles"[^>]*>(.*?)</div>\s*<div', sec, re.S)
-    assert row, "s-10's tiles phase is the shared tile row (div.body.body--tiles)"
+    row = re.search(r'<div class="body body--tiles"[^>]*>(.*?)</div>\s*<aside', sec, re.S)
+    assert row, "s-10's tiles are the shared tile row (div.body.body--tiles)"
     tiles = re.findall(r'<article class="text-tile" id="([\w-]+)" data-show-at="(\d+)">', row.group(1))
     assert tiles == [(t, str(n)) for n, t in enumerate(S10_TILES, start=1)], tiles
 
@@ -287,10 +291,12 @@ def test_s10_reuses_the_tile_row_without_slide_scoped_css():
     assert not re.search(r"#s-10\b|#s10-|\.s10-", css), "the shared tile row must not be styled per slide"
 
 
-def test_s10_has_no_comparison_table_or_separate_insight_step():
-    """The tiles replace the comparison table, and the Insight (METR on GPT-5.6 Sol) folds into tile 1."""
+def test_s10_has_no_comparison_table_controls_or_separate_insight_step():
+    """The tiles replace the comparison table, the Insight (METR on GPT-5.6 Sol) folds into tile 1, and
+    the controls are their own slide (s-11), so nothing on s-10 swaps out."""
     sec = helper_section("s-10")
-    assert 'class="compare"' not in sec
+    assert 'class="compare"' not in sec and "<table" not in sec
+    assert "data-hide-at" not in sec
     assert "overlay--insight" not in sec
     assert 'class="narration"' not in sec
 
@@ -318,22 +324,22 @@ def test_s10_hubinger_moved_to_s9():
     assert "plan to solve alignment" not in helper_section("s-10"), "Hubinger's quote moved to s-9 tile 2"
 
 
-def test_s10_controls_give_practical_considerations_verbatim():
-    sec = helper_section("s-10")
+def test_s11_controls_give_practical_considerations_verbatim():
+    sec = helper_section("s-11")
     table = re.search(r"<table.*?</table>", sec, re.S).group(0)
     assert [helper_flat(h) for h in re.findall(r"<th[^>]*>(.*?)</th>", table, re.S)] == \
         ["Control", "Practical considerations for AI projects"]
     rows = re.findall(r"<tr[^>]*>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>", table, re.S)
     assert [(helper_flat(c), helper_flat(p)) for c, p in rows] == [(helper_norm(c), helper_norm(p)) for c, p in CONTROLS]
-    story = helper_storyboard("s-10 · Pace")
+    story = helper_storyboard("s-11 · Controls")
     assert all(helper_norm(p) in story for _, p in CONTROLS)
     assert "where it failed" not in helper_flat(table).lower()
 
 
-def test_s10_each_control_notes_where_it_failed_in_the_incident():
-    sec = helper_section("s-10")
+def test_s11_each_control_notes_where_it_failed_in_the_incident():
+    sec = helper_section("s-11")
     table = re.search(r"<table.*?</table>", sec, re.S).group(0)
-    ids = re.findall(r'<tr[^>]*>\s*<td id="(s10-[\w-]+)"', table)
+    ids = re.findall(r'<tr[^>]*>\s*<td id="(s11-[\w-]+)"', table)
     assert len(ids) == len(CONTROLS), "each control row is a note target"
     notes = dict(re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', sec, re.S))
     for rid, evidence in zip(ids, CONTROL_FAILURES):
@@ -342,7 +348,7 @@ def test_s10_each_control_notes_where_it_failed_in_the_incident():
 
 
 def test_notes_target_elements_on_their_slide_and_cite_https_sources():
-    for sid, minimum in (("s-9", 6), ("s-10", 15)):
+    for sid, minimum in (("s-9", 6), ("s-10", 12), ("s-11", 5)):
         sec = helper_section(sid)
         notes = re.findall(r'<aside class="note" data-for="#([\w-]+)">(.*?)</aside>', sec, re.S)
         assert len(notes) >= minimum, sid
@@ -372,7 +378,7 @@ def test_s9_notes_carry_the_caveats_and_our_inferences_labelled():
 
 
 def test_forbidden_and_inaccurate_wording_is_absent():
-    text = (helper_section("s-9") + helper_section("s-10")).lower()
+    text = (helper_section("s-9") + helper_section("s-10") + helper_section("s-11")).lower()
     assert "suicide" not in text
     assert "same agents" not in text, "19 Jul OpenAI-cluster takeover was a different Astra-family model"
     for firm in ("deloitte", "our firm", "our clients"):
@@ -384,9 +390,10 @@ def test_forbidden_and_inaccurate_wording_is_absent():
 def test_step_counts_and_clean_load(page):
     errors = open_deck(page)
     plan = dict(page.evaluate("window.deck.plan()"))
-    assert plan["s-9"] == 3 and plan["s-10"] == 4
+    assert plan["s-9"] == 3 and plan["s-10"] == 3 and plan["s-11"] == 0
     goto_slide(page, "s-9", 3)
-    goto_slide(page, "s-10", 4)
+    goto_slide(page, "s-10", 3)
+    goto_slide(page, "s-11", 0)
     assert errors == []
 
 
@@ -488,18 +495,47 @@ VISIBLE = """sid => { const s = document.getElementById(sid);
   }; }"""
 
 
-def test_s10_swaps_tiles_then_controls_with_a_title_per_phase(page):
+def test_s10_builds_its_tiles_under_one_title_and_never_shows_the_controls(page):
     open_deck(page)
-    for k in range(5):
+    for k in range(4):
         goto_slide(page, "s-10", k)
         v = page.evaluate(VISIBLE, "s-10")
-        phase = "tiles" if k <= 3 else "controls"
-        assert v["titles"] == [S10_TITLES[phase]], k
-        assert v["tiles"] == (S10_TILES[:k] if k <= 3 else []), k
-        assert (helper_norm(COXON) in [helper_norm(q) for q in v["quote"]]) == (1 <= k <= 3), k
-        assert not v["insight"], k
-        assert v["controls"] == (k == 4), k
-        assert v["prompts"] == [], k
+        assert v["titles"] == [TAKEAWAY_TITLES["s-10"]], k
+        assert v["tiles"] == S10_TILES[:k], k
+        assert (helper_norm(COXON) in [helper_norm(q) for q in v["quote"]]) == (k >= 1), k
+        assert not v["insight"] and not v["controls"] and v["prompts"] == [], k
+
+
+def test_s11_shows_the_controls_on_arrival_and_no_tiles(page):
+    """Presenter, 23 Nov: the table arrives whole, as it did as s-10's last phase."""
+    open_deck(page)
+    goto_slide(page, "s-11", 0)
+    v = page.evaluate(VISIBLE, "s-11")
+    assert v["titles"] == [TAKEAWAY_TITLES["s-11"]]
+    assert v["controls"] and v["tiles"] == [] and v["prompts"] == [] and not v["insight"]
+
+
+NOTES_WALK = """() => { const n = +document.querySelector('.notes-pos').textContent.split('/')[1];
+  return { n, title: [...document.querySelectorAll('section.slide.is-active h2.title')]
+    .filter(e => +getComputedStyle(e).opacity > .5).map(e => e.textContent.trim()),
+    slide: window.deck.state().slide }; }"""
+
+
+@pytest.mark.parametrize("sid", ["s-10", "s-11"])
+def test_each_takeaways_slides_notes_stay_on_that_slide(page, sid):
+    """Presenter, 23 Nov: paging the notes on one Takeaways slide never runs into the other's content."""
+    open_deck(page)
+    goto_slide(page, sid)
+    page.keyboard.press("n")
+    page.wait_for_function("() => document.body.classList.contains('notes-on')")
+    first = page.evaluate(NOTES_WALK)
+    own = len(re.findall(r'<aside class="note"', helper_section(sid)))
+    assert first["n"] == own, f"{sid}: notes list holds {first['n']} notes, the slide has {own}"
+    for k in range(first["n"]):
+        w = page.evaluate(NOTES_WALK)
+        assert w["slide"] == sid and w["title"] == [TAKEAWAY_TITLES[sid]], f"{sid} note {k + 1}: {w}"
+        page.keyboard.press("ArrowRight")
+    page.keyboard.press("Escape")
 
 
 @pytest.mark.parametrize("size", SIZES)

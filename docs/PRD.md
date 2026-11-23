@@ -143,7 +143,7 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 | 2 | Design prototypes → design rules | v1 done; v2 visuals (narration tiles, diagrams) reopened → workstream 7 | `design/prototypes/`, `docs/DESIGN.md` |
 | 3 | Writing voice | Done (extend with each verdict) | `docs/VOICE.md` |
 | 4 | v1 build (18 slides) + review round 1 | Done (cee382f) | `deck/deck.html`, `docs/SPEC.jsonl` |
-| 5 | Storyboard v2 (12 slides) | Done | `docs/STORYBOARD.md` |
+| 5 | Storyboard v2 (13 slides) | Done | `docs/STORYBOARD.md` |
 | 6 | Build v2 as `deck/deck-v2.html` | **Superseded** by the accepted rebuild (workstream 7, 22 Nov). History: first draft (10 slides) rejected on quality 20 Nov (e.g. s-7 step list over its title; sparse diagrams, labels colliding, narration tiles far from what they narrate). Causes: layout tests switched off for v2, only per-slide screenshots (taken before the shared narration column), no prototypes for the new visuals, agent briefs led by merge-safety not quality, 16:9-only tests. Rules now in `AGENTS.md` + S-030. Tile/slide specs were reopened and rebuilt. **Carried into the rebuild:** reader notes + sources (fact-checked), engine incl. notes-at-step (S-029) and swarm `data-stages`, test harness (S-017), recorded presenter decisions | `docs/SPEC.jsonl`, `deck/deck-v2.html` |
 | 7 | Presenter explains the vision → throwaway prototypes of the key visuals (narration tiles; one or two hero diagrams) judged by eye incl. at ~1288×598 → `DESIGN.md` rules → re-spec reopened slides → rebuild (parallel is fine) behind the S-030 layout guard → S-028 review | **Done** (22 Nov): every v2 slide built in situ behind the S-030 layout guard and accepted by the presenter step by step; Close chapter, reader-notes and title-bar refinements built; README published. S-028 closed on the presenter's acceptance (22 Nov) | `design/prototypes/`, `docs/DESIGN.md` |
 | 8 | Generalise the deck into a reusable skill (`skills/twm-presentation-builder/`): HTML slide builder, HTML → PPTX sub-skill, LLM-as-judge eval of process and output | **Built, awaiting presenter review** (23 Nov): 27 `PB-` specs; 25 done, PB-024 (PPTX: open in PowerPoint) and PB-025 (baseline eval: review `evals-runs/261123-baseline/REPORT.md`) at build | `skills/twm-presentation-builder-docs/` (PRD, SPEC.jsonl); ships as `skills/twm-presentation-builder/` |
@@ -192,6 +192,10 @@ attribute it to OpenAI and say no outside party verified it. Training-board mess
 - **Settled by the accepted deck (22 Nov):** capability pace sits on s-10 (takeaways); the pacing
   letter reads "over 1,300" signatories (letter page: 1,386); the weakly sourced Anthropic pause is
   omitted; the v2 first-draft review items were overtaken by the accepted rebuild.
+- **Takeaways is two slides (presenter, 23 Nov):** s-10 (pace tiles) and s-11 (controls table, fully
+  drawn on arrival, as before) share one "Takeaways" agenda entry. A slide that swaps to new content
+  reads as two slides, but reader notes run per slide, so the pace and controls notes ran together;
+  as separate slides each keeps its own notes. Close becomes s-12/s-13 and kickers renumber.
 
 ## Open questions
 
