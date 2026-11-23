@@ -10,8 +10,8 @@ later). Gates and judge prompts consume it; they never restate a criterion.
 | `profiles/<id>.json` | One deck-type profile each: which criteria, how much they weigh, which gate |
 | `criteria.py` | Loader and validator (`check`, `resolve <profile>`); run it, don't read it |
 
-Validate after any edit: `uv run ${CLAUDE_SKILL_DIR}/eval/criteria.py check`. A runner gets a
-profile's rubric with `uv run ${CLAUDE_SKILL_DIR}/eval/criteria.py resolve <profile>` (JSON list:
+Validate after any edit: `uv run ${CLAUDE_SKILL_DIR}/evals/criteria.py check`. A runner gets a
+profile's rubric with `uv run ${CLAUDE_SKILL_DIR}/evals/criteria.py resolve <profile>` (JSON list:
 each full criterion plus `weight`, `gate`, `params`).
 
 ## Criterion schema

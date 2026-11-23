@@ -1,6 +1,6 @@
 """Spec: PB-015
 
-The eval criterion library (`eval/criteria.jsonl` + `eval/flaws.json`) defines every criterion
+The eval criterion library (`evals/criteria.jsonl` + `evals/flaws.json`) defines every criterion
 once in a machine-readable, runner-agnostic schema that later gates, judges and profiles consume.
 
 Coverage: happy (schema, field order, enums, forms, anchors, concern and PRD-item coverage,

@@ -9,8 +9,8 @@ weighted, gated criteria for a profile, each carrying its full definition.
 
 Usage::
 
-    uv run eval/criteria.py check              # validate library, taxonomy and every profile
-    uv run eval/criteria.py resolve pitch      # print a profile's resolved criteria as JSON
+    uv run evals/criteria.py check              # validate library, taxonomy and every profile
+    uv run evals/criteria.py resolve pitch      # print a profile's resolved criteria as JSON
 """
 
 from __future__ import annotations

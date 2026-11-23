@@ -10,7 +10,7 @@ from pathlib import Path
 
 from helper_skill import REPO, SKILL_DIR
 
-EVAL_DIR = SKILL_DIR / "eval"
+EVAL_DIR = SKILL_DIR / "evals"
 CRITERIA = EVAL_DIR / "criteria.jsonl"
 FLAWS = EVAL_DIR / "flaws.json"
 PROFILES_DIR = EVAL_DIR / "profiles"
@@ -103,7 +103,7 @@ def copy_eval(tmp_path: Path) -> Path:
         The copied eval folder.
     """
     assert EVAL_DIR.is_dir(), "eval folder missing"
-    dst = tmp_path / "eval"
+    dst = tmp_path / "evals"
     shutil.copytree(EVAL_DIR, dst)
     return dst
 

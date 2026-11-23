@@ -1,6 +1,6 @@
 """Spec: PB-016
 
-Deck-type profiles (`eval/profiles/*.json`) adapt the one criterion library to editorial talks,
+Deck-type profiles (`evals/profiles/*.json`) adapt the one criterion library to editorial talks,
 pitches, data reviews and internal updates by selecting and weighting criteria by id, declaring
 gates and adding only profile-specific criteria.
 
