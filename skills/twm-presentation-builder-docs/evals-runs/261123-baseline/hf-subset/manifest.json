@@ -1,0 +1,61 @@
+{
+ "label": "baseline-hf-subset",
+ "target": "skills/twm-presentation-builder/examples/hf-incident/deck.html",
+ "concerns": [
+  "content",
+  "research",
+  "voice",
+  "design-layout",
+  "design-palette",
+  "design-style",
+  "architecture"
+ ],
+ "output_process": "output only (the copied example has no build history of its own)",
+ "concerns_note": "brief concerns minus pptx (no PPTX of this deck in scope) and process (output only)",
+ "date": "261123",
+ "profile": "editorial-talk",
+ "depth": "judges",
+ "k": 3,
+ "transcripts": false,
+ "mode": "pointwise",
+ "judge_model": "Claude Opus 5.5 (generic general-purpose subagents, model inherited)",
+ "scope_source": "PB-025 baseline part 1; presenter asleep, scope decided by the orchestrator for the presenter (answers the EVAL.md scope prompt; no prompt was asked)",
+ "sizes": [
+  "1920x1080",
+  "1288x598"
+ ],
+ "sizes_note": "judge screenshots at 1920x1080 (projected) and 1288x598 (short-wide Teams window); 1280x720 omitted to bound evidence, as its layout sits between the two. Gates render all three review sizes.",
+ "dispatch": "each judge got one filled judges/output-judge.md prompt (stored in prompts/) by path, nothing else",
+ "judged": [
+  "CN-01",
+  "CN-03",
+  "CN-05",
+  "CN-06",
+  "CN-10",
+  "RS-01",
+  "RS-02",
+  "RS-04",
+  "VC-08",
+  "DL-05",
+  "DL-07",
+  "DS-02",
+  "DS-04",
+  "DS-06"
+ ],
+ "units": {
+  "CN-01, CN-05, DL-05, DL-07, DS-04": "s-4 (the scene slide: densest, most steps), all steps at 1920x1080 and 1288x598",
+  "CN-03": "s-2 (the step-built concept diagram), all steps, both sizes",
+  "DS-02": "s-5 (longest wrapped copy), all steps, both sizes",
+  "RS-01, RS-02": "s-4 text extract + its 1920 shots; RS-02 also gets the brief's fixed research pack as the sources",
+  "RS-04": "s-9 (carries the disputed count), text + 1920 shots",
+  "CN-06, VC-08": "deck: every slide's text extract; VC-08 also the voice profile",
+  "CN-10, DS-06": "deck: every step at 1920x1080"
+ },
+ "budget_note": "~120 judge subagents across all three targets: one sampled unit per criterion, weight-3 and gate criteria first",
+ "not_judged": {
+  "CN-02, CN-07, CN-09, RS-03, RS-06, VC-01, VC-02, VC-04, VC-06, VC-07, DL-03, DL-04, DL-06, DL-08, DP-04, DP-06, DS-05": "judge budget; listed missing in the report",
+  "DP-07": "repo-target T criterion; output-only scope",
+  "AR-07": "repo-target D criterion; no --repo (the example has no history)"
+ },
+ "text_extract": "evidence/text/<slide>.txt by ../extract_text.py (the skill ships no text extractor)"
+}

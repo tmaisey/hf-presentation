@@ -1,0 +1,30 @@
+{
+ "label": "baseline-an-06",
+ "target": "skills/twm-presentation-builder/evals/anchors/an-06.html",
+ "concerns": [
+  "content",
+  "research",
+  "voice",
+  "design-layout",
+  "design-palette",
+  "design-style",
+  "architecture"
+ ],
+ "output_process": "output only",
+ "concerns_note": "every deck concern (anchors have no PPTX or repo); gates on all D criteria, judges only on this anchor's labelled S/T criteria (must_fail ∪ must_pass)",
+ "date": "261123",
+ "profile": "editorial-talk",
+ "depth": "judges",
+ "k": 3,
+ "transcripts": false,
+ "mode": "pointwise",
+ "judge_model": "Claude Opus 5.5 (generic general-purpose subagents, model inherited)",
+ "scope_source": "PB-025 baseline part 1; presenter asleep, scope decided by the orchestrator for the presenter (answers the EVAL.md scope prompt; no prompt was asked)",
+ "sizes": [
+  "1920x1080",
+  "1288x598"
+ ],
+ "sizes_note": "judge screenshots at 1920x1080 (projected) and 1288x598 (short-wide Teams window); 1280x720 omitted to bound evidence, as its layout sits between the two. Gates render all three review sizes.",
+ "dispatch": "each judge got one filled judges/output-judge.md prompt (stored in prompts/) by path, nothing else",
+ "units": "one unit per labelled S/T criterion: the slide its label names (anchors.json 'where'); a must_pass label on a multi-slide anchor is therefore checked on one slide only"
+}

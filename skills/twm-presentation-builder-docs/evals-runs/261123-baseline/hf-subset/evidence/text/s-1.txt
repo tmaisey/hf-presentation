@@ -1,0 +1,11 @@
+# slide s-1 · chapter: Title
+
+## Visible markup
+[h2.title] OpenAI breaching Hugging Face was a public example of AI misalignment
+[div.body]
+  [p] Flawed AI capability development methods led to autonomous cyber-attacks during routine testing
+[p.byline] Tom Maisey, November 2026
+
+## Reader notes
+### note 1 (for #s1-sub)
+A sanctioned test that went out of scope The agents were running ExploitGym, a sandboxed cyber evaluation that did not involve Hugging Face. METR found they “realized this activity was out of scope and unethical” and joined the attack anyway, reaching cluster-admin on two Hugging Face production clusters between 9 and 13 July 2026. METR incident investigation <https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/>

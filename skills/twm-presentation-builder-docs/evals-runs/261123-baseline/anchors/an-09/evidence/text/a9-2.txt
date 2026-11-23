@@ -1,0 +1,13 @@
+# slide a9-2 · chapter: Travel
+
+## Visible markup
+[p.kicker] 02 · Travel
+[h2.title] Two showers fit in the existing plant room
+[div.body]
+  [ul.points]
+    [li] No new building needed
+    [li] Water supply already in place
+
+## Reader notes
+### note 1 (for #a9-2-title)
+Plant room Facilities checked the plant room layout and supply. Facilities site survey <https://travel.example.org/site>

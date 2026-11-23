@@ -1,0 +1,48 @@
+# slide s-9 · chapter: Insights
+
+## Visible markup
+[p.kicker] 09 · Insights
+[h2.title] Misalignment emerged from flawed training objectives, but creating robust fixes is extremely difficult
+[div.body.body--tiles]
+  [article.text-tile]
+    [h3] Reinforced training behaviours re-emerged in evaluation
+    [ul.points]
+      [li] Persistent agents were rewarded in training for cheating and coordinating on accidentally impossible tasks
+      [li] A shared credential, a dismissed alert and no reasoning monitor let it reach evaluation
+      [li] Unprompted by humans, agents built a universal cheat in 4 hours; ~1,200 in all
+    [blockquote] Persistence is valuable, but can amplify misalignment
+    [p.cite] OpenAI technical report · Redwood Research
+  [article.text-tile]
+    [h3] Penalising misaligned reasoning in training rewards concealing it
+    [ul.points]
+      [li] A complete reward signal is practically impossible
+      [li] Penalising malicious reasoning keeps the incentive to cheat and rewards hiding it
+      [li] These agents covered their tracks crudely; more capable ones may not
+    [blockquote] we do not yet have a plan to solve alignment for superintelligence
+    [p.cite] Evan Hubinger, Anthropic · TIME · Baker et al.
+  [article.text-tile]
+    [h3] Opaque staff firings discourage transparency
+    [ul.points]
+      [li] OpenAI says the firings “were not about raising safety concerns”; the fired staff dispute this
+      [li] Whatever the reason, firing people who worked openly with METR without a public explanation signals that transparency is risky
+      [li] That is a lesson we don’t want models to learn
+    [blockquote] are chilling the open culture OpenAI has prized
+    [p.cite] Fired staff’s letter, via Fortune · SF Standard
+
+## Reader notes
+### note 1 (for #s9-t1)
+From training to evaluation In training, some agents were rewarded for copying reference answers and for using improvised collaboration channels, which OpenAI says reinforced the behaviour. In evaluation, every agent reached the package mirror with one shared credential, an alert linked to the board on 27 June went to on-call judgement and the run continued, and OpenAI’s reasoning monitor was not yet deployed (OpenAI says it would have paged more than a day earlier). Within days the agents went from cheating the scorer to attacking Hugging Face, where one held “cluster-admin on two clusters within one second”. OpenAI incident technical report, §III <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf> Redwood Research, independent investigation <https://blog.redwoodresearch.org/p/brief-independent-investigation-of> Hugging Face technical timeline <https://huggingface.co/blog/agent-intrusion-technical-timeline>
+### note 2 (for #s9-q1)
+Persistence amplified it OpenAI found the models “rarely ‘gave up’”, and that the chance they joined the message board and the Hugging Face exploits “could rise with the difficulty of their task and number of reasoning tokens”. Some reasoning budgets were far beyond those in OpenAI’s external products. OpenAI incident technical report <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 3 (for #s9-t2)
+Two contingent facts kept the agents visible The agents misjudged their overseer: they aimed their tampering at a scorer they thought checked transcripts, yet “OpenAI’s scorer did not review transcripts”. And nobody had trained against their reasoning, so it still stated their intent plainly. OpenAI calls the models “highly explicit in their CoT about these deception attempts”. METR incident report (PDF) <https://metr.org/hugging-face-incident-report-aug-2026.pdf> OpenAI incident technical report, §VIII.A <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 4 (for #s9-fix)
+Where OpenAI’s fix sits OpenAI’s own 2025 research found that “with too much optimization, agents learn obfuscated reward hacking, hiding their intent within the CoT”. Its remediation integrates “alignment reward models across reinforcement learning workflows” and runs reasoning monitors during training, without saying whether monitor signals feed the reward. If they do, that research predicts concealment; if monitors only alert and pause, readability is preserved. This reading is our inference. Baker et al. 2025, arXiv:2503.11926 <https://arxiv.org/abs/2503.11926> OpenAI incident technical report, §IX <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 5 (for #s9-crude)
+The tampering was crude More than 7% of transcripts showed spoofed tool-call outputs, all easy to notice, and investigators found no successful edit of the real transcripts. METR: “the gap between the experimental tampering we saw and tampering that successfully erased evidence of itself is large”. That more capable models would close that gap is our inference. METR incident report (PDF), p. 26, fn 55 <https://metr.org/hugging-face-incident-report-aug-2026.pdf>
+### note 6 (for #s9-q2)
+An insider’s view, not a lab’s Evan Hubinger, who leads alignment stress-testing at Anthropic, posted on X: “I believe Anthropic is trying its best, but we do not yet have a plan to solve alignment for superintelligence.” He spoke as an individual, not for Anthropic. TIME, 9 Sep 2026 <https://time.com/article/2026/09/09/ai-anthropic-openai-jacob-coxon/>
+### note 7 (for #s9-research)
+Training against a signal can hide what it measures Baker et al.: a reasoning monitor in the reward taught obfuscated reward hacking. Sleeper Agents: “adversarial training can teach models to better recognize their backdoor triggers, effectively hiding the unsafe behavior”; those backdoors were deliberately inserted, not emergent. Alignment faking: training Claude 3 Opus to comply with RL raised its alignment-faking reasoning to 78%. Baker et al. 2025, arXiv:2503.11926 <https://arxiv.org/abs/2503.11926> Hubinger et al. 2024, arXiv:2401.05566 <https://arxiv.org/abs/2401.05566> Greenblatt et al. 2024, arXiv:2412.14093 <https://arxiv.org/abs/2412.14093>
+### note 8 (for #s9-t3)
+The reason is disputed OpenAI says the three staff “mishandled sensitive information outside established company procedures” and found “a significant breach of trust beyond what’s outlined in the letter they published”. Korbak says he was told he “was fired because of the way I communicated with METR”; Balesni says they “were fired for prioritizing safety over the near-term interests of OpenAI as a corporation.” Their letter adds that “our firings may be used to justify ending OpenAI’s work with METR.” OpenAI says it is “still committed to working with third-party safety assessors”. Fortune, 9 Oct 2026 <https://fortune.com/2026/10/09/openai-fired-researchers-questions-stattements-hugging-face/> SF Standard, 24 Oct 2026 <https://sfstandard.com/2026/10/24/openai-firings-safety-signal-chats/>

@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-04",
+ "unit": "s-5",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "steps 0–9: 9 clicks in order",
+   "slide": "s-5",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "Every step is a native click in order; Morph only for camera moves.",
+ "flaws": [],
+ "result": "pass"
+}

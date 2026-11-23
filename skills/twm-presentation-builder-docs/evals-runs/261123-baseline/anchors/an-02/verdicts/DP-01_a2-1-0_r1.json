@@ -1,0 +1,48 @@
+{
+ "criterion": "DP-01",
+ "unit": "a2-1/0",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a2-1",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "p. «Pupils borrowed 210 books a week» 3.27:1 < 4.5:1 at 22px"
+  },
+  {
+   "slide": "a2-1",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "p.caption «Counts are weekly averages over » 3.27:1 < 4.5:1 at 22px"
+  },
+  {
+   "slide": "a2-1",
+   "step": 0,
+   "size": "1280x720",
+   "note": "p. «Pupils borrowed 210 books a week» 3.27:1 < 4.5:1 at 16px"
+  },
+  {
+   "slide": "a2-1",
+   "step": 0,
+   "size": "1280x720",
+   "note": "p.caption «Counts are weekly averages over » 3.27:1 < 4.5:1 at 16px"
+  },
+  {
+   "slide": "a2-1",
+   "step": 0,
+   "size": "1288x598",
+   "note": "p. «Pupils borrowed 210 books a week» 3.27:1 < 4.5:1 at 16px"
+  },
+  {
+   "slide": "a2-1",
+   "step": 0,
+   "size": "1288x598",
+   "note": "p.caption «Counts are weekly averages over » 3.27:1 < 4.5:1 at 16px"
+  }
+ ],
+ "rationale": "Gate rule: WCAG 2 ratio of each visible text run against its composited background (4.5, large 3), unrounded; never-text palette roles used as text fail; text softened (blurred) beneath a focus layer is skipped. 6 finding(s) break it.",
+ "flaws": [
+  "insufficient-contrast"
+ ],
+ "result": "fail"
+}

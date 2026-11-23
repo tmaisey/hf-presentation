@@ -1,0 +1,14 @@
+{
+ "criterion": "VC-05",
+ "unit": "a3-4",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a3-4",
+   "note": "every overlay ≤ 3 sentences (or none)"
+  }
+ ],
+ "rationale": "Gate rule: each .overlay holds ≤ 3 sentences. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

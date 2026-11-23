@@ -1,0 +1,66 @@
+{
+ "criterion": "DL-01",
+ "unit": "a6-1/1",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1920x1080",
+   "note": "layout guard: covers title: msg-card \"CommuterOne boat an hour was too few\""
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1920x1080",
+   "note": "layout guard: covers title: msg-agent \"Commuter\""
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1920x1080",
+   "note": "collision #a6-1-title «A second ferry halved the north » × div.msg-card.quote.is-visible «CommuterOne boat an hour was too»"
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1280x720",
+   "note": "layout guard: covers title: msg-card \"CommuterOne boat an hour was too few\""
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1280x720",
+   "note": "layout guard: covers title: msg-agent \"Commuter\""
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1280x720",
+   "note": "collision #a6-1-title «A second ferry halved the north » × div.msg-card.quote.is-visible «CommuterOne boat an hour was too»"
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1288x598",
+   "note": "layout guard: covers title: msg-card \"CommuterOne boat an hour was too few\""
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1288x598",
+   "note": "layout guard: covers title: msg-agent \"Commuter\""
+  },
+  {
+   "slide": "a6-1",
+   "step": 1,
+   "size": "1288x598",
+   "note": "collision #a6-1-title «A second ferry halved the north » × div.msg-card.quote.is-visible «CommuterOne boat an hour was too»"
+  }
+ ],
+ "rationale": "Gate rule: layout_guard faults plus pairwise text/tile box collisions and off-canvas boxes, at every size; deliberate stacks are not collisions: a textless tile with another shape of its own diagram, or a focus card (overlay, pop-over) over body content (never over a title or chrome). 9 finding(s) break it.",
+ "flaws": [
+  "occluded-content"
+ ],
+ "result": "fail"
+}

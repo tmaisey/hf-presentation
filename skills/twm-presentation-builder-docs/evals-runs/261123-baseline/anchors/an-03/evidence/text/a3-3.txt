@@ -1,0 +1,13 @@
+# slide a3-3 · chapter: Orders
+
+## Visible markup
+[p.kicker] 02 · Orders
+[h2.title] Pre-orders fell. Walk-ins rose.
+[div.body]
+  [ul.points]
+    [li] Pre-orders dropped in the second month
+    [li] Walk-in sales grew in the same weeks
+
+## Reader notes
+### note 1 (for #a3-3-title)
+Sales mix Monthly sales split by channel. Till summary <https://bakery.example.org/till>

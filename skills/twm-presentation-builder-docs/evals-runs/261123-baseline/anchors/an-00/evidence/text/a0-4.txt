@@ -1,0 +1,13 @@
+# slide a0-4 · chapter: Next
+
+## Visible markup
+[p.kicker] 03 · Next
+[h2.title] Offer booked slots at the next two branches
+[div.body]
+  [ul.points]
+    [li] Start with repeat prescriptions
+    [li] Keep walk-in collection open
+
+## Reader notes
+### note 1 (for #a0-4-title)
+Next branches Both branches have the longest midday queues in the region. Regional queue table <https://pharmacy-review.example.org/regional>

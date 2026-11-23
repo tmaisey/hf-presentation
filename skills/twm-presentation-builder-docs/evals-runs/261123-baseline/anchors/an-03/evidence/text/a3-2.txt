@@ -1,0 +1,13 @@
+# slide a3-2 · chapter: Orders
+
+## Visible markup
+[p.kicker] 01 · Orders
+[h2.title] The surprising reason pre-orders stalled
+[div.body]
+  [ul.points]
+    [li] The order form closed at 6pm the day before
+    [li] Most orders arrived after 8pm
+
+## Reader notes
+### note 1 (for #a3-2-title)
+Order times Order timestamps from the shop's booking tool. Order export <https://bakery.example.org/orders>

@@ -1,0 +1,17 @@
+{
+ "criterion": "PX-01",
+ "unit": "s-5",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "words not in any text frame: cached, clean, coordinator, crash, edits, made, modified, outputs, probe, reads, reload, sacrificial; pictures on slide: 0",
+   "slide": "s-5",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "17 of 262 words are not native text.",
+ "flaws": [
+  "rasterised-text"
+ ],
+ "result": "fail"
+}

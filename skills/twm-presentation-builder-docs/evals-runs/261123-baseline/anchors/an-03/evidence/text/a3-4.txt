@@ -1,0 +1,13 @@
+# slide a3-4 · chapter: Next
+
+## Visible markup
+[p.kicker] 03 · Next
+[h2.title] A rising tide of dough .
+[div.body]
+  [ul.points]
+    [li] Move the order cut-off to 10pm
+    [li] Bake to the order count first
+
+## Reader notes
+### note 1 (for #a3-4-title)
+Cut-off A later cut-off was the change most customers asked for. Customer survey <https://bakery.example.org/survey>

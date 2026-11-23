@@ -1,0 +1,163 @@
+{
+ "tool": "gates",
+ "version": 1,
+ "deck": "evals/anchors/an-07.html",
+ "pptx": null,
+ "repo": null,
+ "profile": "editorial-talk",
+ "concerns": [
+  "content",
+  "research",
+  "voice",
+  "design-layout",
+  "design-palette",
+  "design-style",
+  "architecture"
+ ],
+ "rerun": true,
+ "verdicts": [
+  "CN-04_a7-1_r1.json",
+  "CN-04_a7-2_r1.json",
+  "CN-08_a7-1_r1.json",
+  "CN-08_a7-2_r1.json",
+  "RS-05_deck_r1.json",
+  "VC-03_a7-1_r1.json",
+  "VC-03_a7-2_r1.json",
+  "VC-05_a7-1_r1.json",
+  "VC-05_a7-2_r1.json",
+  "DL-01_a7-1-0_r1.json",
+  "DL-01_a7-2-0_r1.json",
+  "DL-02_a7-1-0_r1.json",
+  "DL-02_a7-2-0_r1.json",
+  "DL-09_deck_r1.json",
+  "DL-10_a7-1-0_r1.json",
+  "DL-10_a7-2-0_r1.json",
+  "DP-01_a7-1-0_r1.json",
+  "DP-01_a7-2-0_r1.json",
+  "DP-02_a7-1-0_r1.json",
+  "DP-02_a7-2-0_r1.json",
+  "DP-03_deck_r1.json",
+  "DS-01_deck_r1.json",
+  "DS-03_deck_r1.json",
+  "DS-07_deck_r1.json",
+  "AR-01_deck_r1.json",
+  "AR-02_deck_r1.json",
+  "AR-03_deck_r1.json",
+  "AR-04_deck_r1.json",
+  "AR-05_deck_r1.json",
+  "AR-06_deck_r1.json"
+ ],
+ "criteria": {
+  "CN-04": {
+   "checked": "visible words per slide (max over steps, notes excluded) ≤ params.max_words (default 40)",
+   "units": 2,
+   "fail": 0
+  },
+  "CN-08": {
+   "checked": "every slide except lead/closing slides has an aside.note with text",
+   "units": 2,
+   "fail": 0
+  },
+  "RS-05": {
+   "checked": "every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link",
+   "units": 1,
+   "fail": 0
+  },
+  "VC-03": {
+   "checked": "each title: no trailing full stop, one sentence, ≤ 1 em/i run",
+   "units": 2,
+   "fail": 0
+  },
+  "VC-05": {
+   "checked": "each .overlay holds ≤ 3 sentences",
+   "units": 2,
+   "fail": 0
+  },
+  "DL-01": {
+   "checked": "layout_guard faults plus pairwise text/tile box collisions and off-canvas boxes, at every size; deliberate stacks are not collisions: a textless tile with another shape of its own diagram, or a focus card (overlay, pop-over) over body content (never over a title or chrome)",
+   "units": 2,
+   "fail": 0
+  },
+  "DL-02": {
+   "checked": "rendered text px ≥ params.min_px_1920 (20) at ≥ 1920 wide, else ≥ params.min_px_1280 (15); labels (uppercase and tracked ≥ .05em, or a .cite/.quote-from source line) ≥ params.min_label_px_1920 (18) / params.min_label_px_1280 (12)",
+   "units": 2,
+   "fail": 0
+  },
+  "DL-09": {
+   "checked": "bar, agenda and notes button keep their box (±1 px) between consecutive slides",
+   "units": 1,
+   "fail": 0
+  },
+  "DL-10": {
+   "checked": "every connector ends ≥ 0.5 units clear of both tiles; markers orient=auto with refY centred",
+   "units": 2,
+   "fail": 0
+  },
+  "DP-01": {
+   "checked": "WCAG 2 ratio of each visible text run against its composited background (4.5, large 3), unrounded; never-text palette roles used as text fail; text softened (blurred) beneath a focus layer is skipped",
+   "units": 2,
+   "fail": 2
+  },
+  "DP-02": {
+   "checked": "unsoftened connector strokes ≥ 3:1 against the diagram's composited background",
+   "units": 2,
+   "fail": 0
+  },
+  "DP-03": {
+   "checked": "no hex/rgb()/hsl()/oklch()/lab()/lch() colour literal outside the PALETTE block",
+   "units": 1,
+   "fail": 0
+  },
+  "DP-05": {
+   "missing": "needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)"
+  },
+  "DS-01": {
+   "checked": "≤ 2 primary font families, each declared in --sys-font-*; every size on the --sys-type-*/--comp-* size scale (diagram text: rendered size on the scale, or its SVG size on a --comp-*-floor)",
+   "units": 1,
+   "fail": 0
+  },
+  "DS-03": {
+   "checked": "ambient layer only on lead or build-free, diagram-free slides; no other looping animation; reduced motion stops all drift",
+   "units": 1,
+   "fail": 0
+  },
+  "DS-07": {
+   "checked": "no visible link (slide or notes callout) in the browser's default link colours",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-01": {
+   "checked": "network blocked: no external request, no failed resource, no console error; no external reference in the source",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-02": {
+   "checked": "assemble.endpoint_faults finds nothing",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-03": {
+   "checked": "keyboard (→ then ←) reaches every slide × step in order both ways; each state renders the same both ways and via goto",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-04": {
+   "checked": "no <style>, <script>, style= or on*= inside slide sections",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-05": {
+   "checked": "one non-empty, unique title per slide; no DOM-later block sits above an earlier one in the same column",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-06": {
+   "checked": "every img has alt; every slide svg/role=img has an accessible name (aria-label, labelledby or <title>)",
+   "units": 1,
+   "fail": 0
+  },
+  "AR-07": {
+   "missing": "target repo not given (pass --repo)"
+  }
+ }
+}

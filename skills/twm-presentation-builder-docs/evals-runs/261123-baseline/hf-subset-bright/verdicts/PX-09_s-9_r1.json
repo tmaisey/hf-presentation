@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-09",
+ "unit": "s-9",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "notes equal the reader note",
+   "slide": "s-9",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "Notes carry the reader note.",
+ "flaws": [],
+ "result": "pass"
+}

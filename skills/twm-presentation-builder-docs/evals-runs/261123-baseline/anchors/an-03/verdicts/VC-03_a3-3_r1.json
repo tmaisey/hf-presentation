@@ -1,0 +1,20 @@
+{
+ "criterion": "VC-03",
+ "unit": "a3-3",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a3-3",
+   "note": "title ends with a full stop: 'Pre-orders fell. Walk-ins rose.'"
+  },
+  {
+   "slide": "a3-3",
+   "note": "title has more than one sentence: 'Pre-orders fell. Walk-ins rose.'"
+  }
+ ],
+ "rationale": "Gate rule: each title: no trailing full stop, one sentence, ≤ 1 em/i run. 2 finding(s) break it.",
+ "flaws": [
+  "title-form"
+ ],
+ "result": "fail"
+}

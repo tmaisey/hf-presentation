@@ -1,0 +1,16 @@
+{
+ "criterion": "RS-05",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a9-1",
+   "note": "bare-text citation in note: 'te at least three days a week. Source: regional commuter survey, 2025.'"
+  }
+ ],
+ "rationale": "Gate rule: every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link. 1 finding(s) break it.",
+ "flaws": [
+  "broken-link"
+ ],
+ "result": "fail"
+}

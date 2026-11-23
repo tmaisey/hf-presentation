@@ -1,0 +1,33 @@
+# slide a6-1 · chapter: Crossing
+
+## Visible markup
+[p.kicker] 01 · Crossing
+[h2.title] A second ferry halved the north pier wait
+[div.body]
+  [svg.diagram]
+    [g.layer-nodes]
+      [g.tile]
+        [text.tile-title] North pier
+      [g.tile]
+        [text.tile-title] Ferry A
+      [g.tile]
+        [text.tile-title] Ferry B
+      [g.tile]
+        [text.tile-title] South pier
+  [div.msg-card.quote]
+    [p.msg-agent] Commuter
+    [blockquote.msg-text] One boat an hour was too few.
+  [div.msg-card.quote]
+    [p.msg-agent] Deckhand
+    [blockquote.msg-text] The half-past boat is never full.
+  [div.msg-card.quote]
+    [p.msg-agent] Skipper
+    [blockquote.msg-text] We land on time now.
+
+## Reader notes
+### note 1 (for #a6-1-title)
+Waiting times Average wait at the north pier in the morning peak, before and after Ferry B. Pier survey <https://ferry.example.org/survey>
+### note 2 (for #a6-f2)
+Ferry B Ferry B leaves at half past each hour. Timetable <https://ferry.example.org/timetable>
+### note 3 (for #a6-quotes)
+Pier interviews Verbatim from the pier interviews: “One boat an hour was too few.” “The half-past boat is never full.” “We land on time now.” Pier survey <https://ferry.example.org/survey>

@@ -1,0 +1,37 @@
+{
+ "criterion": "PX-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "literal #F1F3F4 equals a theme colour",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "literal #F1F3F4 equals a theme colour",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "literal #FFFFFF equals a theme colour",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "literal #F1F3F4 equals a theme colour",
+   "slide": "s-5",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "literal #F1F3F4 equals a theme colour",
+   "slide": "s-5",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "0 theme mismatches, 8 literal colours and 0 explicit fonts.",
+ "flaws": [
+  "literal-colour"
+ ],
+ "result": "fail"
+}

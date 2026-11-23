@@ -1,0 +1,79 @@
+{
+  "tool": "shoot",
+  "version": 1,
+  "deck": "evals/anchors/an-08.html",
+  "sizes": [
+    "1920x1080",
+    "1288x598"
+  ],
+  "settle_ms": 0,
+  "notes": false,
+  "slides": [
+    {
+      "id": "a8-1",
+      "steps": 0
+    },
+    {
+      "id": "a8-2",
+      "steps": 2
+    }
+  ],
+  "shots": [
+    {
+      "file": "a8-1-0-1920x1080.png",
+      "slide": "a8-1",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "a8-2-0-1920x1080.png",
+      "slide": "a8-2",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "a8-2-1-1920x1080.png",
+      "slide": "a8-2",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "a8-2-2-1920x1080.png",
+      "slide": "a8-2",
+      "step": 2,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "a8-1-0-1288x598.png",
+      "slide": "a8-1",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "a8-2-0-1288x598.png",
+      "slide": "a8-2",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "a8-2-1-1288x598.png",
+      "slide": "a8-2",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "a8-2-2-1288x598.png",
+      "slide": "a8-2",
+      "step": 2,
+      "size": "1288x598",
+      "mode": "step"
+    }
+  ]
+}

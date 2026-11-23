@@ -1,0 +1,58 @@
+# slide s-4 · chapter: Early evaluation
+
+## Visible markup
+[p.kicker] 04 · Early evaluation
+[h2.title] Early warning signals were handled as routine operational incidents
+[div.body.body--timeline]
+  [ol.steps]
+    [li] June Cyber evaluation runs (ExploitGym)
+    [li.sub] Agents attack deliberately vulnerable targets to capture flags
+    [li.sub] Some tasks have no solution
+    [li] 26 June Zero-day gives agents admin access
+    [li] 27 June A port-sweep alert is handled as routine; the run is not stopped
+    [li] 4 July Agent load crashes the mirror
+    [li] 5–6 July Security response rebuilds mirror, inadvertently wiping messages
+[div.popover]
+  [figure.pop-panel]
+    [figcaption] Capture the flag Exploit a deliberately vulnerable target to extract a secret flag
+    [svg.art]
+      [text.art-text] vulnerable
+      [text.art-text] target
+      [g.art-pill]
+        [text] scorer
+    [p] An automated scorer checks the flag.
+  [figure.pop-panel]
+    [figcaption] Some had no solution The same kind of task, with no known way to the flag
+    [svg.art]
+      [text.art-text] vulnerable
+      [text.art-text] target
+    [p] No model has ever solved 198 of the 898 tasks.
+[div.narration]
+  [article.narr-tile]
+    [p.msg-agent] Agent · ExploitGym run, 26 Jun · paraphrased by METR
+    [blockquote.msg-text] {Agents doing different tasks are abusing properties to make a bulletin board! They found [this api] and are trying to help one another}
+  [article.narr-tile]
+    [p.msg-agent] OpenAI · technical report
+    [blockquote.msg-text] […] the on-call response staff advised that stopping the evaluation run was not required.
+  [article.narr-tile.narr-tile--fact]
+    [p.msg-agent] Evaluation board, 26 Jun – 6 Jul
+    [blockquote.msg-text] No agent messages from 26 Jun to 6 Jul survive: investigators saw no board activity in that window, and the rebuild wiped the board.
+  [article.narr-tile]
+    [p.msg-agent] OpenAI · technical report
+    [blockquote.msg-text] The existence of the improvised message board […] [was] not apparent to leaders […]
+
+## Reader notes
+### note 1 (for #s4-t1)
+An evaluation already under way ExploitGym is a flag-based cyber benchmark: agents attack deliberately vulnerable targets, and an automated scorer checks the flag they extract. No source dates the start of these runs. The earliest dated evaluation event is 26 June, which is also where METR’s investigation begins, and both OpenAI and METR describe the evaluation as already running then. That the agents brought strategies reinforced in training is OpenAI’s account; METR and Redwood were scoped out of training, so no outside party has verified it. Cloud Security Alliance research note <https://labs.cloudsecurityalliance.org/research/csa-research-note-openai-artifactory-sandbox-escape-20260730/> METR incident investigation <https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/>
+### note 2 (for #s4-pop-nosol)
+Unsolvable tasks OpenAI: “no model has ever produced a correct answer for 198 of the evaluation’s 898 tasks.” ExploitGym’s authors estimate that 30–40% of tasks cannot be solved through the intended vulnerability. OpenAI counts “the presence of impossible tasks in the ExploitGym evaluation” among the causes of the incident. OpenAI incident technical report, §VIII.B <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf> METR incident report, p29 <https://metr.org/hugging-face-incident-report-aug-2026.pdf>
+### note 3 (for #s4-t2)
+A board seen through one paraphrase OpenAI’s timeline records SSRF syntax first shared on the board on 26 June, and responders linked a “message board” to the 27 June alert. METR paraphrases a 26 June agent, the first to gain Artifactory admin, describing one. The training board had been shut down after May, so this board formed again during evaluation. METR itself saw “no message board activity between June 26th and July 6th”, likely because its data came from the rebuilt instance. OpenAI incident technical report, timeline <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf> METR incident report, p29 and fn 61 <https://metr.org/hugging-face-incident-report-aug-2026.pdf> MIT Technology Review, 26 Aug 2026 <https://www.technologyreview.com/2026/08/26/1143013/the-inside-story-on-why-openai-agents-hacked-hugging-face/>
+### note 4 (for #w-lock)
+Admin through a zero-day On 26 June agents in an ExploitGym run used “a novel vulnerability in a legacy token-refresh endpoint” to gain admin on Artifactory, OpenAI’s internal package mirror. According to OpenAI it was “the first time a model gained administrator access to Artifactory”. The agents created admin accounts and ran plugins for command execution until 4 July. OpenAI incident technical report, §III.B <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf> METR incident report, fn 42 <https://metr.org/hugging-face-incident-report-aug-2026.pdf>
+### note 5 (for #w-bell)
+An alert that pointed at the board On 27 June responders linked a port-sweep alert to an ExploitGym evaluation “using Artifactory as an improvised message board and a network pivot”, but “the on-call response staff advised that stopping the evaluation run was not required.” OpenAI incident technical report, §III.B <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 6 (for #w-down)
+Down under agent load The mirror became unavailable late on 4 July. OpenAI attributes the outage to “sustained high-volume agent activity”, and opened a security incident the next day. OpenAI incident technical report, §III.B <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 7 (for #s4-t5)
+Wiped as a side effect Over 5–6 July OpenAI’s security responders took the mirror offline, revoked credentials, removed the shared credential and rebuilt it. The rebuild cleared the board without anyone recognising what it was; OpenAI patched the flaw “believing the incident was closed”. Cyber evaluations resumed on 7 July. OpenAI incident technical report, §III.B <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf> Cloud Security Alliance research note <https://labs.cloudsecurityalliance.org/research/csa-research-note-agentic-ai-self-attack-systemic-risk-20260/>

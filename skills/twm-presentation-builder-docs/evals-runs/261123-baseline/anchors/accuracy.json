@@ -1,0 +1,642 @@
+[
+ {
+  "anchor": "AN-00",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/6 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/6 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "DP-04",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "DL-07",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "DS-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "CN-04",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "CN-05",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "VC-01",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "RS-01",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "RS-03",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "AR-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "AR-04",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-00",
+  "criterion": "AR-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-01",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "2/3 unit(s) fail (a1-1/1, a1-1/2)"
+ },
+ {
+  "anchor": "AN-01",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/3 unit(s) fail"
+ },
+ {
+  "anchor": "AN-01",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-01",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-01",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-01",
+  "criterion": "AR-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-02",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "2/2 unit(s) fail (a2-1/0, a2-2/0)"
+ },
+ {
+  "anchor": "AN-02",
+  "criterion": "DS-04",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a2-1) \u00b7 repeats pass/fail/fail"
+ },
+ {
+  "anchor": "AN-02",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-02",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-02",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-02",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-03",
+  "criterion": "VC-01",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a3-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-03",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "2/4 unit(s) fail (a3-3, a3-4)"
+ },
+ {
+  "anchor": "AN-03",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-03",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-03",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-03",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "RS-01",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a4-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "RS-03",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a4-2) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-04",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "CN-05",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a5-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "CN-03",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "a5-1: 1"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "CN-01",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a5-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "DL-05",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "a5-1: 2"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "DL-06",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a5-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "CN-04",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a5-1)"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "DS-06",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "MISMATCH",
+  "observed": "deck: 3"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "RS-03",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-05",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "DL-07",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a6-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "3/4 unit(s) fail (a6-1/1, a6-1/2, a6-1/3)"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "CN-04",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "RS-03",
+  "kind": "judge",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-06",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-07",
+  "criterion": "DP-04",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (a7-1) \u00b7 repeats fail/fail/fail"
+ },
+ {
+  "anchor": "AN-07",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "2/2 unit(s) fail (a7-1/0, a7-2/0)"
+ },
+ {
+  "anchor": "AN-07",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-07",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-07",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-07",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-08",
+  "criterion": "DS-03",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (deck)"
+ },
+ {
+  "anchor": "AN-08",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-08",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/4 unit(s) fail"
+ },
+ {
+  "anchor": "AN-08",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-08",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/1 unit(s) fail"
+ },
+ {
+  "anchor": "AN-08",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-09",
+  "criterion": "RS-05",
+  "kind": "gate",
+  "label": "must_fail",
+  "status": "match",
+  "observed": "1/1 unit(s) fail (deck)"
+ },
+ {
+  "anchor": "AN-09",
+  "criterion": "RS-01",
+  "kind": "judge",
+  "label": "must_fail",
+  "status": "MISMATCH",
+  "observed": "0/1 unit(s) fail \u00b7 repeats pass/pass/pass"
+ },
+ {
+  "anchor": "AN-09",
+  "criterion": "DL-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-09",
+  "criterion": "DP-01",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-09",
+  "criterion": "VC-03",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ },
+ {
+  "anchor": "AN-09",
+  "criterion": "CN-08",
+  "kind": "gate",
+  "label": "must_pass",
+  "status": "match",
+  "observed": "0/2 unit(s) fail"
+ }
+]

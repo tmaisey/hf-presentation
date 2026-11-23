@@ -1,0 +1,14 @@
+{
+ "criterion": "DL-09",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-02.html",
+   "note": "bar, agenda and notes button hold their boxes across slides at 1920x1080, 1280x720, 1288x598"
+  }
+ ],
+ "rationale": "Gate rule: bar, agenda and notes button keep their box (±1 px) between consecutive slides. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

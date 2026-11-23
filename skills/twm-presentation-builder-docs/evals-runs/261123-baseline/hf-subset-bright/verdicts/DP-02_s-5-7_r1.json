@@ -1,0 +1,15 @@
+{
+ "criterion": "DP-02",
+ "unit": "s-5/7",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-5",
+   "step": 7,
+   "note": "every visible connector stroke ≥ 3:1 (or none at this step)"
+  }
+ ],
+ "rationale": "Gate rule: unsoftened connector strokes ≥ 3:1 against the diagram's composited background. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

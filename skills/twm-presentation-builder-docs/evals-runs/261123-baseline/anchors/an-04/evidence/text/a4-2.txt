@@ -1,0 +1,13 @@
+# slide a4-2 · chapter: Water
+
+## Visible markup
+[p.kicker] 02 · Water
+[h2.title] The saving paid for six new plots
+[div.body]
+  [div.msg-card.quote]
+    [p.msg-agent] Plot coordinator
+    [blockquote.msg-text] Once the drip lines went in we used much less water, which paid for six new plots.
+
+## Reader notes
+### note 1 (for #a4-q)
+Coordinator From the annual meeting minutes: “We used noticeably less water once the drip lines went in, and that freed up budget for six new plots.” Annual meeting minutes <https://garden.example.org/minutes>

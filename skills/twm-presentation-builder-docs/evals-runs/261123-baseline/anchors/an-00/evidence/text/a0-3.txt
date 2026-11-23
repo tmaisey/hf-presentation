@@ -1,0 +1,13 @@
+# slide a0-3 · chapter: Change
+
+## Visible markup
+[p.kicker] 02 · Change
+[h2.title] Staff said the afternoons became calmer
+[div.body]
+  [div.msg-card.quote]
+    [p.msg-agent] Pharmacist, interview
+    [blockquote.msg-text] The afternoons are calmer […] we can talk to people again.
+
+## Reader notes
+### note 1 (for #a0-q)
+Full quote “The afternoons are calmer now, and we can talk to people again.” Cut marked […]. Staff interview notes <https://pharmacy-review.example.org/interviews>

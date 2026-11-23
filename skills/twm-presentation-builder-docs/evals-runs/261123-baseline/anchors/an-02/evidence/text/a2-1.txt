@@ -1,0 +1,12 @@
+# slide a2-1 · chapter: Loans
+
+## Visible markup
+[p.kicker] 01 · Loans
+[h2.title] Self-service kiosks doubled lunchtime loans
+[div.body]
+  [p] Pupils borrowed 210 books a week at lunch after the kiosks arrived, up from 104.
+  [p.caption] Counts are weekly averages over the spring term.
+
+## Reader notes
+### note 1 (for #a2-1-title)
+Loan counts Weekly lunchtime loans, before and after the kiosks. Library loan report <https://library.example.org/loans>

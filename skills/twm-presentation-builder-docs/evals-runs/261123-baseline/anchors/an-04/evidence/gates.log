@@ -1,0 +1,24 @@
+PASS CN-04: 2 unit(s), 0 failed
+PASS CN-08: 2 unit(s), 0 failed
+PASS RS-05: 1 unit(s), 0 failed
+PASS VC-03: 2 unit(s), 0 failed
+PASS VC-05: 2 unit(s), 0 failed
+PASS DL-01: 2 unit(s), 0 failed
+PASS DL-02: 2 unit(s), 0 failed
+PASS DL-09: 1 unit(s), 0 failed
+PASS DL-10: 2 unit(s), 0 failed
+PASS DP-01: 2 unit(s), 0 failed
+PASS DP-02: 2 unit(s), 0 failed
+PASS DP-03: 1 unit(s), 0 failed
+MISSING DP-05: needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)
+PASS DS-01: 1 unit(s), 0 failed
+PASS DS-03: 1 unit(s), 0 failed
+PASS DS-07: 1 unit(s), 0 failed
+PASS AR-01: 1 unit(s), 0 failed
+PASS AR-02: 1 unit(s), 0 failed
+PASS AR-03: 1 unit(s), 0 failed
+PASS AR-04: 1 unit(s), 0 failed
+PASS AR-05: 1 unit(s), 0 failed
+PASS AR-06: 1 unit(s), 0 failed
+MISSING AR-07: target repo not given (pass --repo)
+wrote 30 verdict(s) to ../twm-presentation-builder-docs/evals-runs/261123-baseline/anchors/an-04/verdicts

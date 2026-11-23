@@ -1,0 +1,14 @@
+{
+ "criterion": "DP-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-05.html",
+   "note": "colour literals only in the PALETTE block"
+  }
+ ],
+ "rationale": "Gate rule: no hex/rgb()/hsl()/oklch()/lab()/lch() colour literal outside the PALETTE block. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

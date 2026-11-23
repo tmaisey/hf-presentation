@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-04",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-05.html",
+   "note": "slide markup carries only contract attributes and classes"
+  }
+ ],
+ "rationale": "Gate rule: no <style>, <script>, style= or on*= inside slide sections. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

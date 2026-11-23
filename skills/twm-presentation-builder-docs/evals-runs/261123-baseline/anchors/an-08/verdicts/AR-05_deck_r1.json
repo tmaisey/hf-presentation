@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-05",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-08.html",
+   "note": "titles unique; DOM order follows visual order"
+  }
+ ],
+ "rationale": "Gate rule: one non-empty, unique title per slide; no DOM-later block sits above an earlier one in the same column. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

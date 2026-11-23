@@ -1,0 +1,52 @@
+{
+ "criterion": "PX-05",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "scene/shape-6 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-7 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-8 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-9 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-10 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-11 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-12 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  },
+  {
+   "note": "scene/shape-13 opacity (undeclared) not listed in the report",
+   "slide": "s-4",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "356 effects differ from their declared band.",
+ "flaws": [
+  "undeclared-effect"
+ ],
+ "result": "fail"
+}

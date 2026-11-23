@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-02",
+ "unit": "s-2",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "layout Split; title in the title placeholder",
+   "slide": "s-2",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "Uses a master layout with the title in its placeholder.",
+ "flaws": [],
+ "result": "pass"
+}

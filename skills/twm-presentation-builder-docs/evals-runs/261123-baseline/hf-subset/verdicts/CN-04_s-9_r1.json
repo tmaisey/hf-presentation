@@ -1,0 +1,16 @@
+{
+ "criterion": "CN-04",
+ "unit": "s-9",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-9",
+   "note": "196 visible words at step 3 > 40"
+  }
+ ],
+ "rationale": "Gate rule: visible words per slide (max over steps, notes excluded) ≤ params.max_words (default 40). 1 finding(s) break it.",
+ "flaws": [
+  "excessive-text-density"
+ ],
+ "result": "fail"
+}

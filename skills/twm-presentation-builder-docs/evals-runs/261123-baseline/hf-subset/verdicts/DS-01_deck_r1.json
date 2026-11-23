@@ -1,0 +1,84 @@
+{
+ "criterion": "DS-01",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1280x720",
+   "note": "text.art-text «vulnerable» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1280x720",
+   "note": "text.art-text «target» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1280x720",
+   "note": "text. «scorer» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-5",
+   "step": 2,
+   "size": "1280x720",
+   "note": "text.art-text «vulnerable» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-5",
+   "step": 2,
+   "size": "1280x720",
+   "note": "text.art-text «target» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-5",
+   "step": 2,
+   "size": "1280x720",
+   "note": "text.art-text «how flags are made» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-5",
+   "step": 2,
+   "size": "1280x720",
+   "note": "text. «scorer» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-5",
+   "step": 3,
+   "size": "1280x720",
+   "note": "text.art-text «transcript» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-5",
+   "step": 3,
+   "size": "1280x720",
+   "note": "text. «scorer reads it» at 10.0px is off the type scale"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1288x598",
+   "note": "text.art-text «vulnerable» at 10.1px is off the type scale"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1288x598",
+   "note": "text.art-text «target» at 10.1px is off the type scale"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1288x598",
+   "note": "text. «scorer» at 10.1px is off the type scale (+10 more)"
+  }
+ ],
+ "rationale": "Gate rule: ≤ 2 primary font families, each declared in --sys-font-*; every size on the --sys-type-*/--comp-* size scale (diagram text: rendered size on the scale, or its SVG size on a --comp-*-floor). 22 finding(s) break it.",
+ "flaws": [
+  "inconsistent-text-styling"
+ ],
+ "result": "fail"
+}

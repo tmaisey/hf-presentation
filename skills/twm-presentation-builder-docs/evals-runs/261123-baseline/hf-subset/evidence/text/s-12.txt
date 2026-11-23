@@ -1,0 +1,7 @@
+# slide s-12 · chapter: Close
+
+## Visible markup
+[h2.title] Thank you
+
+## Reader notes
+(none)

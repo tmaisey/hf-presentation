@@ -1,0 +1,22 @@
+{
+ "criterion": "DS-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-4",
+   "step": 0,
+   "note": "looping animation outside the ambient layer: path. «»"
+  },
+  {
+   "slide": "s-4",
+   "step": 0,
+   "note": "looping animation outside the ambient layer: path.art-cross «»"
+  }
+ ],
+ "rationale": "Gate rule: ambient layer only on lead or build-free, diagram-free slides; no other looping animation; reduced motion stops all drift. 2 finding(s) break it.",
+ "flaws": [
+  "distracting-animation"
+ ],
+ "result": "fail"
+}

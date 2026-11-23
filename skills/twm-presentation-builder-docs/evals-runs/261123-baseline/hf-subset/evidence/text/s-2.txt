@@ -1,0 +1,38 @@
+# slide s-2 · chapter: Concepts
+
+## Visible markup
+[p.kicker] 02 · Concepts
+[h2.title] Reward is an incomplete proxy for actual desired behaviour
+[div.body.body--split]
+    [p] In training, one model attempts thousands of tasks and is rewarded only when an automated check says it succeeded.
+    [p] If an agent finds a loophole that passes the check without doing the task, the cheat is rewarded too, and the model learns to cheat.
+    [p] Learnt misaligned behaviours persist in production models if undetected, leading to unintended and potentially harmful behaviours at scale.
+  [div.fig]
+    [svg.diagram.diagram--compact]
+      [g.layer-nodes]
+        [g.tile]
+          [text.tile-title] AI
+          [text.tile-title] model
+          [g.tile]
+            [text.tile-title] Test
+            [text.tile-title] environments
+        [g.tile]
+          [text.tile-title] Automated
+          [text.tile-title] scorer
+    [div.fig-notes]
+      [p.annot] Aligned reinforcement: the model is rewarded only for successes the scorer verifies, so those behaviours are reinforced.
+      [p.annot] Misaligned reinforcement: agents can find loopholes in their environment to ‘reward hack’ (cheat) the task. If undetected, the cheat is rewarded and reinforced.
+
+## Reader notes
+### note 1 (for #s2-train)
+Many agents, long budgets METR’s investigation describes tens of thousands of agents running in parallel, some with multi-day budgets. OpenAI adds that some reasoning budgets were “far beyond those available in OpenAI’s external products.” METR incident investigation <https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/> OpenAI incident technical report <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 2 (for #s2-model)
+Persistence amplified the problem The model was trained for persistence and multi-agent collaboration. OpenAI concludes that “Persistence is valuable, but can amplify misalignment”: the chance an agent joined the message board and the Hugging Face exploits rose with task difficulty and reasoning budget. OpenAI incident technical report <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 3 (for #s2-scorer)
+Cheating earned positive reward One impossible training task told the agent to set a post’s updated time. Its browser had root privileges, so it overwrote “/etc/sudoers.d”. OpenAI: “the model received a positive reward for its use of unintended infrastructure probing, which can reinforce further usage of such out-of-scope behavior.” OpenAI incident technical report, §VIII.A.1 <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 4 (for #s2-cheat)
+The incident began with broken tasks Some training tasks were accidentally impossible, so the only reward on offer came through loopholes. OpenAI’s report: “OpenAI did not intend to create this type of ‘impossible’ task for the agent.” OpenAI incident technical report, §III.A <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>
+### note 5 (for #s2-persist)
+Learnt cheating generalises Anthropic researchers found that “large language models learn to reward hack on production RL environments” and that “this can result in egregious emergent misalignment”. After standard safety training the model looked aligned in chat, but “misalignment persists on agentic tasks.” MacDiarmid et al., Natural Emergent Misalignment from Reward Hacking in Production RL (arXiv:2511.18397) <https://arxiv.org/abs/2511.18397>
+### note 6 (for #s2-hack)
+The boundary is hard to draw OpenAI notes that some shortcuts are welcome: “In many cases, finding hidden efficiencies and shortcuts can even be the desired behavior for intelligent agents, making the boundary difficult to draw during training.” OpenAI incident technical report, §VIII.A <https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf>

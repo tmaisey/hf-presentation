@@ -1,0 +1,12 @@
+# slide a9-1 · chapter: Travel
+
+## Visible markup
+[p.kicker] 01 · Travel
+[h2.title] Most staff would cycle if the site had showers
+[div.body]
+  [p.stat] 58%
+  [p] of staff who drive said showers would make them cycle twice a week
+
+## Reader notes
+### note 1 (for #a9-1-title)
+Survey Asked of staff who drive to the site at least three days a week. Source: regional commuter survey, 2025.

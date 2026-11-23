@@ -1,0 +1,14 @@
+{
+ "criterion": "RS-05",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-02.html",
+   "note": "every citation is a well-formed https link"
+  }
+ ],
+ "rationale": "Gate rule: every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

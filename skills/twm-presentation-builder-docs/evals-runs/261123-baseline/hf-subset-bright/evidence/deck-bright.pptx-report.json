@@ -1,0 +1,7240 @@
+{
+ "schema": "pb-pptx-report/1",
+ "deck": "deck-bright.html",
+ "pptx": "deck-bright.pptx",
+ "size": {
+  "width": 12192000,
+  "height": 6858000
+ },
+ "layouts": [
+  "Title / lead",
+  "Standard",
+  "Split",
+  "Three-column scene",
+  "Tile row",
+  "End"
+ ],
+ "slides": [
+  {
+   "html": "s-1",
+   "pptx": 1,
+   "layout": "Title / lead",
+   "steps": [
+    0,
+    0
+   ],
+   "morph": false,
+   "clicks": 0
+  },
+  {
+   "html": "s-2",
+   "pptx": 2,
+   "layout": "Split",
+   "steps": [
+    0,
+    5
+   ],
+   "morph": false,
+   "clicks": 5
+  },
+  {
+   "html": "s-4",
+   "pptx": 3,
+   "layout": "Three-column scene",
+   "steps": [
+    0,
+    7
+   ],
+   "morph": false,
+   "clicks": 7
+  },
+  {
+   "html": "s-5",
+   "pptx": 4,
+   "layout": "Three-column scene",
+   "steps": [
+    0,
+    9
+   ],
+   "morph": false,
+   "clicks": 9
+  },
+  {
+   "html": "s-9",
+   "pptx": 5,
+   "layout": "Tile row",
+   "steps": [
+    0,
+    3
+   ],
+   "morph": false,
+   "clicks": 3
+  },
+  {
+   "html": "s-12",
+   "pptx": 6,
+   "layout": "End",
+   "steps": [
+    0,
+    0
+   ],
+   "morph": false,
+   "clicks": 0
+  }
+ ],
+ "items": [
+  {
+   "slide": "deck",
+   "el": "chrome",
+   "what": "title bar",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "deck chrome is not exported (sys.material.chip)"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-1",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-1",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-2",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#B0CCFA → theme accent1 tint 43%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-2",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-2",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-3",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#E1EBFD → theme accent1 tint 17%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-3",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-3",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-4",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#CADDFC → theme accent1 tint 28%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-4",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-4",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-5",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-5",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-6",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-6",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-7",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#B0CCFA → theme accent1 tint 43%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-7",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-7",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-8",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#E1EBFD → theme accent1 tint 17%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-8",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-8",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-9",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#CADDFC → theme accent1 tint 28%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-9",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-9",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-10",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-10",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-11",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-11",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-12",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-12",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-13",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#B0CCFA → theme accent1 tint 43%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-13",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-13",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-14",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#E1EBFD → theme accent1 tint 17%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-14",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-14",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-15",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#CADDFC → theme accent1 tint 28%"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-15",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-15",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-16",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-16",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-17",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-1",
+   "el": "s-1/orb-17",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-2",
+   "el": "s2-model",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/tile-2",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/tile-3",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/tile-4",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s2-scorer",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/shape-1",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/shape-3",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-2",
+   "el": "s2-why",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.lift",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s2-hack",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.lift",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/insight-1",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/insight-1",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-2",
+   "el": "s-2/body-1",
+   "what": "step 5: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1a::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1b::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t2::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t3::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t4::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t5::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-1",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-2",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#FBFBFC → theme bg2 tint 30%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-6",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-7",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-8",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-9",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-10",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-11",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-12",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-13",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-14",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-15",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-16",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-17",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-18",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-19",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-20",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-21",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-22",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-23",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-24",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-25",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-26",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-27",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-28",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-29",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-30",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-31",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-32",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-33",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-34",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-35",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-36",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-37",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-38",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-39",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-40",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-41",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-42",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-43",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-44",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-45",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-46",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-47",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-48",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-49",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-50",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-51",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-52",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-53",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-54",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-55",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-56",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-57",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-58",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-59",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-60",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-61",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-62",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-63",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-64",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-65",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-66",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-67",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-68",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-69",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-70",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-123",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-124",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-125",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-126",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-127",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-128",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-129",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-130",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-131",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-132",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-133",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-134",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-135",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-136",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-137",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-138",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-139",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-140",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-141",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-142",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-143",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-144",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-145",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-146",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-147",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-148",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-149",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-150",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-151",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-152",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-153",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-154",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-155",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-156",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-157",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-158",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-159",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-160",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-161",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-162",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-163",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-164",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-165",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-166",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-167",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-168",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-169",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-170",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-171",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-172",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-173",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-174",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-175",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-176",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-177",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-178",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-179",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-180",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-181",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-182",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-183",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-184",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-185",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-186",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "w-mirror",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-206",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-211",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/image-1",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-1",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-1",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-2",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-2",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-3",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-3",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-4",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/narration-tile-4",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-pop-flag",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-pop-nosol",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-insight",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-insight",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-187",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-188",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-189",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-190",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-191",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-192",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-193",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-194",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-195",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-196",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-197",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-198",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-199",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-200",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-201",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-202",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-203",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-204",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-205",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene",
+   "what": "step 1: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/body-1",
+   "what": "step 1: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1",
+   "what": "step 1: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1::before",
+   "what": "step 1: fill",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "marker became a native bullet; bullet colour cannot animate"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1::before",
+   "what": "step 1: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1::before",
+   "what": "step 1: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1a",
+   "what": "step 2: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene",
+   "what": "step 3: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/body-1",
+   "what": "step 3: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t1b",
+   "what": "step 3: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t2",
+   "what": "step 4: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t2::before",
+   "what": "step 4: fill",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "marker became a native bullet; bullet colour cannot animate"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t2::before",
+   "what": "step 4: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t2::before",
+   "what": "step 4: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene/shape-187",
+   "what": "step 5: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t3",
+   "what": "step 5: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t3::before",
+   "what": "step 5: fill",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "marker became a native bullet; bullet colour cannot animate"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t3::before",
+   "what": "step 5: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t3::before",
+   "what": "step 5: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t4",
+   "what": "step 6: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t4::before",
+   "what": "step 6: fill",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "marker became a native bullet; bullet colour cannot animate"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t4::before",
+   "what": "step 6: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s4-t4::before",
+   "what": "step 6: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "scene",
+   "what": "step 7: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-4",
+   "el": "s-4/body-1",
+   "what": "step 7: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1a::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1b::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1c::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2a::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2b::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2c::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t3::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "numbered marker → native autonumber (its circle is lost)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-1",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-2",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#FBFBFC → theme bg2 tint 30%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-6",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-7",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-8",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-9",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-10",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-11",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-12",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-13",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-14",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-15",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-16",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-17",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-18",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-19",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-20",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-21",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-22",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-23",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-24",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-25",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-26",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-27",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-28",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-29",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-30",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-31",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-32",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-33",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-34",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-35",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-36",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-37",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-38",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-39",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-40",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-41",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-42",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-43",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-44",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-45",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-46",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-47",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-48",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-49",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-50",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-51",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-52",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-53",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-54",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-55",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-56",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-57",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-58",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-59",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-60",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-61",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-62",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-63",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-64",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-65",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-66",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-67",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-68",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-69",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-71",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-72",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-73",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-74",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-75",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-76",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-77",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-78",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-79",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-80",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-81",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-82",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-83",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-84",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-85",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-86",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-87",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-88",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-89",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-90",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-91",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-92",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-93",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-94",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-95",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-96",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-97",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-98",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-99",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-100",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-101",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-102",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-103",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-104",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-105",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-106",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-107",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-108",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-109",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-110",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-111",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-112",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-113",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-114",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-115",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-116",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-117",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-118",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-119",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-120",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-121",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-122",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-123",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-124",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-125",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-126",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-127",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-128",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-129",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-130",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-131",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-132",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-133",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-134",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-135",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-136",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-137",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-138",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-139",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-140",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-141",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-142",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-143",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-144",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-145",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-146",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-147",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-148",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-149",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-150",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-151",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-152",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-153",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-154",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-155",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-156",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-157",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-158",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-159",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-160",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-161",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-162",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-163",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-164",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-165",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-166",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-167",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-168",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-169",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-170",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-171",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-172",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-173",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-174",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-175",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-176",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-177",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-178",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-179",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-180",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-181",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-182",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-183",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-184",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-185",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-186",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "w-mirror",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-211",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-215",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-216",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-217",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-218",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-219",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-220",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-221",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-222",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-223",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-224",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-225",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-226",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-227",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-228",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-229",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-5",
+   "el": "w-scorer",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-236",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/image-1",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/image-2",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/image-3",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-1",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-1",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-2",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-2",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-3",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-3",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-4",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-4",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-5",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-5",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-6",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-6",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-7",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-7",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-8",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-8",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-9",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-9",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-10",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/narration-tile-10",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-pop-cheat",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-pop-poison",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-pop-programme",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-insight",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-insight",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-230",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-231",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-232",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-233",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-234",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-235",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1",
+   "what": "step 1: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1::before",
+   "what": "step 1: fill",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "marker became a native bullet; bullet colour cannot animate"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1::before",
+   "what": "step 1: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1::before",
+   "what": "step 1: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene",
+   "what": "step 2: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/body-1",
+   "what": "step 2: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1a",
+   "what": "step 2: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1b",
+   "what": "step 3: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t1c",
+   "what": "step 4: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene",
+   "what": "step 5: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/image-2",
+   "what": "step 5: visibility",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "element was not emitted on this slide"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/body-1",
+   "what": "step 5: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2",
+   "what": "step 5: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2::before",
+   "what": "step 5: fill",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "marker became a native bullet; bullet colour cannot animate"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2::before",
+   "what": "step 5: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2::before",
+   "what": "step 5: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2a",
+   "what": "step 6: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/image-3",
+   "what": "step 7: visibility",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "element was not emitted on this slide"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2b",
+   "what": "step 7: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-230",
+   "what": "step 8: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-231",
+   "what": "step 8: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-232",
+   "what": "step 8: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-233",
+   "what": "step 8: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene/shape-234",
+   "what": "step 8: stroke",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "line colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s5-t2c",
+   "what": "step 8: text-colour",
+   "band": null,
+   "token": null,
+   "result": "dropped",
+   "how": "font colour is not in the PB-022 vocabulary; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "scene",
+   "what": "step 9: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-5",
+   "el": "s-5/body-1",
+   "what": "step 9: filter",
+   "band": "undeclared",
+   "token": null,
+   "result": "dropped",
+   "how": "CSS filter changes (blur softening) have no native animation; the slide keeps its measured look"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-1::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-2::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-3::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-t1",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-t1",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-4::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-fix::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-crude::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-t2",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-t2",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-7::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-8::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s-9/point-9::before",
+   "what": "marker",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "list marker → native bullet"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-t3",
+   "what": "shadow",
+   "band": "approximated",
+   "token": "sys.shadow.overlay",
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "s9-t3",
+   "what": "backdrop-blur",
+   "band": "lost",
+   "token": "sys.material.blur",
+   "result": "lost",
+   "how": "no backdrop blur in PowerPoint: translucent fill only"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-1",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-2",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#FBFBFC → theme bg2 tint 30%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-6",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-7",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-8",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-9",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-10",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-11",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-12",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-13",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-14",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-15",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-16",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-17",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-18",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-19",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-20",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-21",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-22",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-23",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-24",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-25",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-26",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-27",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-28",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-29",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-30",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-31",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-32",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-33",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-34",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-35",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-36",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-37",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-38",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-39",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-40",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-41",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-42",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-43",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-44",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-45",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-46",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-47",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-48",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-49",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-50",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-51",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-52",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-53",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-54",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-55",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-56",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-57",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-58",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-59",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-60",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-61",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-62",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-63",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-64",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-65",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-66",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-67",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-68",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-69",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-72",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-73",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-74",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-75",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-76",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-77",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-78",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-79",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-80",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-81",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-82",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-83",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-84",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-85",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-86",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-87",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-88",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-89",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-90",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-91",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-92",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-93",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-94",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-95",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-96",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-97",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-98",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-99",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-100",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-101",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-102",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-103",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-104",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-105",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-106",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-107",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-108",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-109",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-110",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-111",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-112",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-113",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-114",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-115",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-116",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-117",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-118",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-119",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-120",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-121",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-122",
+   "what": "literal colour",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#000000 has no theme slot: kept literal"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-123",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-124",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-125",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-126",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-127",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-128",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-129",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-130",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-131",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-132",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-133",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-134",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-135",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-136",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-137",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-138",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-139",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-140",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-141",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-142",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-143",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-144",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-145",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-146",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-147",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-148",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-149",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-150",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-151",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-152",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-153",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-154",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-155",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-156",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-157",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-158",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-159",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-160",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-161",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-162",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-163",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-164",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-165",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-166",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-167",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-168",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-169",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-170",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-171",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-172",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-173",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-174",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-175",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-176",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-177",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-178",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-179",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-180",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-181",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-182",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-183",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-184",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-185",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-186",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "w-mirror",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-211",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#C6DAFC → theme accent1 tint 29%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-215",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-216",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-217",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-218",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-219",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-220",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-221",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-222",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-223",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-224",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-225",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-226",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-227",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-228",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-229",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#F7F8F9 → theme bg2 tint 57%"
+  },
+  {
+   "slide": "s-9",
+   "el": "w-scorer",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/image-1",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/image-2",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/image-3",
+   "what": "image",
+   "band": null,
+   "token": null,
+   "result": "lost",
+   "how": "only embedded PNG/JPEG/GIF images are carried over"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene",
+   "what": "blur",
+   "band": "undeclared",
+   "token": null,
+   "result": "lost",
+   "how": "no live blur on shapes"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene",
+   "what": "filter",
+   "band": "lost",
+   "token": "sys.material.veil-saturate",
+   "result": "lost",
+   "how": "CSS filter dropped"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene",
+   "what": "opacity",
+   "band": "undeclared",
+   "token": null,
+   "result": "approximated",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-230",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-231",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-232",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-233",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-234",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-9",
+   "el": "scene/shape-235",
+   "what": "svg-filter",
+   "band": "approximated",
+   "token": null,
+   "result": "approximated",
+   "how": "outer shadow (inset highlight and spread approximated)"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-1",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-1",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-2",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#B0CCFA → theme accent1 tint 43%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-2",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-2",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-3",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#E1EBFD → theme accent1 tint 17%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-3",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-3",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-4",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#CADDFC → theme accent1 tint 28%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-4",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-4",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-5",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.far.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-5",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.far.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-6",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-6",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-7",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#B0CCFA → theme accent1 tint 43%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-7",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-7",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-8",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#E1EBFD → theme accent1 tint 17%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-8",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-8",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-9",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#CADDFC → theme accent1 tint 28%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-9",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-9",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-10",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-10",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-11",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.mid.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-11",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.mid.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-12",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-12",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-13",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#B0CCFA → theme accent1 tint 43%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-13",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-13",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-14",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#E1EBFD → theme accent1 tint 17%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-14",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-14",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-15",
+   "what": "colour mix",
+   "band": null,
+   "token": null,
+   "result": "approximated",
+   "how": "#CADDFC → theme accent1 tint 28%"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-15",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-15",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-16",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-16",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-17",
+   "what": "blur",
+   "band": "approximated",
+   "token": "sys.ambient.near.blur",
+   "result": "approximated",
+   "how": "soft-edged ellipse"
+  },
+  {
+   "slide": "s-12",
+   "el": "s-12/orb-17",
+   "what": "opacity",
+   "band": "native",
+   "token": "sys.ambient.near.opacity",
+   "result": "native",
+   "how": "applied as colour alpha"
+  }
+ ],
+ "counts": {
+  "native": 34,
+  "approximated": 677,
+  "lost": 30,
+  "dropped": 53,
+  "morph": 0
+ }
+}

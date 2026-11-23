@@ -1,0 +1,5 @@
+# Screenshots and the PPTX scene sidecar are regenerable (from the skill folder): uv run scripts/shoot.py evals/anchors/an-09.html <this>/evidence --sizes 1920x1080,1288x598
+evidence/**/*.png
+evidence/*.png
+evidence/*.scene.json
+evidence/worktrees/

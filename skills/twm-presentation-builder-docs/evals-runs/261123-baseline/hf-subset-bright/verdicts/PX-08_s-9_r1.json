@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-08",
+ "unit": "s-9",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "230 diagram parts are named shapes; SVG pictures: 0",
+   "slide": "s-9",
+   "file": "deck-bright.pptx"
+  }
+ ],
+ "rationale": "Diagram is named native shapes.",
+ "flaws": [],
+ "result": "pass"
+}

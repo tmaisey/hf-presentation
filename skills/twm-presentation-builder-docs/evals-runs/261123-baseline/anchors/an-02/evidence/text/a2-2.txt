@@ -1,0 +1,13 @@
+# slide a2-2 · chapter: Loans
+
+## Visible markup
+[p.kicker] 02 · Loans
+[h2.title] Librarians spent the time saved on reading groups
+[div.body]
+  [ul.points]
+    [li] Two new reading groups
+    [li] Weekly book talks for Year 7
+
+## Reader notes
+### note 1 (for #a2-2-title)
+Reading groups Both groups started in the spring term. Library newsletter <https://library.example.org/newsletter>

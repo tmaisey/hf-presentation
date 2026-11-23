@@ -1,0 +1,14 @@
+{
+ "criterion": "CN-08",
+ "unit": "a4-2",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a4-2",
+   "note": "reader note present, or a lead slide"
+  }
+ ],
+ "rationale": "Gate rule: every slide except lead/closing slides has an aside.note with text. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

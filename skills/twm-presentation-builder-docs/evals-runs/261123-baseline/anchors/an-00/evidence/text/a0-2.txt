@@ -1,0 +1,30 @@
+# slide a0-2 · chapter: Change
+
+## Visible markup
+[p.kicker] 01 · Change
+[h2.title] Booking moved refill collection out of the lunchtime peak
+[div.body.body--stack]
+  [svg.diagram]
+    [g.layer-nodes]
+      [g.tile]
+        [text.tile-title] Walk-in queue
+        [text.tile-sub] midday
+      [g.tile]
+        [text.tile-title] Booking page
+        [text.tile-sub] online
+      [g.tile]
+        [text.tile-title] Pick-up slot
+        [text.tile-sub] 15 minutes
+[div.narration]
+  [article.narr-tile]
+    [p.msg-from] Pharmacist
+    [blockquote.msg-text] Most people chose a time after three.
+  [article.narr-tile]
+    [p.msg-from] Counter assistant
+    [blockquote.msg-text] The bags are ready before they arrive.
+
+## Reader notes
+### note 1 (for #a0-book)
+Booking page Bookings opened for repeat prescriptions only. The pharmacist, interviewed in week six: “Most people chose a time after three.” Booking launch notice <https://pharmacy-review.example.org/booking>
+### note 2 (for #a0-slot)
+Pick-up slot Each slot is 15 minutes; staff pack the order the evening before. The counter assistant: “The bags are ready before they arrive.” Staff interview notes <https://pharmacy-review.example.org/interviews>

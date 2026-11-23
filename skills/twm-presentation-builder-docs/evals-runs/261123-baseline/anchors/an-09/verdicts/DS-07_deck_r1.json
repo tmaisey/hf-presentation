@@ -1,0 +1,14 @@
+{
+ "criterion": "DS-07",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-09.html",
+   "note": "slide links and 0 notes-callout link(s) use the style's link colour (notes mode not reachable: Page.wait_for_function: Timeout 3000ms exceeded.)"
+  }
+ ],
+ "rationale": "Gate rule: no visible link (slide or notes callout) in the browser's default link colours. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

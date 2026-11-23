@@ -1,0 +1,16 @@
+{
+ "criterion": "DS-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a8-2",
+   "note": "ambient layer on a slide that builds or holds a diagram (drifting)"
+  }
+ ],
+ "rationale": "Gate rule: ambient layer only on lead or build-free, diagram-free slides; no other looping animation; reduced motion stops all drift. 1 finding(s) break it.",
+ "flaws": [
+  "distracting-animation"
+ ],
+ "result": "fail"
+}

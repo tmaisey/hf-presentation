@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-02",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-01.html",
+   "note": "no endpoint-risk pattern"
+  }
+ ],
+ "rationale": "Gate rule: assemble.endpoint_faults finds nothing. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

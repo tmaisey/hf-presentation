@@ -1,0 +1,47 @@
+{
+ "label": "baseline-hf-subset-bright",
+ "target": "skills/twm-presentation-builder/examples/hf-incident/deck-bright.html",
+ "pptx": "evidence/deck-bright.pptx (emitted by pptx/scripts/emit.py; re-flowed copy evidence/deck-bright-reflowed.pptx via check.py reflow into python-pptx's default template)",
+ "concerns": [
+  "design-layout",
+  "design-palette",
+  "design-style",
+  "architecture",
+  "pptx"
+ ],
+ "output_process": "output only",
+ "concerns_note": "per briefs/hf-subset-bright/brief.json",
+ "date": "261123",
+ "profile": "editorial-talk",
+ "depth": "judges",
+ "k": 3,
+ "transcripts": false,
+ "mode": "pointwise",
+ "judge_model": "Claude Opus 5.5 (generic general-purpose subagents, model inherited)",
+ "scope_source": "PB-025 baseline part 1; presenter asleep, scope decided by the orchestrator for the presenter (answers the EVAL.md scope prompt; no prompt was asked)",
+ "sizes": [
+  "1920x1080",
+  "1288x598"
+ ],
+ "sizes_note": "judge screenshots at 1920x1080 (projected) and 1288x598 (short-wide Teams window); 1280x720 omitted to bound evidence, as its layout sits between the two. Gates render all three review sizes.",
+ "dispatch": "each judge got one filled judges/output-judge.md prompt (stored in prompts/) by path, nothing else",
+ "judged": [
+  "DP-04",
+  "DP-06",
+  "DS-04",
+  "DS-05",
+  "DS-06"
+ ],
+ "units": {
+  "DP-04, DS-04": "s-4, all steps, both sizes",
+  "DS-05": "s-9 (frosted backdrop + tile row), all steps, both sizes",
+  "DP-06, DS-06": "deck, every step at 1920x1080"
+ },
+ "not_judged": {
+  "PX-06": "needs PPTX renders; LibreOffice (soffice) is not installed, so no PNG of the PPTX exists",
+  "DS-02": "line breaks do not change with a palette swap; judged on hf-subset",
+  "design-layout S criteria": "unchanged by a palette swap; judge budget",
+  "DP-07": "repo-target T criterion; organisation naming is covered by the skill's dev tests"
+ },
+ "reflow": "check.py reflow into python-pptx's default template: wrote and validated evidence/deck-bright-reflowed.pptx (no judge looked at it: no renderer)"
+}

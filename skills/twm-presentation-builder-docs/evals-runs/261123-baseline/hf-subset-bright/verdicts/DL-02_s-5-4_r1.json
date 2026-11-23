@@ -1,0 +1,84 @@
+{
+ "criterion": "DL-02",
+ "unit": "s-5/4",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1280x720",
+   "note": "text.art-sub «cached modified targets» at 14.5px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1280x720",
+   "note": "text.art-sub «crash targets to reload» at 14.5px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1280x720",
+   "note": "text.art-sub «tripwire messages» at 14.5px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1280x720",
+   "note": "text.art-sub «sacrificial volunteers» at 14.5px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1280x720",
+   "note": "text.art-sub «spoofed tool outputs» at 14.5px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1280x720",
+   "note": "text.art-sub «log edits» at 14.5px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1288x598",
+   "note": "text.art-lead «Coordinator» at 13.2px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1288x598",
+   "note": "text.art-title «Swap the target» at 14.9px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1288x598",
+   "note": "text.art-sub «cached modified targets» at 12.6px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1288x598",
+   "note": "text.art-sub «crash targets to reload» at 12.6px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1288x598",
+   "note": "text.art-title «Probe the scorer» at 14.9px < 15px"
+  },
+  {
+   "slide": "s-5",
+   "step": 4,
+   "size": "1288x598",
+   "note": "text.art-sub «tripwire messages» at 12.6px < 15px (+4 more)"
+  }
+ ],
+ "rationale": "Gate rule: rendered text px ≥ params.min_px_1920 (20) at ≥ 1920 wide, else ≥ params.min_px_1280 (15); labels (uppercase and tracked ≥ .05em, or a .cite/.quote-from source line) ≥ params.min_label_px_1920 (18) / params.min_label_px_1280 (12). 16 finding(s) break it.",
+ "flaws": [
+  "inappropriate-font-sizing"
+ ],
+ "result": "fail"
+}

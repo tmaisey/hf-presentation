@@ -1,0 +1,66 @@
+{
+ "criterion": "DL-02",
+ "unit": "s-4/1",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1920x1080",
+   "note": "text.art-text «vulnerable» at 15.0px < 20px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1920x1080",
+   "note": "text.art-text «target» at 15.0px < 20px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1920x1080",
+   "note": "text. «scorer» at 15.0px < 20px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1280x720",
+   "note": "text.art-text «vulnerable» at 10.0px < 15px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1280x720",
+   "note": "text.art-text «target» at 10.0px < 15px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1280x720",
+   "note": "text. «scorer» at 10.0px < 15px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1288x598",
+   "note": "text.art-text «vulnerable» at 10.1px < 15px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1288x598",
+   "note": "text.art-text «target» at 10.1px < 15px"
+  },
+  {
+   "slide": "s-4",
+   "step": 1,
+   "size": "1288x598",
+   "note": "text. «scorer» at 10.1px < 15px"
+  }
+ ],
+ "rationale": "Gate rule: rendered text px ≥ params.min_px_1920 (20) at ≥ 1920 wide, else ≥ params.min_px_1280 (15); labels (uppercase and tracked ≥ .05em, or a .cite/.quote-from source line) ≥ params.min_label_px_1920 (18) / params.min_label_px_1280 (12). 9 finding(s) break it.",
+ "flaws": [
+  "inappropriate-font-sizing"
+ ],
+ "result": "fail"
+}

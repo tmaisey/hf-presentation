@@ -1,0 +1,12 @@
+# slide a4-1 · chapter: Water
+
+## Visible markup
+[p.kicker] 01 · Water
+[h2.title] Drip lines cut the garden's summer water use by a third
+[div.body]
+  [p.stat] −34%
+  [p] 41,000 litres in summer 2024, 27,000 litres in summer 2025.
+
+## Reader notes
+### note 1 (for #a4-1-title)
+Why it matters Water is the garden's largest running cost after rent, so the saving pays for new plots.

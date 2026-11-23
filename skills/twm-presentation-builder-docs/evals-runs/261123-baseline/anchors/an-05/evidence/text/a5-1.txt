@@ -1,0 +1,36 @@
+# slide a5-1 · chapter: Returns
+
+## Visible markup
+[p.kicker] 01 · Returns
+[h2.title] Returns now take three days from request to refund instead of eleven
+[ol.steps]
+  [li] Step 1: the customer opens a Return request online
+  [li] Step 2: the Warehouse checks the parcel on arrival
+  [li] Step 3: Finance issues the Refund the same day
+[p.caption] Median days, January to March, all regions
+[div.body]
+  [svg.diagram]
+    [g.layer-nodes]
+      [g.tile]
+        [text.tile-title] Return request
+      [g.tile]
+        [text.tile-title] Warehouse
+      [g.tile]
+        [text.tile-title] Refund
+  [div.msg-card.quote]
+    [p.msg-agent] Customer
+    [blockquote.msg-text] The form takes a minute.
+  [div.msg-card.quote]
+    [p.msg-agent] Warehouse lead
+    [blockquote.msg-text] We scan it the morning it lands.
+  [div.msg-card.quote]
+    [p.msg-agent] Finance
+    [blockquote.msg-text] Refunds go out in the afternoon batch.
+
+## Reader notes
+### note 1 (for #a5-1-title)
+Timing Median days from request to refund, before and after the new process. Returns dashboard <https://returns.example.org/dashboard>
+### note 2 (for #a5-wh)
+Warehouse Parcels are checked on the day they arrive. Warehouse procedure <https://returns.example.org/procedure>
+### note 3 (for #a5-quotes)
+Interviews Verbatim from the interview notes: “The form takes a minute.” “We scan it the morning it lands.” “Refunds go out in the afternoon batch.” Returns interview notes <https://returns.example.org/interviews>

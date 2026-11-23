@@ -1,0 +1,11 @@
+# slide a0-1 · chapter: Opening
+
+## Visible markup
+[p.kicker] Queue review
+[h2.title] Booked pick-up slots shortened the pharmacy queue
+[div.body]
+  [p] What changed when refills moved to a booked time
+
+## Reader notes
+### note 1 (for #a0-1-title)
+About this review A summary of the branch's own queue logs and staff interviews. Branch queue review <https://pharmacy-review.example.org/summary>

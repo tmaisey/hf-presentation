@@ -1,0 +1,10 @@
+# slide a3-1 · chapter: Opening
+
+## Visible markup
+[p.kicker] Pre-order review
+[h2.title] What if the queue was never the problem?
+[div.body]
+  [p] A look at the bakery's first season of pre-orders
+
+## Reader notes
+(none)

@@ -1,0 +1,15 @@
+{
+ "criterion": "DL-02",
+ "unit": "a4-1/0",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a4-1",
+   "step": 0,
+   "note": "reading text at or above the text floor, labels at or above the label floor"
+  }
+ ],
+ "rationale": "Gate rule: rendered text px ≥ params.min_px_1920 (20) at ≥ 1920 wide, else ≥ params.min_px_1280 (15); labels (uppercase and tracked ≥ .05em, or a .cite/.quote-from source line) ≥ params.min_label_px_1920 (18) / params.min_label_px_1280 (12). No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

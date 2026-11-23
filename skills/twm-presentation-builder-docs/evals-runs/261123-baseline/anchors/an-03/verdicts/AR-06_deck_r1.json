@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-06",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-03.html",
+   "note": "every image and graphic has alt text or an accessible name"
+  }
+ ],
+ "rationale": "Gate rule: every img has alt; every slide svg/role=img has an accessible name (aria-label, labelledby or <title>). No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

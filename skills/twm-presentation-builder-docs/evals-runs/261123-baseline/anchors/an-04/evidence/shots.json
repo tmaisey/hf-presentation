@@ -1,0 +1,51 @@
+{
+  "tool": "shoot",
+  "version": 1,
+  "deck": "evals/anchors/an-04.html",
+  "sizes": [
+    "1920x1080",
+    "1288x598"
+  ],
+  "settle_ms": 0,
+  "notes": false,
+  "slides": [
+    {
+      "id": "a4-1",
+      "steps": 0
+    },
+    {
+      "id": "a4-2",
+      "steps": 0
+    }
+  ],
+  "shots": [
+    {
+      "file": "a4-1-0-1920x1080.png",
+      "slide": "a4-1",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "a4-2-0-1920x1080.png",
+      "slide": "a4-2",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "a4-1-0-1288x598.png",
+      "slide": "a4-1",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "a4-2-0-1288x598.png",
+      "slide": "a4-2",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    }
+  ]
+}

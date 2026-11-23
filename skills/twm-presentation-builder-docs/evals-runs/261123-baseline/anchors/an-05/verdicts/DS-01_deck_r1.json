@@ -1,0 +1,14 @@
+{
+ "criterion": "DS-01",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "an-05.html",
+   "note": "families ['inter', 'newsreader'] declared; sizes on the type scale"
+  }
+ ],
+ "rationale": "Gate rule: ≤ 2 primary font families, each declared in --sys-font-*; every size on the --sys-type-*/--comp-* size scale (diagram text: rendered size on the scale, or its SVG size on a --comp-*-floor). No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

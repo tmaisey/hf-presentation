@@ -1,0 +1,15 @@
+{
+ "criterion": "DP-01",
+ "unit": "a1-1/2",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "a1-1",
+   "step": 2,
+   "note": "every text run meets its WCAG threshold"
+  }
+ ],
+ "rationale": "Gate rule: WCAG 2 ratio of each visible text run against its composited background (4.5, large 3), unrounded; never-text palette roles used as text fail; text softened (blurred) beneath a focus layer is skipped. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}
