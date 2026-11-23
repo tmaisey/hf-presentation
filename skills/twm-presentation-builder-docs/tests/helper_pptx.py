@@ -38,8 +38,11 @@ def load_script(name: str):
     Returns:
         The imported module.
     """
+    import sys
+
     spec = importlib.util.spec_from_file_location(f"pb_{name}", SCRIPTS / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module  # dataclasses resolve their module by name
     spec.loader.exec_module(module)
     return module
 
