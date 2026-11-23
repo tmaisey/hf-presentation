@@ -837,8 +837,8 @@
   #a5-1 > .caption { grid-area: steps; align-self: end; margin: 0; font-size: var(--sys-type-small-size); color: var(--sys-color-ink-2); }
   #a5-1 > .body { grid-area: diagram; padding: 2vh 1vw; border-radius: 18px; background: var(--sys-color-tile); box-shadow: var(--sys-shadow-rest); }
   #a5-1 .tile rect { fill: var(--sys-color-paper); }
-  #a5-1 > .quotes { grid-area: quotes; display: grid; align-content: start; gap: 6px; }
-  #a5-1 .quotes .quote { padding: 8px 12px; }
+  #a5-quotes { grid-area: quotes; display: grid; align-content: start; gap: 6px; }
+  #a5-quotes .quote { padding: 8px 12px; }
 }
 /* DECK:END */
 </style>
@@ -896,7 +896,7 @@
       <g class="layer-nodes"><g class="tile" id="a5-req" data-show-at="1"><rect x="290" y="60" width="320" height="90" rx="14"/><text class="tile-title">Return request</text></g><g class="tile" id="a5-wh" data-show-at="2"><rect x="290" y="275" width="320" height="90" rx="14"/><text class="tile-title">Warehouse</text></g><g class="tile" id="a5-ref" data-show-at="3"><rect x="290" y="490" width="320" height="90" rx="14"/><text class="tile-title">Refund</text></g></g>
     </svg>
   </div>
-  <div class="quotes" id="a5-quotes">
+  <div id="a5-quotes">
     <div class="msg-card quote" data-show-at="1"><p class="msg-agent">Customer</p><blockquote class="msg-text">The form takes a minute.</blockquote></div>
     <div class="msg-card quote" data-show-at="2"><p class="msg-agent">Warehouse lead</p><blockquote class="msg-text">We scan it the morning it lands.</blockquote></div>
     <div class="msg-card quote" data-show-at="3"><p class="msg-agent">Finance</p><blockquote class="msg-text">Refunds go out in the afternoon batch.</blockquote></div>

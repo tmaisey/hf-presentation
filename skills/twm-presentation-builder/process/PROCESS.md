@@ -35,8 +35,9 @@ before each state, never a fixed sleep.
 - `uv run scripts/layout_guard.py deck.html [--sizes 1920x1080,1280x720,1288x598] [--slides s-2,s-5] [--json]`:
   every slide × step × size; exit 0 clean, 1 with one `FAIL <slide>@<step> <WxH> <kind>: …` line
   per fault (`overlap`, `overflow`, `off-canvas`, `occlusion`), 2 if the deck can't be used.
-  `--json` prints the report the eval's gate runner reads. Wire it into the deck's test suite so
-  it runs on every visual change.
+  `--json` prints a machine-readable report; the eval's gate runner (`evals/gates.py`) imports
+  the guard's check directly, so a guard-clean deck starts from the same faults. Wire it into the
+  deck's test suite so it runs on every visual change.
 - `uv run scripts/shoot.py deck.html [out_dir] [--sizes …] [--slides …] [--settle ms] [--notes]`:
   writes `<slide>-<step>-<w>x<h>.png` (with `--notes`, `<slide>-n<i>-<w>x<h>.png` per reader
   note) and `shots.json`, into `shots/` beside the deck by default. `--settle` adds an extra wait
