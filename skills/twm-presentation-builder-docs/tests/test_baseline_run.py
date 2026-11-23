@@ -13,7 +13,7 @@ import json
 import re
 import subprocess
 
-from helper_eval import AGGREGATOR, aggregator
+from helper_eval import aggregator, loader
 from helper_skill import REPO, SKILL_DIR
 
 RUN = REPO / "skills" / "twm-presentation-builder-docs" / "evals-runs" / "261123-baseline"
@@ -45,14 +45,25 @@ def test_every_run_has_an_aggregate_report_that_states_calibration():
         assert rep.get("outcome") in {"pass", "fail", "incomplete"}, t
 
 
+def _run_dirs(t):
+    """A target is one run folder, or a suite whose sub-runs each hold verdicts (PB-026)."""
+    d = RUN / t
+    return [d] if (d / "verdicts").is_dir() else sorted(p.parent for p in d.glob("*/manifest.json"))
+
+
 def test_every_committed_verdict_validates():
-    agg = aggregator()
+    agg, crit = aggregator(), loader()
+    library, profiles = crit.load_library(), crit.load_profiles()
     for t in TARGETS:
-        files = list((RUN / t / "verdicts").glob("*.json"))
-        assert files, f"{t}: no verdicts"
-        manifest = json.loads((RUN / t / "manifest.json").read_text())
-        for f in files:
-            agg.validate_verdict(json.loads(f.read_text()), manifest)
+        dirs = _run_dirs(t)
+        assert dirs, f"{t}: no run folders"
+        for d in dirs:
+            files = list((d / "verdicts").glob("*.json"))
+            assert files, f"{d.name}: no verdicts"
+            profile = profiles[json.loads((d / "manifest.json").read_text())["profile"]]
+            for f in files:
+                v = json.loads(f.read_text())
+                agg.validate_verdict(v, library, profile, pairwise="order" in v)
 
 
 def test_anchor_gates_fail_exactly_as_labelled():
