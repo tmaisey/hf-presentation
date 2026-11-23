@@ -39,7 +39,7 @@ Docs hold **intent and state** that code, docstrings and git can't. This file is
 | `docs/ADR.md` | ADR model; records in `docs/ADR.jsonl` | Before adding or superseding a decision record | When the ADR model changes |
 | `deck/<name>.html` | **The deliverable**: one self-contained HTML deck | To build/edit slides; open in a browser to present | Every slide/engine change, with its spec's tests |
 | `evals/runs/` | Dated eval runs (`yymmdd-<label>/`: manifest, evidence, verdicts, report), written by the skill's eval protocol | To read past eval results or compare runs | Never edit a run; each run adds a new folder |
-| `tests/` | pytest + Playwright: static checks and in-browser behaviour, incl. the always-on layout guard (every slide × step × review size). Browser tests **MUST** wait on a condition, **NEVER** a fixed sleep | Before changing the deck; to prove red/green | When a spec's acceptance detail changes |
+| `tests/` | pytest + Playwright: static checks and in-browser behaviour, incl. the always-on layout guard (every slide × step × review size; wrap the presentation-builder skill's `layout_guard.py`, and shoot with its `shoot.py`). Browser tests **MUST** wait on a condition, **NEVER** a fixed sleep | Before changing the deck; to prove red/green | When a spec's acceptance detail changes |
 
 ### Doc hygiene
 
