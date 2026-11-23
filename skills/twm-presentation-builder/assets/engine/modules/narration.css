@@ -1,0 +1,8 @@
+/* Optional engine module: narration (mechanics only). Contract: architecture/ARCHITECTURE.md §9.
+   The module sets each tile's left, top and width inside its column. A tile that has left (.was-shown has
+   lapsed) is gone, not just transparent; the style layer draws the entry and the softening exit. */
+@layer arch {
+  .narration { position: relative; min-height: 0; pointer-events: none; }
+  .narr-tile { position: absolute; left: 0; top: 0; margin: 0; }
+  .narr-tile:not(.is-shown):not(.was-shown) { visibility: hidden; }
+}

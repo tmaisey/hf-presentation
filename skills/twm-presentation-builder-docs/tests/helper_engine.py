@@ -7,6 +7,7 @@ into the skeleton's marked blocks and writes one self-contained HTML file.
 from __future__ import annotations
 
 import re
+from html.parser import HTMLParser
 from pathlib import Path
 
 from helper_skill import SKILL_DIR
@@ -14,6 +15,7 @@ from helper_skill import SKILL_DIR
 ENGINE_DIR = SKILL_DIR / "assets" / "engine"
 ENGINE_JS = ENGINE_DIR / "engine.js"
 ARCH_CSS = ENGINE_DIR / "arch.css"
+MODULES_DIR = ENGINE_DIR / "modules"
 SKELETON = SKILL_DIR / "assets" / "templates" / "deck-skeleton.html"
 ARCHITECTURE = SKILL_DIR / "architecture" / "ARCHITECTURE.md"
 LAYER_ORDER = "@layer arch, components, palette, style, deck;"
@@ -130,6 +132,125 @@ RECORDER_MODULE = """
 });
 """
 
+# Optional-module fixture: a plain lead, two live scene slides (short and long titles, cameras,
+# narration tiles, a pop-over), a backdrop scene slide with a tile row, and a plain close. The scene's
+# parts span slides via data-scene-at / data-scene-until; m-3's last step comes only from the scene.
+MODULE_SLIDES = """
+<div class="scene">
+  <svg class="diagram" viewBox="-400 -200 800 400" role="img" aria-label="A shared scene of three tiles">
+    <g class="cam">
+      <g class="layer-edges">
+        <path class="edge" id="p-ab" data-from="#p-a" data-to="#p-b" marker-end="url(#arr)" data-scene-at="m-2:1" data-scene-until="m-3:1"/>
+        <path class="edge" id="p-ac" data-from="#p-a" data-to="#p-c" marker-end="url(#arr)" data-scene-at="m-3:3"/>
+      </g>
+      <g class="layer-nodes">
+        <g class="tile" id="p-a" data-scene-at="m-2:0" data-scene-is="dim m-3:0 m-3:3"><rect x="-90" y="-50" width="180" height="100"/><text class="tile-title">Hub</text></g>
+        <g class="tile" id="p-b" data-scene-at="m-2:1" data-scene-until="m-3:1"><rect x="-370" y="-170" width="180" height="100"/><text class="tile-title">Early</text></g>
+        <g class="tile" id="p-c" data-scene-at="m-3:3"><rect x="190" y="70" width="180" height="100"/><text class="tile-title">Late</text></g>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<section class="slide slide--lead" id="m-1" data-chapter="Opening">
+  <p class="kicker">01 · Opening</p>
+  <h2 class="title">Optional modules</h2>
+  <div class="body"><p>No scene here.</p></div>
+</section>
+
+<section class="slide" id="m-2" data-chapter="Scene" data-scene data-camera="0 0 1, 2: -120 0 1.6">
+  <p class="kicker">02 · Scene</p>
+  <h2 class="title" id="m2-title">A short title</h2>
+  <div class="body">
+    <ol class="steps">
+      <li id="m2-s1" data-show-at="1">A second tile joins</li>
+      <li id="m2-s2" data-show-at="2">The camera moves in</li>
+      <li id="m2-s3" data-show-at="3">One more message</li>
+    </ol>
+  </div>
+  <div class="scene-slot"></div>
+  <div class="narration">
+    <article class="narr-tile" id="n-1" data-at="1"><p class="msg-from">Speaker one</p><blockquote class="msg-text">The first message arrives with the first step.</blockquote></article>
+    <article class="narr-tile" id="n-2a" data-at="2"><p class="msg-from">Speaker two</p><blockquote class="msg-text">A pair of messages shares the second step.</blockquote></article>
+    <article class="narr-tile" id="n-2b" data-at="2"><p class="msg-from">Speaker three</p><blockquote class="msg-text">The second of the pair, placed apart from the first.</blockquote></article>
+    <article class="narr-tile" id="n-3" data-at="3"><p class="msg-from">Speaker one</p><blockquote class="msg-text">A last message on its own.</blockquote></article>
+  </div>
+</section>
+
+<section class="slide" id="m-3" data-chapter="Scene" data-scene data-camera="60 20 1.2">
+  <p class="kicker">03 · Scene</p>
+  <h2 class="title" id="m3-title">A much longer title that wraps over more than one line at every review size, so the scene must hold its place anyway</h2>
+  <div class="body">
+    <ol class="steps">
+      <li id="m3-s1" data-show-at="1">A pop-over takes focus</li>
+      <li id="m3-s2" data-show-at="2">It dissolves</li>
+    </ol>
+  </div>
+  <div class="scene-slot"></div>
+  <div class="popover" id="m3-pop" data-show-at="1" data-hide-at="2">
+    <figure class="pop-panel"><figcaption id="m3-pop-cap">An illustration</figcaption>
+      <p id="m3-pop-text">A panel over the scene, which softens while it has focus.</p></figure>
+  </div>
+  <div class="narration">
+    <article class="narr-tile" id="n-m3" data-at="2"><p class="msg-from">Speaker two</p><blockquote class="msg-text">After the pop-over, a message.</blockquote></article>
+  </div>
+  <aside class="note" data-for="#p-b"><h3>Scene note</h3><p>A note on a scene part.</p>
+    <a class="src" href="https://example.org/scene">Scene source</a></aside>
+  <aside class="note" data-for="#m3-pop-cap"><h3>Pop-over caption</h3><p>On the pop-over.</p>
+    <a class="src" href="https://example.org/pop">Pop source</a></aside>
+  <aside class="note" data-for="#m3-pop-text"><h3>Pop-over text</h3><p>Also on the pop-over.</p>
+    <a class="src" href="https://example.org/pop-text">Pop text source</a></aside>
+</section>
+
+<section class="slide" id="m-4" data-chapter="Backdrop" data-scene="backdrop">
+  <p class="kicker">04 · Backdrop</p>
+  <h2 class="title" id="m4-title">Three tiles over the blurred scene</h2>
+  <div class="scene-slot"></div>
+  <div class="body body--tiles">
+    <article class="text-tile" id="t-1" data-show-at="1"><h3>First</h3><p>One idea per tile.</p></article>
+    <article class="text-tile" id="t-2" data-show-at="2"><h3>Second</h3><p>Revealed with the steps.</p></article>
+    <article class="text-tile" id="t-3" data-show-at="3"><h3>Third</h3><p>Over a backdrop.</p></article>
+  </div>
+</section>
+
+<section class="slide" id="m-5" data-chapter="Close">
+  <p class="kicker">05 · Close</p>
+  <h2 class="title">The end</h2>
+  <div class="body"><p>No scene again.</p></div>
+</section>
+"""
+
+# Test-only stand-in for the module components' layout and look (later specs), system colours only.
+MODULE_CSS = FIXTURE_CSS + """
+@layer deck {
+  .slide[data-scene] { grid-template: "kicker kicker kicker" auto "title title title" auto "body slot narr" minmax(0, 1fr)
+      / minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr); column-gap: 2.4vw; }
+  .slide[data-scene] > .kicker { grid-area: kicker; } .slide[data-scene] > .title { grid-area: title; }
+  .slide[data-scene] > .body { grid-area: body; align-self: center; }
+  .slide[data-scene] > .scene-slot { grid-area: slot; min-height: 0; }
+  .slide[data-scene] > .narration { grid-area: narr; min-height: 0; }
+  .slide[data-scene] > .popover { grid-column: slot-start / narr-end; grid-row: 3; align-self: center; }
+  .slide[data-scene] > .body--tiles { grid-column: body-start / narr-end; grid-row: 3; align-self: stretch; }
+  .scene { transition: opacity .5s ease, filter .6s ease; }
+  .scene .cam { transition: transform 1s ease; }
+  .scene [data-scene-at] { transition: opacity .5s ease; }
+  .scene .is-dim.is-visible { opacity: .6; }
+  .narr-tile { padding: 12px 18px; border-radius: 16px; background: Canvas; border: 1px solid GrayText;
+    font-size: .8em; transform: translateY(20px); transition: opacity .5s ease, filter .5s ease, transform .5s ease; }
+  .narr-tile.is-shown { transform: none; }
+  .narr-tile.was-shown { filter: blur(8px); transform: none; }
+  .narr-tile p, .narr-tile blockquote { margin: 0; } .msg-from { font-weight: 600; font-size: .85em; color: GrayText; }
+  .popover { padding: 24px 32px; border-radius: 20px; background: Canvas; border: 1px solid GrayText;
+    box-shadow: 0 16px 48px color-mix(in srgb, CanvasText 25%, transparent); transition: opacity .6s ease, filter .6s ease; }
+  .popover:not(.is-visible) { filter: blur(12px); }
+  .pop-panel { margin: 0; } .pop-panel figcaption { font-weight: 600; }
+  .body--tiles { gap: 24px; align-content: center; }
+  .text-tile { padding: 20px 24px; border-radius: 20px; background: Canvas; border: 1px solid GrayText; transition: opacity .5s ease; }
+  .text-tile h3 { margin: 0 0 .4em; } .text-tile p, .text-tile ul { margin: 0; }
+  .body--tiles.is-tight { gap: 10px; } .body--tiles.is-tight .text-tile { padding: 8px 12px; }
+}
+"""
+
 
 def block(text: str, name: str) -> re.Match | None:
     """Find a named insertion block (``/* NAME:BEGIN */…/* NAME:END */`` or the HTML-comment form).
@@ -164,26 +285,87 @@ def fill(text: str, name: str, content: str) -> str:
     return text[:m.start(1)] + "\n" + content + "\n" + text[m.end(1):]
 
 
+def module_triggers(js: Path) -> list[str]:
+    """Read a module file's ``Triggers:`` header: the simple selectors that make a deck need it.
+
+    Args:
+        js: A module file, ``modules/<name>.js``.
+
+    Returns:
+        Selectors, each ``[data-attr]`` or ``.class``; empty when the header is missing.
+    """
+    m = re.search(r"Triggers:\s*([^\n*]+)", js.read_text(encoding="utf-8"))
+    return m.group(1).split() if m else []
+
+
+class _Markup(HTMLParser):
+    """Collects every attribute name and class token in a markup fragment."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.attrs: set[str] = set()
+        self.classes: set[str] = set()
+
+    def handle_starttag(self, tag, attrs):  # noqa: D102
+        for k, v in attrs:
+            self.attrs.add(k)
+            if k == "class" and v:
+                self.classes.update(v.split())
+
+    handle_startendtag = handle_starttag
+
+
+def detect_modules(slides: str) -> list[str]:
+    """Name the modules a deck needs: those whose triggers appear in its slide markup.
+
+    The inclusion rule the real assembler (a later spec) adopts: a module ships in a deck only when
+    one of its trigger attributes or classes appears in the SLIDES block.
+
+    Args:
+        slides: Slide markup (the SLIDES block).
+
+    Returns:
+        Module names (file stems), sorted.
+    """
+    mk = _Markup()
+    mk.feed(slides)
+    found = []
+    for js in sorted(MODULES_DIR.glob("*.js")):
+        for t in module_triggers(js):
+            if (t.startswith("[") and t.strip("[]") in mk.attrs) or (t.startswith(".") and t[1:] in mk.classes):
+                found.append(js.stem)
+                break
+    return found
+
+
 def assemble(out: Path, slides: str = FIXTURE_SLIDES, title: str = "Fixture Deck",
              subtitle: str = "Core engine", modules: str = "", css: str = FIXTURE_CSS) -> Path:
-    """Inline the engine parts and ``slides`` into the skeleton and write one HTML file.
+    """Inline the engine parts, the modules the slides need and ``slides`` into the skeleton.
+
+    Module JS goes in the MODULES block (before the engine); module CSS is appended to the ARCH
+    block after ``arch.css``. A deck whose slides trigger no module carries no module code.
 
     Args:
         out: Path of the HTML file to write.
         slides: Slide markup for the SLIDES block.
         title: Deck title (bar and ``<title>``).
         subtitle: Italic subtitle in the bar.
-        modules: Optional module scripts for the MODULES block.
+        modules: Extra module scripts for the MODULES block (after the detected ones).
         css: Stand-in design CSS for the DECK block.
 
     Returns:
         ``out``.
     """
+    names = detect_modules(slides)
+    js = [(MODULES_DIR / f"{n}.js").read_text(encoding="utf-8") for n in names]
+    arch = [ARCH_CSS.read_text(encoding="utf-8")]
+    arch += [(MODULES_DIR / f"{n}.css").read_text(encoding="utf-8") for n in names
+             if (MODULES_DIR / f"{n}.css").is_file()]
     src = SKELETON.read_text(encoding="utf-8")
     src = src.replace("{{title}}", title).replace("{{subtitle}}", subtitle)
-    src = fill(src, "ARCH", ARCH_CSS.read_text(encoding="utf-8"))
+    src = fill(src, "ARCH", "\n".join(arch))
     src = fill(src, "DECK", css)
-    src = fill(src, "MODULES", modules)
+    src = fill(src, "MODULES", "\n".join(js + ([modules] if modules else [])))
     src = fill(src, "ENGINE", ENGINE_JS.read_text(encoding="utf-8"))
     src = fill(src, "SLIDES", slides)
     out.write_text(src, encoding="utf-8")

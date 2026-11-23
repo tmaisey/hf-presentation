@@ -1,0 +1,5 @@
+/* Optional engine module: popover (mechanics only). Contract: architecture/ARCHITECTURE.md §9.
+   A pop-over paints above the slide's other content; its look, entry and dissolve are the design's. */
+@layer arch {
+  .slide > .popover { z-index: 2; pointer-events: none; }
+}
