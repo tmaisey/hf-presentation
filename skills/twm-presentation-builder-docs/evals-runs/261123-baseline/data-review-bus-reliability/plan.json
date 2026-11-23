@@ -1,0 +1,241 @@
+[
+ {
+  "criterion": "CN-13",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "RS-01",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1920x1080.png"
+  ]
+ },
+ {
+  "criterion": "RS-01",
+  "unit": "s-7",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-3-1920x1080.png"
+  ]
+ },
+ {
+  "criterion": "RS-02",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1920x1080.png",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/RESEARCH.md",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/definitions.md",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/punctuality.md",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/roadworks.md"
+  ]
+ },
+ {
+  "criterion": "RS-02",
+  "unit": "s-7",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-3-1920x1080.png",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/RESEARCH.md",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/definitions.md",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/punctuality.md",
+   "skills/twm-presentation-builder/evals/briefs/data-review-bus-reliability/research/roadworks.md"
+  ]
+ },
+ {
+  "criterion": "CN-06",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-1.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-3.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-8.txt"
+  ]
+ },
+ {
+  "criterion": "VC-08",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-1.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-3.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-8.txt",
+   "skills/twm-presentation-builder/voice/profiles/twm.md"
+  ]
+ },
+ {
+  "criterion": "DS-06",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/contact-1920x1080-1.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/contact-1920x1080-2.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/contact-1920x1080-3.png"
+  ]
+ },
+ {
+  "criterion": "CN-01",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "CN-03",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "DL-05",
+  "unit": "s-7",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-7-3-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "RS-07",
+  "unit": "s-5",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-5-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-5-1-1920x1080.png"
+  ]
+ },
+ {
+  "criterion": "DP-08",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/evidence/s-4-3-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "PR-05",
+  "unit": "S-005",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/SPEC.jsonl",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/tests/test_chart.py",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.html"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-08",
+  "unit": "S-005",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/DESIGN.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/SPEC.jsonl",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/shots"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-10",
+  "unit": "S-009",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/SPEC.jsonl",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/STORYBOARD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-06",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-07",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/research/RESEARCH.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "DP-07",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.html",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/DESIGN.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability",
+  "transcripts": "none (not approved for this run)"
+ }
+]

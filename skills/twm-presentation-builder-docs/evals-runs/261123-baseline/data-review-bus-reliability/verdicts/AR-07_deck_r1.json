@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-07",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "bus-reliability-q3.html",
+   "note": "every class and data attribute is in the contract"
+  }
+ ],
+ "rationale": "Gate rule: every class and data-* attribute in slide markup is named in the skill contract or the repo's docs. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

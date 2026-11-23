@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-01",
+ "unit": "s-1",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "all 32 words are native text; pictures: 0",
+   "slide": "s-1",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "Every word is in a text frame.",
+ "flaws": [],
+ "result": "pass"
+}

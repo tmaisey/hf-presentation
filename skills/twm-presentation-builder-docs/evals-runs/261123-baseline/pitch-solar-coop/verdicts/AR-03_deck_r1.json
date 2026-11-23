@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "deck.html",
+   "note": "all 12 states reached by → and ← and identical each way"
+  }
+ ],
+ "rationale": "Gate rule: keyboard (→ then ←) reaches every slide × step in order both ways; each state renders the same both ways and via goto. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

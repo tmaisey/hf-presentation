@@ -1,0 +1,25 @@
+# s-4 · Pilot
+
+Steps 0–0 (1 state). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 04 · Pilot
+Title: A 12-month pilot tests savings and upkeep on two roofs first
+
+## Step 0
++ [li] Blocks C and D
++ [li] 64 kW, £86,400 installed
++ [li] Five-year service plan
++ [g#s4-install.tile] Install
++ [g#s4-measure.tile] 12 months measured
++ [g#s4-review.tile] Go or stop review
+
+## Reader notes
+### Note 1 (for #s4-scope): What the quote covers
+64 kW across both roofs for £86,400 installed, including scaffolding and a five-year service plan. Blocks A and B have no quote yet, so they are out of scope until the review. Installer quotation Q-2291
+- source: Installer quotation Q-2291 <https://installer.example.org/quotes/q-2291>
+### Note 2 (for #s4-review): What the review decides
+After twelve months the board sees measured savings and upkeep and decides whether to extend the scheme to other blocks or stop. Installer quotation Q-2291, §5
+- source: Installer quotation Q-2291, §5 <https://installer.example.org/quotes/q-2291>
+
+## Sources (every link on the slide and in its notes)
+- Installer quotation Q-2291 <https://installer.example.org/quotes/q-2291>

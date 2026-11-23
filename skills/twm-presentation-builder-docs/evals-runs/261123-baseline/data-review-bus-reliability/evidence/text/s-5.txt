@@ -1,0 +1,69 @@
+# s-5 · Results
+
+Steps 0–1 (2 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 05 · Results
+Title: Away from the roadworks the other six routes held between 85% and 90% on time
+
+## Step 0
++ [th] Route
++ [th] Q2 on time
++ [th] Q3 on time
++ [th] Change (points)
++ [td] 12 Cross-town
++ [td] 85%
++ [td] 70%
++ [td] −14
++ [td] 14 Cross-town
++ [td] 85%
++ [td] 74%
++ [td] −11
++ [td] Other six (median)
++ [td] 87%
++ [td] 87%
++ [td] under 1
++ [td] Network
++ [td] 86%
++ [td] 81%
++ [td] −5
++ [p#s5-cap.caption] Each of the other six routes was within 2 points of Q2, at 85–90% in Q3. Route 7 Q3 covers 9 of 13 weeks (feed outage).
+
+## Step 1
+  [th] Route
+  [th] Q2 on time
+  [th] Q3 on time
+  [th] Change (points)
+  [td] 12 Cross-town
+  [td] 85%
+  [td] 70%
+  [td] −14
+  [td] 14 Cross-town
+  [td] 85%
+  [td] 74%
+  [td] −11
+  [td] Other six (median)
+  [td] 87%
+  [td] 87%
+  [td] under 1
+  [td] Network
+  [td] 86%
+  [td] 81%
+  [td] −5
+  [p#s5-cap.caption] Each of the other six routes was within 2 points of Q2, at 85–90% in Q3. Route 7 Q3 covers 9 of 13 weeks (feed outage).
++ [p] Only the diverted routes fell. A fleet or staffing shortfall would cut recovery time on every route, so the Q3 drop points to the diversion.
+
+## Reader notes
+### Note 1 (for #s5-table): Rounding
+Figures are rounded to whole percentages for the council. Changes are computed from the unrounded figures, so a change can differ by a point from the difference of the rounded columns (12 Cross-town fell from 84.5 to 70.3). OVT performance dashboard, Q3 2026 extract, tab 2
+- source: OVT performance dashboard, Q3 2026 extract, tab 2 <https://ovt.example.org/performance/2026-q3>
+### Note 2 (for #s5-cap): Route 7 is single-sourced
+Route 7’s Q3 figure of 89% covers 9 of 13 weeks after a feed outage. Only the data team’s outage log records this; treat the figure as partial. OVT data team outage log, Sep 2026
+- source: OVT data team outage log, Sep 2026 <https://ovt.example.org/data/outages-2026-09>
+### Note 3 (for #s5-insight): Why staffing would show everywhere
+The depot’s own report says driver vacancies would cut recovery time on every route. In Q3 only routes 12 and 14 Cross-town fell by more than 2 points. Depot staffing report, Oct 2026
+- source: Depot staffing report, Oct 2026 <https://ovt.example.org/depot/staffing-2026-10>
+
+## Sources (every link on the slide and in its notes)
+- OVT performance dashboard, Q3 2026 extract, tab 2 <https://ovt.example.org/performance/2026-q3>
+- OVT data team outage log, Sep 2026 <https://ovt.example.org/data/outages-2026-09>
+- Depot staffing report, Oct 2026 <https://ovt.example.org/depot/staffing-2026-10>

@@ -73,6 +73,13 @@
    "status": "pass"
   }
  ],
+ "incomplete": [
+  {
+   "criterion": "RS-02",
+   "status": "missing",
+   "reason": "no judge verdict in this run (not dispatched)"
+  }
+ ],
  "concerns": {
   "content": {
    "score": 1.0,
@@ -116,7 +123,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "CN-02": {
    "concern": "content",
@@ -126,7 +134,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "CN-03": {
    "concern": "content",
@@ -136,7 +145,8 @@
    "form": "scale",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "CN-04": {
    "concern": "content",
@@ -215,7 +225,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "CN-07": {
    "concern": "content",
@@ -225,7 +236,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "CN-08": {
    "concern": "content",
@@ -282,7 +294,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "CN-10": {
    "concern": "content",
@@ -292,7 +305,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "RS-01": {
    "concern": "research",
@@ -324,7 +338,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "RS-03": {
    "concern": "research",
@@ -356,7 +371,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "RS-05": {
    "concern": "research",
@@ -386,7 +402,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "VC-01": {
    "concern": "voice",
@@ -418,7 +435,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "VC-03": {
    "concern": "voice",
@@ -475,7 +493,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "VC-05": {
    "concern": "voice",
@@ -532,7 +551,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "VC-07": {
    "concern": "voice",
@@ -542,7 +562,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "VC-08": {
    "concern": "voice",
@@ -552,7 +573,8 @@
    "form": "scale",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DL-01": {
    "concern": "design-layout",
@@ -692,7 +714,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DL-04": {
    "concern": "design-layout",
@@ -702,7 +725,8 @@
    "form": "scale",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DL-05": {
    "concern": "design-layout",
@@ -712,7 +736,8 @@
    "form": "scale",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DL-06": {
    "concern": "design-layout",
@@ -722,7 +747,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DL-07": {
    "concern": "design-layout",
@@ -754,7 +780,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DL-09": {
    "concern": "design-layout",
@@ -1021,7 +1048,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)"
   },
   "DP-06": {
    "concern": "design-palette",
@@ -1031,7 +1059,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DP-07": {
    "concern": "design-palette",
@@ -1041,7 +1070,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DS-01": {
    "concern": "design-style",
@@ -1071,7 +1101,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DS-03": {
    "concern": "design-style",
@@ -1101,7 +1132,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DS-05": {
    "concern": "design-style",
@@ -1111,7 +1143,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DS-06": {
    "concern": "design-style",
@@ -1121,7 +1154,8 @@
    "form": "scale",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "no judge verdict in this run (not dispatched)"
   },
   "DS-07": {
    "concern": "design-style",
@@ -1271,7 +1305,8 @@
    "form": "binary",
    "status": "missing",
    "score": null,
-   "units": {}
+   "units": {},
+   "reason": "target repo not given (pass --repo)"
   }
  },
  "flags": []

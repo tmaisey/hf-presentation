@@ -1,0 +1,14 @@
+{
+ "criterion": "PR-04",
+ "unit": "S-010",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "451dcf6049",
+   "note": "75 slide-step-size shots dated within red..done"
+  }
+ ],
+ "rationale": "Gate rule: a spec whose commits change the deck has shots <slide>-<step>-<WxH>.png for every changed slide × step × review size, dated within the spec's red..done window. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

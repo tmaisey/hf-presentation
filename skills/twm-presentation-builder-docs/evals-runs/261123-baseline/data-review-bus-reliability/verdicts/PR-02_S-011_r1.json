@@ -1,0 +1,32 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-011",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "8f2192515b",
+   "file": "tests/test_pptx.py",
+   "note": "test_every_html_slide_title_is_live_text fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "8f2192515b",
+   "file": "tests/test_pptx.py",
+   "note": "test_reader_notes_become_speaker_notes_with_sources fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "8f2192515b",
+   "file": "tests/test_pptx.py",
+   "note": "test_reflow_keeps_every_slide fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "8f2192515b",
+   "file": "tests/test_pptx.py",
+   "note": "test_report_lists_what_was_dropped fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 4 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-08",
+ "unit": "s-2",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "no diagram on this slide",
+   "slide": "s-2",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "Nothing to check.",
+ "flaws": [],
+ "result": "pass"
+}

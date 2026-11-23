@@ -1,0 +1,14 @@
+{
+ "criterion": "PR-09",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "tests/",
+   "note": "no skip/xfail added to a layout test in 9 commits"
+  }
+ ],
+ "rationale": "Gate rule: no commit adds a skip/xfail decorator, call or module mark to a test file that runs the layout guard. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

@@ -1,0 +1,14 @@
+{
+ "criterion": "PX-05",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "59 effects match their bands (native/approximated present, lost listed and absent)",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "Every effect is exported as its band declares.",
+ "flaws": [],
+ "result": "pass"
+}

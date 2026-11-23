@@ -1,0 +1,14 @@
+{
+ "criterion": "PR-04",
+ "unit": "S-011",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "351c5ea5c1",
+   "note": "not a visual spec: no deck change in its commits"
+  }
+ ],
+ "rationale": "Gate rule: a spec whose commits change the deck has shots <slide>-<step>-<WxH>.png for every changed slide × step × review size, dated within the spec's red..done window. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

@@ -1,0 +1,30 @@
+# s-3 · Measures
+
+Steps 0–0 (1 state). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 03 · Measures
+Title: The council’s 90% target counts on-time departures only, so lost mileage can rise unseen
+
+## Step 0
++ [dt] On time
++ [dd] Departing a timing point between 1 minute early and 5 minutes 59 seconds late, as a share of timetabled departures
++ [dt] Lost mileage
++ [dd] Timetabled kilometres not run, as a share of all timetabled kilometres
++ [dt] Excess wait
++ [dd] Average minutes a passenger waits beyond the scheduled interval, on frequent routes only
+
+## Reader notes
+### Note 1 (for #s3-ontime): The measure this review reports
+Every figure in this review is on-time departures: the share of timetabled departures leaving a timing point from 1:00 early to 5:59 late. OVT performance methodology v3, §2
+- source: OVT performance methodology v3, §2 <https://ovt.example.org/performance/methodology-v3>
+### Note 2 (for #s3-lost): The target’s blind spot
+The council’s 90% target counts on-time departures only, so lost mileage can rise without moving it. This comes from the committee minutes, a secondary relay of the target’s terms. The pack holds no Q3 lost-mileage figures. OVT performance methodology v3, §4 Council transport committee minutes, 3 Jun 2026, item 6
+- source: OVT performance methodology v3, §4 <https://ovt.example.org/performance/methodology-v3>
+- source: Council transport committee minutes, 3 Jun 2026, item 6 <https://council.example.org/transport/2026-06-03>
+### Note 3 (for #s3-wait): Frequent routes only
+Excess wait is measured only where buses run to an interval rather than a timetable. OVT performance methodology v3, §5
+- source: OVT performance methodology v3, §5 <https://ovt.example.org/performance/methodology-v3>
+
+## Sources (every link on the slide and in its notes)
+- OVT performance methodology v3, §2 <https://ovt.example.org/performance/methodology-v3>
+- Council transport committee minutes, 3 Jun 2026, item 6 <https://council.example.org/transport/2026-06-03>

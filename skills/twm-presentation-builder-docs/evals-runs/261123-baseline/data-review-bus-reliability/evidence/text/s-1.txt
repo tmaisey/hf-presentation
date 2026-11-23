@@ -1,0 +1,17 @@
+# s-1 · Title
+
+Steps 0–0 (1 state). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Title: Q3 on-time departures fell on the two routes diverted around the roadworks
+
+## Step 0
++ [p#s1-sub] Orrin Valley Transit quarterly reliability review, Q3 2026 against Q2. All figures are synthetic, invented for a test brief.
++ [p.byline] Orrin Valley Transit service planning, November 2026
+
+## Reader notes
+### Note 1 (for #s1-sub): What this review compares
+On-time departures for July to September 2026 (Q3) against April to June (Q2), by route, against the council’s 90% target. The network, routes, figures and sources are synthetic: invented for a test brief, on reserved example.org domains. OVT performance dashboard, Q3 2026 extract
+- source: OVT performance dashboard, Q3 2026 extract <https://ovt.example.org/performance/2026-q3>
+
+## Sources (every link on the slide and in its notes)
+- OVT performance dashboard, Q3 2026 extract <https://ovt.example.org/performance/2026-q3>

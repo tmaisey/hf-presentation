@@ -1,0 +1,42 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-001",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "71fe5cc644",
+   "file": "tests/test_shell.py",
+   "note": "red run exit 1 with 2 error(s): Using CPython 3.14.2 | Creating virtual environment at: .venv | Installed 7 packages in 28ms"
+  },
+  {
+   "commit": "71fe5cc644",
+   "file": "tests/test_shell.py",
+   "note": "test_agenda_lists_storyboard_chapters_in_order error at red (needs an assertion failure)"
+  },
+  {
+   "commit": "71fe5cc644",
+   "file": "tests/test_shell.py",
+   "note": "test_bar_marks_the_deck_as_synthetic error at red (needs an assertion failure)"
+  },
+  {
+   "commit": "71fe5cc644",
+   "file": "tests/test_shell.py",
+   "note": "test_deck_is_themed_bright_primaries_editorial fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "71fe5cc644",
+   "file": "tests/test_shell.py",
+   "note": "test_no_remote_resources_and_one_script fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "71fe5cc644",
+   "file": "tests/test_shell.py",
+   "note": "test_slide_markup_carries_no_styling_or_scripts fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 6 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

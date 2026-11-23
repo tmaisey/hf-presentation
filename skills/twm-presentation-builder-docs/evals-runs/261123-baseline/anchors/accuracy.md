@@ -1,4 +1,4 @@
-# Anchor accuracy (261123 baseline)
+# Anchor accuracy
 
 ## Judges: 19/21 labels matched
 

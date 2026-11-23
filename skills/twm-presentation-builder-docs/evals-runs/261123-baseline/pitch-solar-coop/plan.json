@@ -1,0 +1,220 @@
+[
+ {
+  "criterion": "CN-12",
+  "unit": "s-7",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-7-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-7-0-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "RS-02",
+  "unit": "s-2",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-2-0-1920x1080.png",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/RESEARCH.md",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/costs.md",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/pilot.md",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/residents.md"
+  ]
+ },
+ {
+  "criterion": "RS-02",
+  "unit": "s-6",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-1-1920x1080.png",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/RESEARCH.md",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/costs.md",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/pilot.md",
+   "skills/twm-presentation-builder/evals/briefs/pitch-solar-coop/research/residents.md"
+  ]
+ },
+ {
+  "criterion": "RS-01",
+  "unit": "s-6",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-1-1920x1080.png"
+  ]
+ },
+ {
+  "criterion": "CN-06",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-1.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-3.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-7.txt"
+  ]
+ },
+ {
+  "criterion": "CN-11",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-1.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-3.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/contact-1920x1080-1.png"
+  ]
+ },
+ {
+  "criterion": "VC-08",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-1.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-3.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-4.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-6.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-7.txt",
+   "skills/twm-presentation-builder/voice/profiles/twm.md"
+  ]
+ },
+ {
+  "criterion": "DS-06",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/contact-1920x1080-1.png"
+  ]
+ },
+ {
+  "criterion": "CN-01",
+  "unit": "s-6",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-6-1-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "CN-03",
+  "unit": "s-2",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-2.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-2-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-2-0-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "CN-05",
+  "unit": "s-5",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/text/s-5.txt",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-4-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-3-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-4-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "DL-05",
+  "unit": "s-5",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-1-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-2-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-3-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-4-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-0-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-1-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-2-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-3-1288x598.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-5-4-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "DS-04",
+  "unit": "s-4",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-4-0-1920x1080.png",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/evidence/s-4-0-1288x598.png"
+  ]
+ },
+ {
+  "criterion": "PR-05",
+  "unit": "S-006",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/SPEC.jsonl",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/tests/test_slides.py",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/deck/deck.html"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-08",
+  "unit": "S-006",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/DESIGN.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/SPEC.jsonl",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/deck/shots"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-10",
+  "unit": "S-001",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/SPEC.jsonl",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-06",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "PR-07",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/research/RESEARCH.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop",
+  "transcripts": "none (not approved for this run)"
+ },
+ {
+  "criterion": "DP-07",
+  "unit": "deck",
+  "evidence": [
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/deck/deck.html",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/DESIGN.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/docs/PRD.md",
+   "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/AGENTS.md"
+  ],
+  "repo_path": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop",
+  "transcripts": "none (not approved for this run)"
+ }
+]

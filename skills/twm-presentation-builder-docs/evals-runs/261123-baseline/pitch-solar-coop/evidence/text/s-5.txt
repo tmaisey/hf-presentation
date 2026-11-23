@@ -1,0 +1,49 @@
+# s-5 · Pilot
+
+Steps 0–4 (5 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 05 · Pilot
+Title: One shared array per roof feeds the block’s landlord supply
+
+## Step 0
++ [g#s5-array.tile] Shared array
++ [p.caption] Blocks C and D each get their own array.
+
+## Step 1
++ [g#s5-supply.tile] Landlord supply
+  [g#s5-array.tile] Shared array
+  [p.caption] Blocks C and D each get their own array.
+
+## Step 2
+  [g#s5-supply.tile] Landlord supply
++ [g#s5-flats.tile] Flats Monthly credit
+  [g#s5-array.tile] Shared array
+  [p.caption] Blocks C and D each get their own array.
+
+## Step 3
+  [g#s5-supply.tile] Landlord supply
+  [g#s5-flats.tile] Flats Monthly credit
+  [g#s5-array.tile] Shared array
++ [g.layer-labels] INSPECTED YEARLY
+  [p.caption] Blocks C and D each get their own array.
+
+## Step 4
+  [g#s5-supply.tile] Landlord supply
+  [g#s5-flats.tile] Flats Monthly credit
+  [g#s5-array.tile] Shared array
+  [g.layer-labels] INSPECTED YEARLY
++ [p] Heavy daytime users get the largest credit.
+
+## Reader notes
+### Note 1 (for #s5-array): One array per roof
+Each roof’s array feeds that block’s landlord supply, which runs the shared parts of the building and offsets daytime power bought from the grid. Installer quotation Q-2291, §2
+- source: Installer quotation Q-2291, §2 <https://installer.example.org/quotes/q-2291>
+### Note 2 (for #s5-flats): How a flat sees the saving
+Flats see a monthly credit, split pro rata to each flat’s daytime use. Installer quotation Q-2291, §2
+- source: Installer quotation Q-2291, §2 <https://installer.example.org/quotes/q-2291>
+### Note 3 (for #s5-upkeep): Upkeep
+One inspection and panel clean a year. The five-year service plan covers it; afterwards it costs £1,150 a year for both roofs. Installer quotation Q-2291, §5
+- source: Installer quotation Q-2291, §5 <https://installer.example.org/quotes/q-2291>
+
+## Sources (every link on the slide and in its notes)
+- Installer quotation Q-2291, §2 <https://installer.example.org/quotes/q-2291>

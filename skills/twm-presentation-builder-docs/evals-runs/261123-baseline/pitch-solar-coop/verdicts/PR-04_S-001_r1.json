@@ -1,0 +1,96 @@
+{
+ "criterion": "PR-04",
+ "unit": "S-001",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "5970adafba",
+   "slide": "s-1",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-1",
+   "step": 0,
+   "size": "1280x720",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-1",
+   "step": 0,
+   "size": "1288x598",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-2",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-2",
+   "step": 0,
+   "size": "1280x720",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-2",
+   "step": 0,
+   "size": "1288x598",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-3",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-3",
+   "step": 0,
+   "size": "1280x720",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-3",
+   "step": 0,
+   "size": "1288x598",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-4",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-4",
+   "step": 0,
+   "size": "1280x720",
+   "note": "no screenshot of this state dated between the red and done commits"
+  },
+  {
+   "commit": "5970adafba",
+   "slide": "s-4",
+   "step": 0,
+   "size": "1288x598",
+   "note": "no screenshot of this state dated between the red and done commits (+9 more)"
+  }
+ ],
+ "rationale": "Gate rule: a spec whose commits change the deck has shots <slide>-<step>-<WxH>.png for every changed slide × step × review size, dated within the spec's red..done window. 21 finding(s) break it.",
+ "flaws": [
+  "unlooked-screenshots"
+ ],
+ "result": "fail"
+}

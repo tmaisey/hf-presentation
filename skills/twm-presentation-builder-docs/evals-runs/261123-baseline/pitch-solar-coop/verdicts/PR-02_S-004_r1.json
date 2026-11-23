@@ -1,0 +1,32 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-004",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_slides.py",
+   "note": "test_payback_phase_gives_both_figures_and_the_differing_assumptions fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_slides.py",
+   "note": "test_pilot_diagram_builds_supply_then_flats_then_upkeep fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_slides.py",
+   "note": "test_pilot_insight_shows_only_on_the_last_step_and_replaces_the_caption fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_slides.py",
+   "note": "test_proposal_is_not_step_built pass at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 4 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

@@ -1,0 +1,29 @@
+FAIL CN-04: 7 unit(s), 3 failed
+PASS CN-08: 7 unit(s), 0 failed
+PASS RS-05: 1 unit(s), 0 failed
+PASS VC-03: 7 unit(s), 0 failed
+PASS VC-05: 7 unit(s), 0 failed
+PASS DL-01: 12 unit(s), 0 failed
+PASS DL-02: 12 unit(s), 0 failed
+PASS DL-09: 1 unit(s), 0 failed
+PASS DL-10: 12 unit(s), 0 failed
+PASS DP-01: 12 unit(s), 0 failed
+PASS DP-02: 12 unit(s), 0 failed
+PASS DP-03: 1 unit(s), 0 failed
+MISSING DP-05: needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)
+PASS DS-01: 1 unit(s), 0 failed
+PASS DS-03: 1 unit(s), 0 failed
+PASS DS-07: 1 unit(s), 0 failed
+PASS AR-01: 1 unit(s), 0 failed
+PASS AR-02: 1 unit(s), 0 failed
+PASS AR-03: 1 unit(s), 0 failed
+PASS AR-04: 1 unit(s), 0 failed
+PASS AR-05: 1 unit(s), 0 failed
+PASS AR-06: 1 unit(s), 0 failed
+PASS AR-07: 1 unit(s), 0 failed
+PASS PR-01: 9 unit(s), 0 failed
+FAIL PR-02: 9 unit(s), 9 failed
+PASS PR-03: 9 unit(s), 0 failed
+FAIL PR-04: 9 unit(s), 1 failed
+PASS PR-09: 1 unit(s), 0 failed
+wrote 138 verdict(s) to skills/twm-presentation-builder-docs/evals-runs/261123-baseline/pitch-solar-coop/verdicts

@@ -1,0 +1,14 @@
+{
+ "criterion": "PX-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "theme slots and fonts match the tokens; 317 scheme colour references, no literals",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "Colours and fonts reference the theme.",
+ "flaws": [],
+ "result": "pass"
+}

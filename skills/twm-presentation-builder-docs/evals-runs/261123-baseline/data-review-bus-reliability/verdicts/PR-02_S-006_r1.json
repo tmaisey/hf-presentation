@@ -1,0 +1,17 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-006",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_no_decimal_figures_in_the_table pass at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 1 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

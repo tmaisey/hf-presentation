@@ -1,0 +1,42 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-001",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "2bd0127993",
+   "file": "tests/test_layout_guard.py",
+   "note": "red run exit 1 with 2 error(s): Using CPython 3.14.2 | Creating virtual environment at: .venv | Installed 12 packages in 19ms"
+  },
+  {
+   "commit": "2bd0127993",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_agenda_lists_the_six_chapters error at red (needs an assertion failure)"
+  },
+  {
+   "commit": "2bd0127993",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_deck_has_eight_slides_in_order error at red (needs an assertion failure)"
+  },
+  {
+   "commit": "2bd0127993",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_exactly_one_script_element fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "2bd0127993",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_opening_the_deck_makes_no_network_request fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "2bd0127993",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_slides_carry_no_style_or_colour_literals fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 6 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

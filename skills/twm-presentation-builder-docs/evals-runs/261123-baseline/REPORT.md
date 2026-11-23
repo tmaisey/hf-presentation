@@ -1,6 +1,10 @@
-# PB-025 baseline eval · part 1 of 2 (261123)
+# PB-025 baseline eval (261123)
 
-**Part 1 only: the HF example, its bright re-theme and the anchors. The pitch and data-review builds (`builds/`) are evaluated in part 2.**
+**Part 1: the HF example, its bright re-theme and the anchors. Part 2: the two cold builds
+(`pitch-solar-coop`, `data-review-bus-reliability`), built from their briefs by fresh agents using
+only the skill. Suite roll-up: `261123-baseline.md` (outcome **fail**: every target fails or is
+incomplete on at least one gate).** Part 2 is partial: the account's spend limit was reached
+mid-run, so the 36 process judges and 7 output judges did not run (see *Part 2* below).
 
 **Calibration: agreement with the presenter is unmeasured until a calibration set exists.** Every score below is a judge's reading of the rubric, never the presenter's judgement. The anchors are the only check on the judges, and they measure leniency, not agreement with you.
 
@@ -47,7 +51,7 @@ The judges' strongest signal on the accepted deck is that **s-4 is too much to t
 
 The PPTX was emitted, validated and re-flowed into python-pptx's default template without error (`evidence/deck-bright-reflowed.pptx`). The DS-05 result differs from the earlier `261123-pb008-bright` run, where s-9 passed with high spread. This run gave judges every step at both sizes.
 
-## Anchor accuracy (the lenient-judge check)
+## Anchor judge accuracy (the lenient-judge check)
 
 Judges ran only on each anchor's labelled `S`/`T` criteria, one unit each (the slide its label names), k = 3. Full table: `anchors/accuracy.md`.
 
@@ -88,6 +92,48 @@ Agreement with you is unmeasured. The anchors show the judges are mostly not len
 6. **Gated `S`/`T` criteria left unjudged make a run "incomplete".** Judging only labelled criteria on anchors leaves the RS-01/RS-02 gates missing on most anchors, so their outcome reads `incomplete`. Harmless here, but the wording invites misreading.
 7. **PPTX emitter gaps** (from the gates): illustration text on s-5 is neither native text nor a picture (PX-01); some fills are written as literal hex equal to theme colours (PX-03); the emitter report does not declare shape opacity, so PX-05 counts 356 effects as undeclared.
 
+## Part 2 · cold builds
+
+Both builders finished on their own: every spec red → green → done, layout guard clean at all three
+sizes, screenshots looked at, docs and decisions recorded for the absent presenter
+(`*.bundle` = each build's full git history; `COLD-BUILD-FEEDBACK.md` = the 17 skill defects they
+reported, since fixed under PB-027). 71 output judges ran (k = 3); gates ran on deck, repo and (data
+review) PPTX.
+
+| Build | Outcome | Gates failed | Overall (coverage) | Process (D) |
+| --- | --- | --- | --- | --- |
+| `pitch-solar-coop` (7 slides) | **fail** | RS-02 (judged) | 0.85 (0.62) | PR-01, 03, 09 pass · PR-02 fail · PR-04 8/9 |
+| `data-review-bus-reliability` (8 slides, bar chart, merged `AGENTS.md`) | **fail** | RS-02 (judged), DP-02 | 0.85 (0.63) | PR-01, 03, 04, 09 pass · PR-02 fail |
+
+**What the judges and gates found**
+
+- **Unsupported claims (RS-02, a gate) on both builds.** Pitch s-2: the title states the 40% daylight
+  share while the slide shows £612 (CN-03 = 1, 3/3). Data review s-4: the Insight says routes 12 and
+  14 "account for almost all of the network's fall", which the pack doesn't support; s-7 fails too.
+  This is the builders over-reaching their sources, the failure the skill most needs to prevent.
+- **PR-02 fails on every spec in both builds.** The gate re-runs each red commit and requires every
+  new test to fail *on an assertion*. The builders' red tests mostly fail on errors and timeouts
+  (elements not yet in the deck), and a few already pass at red. Either the process part should
+  teach "red = assertion failure" more firmly (e.g. assert presence before waiting), or the gate is
+  stricter than the presenter wants. **Decide.**
+- **Word caps (CN-04)** exceeded on 3 of 7 pitch and 5 of 8 data-review slides: both were built
+  before PB-027 defined "visible words".
+- **Data review only:** DP-02 (a chart stroke below 3:1), DS-01 (chart text off the type scale) and
+  RS-05 (an unlinked source): all built before PB-027 added chart parts and the unlinked-source
+  form. CN-06 fails 3/3: the extracted title order doesn't read as an argument.
+- **Strong points:** palette and architecture ~1.0 on both; voice 0.92–0.93; layout 0.94–0.96; the
+  data-review PPTX passes every PX gate; the data-review builder merged an existing `AGENTS.md`
+  without overwriting it and followed its house rules.
+
+**Not run (spend limit):** process judges PR-05, PR-06, PR-07, PR-08, PR-10 and DP-07 (×3, both builds)
+and 7 output judges. Each has a filled prompt in `<build>/prompts/`, listed in `dispatch.tsv`;
+reasons are recorded in each manifest's `not_judged`. Re-dispatch them, then re-run
+`aggregate.py` on the build runs and the suite.
+
+**How the cold builds compare with the gold deck:** they score higher overall (0.85 vs 0.76) because
+they are simpler and avoid the HF deck's known findings, but both fail the sourcing gate the HF deck
+passes: the skill transfers its look and process well; its sourcing discipline less so.
+
 ## Open questions for the presenter
 
 1. Known findings (PRD): fix, accept as exceptions, or change the criterion for DL-02 pop-over words, DP-02 green `ok` edges, the CN-04 word budget on build-up slides, and DS-03 looping "tries"?
@@ -96,3 +142,8 @@ Agreement with you is unmeasured. The anchors show the judges are mostly not len
 4. DS-06 levels: should a crammed slide cap the deck's craft score at 2?
 5. The bright palette's s-9 backdrop blur: too heavy (3/3 judges), or intended?
 6. Renumber the HF subset's kickers so its title arc reads as complete?
+7. PR-02: tighten the process part (red tests must fail on an assertion) or relax the gate?
+8. RS-02 failed on both cold builds: should the process add a claim-to-source check before a done
+   flip (e.g. a T judge on RS-02 as part of the definition of done)?
+9. Approve re-dispatching the 43 unrun judges (cost: ~43 subagent calls)?
+

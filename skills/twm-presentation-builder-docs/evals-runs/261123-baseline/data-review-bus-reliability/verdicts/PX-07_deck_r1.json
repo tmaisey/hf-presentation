@@ -1,0 +1,14 @@
+{
+ "criterion": "PX-07",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "8 slides titled (Morph continuations share their title), title first, alt text set",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "No accessibility-checker errors.",
+ "flaws": [],
+ "result": "pass"
+}

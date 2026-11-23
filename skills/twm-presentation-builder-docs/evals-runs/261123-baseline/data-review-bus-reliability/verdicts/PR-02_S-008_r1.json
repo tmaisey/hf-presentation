@@ -1,0 +1,27 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-008",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_dispute.py",
+   "note": "test_both_explanations_are_named fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_dispute.py",
+   "note": "test_dispute_is_labelled_on_the_slide fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_dispute.py",
+   "note": "test_no_copy_settles_the_cause fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 3 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

@@ -1,0 +1,48 @@
+# s-2 · Summary
+
+Steps 0–3 (4 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 02 · Summary
+Title: On-time departures fell from 86% to 81% in Q3, and retiming the diverted routes is the Q4 test
+
+## Step 0
+
+## Step 1
++ [h3] Network on-time departures fell 5 points
++ [li] 86% in Q2, 81% in Q3, against a 90% target
++ [li] 12 Cross-town fell 14 points and 14 Cross-town 11
+
+## Step 2
+  [h3] Network on-time departures fell 5 points
+  [li] 86% in Q2, 81% in Q3, against a 90% target
+  [li] 12 Cross-town fell 14 points and 14 Cross-town 11
++ [h3] Reliability held away from the roadworks
++ [li] The other six routes each moved by 2 points or less
++ [li] The drop is a diversion problem, not a fleet or staffing one
+
+## Step 3
+  [h3] Network on-time departures fell 5 points
+  [li] 86% in Q2, 81% in Q3, against a 90% target
+  [li] 12 Cross-town fell 14 points and 14 Cross-town 11
+  [h3] Reliability held away from the roadworks
+  [li] The other six routes each moved by 2 points or less
+  [li] The drop is a diversion problem, not a fleet or staffing one
++ [h3] Retime routes 12 and 14 Cross-town for the diversion in Q4
++ [li] Neither timetable was retimed for the 1.8 km diversion
++ [li] Check the result at the end of January
+
+## Reader notes
+### Note 1 (for #s2-t1): How many departures
+The network ran 41,880 timetabled departures in Q2 and 42,310 in Q3; 86% and 81% of them left on time. Changes are computed from the dashboard’s unrounded figures, then rounded. OVT performance dashboard, Q3 2026 extract, tabs 1–2
+- source: OVT performance dashboard, Q3 2026 extract, tabs 1–2 <https://ovt.example.org/performance/2026-q3>
+### Note 2 (for #s2-t2): One partial figure among the six
+Route 7’s Q3 figure covers 9 of 13 weeks after a feed outage. It sits inside the other six’s range either way, but it rests on one source, the data team’s outage log. OVT data team outage log, Sep 2026
+- source: OVT data team outage log, Sep 2026 <https://ovt.example.org/data/outages-2026-09>
+### Note 3 (for #s2-t3): What the January check compares
+Routes 12 and 14 Cross-town’s on-time departures after retiming, against their Q2 level and against the other six routes over the same weeks. The diversion itself was never retimed in Q3. OVT service change log, Q3 2026
+- source: OVT service change log, Q3 2026 <https://ovt.example.org/service-changes/2026-q3>
+
+## Sources (every link on the slide and in its notes)
+- OVT performance dashboard, Q3 2026 extract, tabs 1–2 <https://ovt.example.org/performance/2026-q3>
+- OVT data team outage log, Sep 2026 <https://ovt.example.org/data/outages-2026-09>
+- OVT service change log, Q3 2026 <https://ovt.example.org/service-changes/2026-q3>

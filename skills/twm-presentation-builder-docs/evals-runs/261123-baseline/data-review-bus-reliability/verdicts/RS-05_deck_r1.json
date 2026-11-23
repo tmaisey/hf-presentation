@@ -1,0 +1,16 @@
+{
+ "criterion": "RS-05",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-6",
+   "note": "bare-text citation in note: 'er feedback log, 18 Sep 2026, entry 31 (no link in the research pack).'"
+  }
+ ],
+ "rationale": "Gate rule: every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link. 1 finding(s) break it.",
+ "flaws": [
+  "broken-link"
+ ],
+ "result": "fail"
+}

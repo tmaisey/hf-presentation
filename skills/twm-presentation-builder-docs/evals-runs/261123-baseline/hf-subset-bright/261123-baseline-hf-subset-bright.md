@@ -74,6 +74,20 @@
 | PX-08 | pptx | 1 |  | pass | 1.00 |
 | PX-09 | pptx | 1 |  | pass | 1.00 |
 
+## Missing criteria
+
+- DL-03: no judge verdict in this run (not dispatched)
+- DL-04: no judge verdict in this run (not dispatched)
+- DL-05: no judge verdict in this run (not dispatched)
+- DL-06: no judge verdict in this run (not dispatched)
+- DL-07: no judge verdict in this run (not dispatched)
+- DL-08: no judge verdict in this run (not dispatched)
+- DP-05: needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)
+- DP-07: repo-target T criterion; organisation naming is covered by the skill's dev tests
+- DS-02: line breaks do not change with a palette swap; judged on hf-subset
+- AR-07: target repo not given (pass --repo)
+- PX-06: needs PPTX renders; LibreOffice (soffice) is not installed, so no PNG of the PPTX exists
+
 ## Flagged for the presenter
 
 - none

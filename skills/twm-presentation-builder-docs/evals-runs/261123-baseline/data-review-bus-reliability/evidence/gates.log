@@ -1,0 +1,37 @@
+FAIL CN-04: 8 unit(s), 5 failed
+PASS CN-08: 8 unit(s), 0 failed
+FAIL RS-05: 1 unit(s), 1 failed
+PASS VC-03: 8 unit(s), 0 failed
+PASS VC-05: 8 unit(s), 0 failed
+PASS DL-01: 25 unit(s), 0 failed
+PASS DL-02: 25 unit(s), 0 failed
+PASS DL-09: 1 unit(s), 0 failed
+PASS DL-10: 25 unit(s), 0 failed
+PASS DP-01: 25 unit(s), 0 failed
+FAIL DP-02: 25 unit(s), 1 failed
+PASS DP-03: 1 unit(s), 0 failed
+MISSING DP-05: needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)
+FAIL DS-01: 1 unit(s), 1 failed
+PASS DS-03: 1 unit(s), 0 failed
+PASS DS-07: 1 unit(s), 0 failed
+PASS AR-01: 1 unit(s), 0 failed
+PASS AR-02: 1 unit(s), 0 failed
+PASS AR-03: 1 unit(s), 0 failed
+PASS AR-04: 1 unit(s), 0 failed
+PASS AR-05: 1 unit(s), 0 failed
+PASS AR-06: 1 unit(s), 0 failed
+PASS AR-07: 1 unit(s), 0 failed
+PASS PX-01: 8 unit(s), 0 failed
+PASS PX-02: 8 unit(s), 0 failed
+PASS PX-03: 1 unit(s), 0 failed
+PASS PX-04: 8 unit(s), 0 failed
+PASS PX-05: 1 unit(s), 0 failed
+PASS PX-07: 1 unit(s), 0 failed
+PASS PX-08: 8 unit(s), 0 failed
+PASS PX-09: 8 unit(s), 0 failed
+PASS PR-01: 11 unit(s), 0 failed
+FAIL PR-02: 11 unit(s), 11 failed
+PASS PR-03: 11 unit(s), 0 failed
+PASS PR-04: 11 unit(s), 0 failed
+PASS PR-09: 1 unit(s), 0 failed
+wrote 258 verdict(s) to skills/twm-presentation-builder-docs/evals-runs/261123-baseline/data-review-bus-reliability/verdicts

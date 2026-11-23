@@ -1,0 +1,84 @@
+{
+ "criterion": "DS-01",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "dt. «On time» at 32.4px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "dt. «Lost mileage» at 32.4px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1920x1080",
+   "note": "dt. «Excess wait» at 32.4px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1280x720",
+   "note": "dt. «On time» at 21.6px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1280x720",
+   "note": "dt. «Lost mileage» at 21.6px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1280x720",
+   "note": "dt. «Excess wait» at 21.6px is off the type scale"
+  },
+  {
+   "slide": "s-2",
+   "step": 1,
+   "size": "1288x598",
+   "note": "h3. «Network on-time departures fell » at 19.3px is off the type scale"
+  },
+  {
+   "slide": "s-2",
+   "step": 2,
+   "size": "1288x598",
+   "note": "h3. «Reliability held away from the r» at 19.3px is off the type scale"
+  },
+  {
+   "slide": "s-2",
+   "step": 3,
+   "size": "1288x598",
+   "note": "h3. «Retime routes 12 and 14 Cross-to» at 19.3px is off the type scale"
+  },
+  {
+   "slide": "s-2",
+   "step": 3,
+   "size": "1288x598",
+   "note": "span.keep «14 Cross-town» at 19.3px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1288x598",
+   "note": "dt. «On time» at 21.7px is off the type scale"
+  },
+  {
+   "slide": "s-3",
+   "step": 0,
+   "size": "1288x598",
+   "note": "dt. «Lost mileage» at 21.7px is off the type scale (+1 more)"
+  }
+ ],
+ "rationale": "Gate rule: ≤ 2 primary font families, each declared in --sys-font-*; every size on the --sys-type-*/--comp-* size scale (diagram text: rendered size on the scale, or its SVG size on a --comp-*-floor). 13 finding(s) break it.",
+ "flaws": [
+  "inconsistent-text-styling"
+ ],
+ "result": "fail"
+}

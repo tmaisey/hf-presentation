@@ -1,0 +1,14 @@
+{
+ "criterion": "VC-03",
+ "unit": "s-4",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-4",
+   "note": "every title is one sentence, no final stop, ≤ 1 emphasis"
+  }
+ ],
+ "rationale": "Gate rule: each title: no trailing full stop, one sentence, ≤ 1 em/i run. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

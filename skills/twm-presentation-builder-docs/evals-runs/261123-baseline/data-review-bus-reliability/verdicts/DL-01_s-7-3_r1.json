@@ -1,0 +1,15 @@
+{
+ "criterion": "DL-01",
+ "unit": "s-7/3",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-7",
+   "step": 3,
+   "note": "no overlap, overflow or off-canvas box at 1920x1080, 1280x720, 1288x598"
+  }
+ ],
+ "rationale": "Gate rule: layout_guard faults plus pairwise text/tile box collisions and off-canvas boxes, at every size; deliberate stacks are not collisions: a textless tile with another shape of its own diagram, or a focus card (overlay, pop-over) over body content (never over a title or chrome). No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

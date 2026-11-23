@@ -1,0 +1,37 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-005",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_chart.py",
+   "note": "test_axes_units_legend_and_values_are_labelled fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_chart.py",
+   "note": "test_bars_share_a_zero_baseline_and_scale_with_the_values fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_chart.py",
+   "note": "test_chart_uses_no_library_or_raster pass at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_chart.py",
+   "note": "test_q2_and_q3_bars_pair_up_in_group_order fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_chart.py",
+   "note": "test_target_line_sits_at_90_percent_on_the_bar_scale fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 5 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

@@ -93,6 +93,42 @@
 | AR-06 | architecture | 2 |  | pass | 1.00 |
 | AR-07 | architecture | 2 |  | missing | – |
 
+## Missing criteria
+
+- CN-01: no judge verdict in this run (not dispatched)
+- CN-02: no judge verdict in this run (not dispatched)
+- CN-03: no judge verdict in this run (not dispatched)
+- CN-05: no judge verdict in this run (not dispatched)
+- CN-06: no judge verdict in this run (not dispatched)
+- CN-07: no judge verdict in this run (not dispatched)
+- CN-09: no judge verdict in this run (not dispatched)
+- CN-10: no judge verdict in this run (not dispatched)
+- RS-01 (gate): no judge verdict in this run (not dispatched)
+- RS-02 (gate): no judge verdict in this run (not dispatched)
+- RS-03: no judge verdict in this run (not dispatched)
+- RS-04: no judge verdict in this run (not dispatched)
+- RS-06: no judge verdict in this run (not dispatched)
+- VC-01: no judge verdict in this run (not dispatched)
+- VC-02: no judge verdict in this run (not dispatched)
+- VC-04: no judge verdict in this run (not dispatched)
+- VC-06: no judge verdict in this run (not dispatched)
+- VC-07: no judge verdict in this run (not dispatched)
+- VC-08: no judge verdict in this run (not dispatched)
+- DL-03: no judge verdict in this run (not dispatched)
+- DL-04: no judge verdict in this run (not dispatched)
+- DL-05: no judge verdict in this run (not dispatched)
+- DL-06: no judge verdict in this run (not dispatched)
+- DL-07: no judge verdict in this run (not dispatched)
+- DL-08: no judge verdict in this run (not dispatched)
+- DP-05: needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)
+- DP-06: no judge verdict in this run (not dispatched)
+- DP-07: no judge verdict in this run (not dispatched)
+- DS-02: no judge verdict in this run (not dispatched)
+- DS-04: no judge verdict in this run (not dispatched)
+- DS-05: no judge verdict in this run (not dispatched)
+- DS-06: no judge verdict in this run (not dispatched)
+- AR-07: target repo not given (pass --repo)
+
 ## Flagged for the presenter
 
 - none

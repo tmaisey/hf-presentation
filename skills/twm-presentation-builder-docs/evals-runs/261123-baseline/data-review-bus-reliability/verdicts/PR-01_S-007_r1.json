@@ -1,0 +1,15 @@
+{
+ "criterion": "PR-01",
+ "unit": "S-007",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "docs/SPEC.jsonl",
+   "note": "red commit flips S-007 to build with its tests only, before done"
+  }
+ ],
+ "rationale": "Gate rule: the spec's last cycle has a commit flipping it to build that adds its Spec-marked tests and no implementation (test config allowed), before the done flip. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

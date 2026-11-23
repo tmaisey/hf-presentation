@@ -1,0 +1,27 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-009",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_guards.py",
+   "note": "test_every_build_state_shows_at_most_30_counted_words pass at red (needs an assertion failure)"
+  },
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_guards.py",
+   "note": "test_layout_guard_is_clean_at_every_review_size pass at red (needs an assertion failure)"
+  },
+  {
+   "commit": "3e9aec5c92",
+   "file": "tests/test_guards.py",
+   "note": "test_word_counter_counts_the_title_slide pass at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 3 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

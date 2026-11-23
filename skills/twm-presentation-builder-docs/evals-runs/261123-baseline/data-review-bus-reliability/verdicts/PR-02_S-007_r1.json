@@ -1,0 +1,22 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-007",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_driver_quote_is_verbatim_and_arrives_after_phase_two fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_layout_guard.py",
+   "note": "test_phase_two_names_the_diversion fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 2 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

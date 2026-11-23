@@ -1,0 +1,14 @@
+{
+ "criterion": "PR-03",
+ "unit": "S-005",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "15ded9a124",
+   "note": "2 commit(s): every doc change lands with its index row"
+  }
+ ],
+ "rationale": "Gate rule: every doc (.md) added or removed in the spec's commits lands with an index change naming it; every touched doc is indexed. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

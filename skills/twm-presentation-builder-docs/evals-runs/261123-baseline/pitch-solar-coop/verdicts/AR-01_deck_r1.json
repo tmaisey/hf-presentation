@@ -1,0 +1,14 @@
+{
+ "criterion": "AR-01",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "deck.html",
+   "note": "rendered all 12 states at 3 sizes with the network blocked; no request, failure or console error"
+  }
+ ],
+ "rationale": "Gate rule: network blocked: no external request, no failed resource, no console error; no external reference in the source. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

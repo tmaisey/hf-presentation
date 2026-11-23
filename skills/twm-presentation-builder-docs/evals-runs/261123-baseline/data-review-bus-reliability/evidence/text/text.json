@@ -1,0 +1,1217 @@
+{
+ "tool": "extract",
+ "version": 1,
+ "deck": "../twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.html",
+ "size": "1920x1080",
+ "slides": [
+  {
+   "id": "s-1",
+   "chapter": "Title",
+   "steps": 0,
+   "kicker": null,
+   "title": "Q3 on-time departures fell on the two routes diverted around the roadworks",
+   "states": [
+    {
+     "step": 0,
+     "lines": [
+      {
+       "region": "p#s1-sub",
+       "text": "Orrin Valley Transit quarterly reliability review, Q3 2026 against Q2. All figures are synthetic, invented for a test brief.",
+       "new": true
+      },
+      {
+       "region": "p.byline",
+       "text": "Orrin Valley Transit service planning, November 2026",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s1-sub",
+     "heading": "What this review compares",
+     "text": "On-time departures for July to September 2026 (Q3) against April to June (Q2), by route, against the council’s 90% target. The network, routes, figures and sources are synthetic: invented for a test brief, on reserved example.org domains. OVT performance dashboard, Q3 2026 extract",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, Q3 2026 extract",
+       "href": "https://ovt.example.org/performance/2026-q3"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT performance dashboard, Q3 2026 extract",
+     "href": "https://ovt.example.org/performance/2026-q3"
+    }
+   ]
+  },
+  {
+   "id": "s-2",
+   "chapter": "Summary",
+   "steps": 3,
+   "kicker": "02 · Summary",
+   "title": "On-time departures fell from 86% to 81% in Q3, and retiming the diverted routes is the Q4 test",
+   "states": [
+    {
+     "step": 0,
+     "lines": []
+    },
+    {
+     "step": 1,
+     "lines": [
+      {
+       "region": "h3",
+       "text": "Network on-time departures fell 5 points",
+       "new": true
+      },
+      {
+       "region": "li",
+       "text": "86% in Q2, 81% in Q3, against a 90% target",
+       "new": true
+      },
+      {
+       "region": "li",
+       "text": "12 Cross-town fell 14 points and 14 Cross-town 11",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 2,
+     "lines": [
+      {
+       "region": "h3",
+       "text": "Network on-time departures fell 5 points",
+       "new": false
+      },
+      {
+       "region": "li",
+       "text": "86% in Q2, 81% in Q3, against a 90% target",
+       "new": false
+      },
+      {
+       "region": "li",
+       "text": "12 Cross-town fell 14 points and 14 Cross-town 11",
+       "new": false
+      },
+      {
+       "region": "h3",
+       "text": "Reliability held away from the roadworks",
+       "new": true
+      },
+      {
+       "region": "li",
+       "text": "The other six routes each moved by 2 points or less",
+       "new": true
+      },
+      {
+       "region": "li",
+       "text": "The drop is a diversion problem, not a fleet or staffing one",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 3,
+     "lines": [
+      {
+       "region": "h3",
+       "text": "Network on-time departures fell 5 points",
+       "new": false
+      },
+      {
+       "region": "li",
+       "text": "86% in Q2, 81% in Q3, against a 90% target",
+       "new": false
+      },
+      {
+       "region": "li",
+       "text": "12 Cross-town fell 14 points and 14 Cross-town 11",
+       "new": false
+      },
+      {
+       "region": "h3",
+       "text": "Reliability held away from the roadworks",
+       "new": false
+      },
+      {
+       "region": "li",
+       "text": "The other six routes each moved by 2 points or less",
+       "new": false
+      },
+      {
+       "region": "li",
+       "text": "The drop is a diversion problem, not a fleet or staffing one",
+       "new": false
+      },
+      {
+       "region": "h3",
+       "text": "Retime routes 12 and 14 Cross-town for the diversion in Q4",
+       "new": true
+      },
+      {
+       "region": "li",
+       "text": "Neither timetable was retimed for the 1.8 km diversion",
+       "new": true
+      },
+      {
+       "region": "li",
+       "text": "Check the result at the end of January",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s2-t1",
+     "heading": "How many departures",
+     "text": "The network ran 41,880 timetabled departures in Q2 and 42,310 in Q3; 86% and 81% of them left on time. Changes are computed from the dashboard’s unrounded figures, then rounded. OVT performance dashboard, Q3 2026 extract, tabs 1–2",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, Q3 2026 extract, tabs 1–2",
+       "href": "https://ovt.example.org/performance/2026-q3"
+      }
+     ]
+    },
+    {
+     "for": "#s2-t2",
+     "heading": "One partial figure among the six",
+     "text": "Route 7’s Q3 figure covers 9 of 13 weeks after a feed outage. It sits inside the other six’s range either way, but it rests on one source, the data team’s outage log. OVT data team outage log, Sep 2026",
+     "sources": [
+      {
+       "text": "OVT data team outage log, Sep 2026",
+       "href": "https://ovt.example.org/data/outages-2026-09"
+      }
+     ]
+    },
+    {
+     "for": "#s2-t3",
+     "heading": "What the January check compares",
+     "text": "Routes 12 and 14 Cross-town’s on-time departures after retiming, against their Q2 level and against the other six routes over the same weeks. The diversion itself was never retimed in Q3. OVT service change log, Q3 2026",
+     "sources": [
+      {
+       "text": "OVT service change log, Q3 2026",
+       "href": "https://ovt.example.org/service-changes/2026-q3"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT performance dashboard, Q3 2026 extract, tabs 1–2",
+     "href": "https://ovt.example.org/performance/2026-q3"
+    },
+    {
+     "text": "OVT data team outage log, Sep 2026",
+     "href": "https://ovt.example.org/data/outages-2026-09"
+    },
+    {
+     "text": "OVT service change log, Q3 2026",
+     "href": "https://ovt.example.org/service-changes/2026-q3"
+    }
+   ]
+  },
+  {
+   "id": "s-3",
+   "chapter": "Measures",
+   "steps": 0,
+   "kicker": "03 · Measures",
+   "title": "The council’s 90% target counts on-time departures only, so lost mileage can rise unseen",
+   "states": [
+    {
+     "step": 0,
+     "lines": [
+      {
+       "region": "dt",
+       "text": "On time",
+       "new": true
+      },
+      {
+       "region": "dd",
+       "text": "Departing a timing point between 1 minute early and 5 minutes 59 seconds late, as a share of timetabled departures",
+       "new": true
+      },
+      {
+       "region": "dt",
+       "text": "Lost mileage",
+       "new": true
+      },
+      {
+       "region": "dd",
+       "text": "Timetabled kilometres not run, as a share of all timetabled kilometres",
+       "new": true
+      },
+      {
+       "region": "dt",
+       "text": "Excess wait",
+       "new": true
+      },
+      {
+       "region": "dd",
+       "text": "Average minutes a passenger waits beyond the scheduled interval, on frequent routes only",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s3-ontime",
+     "heading": "The measure this review reports",
+     "text": "Every figure in this review is on-time departures: the share of timetabled departures leaving a timing point from 1:00 early to 5:59 late. OVT performance methodology v3, §2",
+     "sources": [
+      {
+       "text": "OVT performance methodology v3, §2",
+       "href": "https://ovt.example.org/performance/methodology-v3"
+      }
+     ]
+    },
+    {
+     "for": "#s3-lost",
+     "heading": "The target’s blind spot",
+     "text": "The council’s 90% target counts on-time departures only, so lost mileage can rise without moving it. This comes from the committee minutes, a secondary relay of the target’s terms. The pack holds no Q3 lost-mileage figures. OVT performance methodology v3, §4 Council transport committee minutes, 3 Jun 2026, item 6",
+     "sources": [
+      {
+       "text": "OVT performance methodology v3, §4",
+       "href": "https://ovt.example.org/performance/methodology-v3"
+      },
+      {
+       "text": "Council transport committee minutes, 3 Jun 2026, item 6",
+       "href": "https://council.example.org/transport/2026-06-03"
+      }
+     ]
+    },
+    {
+     "for": "#s3-wait",
+     "heading": "Frequent routes only",
+     "text": "Excess wait is measured only where buses run to an interval rather than a timetable. OVT performance methodology v3, §5",
+     "sources": [
+      {
+       "text": "OVT performance methodology v3, §5",
+       "href": "https://ovt.example.org/performance/methodology-v3"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT performance methodology v3, §2",
+     "href": "https://ovt.example.org/performance/methodology-v3"
+    },
+    {
+     "text": "Council transport committee minutes, 3 Jun 2026, item 6",
+     "href": "https://council.example.org/transport/2026-06-03"
+    }
+   ]
+  },
+  {
+   "id": "s-4",
+   "chapter": "Results",
+   "steps": 3,
+   "kicker": "04 · Results",
+   "title": "12 Cross-town and 14 Cross-town fell 14 and 11 points while the network fell 5",
+   "states": [
+    {
+     "step": 0,
+     "lines": [
+      {
+       "region": "p#s4-text",
+       "text": "Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.",
+       "new": true
+      },
+      {
+       "region": "g.layer-labels",
+       "text": "On-time departures (%) Q2 2026 Q3 2026 86% Network 85% 12 Cross-town 85% 14 Cross-town 87% Other six (median) 0% 50% 100%",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 1,
+     "lines": [
+      {
+       "region": "p#s4-text",
+       "text": "Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "The two cross-town routes through the roadworks fell furthest; the other six routes held.",
+       "new": true
+      },
+      {
+       "region": "g.layer-labels",
+       "text": "On-time departures (%) Q2 2026 Q3 2026 86% 81% Network 85% 70% 12 Cross-town 85% 74% 14 Cross-town 87% 87% Other six (median) 0% 50% 100%",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 2,
+     "lines": [
+      {
+       "region": "p#s4-text",
+       "text": "Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "The two cross-town routes through the roadworks fell furthest; the other six routes held.",
+       "new": false
+      },
+      {
+       "region": "g.layer-labels",
+       "text": "On-time departures (%) Q2 2026 Q3 2026 Target 90% 86% 81% Network 85% 70% 12 Cross-town 85% 74% 14 Cross-town 87% 87% Other six (median) 0% 50% 100%",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 3,
+     "lines": [
+      {
+       "region": "p#s4-text",
+       "text": "Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "The two cross-town routes through the roadworks fell furthest; the other six routes held.",
+       "new": false
+      },
+      {
+       "region": "g.layer-labels",
+       "text": "On-time departures (%) Q2 2026 Q3 2026 Target 90% 86% 81% Network 85% 70% 12 Cross-town 85% 74% 14 Cross-town 87% 87% Other six (median) 0% 50% 100%",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "Routes 12 and 14 Cross-town account for almost all of the network’s fall. The other six routes’ median moved by under 1 point.",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s4-chart",
+     "heading": "Reading the chart",
+     "text": "Bars are drawn from the dashboard’s figures to one decimal place; labels are rounded to whole percentages. “Other six” is the median of the six routes away from the roadworks, not their mean; each was within 2 points of its Q2 figure. OVT performance dashboard, Q3 2026 extract, tabs 1–2",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, Q3 2026 extract, tabs 1–2",
+       "href": "https://ovt.example.org/performance/2026-q3"
+      }
+     ]
+    },
+    {
+     "for": "#s4-target",
+     "heading": "The 90% target",
+     "text": "The council’s target is 90% on-time departures. The network was below it in Q2 as well, at 86%. OVT performance dashboard, Q3 2026 extract, tab 1",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, Q3 2026 extract, tab 1",
+       "href": "https://ovt.example.org/performance/2026-q3"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT performance dashboard, Q3 2026 extract, tabs 1–2",
+     "href": "https://ovt.example.org/performance/2026-q3"
+    }
+   ]
+  },
+  {
+   "id": "s-5",
+   "chapter": "Results",
+   "steps": 1,
+   "kicker": "05 · Results",
+   "title": "Away from the roadworks the other six routes held between 85% and 90% on time",
+   "states": [
+    {
+     "step": 0,
+     "lines": [
+      {
+       "region": "th",
+       "text": "Route",
+       "new": true
+      },
+      {
+       "region": "th",
+       "text": "Q2 on time",
+       "new": true
+      },
+      {
+       "region": "th",
+       "text": "Q3 on time",
+       "new": true
+      },
+      {
+       "region": "th",
+       "text": "Change (points)",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "12 Cross-town",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "85%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "70%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "−14",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "14 Cross-town",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "85%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "74%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "−11",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "Other six (median)",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "87%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "87%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "under 1",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "Network",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "86%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "81%",
+       "new": true
+      },
+      {
+       "region": "td",
+       "text": "−5",
+       "new": true
+      },
+      {
+       "region": "p#s5-cap.caption",
+       "text": "Each of the other six routes was within 2 points of Q2, at 85–90% in Q3. Route 7 Q3 covers 9 of 13 weeks (feed outage).",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 1,
+     "lines": [
+      {
+       "region": "th",
+       "text": "Route",
+       "new": false
+      },
+      {
+       "region": "th",
+       "text": "Q2 on time",
+       "new": false
+      },
+      {
+       "region": "th",
+       "text": "Q3 on time",
+       "new": false
+      },
+      {
+       "region": "th",
+       "text": "Change (points)",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "12 Cross-town",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "85%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "70%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "−14",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "14 Cross-town",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "85%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "74%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "−11",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "Other six (median)",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "87%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "87%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "under 1",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "Network",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "86%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "81%",
+       "new": false
+      },
+      {
+       "region": "td",
+       "text": "−5",
+       "new": false
+      },
+      {
+       "region": "p#s5-cap.caption",
+       "text": "Each of the other six routes was within 2 points of Q2, at 85–90% in Q3. Route 7 Q3 covers 9 of 13 weeks (feed outage).",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "Only the diverted routes fell. A fleet or staffing shortfall would cut recovery time on every route, so the Q3 drop points to the diversion.",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s5-table",
+     "heading": "Rounding",
+     "text": "Figures are rounded to whole percentages for the council. Changes are computed from the unrounded figures, so a change can differ by a point from the difference of the rounded columns (12 Cross-town fell from 84.5 to 70.3). OVT performance dashboard, Q3 2026 extract, tab 2",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, Q3 2026 extract, tab 2",
+       "href": "https://ovt.example.org/performance/2026-q3"
+      }
+     ]
+    },
+    {
+     "for": "#s5-cap",
+     "heading": "Route 7 is single-sourced",
+     "text": "Route 7’s Q3 figure of 89% covers 9 of 13 weeks after a feed outage. Only the data team’s outage log records this; treat the figure as partial. OVT data team outage log, Sep 2026",
+     "sources": [
+      {
+       "text": "OVT data team outage log, Sep 2026",
+       "href": "https://ovt.example.org/data/outages-2026-09"
+      }
+     ]
+    },
+    {
+     "for": "#s5-insight",
+     "heading": "Why staffing would show everywhere",
+     "text": "The depot’s own report says driver vacancies would cut recovery time on every route. In Q3 only routes 12 and 14 Cross-town fell by more than 2 points. Depot staffing report, Oct 2026",
+     "sources": [
+      {
+       "text": "Depot staffing report, Oct 2026",
+       "href": "https://ovt.example.org/depot/staffing-2026-10"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT performance dashboard, Q3 2026 extract, tab 2",
+     "href": "https://ovt.example.org/performance/2026-q3"
+    },
+    {
+     "text": "OVT data team outage log, Sep 2026",
+     "href": "https://ovt.example.org/data/outages-2026-09"
+    },
+    {
+     "text": "Depot staffing report, Oct 2026",
+     "href": "https://ovt.example.org/depot/staffing-2026-10"
+    }
+   ]
+  },
+  {
+   "id": "s-6",
+   "chapter": "Roadworks",
+   "steps": 4,
+   "kicker": "06 · Roadworks",
+   "title": "Mill Street closed in three phases from 7 July, and routes 12 and 14 ran the diversion without retiming",
+   "states": [
+    {
+     "step": 0,
+     "lines": [
+      {
+       "region": "strong",
+       "text": "7 Jul–3 Aug",
+       "new": true
+      },
+      {
+       "region": "li#s6-p1",
+       "text": "Phase 1: one lane closed on Mill Street",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 1,
+     "lines": [
+      {
+       "region": "strong",
+       "text": "7 Jul–3 Aug",
+       "new": false
+      },
+      {
+       "region": "li#s6-p1",
+       "text": "Phase 1: one lane closed on Mill Street",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "4 Aug–28 Sep",
+       "new": true
+      },
+      {
+       "region": "li#s6-p2",
+       "text": "Phase 2: full closure, 1.8 km diversion",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 2,
+     "lines": [
+      {
+       "region": "strong",
+       "text": "7 Jul–3 Aug",
+       "new": false
+      },
+      {
+       "region": "li#s6-p1",
+       "text": "Phase 1: one lane closed on Mill Street",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "4 Aug–28 Sep",
+       "new": false
+      },
+      {
+       "region": "li#s6-p2",
+       "text": "Phase 2: full closure, 1.8 km diversion",
+       "new": false
+      },
+      {
+       "region": "p.msg-agent",
+       "text": "Driver, 12 Cross-town",
+       "new": true
+      },
+      {
+       "region": "blockquote.msg-text",
+       "text": "The diversion adds six minutes at the school run and the timetable gives us none of it back.",
+       "new": true
+      },
+      {
+       "region": "p.cite",
+       "text": "Driver feedback log, 18 Sep 2026, entry 31",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 3,
+     "lines": [
+      {
+       "region": "strong",
+       "text": "7 Jul–3 Aug",
+       "new": false
+      },
+      {
+       "region": "li#s6-p1",
+       "text": "Phase 1: one lane closed on Mill Street",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "4 Aug–28 Sep",
+       "new": false
+      },
+      {
+       "region": "li#s6-p2",
+       "text": "Phase 2: full closure, 1.8 km diversion",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "From 29 Sep",
+       "new": true
+      },
+      {
+       "region": "li#s6-p3",
+       "text": "Phase 3: one lane, closed in the evenings",
+       "new": true
+      },
+      {
+       "region": "p.msg-agent",
+       "text": "Driver, 12 Cross-town",
+       "new": false
+      },
+      {
+       "region": "blockquote.msg-text",
+       "text": "The diversion adds six minutes at the school run and the timetable gives us none of it back.",
+       "new": false
+      },
+      {
+       "region": "p.cite",
+       "text": "Driver feedback log, 18 Sep 2026, entry 31",
+       "new": false
+      }
+     ]
+    },
+    {
+     "step": 4,
+     "lines": [
+      {
+       "region": "strong",
+       "text": "7 Jul–3 Aug",
+       "new": false
+      },
+      {
+       "region": "li#s6-p1",
+       "text": "Phase 1: one lane closed on Mill Street",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "4 Aug–28 Sep",
+       "new": false
+      },
+      {
+       "region": "li#s6-p2",
+       "text": "Phase 2: full closure, 1.8 km diversion",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "From 29 Sep",
+       "new": false
+      },
+      {
+       "region": "li#s6-p3",
+       "text": "Phase 3: one lane, closed in the evenings",
+       "new": false
+      },
+      {
+       "region": "strong",
+       "text": "All of Q3",
+       "new": true
+      },
+      {
+       "region": "li#s6-retime",
+       "text": "Timetables for 12 and 14 not retimed",
+       "new": true
+      },
+      {
+       "region": "p.msg-agent",
+       "text": "Driver, 12 Cross-town",
+       "new": false
+      },
+      {
+       "region": "blockquote.msg-text",
+       "text": "The diversion adds six minutes at the school run and the timetable gives us none of it back.",
+       "new": false
+      },
+      {
+       "region": "p.cite",
+       "text": "Driver feedback log, 18 Sep 2026, entry 31",
+       "new": false
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s6-p1",
+     "heading": "Bridge works in three phases",
+     "text": "Phase 1 (7 July–3 August) closed one lane; phase 2 (4 August–28 September) closed Mill Street fully, with a 1.8 km diversion; phase 3 (from 29 September) reopened one lane with evening closures. County highways notice HW-0412",
+     "sources": [
+      {
+       "text": "County highways notice HW-0412",
+       "href": "https://highways.example.org/notices/hw-0412"
+      }
+     ]
+    },
+    {
+     "for": "#s6-quote",
+     "heading": "One driver’s report",
+     "text": "Quoted verbatim from the driver feedback log. It is one driver’s account of the school run, not a measured running time; no passenger-count data for the diversion exists yet. Source: driver feedback log, 18 Sep 2026, entry 31 (no link in the research pack).",
+     "sources": []
+    },
+    {
+     "for": "#s6-retime",
+     "heading": "No retiming in Q3",
+     "text": "The service change log shows no timetable change for routes 12 and 14 Cross-town for the diversion during Q3. OVT service change log, Q3 2026",
+     "sources": [
+      {
+       "text": "OVT service change log, Q3 2026",
+       "href": "https://ovt.example.org/service-changes/2026-q3"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "County highways notice HW-0412",
+     "href": "https://highways.example.org/notices/hw-0412"
+    },
+    {
+     "text": "OVT service change log, Q3 2026",
+     "href": "https://ovt.example.org/service-changes/2026-q3"
+    }
+   ]
+  },
+  {
+   "id": "s-7",
+   "chapter": "Roadworks",
+   "steps": 3,
+   "kicker": "07 · Roadworks",
+   "title": "Planning and the depot disagree on why 12 Cross-town fell a further 4 points in October",
+   "states": [
+    {
+     "step": 0,
+     "lines": [
+      {
+       "region": "p#s7-text",
+       "text": "In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.",
+       "new": true
+      },
+      {
+       "region": "g#s7-oct.tile",
+       "text": "12 Cross-town, October a further 4 points down",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 1,
+     "lines": [
+      {
+       "region": "p#s7-text",
+       "text": "In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "Planning and the depot read the same dip differently.",
+       "new": true
+      },
+      {
+       "region": "g#s7-plan.tile",
+       "text": "Evening closures Planning’s reading",
+       "new": true
+      },
+      {
+       "region": "g#s7-oct.tile",
+       "text": "12 Cross-town, October a further 4 points down",
+       "new": false
+      }
+     ]
+    },
+    {
+     "step": 2,
+     "lines": [
+      {
+       "region": "p#s7-text",
+       "text": "In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "Planning and the depot read the same dip differently.",
+       "new": false
+      },
+      {
+       "region": "g#s7-plan.tile",
+       "text": "Evening closures Planning’s reading",
+       "new": false
+      },
+      {
+       "region": "g#s7-depot.tile",
+       "text": "6 driver vacancies Depot’s reading",
+       "new": true
+      },
+      {
+       "region": "g#s7-oct.tile",
+       "text": "12 Cross-town, October a further 4 points down",
+       "new": false
+      },
+      {
+       "region": "g.layer-labels",
+       "text": "DISPUTED",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 3,
+     "lines": [
+      {
+       "region": "p#s7-text",
+       "text": "In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.",
+       "new": false
+      },
+      {
+       "region": "p",
+       "text": "Planning and the depot read the same dip differently.",
+       "new": false
+      },
+      {
+       "region": "g#s7-plan.tile",
+       "text": "Evening closures Planning’s reading",
+       "new": false
+      },
+      {
+       "region": "g#s7-depot.tile",
+       "text": "6 driver vacancies Depot’s reading",
+       "new": false
+      },
+      {
+       "region": "g#s7-oct.tile",
+       "text": "12 Cross-town, October a further 4 points down",
+       "new": false
+      },
+      {
+       "region": "g.layer-labels",
+       "text": "DISPUTED",
+       "new": false
+      },
+      {
+       "region": "p#s7-annot.annot",
+       "text": "Disputed: only 12 and 14 Cross-town dipped, which favours planning’s reading; this review gives both.",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s7-oct",
+     "heading": "The October figure",
+     "text": "On-time departures on route 12 Cross-town fell a further 4 points in October, while phase 3’s evening closures were in place. OVT performance dashboard, October 2026",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, October 2026",
+       "href": "https://ovt.example.org/performance/2026-10"
+      }
+     ]
+    },
+    {
+     "for": "#s7-plan",
+     "heading": "Planning’s reading",
+     "text": "Service planning attributes the October dip to phase 3’s evening closures of Mill Street, which hit the two routes that cross it. Depot staffing report, Oct 2026 (dispute recorded)",
+     "sources": [
+      {
+       "text": "Depot staffing report, Oct 2026 (dispute recorded)",
+       "href": "https://ovt.example.org/depot/staffing-2026-10"
+      }
+     ]
+    },
+    {
+     "for": "#s7-depot",
+     "heading": "The depot’s reading",
+     "text": "The depot reports 6 driver vacancies in October, which would cut recovery time on every route. The depot manager’s view, as summarised in the pack: {vacancies, not roadworks, explain October} (paraphrased by the brief’s author, not a quote). Depot staffing report, Oct 2026",
+     "sources": [
+      {
+       "text": "Depot staffing report, Oct 2026",
+       "href": "https://ovt.example.org/depot/staffing-2026-10"
+      }
+     ]
+    },
+    {
+     "for": "#s7-annot",
+     "heading": "What would settle it",
+     "text": "Only routes 12 and 14 Cross-town dipped in October, which favours planning, but the evidence is one month and both readings stay open. Other routes’ October figures, or the January check after retiming, would separate them. OVT performance dashboard, October 2026",
+     "sources": [
+      {
+       "text": "OVT performance dashboard, October 2026",
+       "href": "https://ovt.example.org/performance/2026-10"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT performance dashboard, October 2026",
+     "href": "https://ovt.example.org/performance/2026-10"
+    },
+    {
+     "text": "Depot staffing report, Oct 2026 (dispute recorded)",
+     "href": "https://ovt.example.org/depot/staffing-2026-10"
+    }
+   ]
+  },
+  {
+   "id": "s-8",
+   "chapter": "Close",
+   "steps": 3,
+   "kicker": "08 · Close",
+   "title": "Retiming 12 and 14 Cross-town for the diversion is the Q4 test, checked at the end of January",
+   "states": [
+    {
+     "step": 0,
+     "lines": []
+    },
+    {
+     "step": 1,
+     "lines": [
+      {
+       "region": "li.prompt",
+       "text": "How much running time does the diversion need at the school run, and where should it come from?",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 2,
+     "lines": [
+      {
+       "region": "li.prompt",
+       "text": "How much running time does the diversion need at the school run, and where should it come from?",
+       "new": false
+      },
+      {
+       "region": "li.prompt",
+       "text": "What result in January would tell us the vacancies, not the closures, drove October?",
+       "new": true
+      }
+     ]
+    },
+    {
+     "step": 3,
+     "lines": [
+      {
+       "region": "li.prompt",
+       "text": "How much running time does the diversion need at the school run, and where should it come from?",
+       "new": false
+      },
+      {
+       "region": "li.prompt",
+       "text": "What result in January would tell us the vacancies, not the closures, drove October?",
+       "new": false
+      },
+      {
+       "region": "li.prompt",
+       "text": "Should reports to the council show lost mileage beside the 90% target while the works run?",
+       "new": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "for": "#s8-prompts",
+     "heading": "Grounding for the discussion",
+     "text": "Neither cross-town timetable was retimed for the diversion in Q3; one driver reports it adds six minutes at the school run. The council’s target counts on-time departures only. OVT service change log, Q3 2026 Council transport committee minutes, 3 Jun 2026, item 6",
+     "sources": [
+      {
+       "text": "OVT service change log, Q3 2026",
+       "href": "https://ovt.example.org/service-changes/2026-q3"
+      },
+      {
+       "text": "Council transport committee minutes, 3 Jun 2026, item 6",
+       "href": "https://council.example.org/transport/2026-06-03"
+      }
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "text": "OVT service change log, Q3 2026",
+     "href": "https://ovt.example.org/service-changes/2026-q3"
+    },
+    {
+     "text": "Council transport committee minutes, 3 Jun 2026, item 6",
+     "href": "https://council.example.org/transport/2026-06-03"
+    }
+   ]
+  }
+ ]
+}

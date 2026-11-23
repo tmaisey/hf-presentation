@@ -1,0 +1,3433 @@
+{
+ "run": {
+  "label": "baseline-data-review-bus-reliability",
+  "target": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.html",
+  "repo": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability (git-ignored cold-build repo; history bundled as ../data-review-bus-reliability.bundle)",
+  "pptx": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.pptx (with its .scene.json and .pptx-report.json sidecars; re-flowed copy bus-reliability-q3-plain.pptx not gated)",
+  "concerns": [
+   "content",
+   "research",
+   "voice",
+   "design-layout",
+   "design-palette",
+   "design-style",
+   "architecture",
+   "pptx",
+   "process"
+  ],
+  "output_process": "output and process",
+  "concerns_note": "per briefs/data-review-bus-reliability/brief.json",
+  "date": "261123",
+  "profile": "data-review",
+  "depth": "judges",
+  "k": 3,
+  "transcripts": false,
+  "mode": "pointwise",
+  "judge_model": "Claude Opus 5.5 (generic general-purpose subagents, model inherited)",
+  "scope_source": "PB-025 baseline part 2; presenter asleep, scope decided by the orchestrator for the presenter (answers the EVAL.md scope prompt; no prompt was asked)",
+  "sizes": [
+   "1920x1080",
+   "1288x598"
+  ],
+  "sizes_note": "judge screenshots at 1920x1080 (projected) and 1288x598 (short-wide Teams window); 1280x720 omitted to bound evidence. Gates render all three review sizes.",
+  "dispatch": "each judge got one filled prompt from evals/prompts.py (stored in prompts/) by path, nothing else; rolling batches of <=20",
+  "not_judged": {
+   "CN-02": "judge budget (part 2 cap 120): not sampled in this run",
+   "CN-05": "judge budget (part 2 cap 120): not sampled in this run",
+   "CN-07": "judge budget (part 2 cap 120): not sampled in this run",
+   "CN-09": "judge budget (part 2 cap 120): not sampled in this run",
+   "RS-03": "judge budget (part 2 cap 120): not sampled in this run",
+   "RS-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "RS-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-01": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-02": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-03": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-07": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-08": "judge budget (part 2 cap 120): not sampled in this run",
+   "DP-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "DP-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "DP-07": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "DS-02": "judge budget (part 2 cap 120): not sampled in this run",
+   "DS-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "DS-05": "judge budget (part 2 cap 120): not sampled in this run",
+   "PX-06": "no PPTX renderer: LibreOffice (soffice) is not on PATH",
+   "PR-05": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-06": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-07": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-08": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-10": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  }
+ },
+ "calibration": "Calibration: agreement with the presenter is unmeasured until a calibration set exists.",
+ "outcome": "fail",
+ "gates": [
+  {
+   "criterion": "CN-13",
+   "status": "pass"
+  },
+  {
+   "criterion": "RS-01",
+   "status": "pass"
+  },
+  {
+   "criterion": "RS-02",
+   "status": "fail"
+  },
+  {
+   "criterion": "DL-01",
+   "status": "pass"
+  },
+  {
+   "criterion": "DP-01",
+   "status": "pass"
+  },
+  {
+   "criterion": "DP-02",
+   "status": "fail"
+  },
+  {
+   "criterion": "AR-01",
+   "status": "pass"
+  }
+ ],
+ "incomplete": [],
+ "concerns": {
+  "content": {
+   "score": 0.725,
+   "coverage": 0.6666666666666666
+  },
+  "research": {
+   "score": 0.5454545454545454,
+   "coverage": 0.6111111111111112
+  },
+  "voice": {
+   "score": 0.9199999999999999,
+   "coverage": 0.38461538461538464
+  },
+  "design-layout": {
+   "score": 0.9555555555555555,
+   "coverage": 0.47368421052631576
+  },
+  "design-palette": {
+   "score": 0.9879999999999999,
+   "coverage": 0.5555555555555556
+  },
+  "design-style": {
+   "score": 0.65,
+   "coverage": 0.6666666666666666
+  },
+  "architecture": {
+   "score": 1.0,
+   "coverage": 1.0
+  },
+  "pptx": {
+   "score": 1.0,
+   "coverage": 0.8888888888888888
+  },
+  "process": {
+   "score": 0.8,
+   "coverage": 0.5
+  }
+ },
+ "overall": {
+  "score": 0.8497938144329897,
+  "coverage": 0.6339869281045751
+ },
+ "criteria": {
+  "CN-01": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-02": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-03": {
+   "concern": "content",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.8,
+   "units": {
+    "s-4": {
+     "outcome": 4,
+     "score": 0.8,
+     "k": 3,
+     "results": [
+      4,
+      4,
+      4
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-04": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.375,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-05": {
+   "concern": "content",
+   "weight": 1,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-06": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "deck": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-07": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-08": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-09": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-13": {
+   "concern": "content",
+   "weight": 3,
+   "gate": true,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-01": {
+   "concern": "research",
+   "weight": 3,
+   "gate": true,
+   "evidence": "T",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-02": {
+   "concern": "research",
+   "weight": 3,
+   "gate": true,
+   "evidence": "T",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "s-4": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-03": {
+   "concern": "research",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "RS-04": {
+   "concern": "research",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "RS-05": {
+   "concern": "research",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "deck": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-06": {
+   "concern": "research",
+   "weight": 3,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "RS-07": {
+   "concern": "research",
+   "weight": 3,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "VC-01": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-02": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-03": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "VC-04": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-05": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "VC-06": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-08": {
+   "concern": "voice",
+   "weight": 1,
+   "gate": false,
+   "evidence": "T",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.6,
+   "units": {
+    "deck": {
+     "outcome": 3,
+     "score": 0.6,
+     "k": 3,
+     "results": [
+      3,
+      3,
+      3
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-01": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-02": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-03": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-04": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-05": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.8,
+   "units": {
+    "s-7": {
+     "outcome": 4,
+     "score": 0.8,
+     "k": 3,
+     "results": [
+      4,
+      4,
+      4
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-06": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-07": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-08": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-09": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-10": {
+   "concern": "design-layout",
+   "weight": 1,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-01": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-02": {
+   "concern": "design-palette",
+   "weight": 3,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.96,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/2": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-4/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-03": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-04": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DP-05": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)"
+  },
+  "DP-06": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DP-07": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "DP-08": {
+   "concern": "design-palette",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-01": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "deck": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-02": {
+   "concern": "design-style",
+   "weight": 1,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DS-03": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-04": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DS-05": {
+   "concern": "design-style",
+   "weight": 1,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DS-06": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.6,
+   "units": {
+    "deck": {
+     "outcome": 3,
+     "score": 0.6,
+     "k": 3,
+     "results": [
+      3,
+      3,
+      3
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-07": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-01": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-02": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-03": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-04": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-05": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-06": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-07": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-01": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-02": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-03": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-04": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-05": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-06": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "no PPTX renderer: LibreOffice (soffice) is not on PATH"
+  },
+  "PX-07": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-08": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PX-09": {
+   "concern": "pptx",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-8": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-01": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "S-001": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-010": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-011": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-02": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "S-001": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-010": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-011": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-03": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "S-001": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-010": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-011": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-04": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "S-001": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-010": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-011": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-05": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-06": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-07": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-08": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-09": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-10": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  }
+ },
+ "flags": []
+}

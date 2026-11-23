@@ -1,0 +1,2240 @@
+{
+ "run": {
+  "label": "baseline-pitch-solar-coop",
+  "target": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/deck/deck.html",
+  "repo": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop (git-ignored cold-build repo; history bundled as ../pitch-solar-coop.bundle)",
+  "concerns": [
+   "content",
+   "research",
+   "voice",
+   "design-layout",
+   "design-palette",
+   "design-style",
+   "architecture",
+   "process"
+  ],
+  "output_process": "output and process",
+  "concerns_note": "per briefs/pitch-solar-coop/brief.json (no PPTX in this brief)",
+  "date": "261123",
+  "profile": "pitch",
+  "depth": "judges",
+  "k": 3,
+  "transcripts": false,
+  "mode": "pointwise",
+  "judge_model": "Claude Opus 5.5 (generic general-purpose subagents, model inherited)",
+  "scope_source": "PB-025 baseline part 2; presenter asleep, scope decided by the orchestrator for the presenter (answers the EVAL.md scope prompt; no prompt was asked)",
+  "sizes": [
+   "1920x1080",
+   "1288x598"
+  ],
+  "sizes_note": "judge screenshots at 1920x1080 (projected) and 1288x598 (short-wide Teams window); 1280x720 omitted to bound evidence. Gates render all three review sizes.",
+  "dispatch": "each judge got one filled prompt from evals/prompts.py (stored in prompts/) by path, nothing else; rolling batches of <=20",
+  "not_judged": {
+   "CN-02": "judge budget (part 2 cap 120): not sampled in this run",
+   "CN-07": "judge budget (part 2 cap 120): not sampled in this run",
+   "CN-09": "judge budget (part 2 cap 120): not sampled in this run",
+   "RS-03": "judge budget (part 2 cap 120): not sampled in this run",
+   "RS-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "RS-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-01": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-02": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "VC-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-03": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-07": "judge budget (part 2 cap 120): not sampled in this run",
+   "DL-08": "judge budget (part 2 cap 120): not sampled in this run",
+   "DP-04": "judge budget (part 2 cap 120): not sampled in this run",
+   "DP-06": "judge budget (part 2 cap 120): not sampled in this run",
+   "DP-07": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "DS-02": "judge budget (part 2 cap 120): not sampled in this run",
+   "DS-05": "judge budget (part 2 cap 120): not sampled in this run",
+   "PR-05": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-06": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-07": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-08": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK",
+   "PR-10": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  }
+ },
+ "calibration": "Calibration: agreement with the presenter is unmeasured until a calibration set exists.",
+ "outcome": "fail",
+ "gates": [
+  {
+   "criterion": "CN-12",
+   "status": "pass"
+  },
+  {
+   "criterion": "RS-02",
+   "status": "fail"
+  },
+  {
+   "criterion": "DL-01",
+   "status": "pass"
+  },
+  {
+   "criterion": "DP-01",
+   "status": "pass"
+  },
+  {
+   "criterion": "AR-01",
+   "status": "pass"
+  },
+  {
+   "criterion": "AR-02",
+   "status": "pass"
+  }
+ ],
+ "incomplete": [],
+ "concerns": {
+  "content": {
+   "score": 0.6301587301587301,
+   "coverage": 0.72
+  },
+  "research": {
+   "score": 0.7857142857142857,
+   "coverage": 0.6363636363636364
+  },
+  "voice": {
+   "score": 0.9333333333333332,
+   "coverage": 0.42857142857142855
+  },
+  "design-layout": {
+   "score": 0.9400000000000001,
+   "coverage": 0.47619047619047616
+  },
+  "design-palette": {
+   "score": 1.0,
+   "coverage": 0.42857142857142855
+  },
+  "design-style": {
+   "score": 0.890909090909091,
+   "coverage": 0.7333333333333333
+  },
+  "architecture": {
+   "score": 1.0,
+   "coverage": 1.0
+  },
+  "process": {
+   "score": 0.7777777777777778,
+   "coverage": 0.5555555555555556
+  }
+ },
+ "overall": {
+  "score": 0.8465931087882308,
+  "coverage": 0.6212121212121212
+ },
+ "criteria": {
+  "CN-01": {
+   "concern": "content",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "s-6": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "pass",
+      "fail"
+     ],
+     "flags": [
+      "high-spread"
+     ]
+    }
+   }
+  },
+  "CN-02": {
+   "concern": "content",
+   "weight": 3,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-03": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.2,
+   "units": {
+    "s-2": {
+     "outcome": 1,
+     "score": 0.2,
+     "k": 3,
+     "results": [
+      1,
+      1,
+      1
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-04": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.5714285714285714,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-05": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-06": {
+   "concern": "content",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-07": {
+   "concern": "content",
+   "weight": 1,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-08": {
+   "concern": "content",
+   "weight": 1,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-09": {
+   "concern": "content",
+   "weight": 3,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "CN-11": {
+   "concern": "content",
+   "weight": 3,
+   "gate": false,
+   "evidence": "T",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.6,
+   "units": {
+    "deck": {
+     "outcome": 3,
+     "score": 0.6,
+     "k": 3,
+     "results": [
+      4,
+      3,
+      3
+     ],
+     "flags": []
+    }
+   }
+  },
+  "CN-12": {
+   "concern": "content",
+   "weight": 3,
+   "gate": true,
+   "evidence": "T",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-01": {
+   "concern": "research",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-02": {
+   "concern": "research",
+   "weight": 3,
+   "gate": true,
+   "evidence": "T",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.5,
+   "units": {
+    "s-2": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 3,
+     "results": [
+      "fail",
+      "fail",
+      "fail"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-03": {
+   "concern": "research",
+   "weight": 1,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "RS-04": {
+   "concern": "research",
+   "weight": 1,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "RS-05": {
+   "concern": "research",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "RS-06": {
+   "concern": "research",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-01": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-02": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-03": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "VC-04": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-05": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "VC-06": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "VC-08": {
+   "concern": "voice",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.8,
+   "units": {
+    "deck": {
+     "outcome": 4,
+     "score": 0.8,
+     "k": 3,
+     "results": [
+      4,
+      4,
+      4
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-01": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-02": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-03": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-04": {
+   "concern": "design-layout",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-05": {
+   "concern": "design-layout",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.8,
+   "units": {
+    "s-5": {
+     "outcome": 4,
+     "score": 0.8,
+     "k": 3,
+     "results": [
+      4,
+      4,
+      4
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-06": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-07": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-08": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DL-09": {
+   "concern": "design-layout",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DL-10": {
+   "concern": "design-layout",
+   "weight": 1,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-01": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-02": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-1/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-2/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-3/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-4/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/2": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/3": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-5/4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-6/1": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "s-7/0": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-03": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DP-04": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DP-05": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)"
+  },
+  "DP-06": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DP-07": {
+   "concern": "design-palette",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "DS-01": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-02": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DS-03": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-04": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "s-4": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 3,
+     "results": [
+      "pass",
+      "pass",
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-05": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "S",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "judge budget (part 2 cap 120): not sampled in this run"
+  },
+  "DS-06": {
+   "concern": "design-style",
+   "weight": 3,
+   "gate": false,
+   "evidence": "S",
+   "form": "scale",
+   "status": "scored",
+   "score": 0.6,
+   "units": {
+    "deck": {
+     "outcome": 3,
+     "score": 0.6,
+     "k": 3,
+     "results": [
+      3,
+      3,
+      3
+     ],
+     "flags": []
+    }
+   }
+  },
+  "DS-07": {
+   "concern": "design-style",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-01": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-02": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": true,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-03": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-04": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-05": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-06": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "AR-07": {
+   "concern": "architecture",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-01": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "S-001": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-02": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.0,
+   "units": {
+    "S-001": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-03": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "S-001": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-04": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "fail",
+   "score": 0.8888888888888888,
+   "units": {
+    "S-001": {
+     "outcome": "fail",
+     "score": 0.0,
+     "k": 1,
+     "results": [
+      "fail"
+     ],
+     "flags": []
+    },
+    "S-002": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-003": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-004": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-005": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-006": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-007": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-008": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    },
+    "S-009": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-05": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-06": {
+   "concern": "process",
+   "weight": 1,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-07": {
+   "concern": "process",
+   "weight": 1,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-08": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  },
+  "PR-09": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "D",
+   "form": "binary",
+   "status": "pass",
+   "score": 1.0,
+   "units": {
+    "deck": {
+     "outcome": "pass",
+     "score": 1.0,
+     "k": 1,
+     "results": [
+      "pass"
+     ],
+     "flags": []
+    }
+   }
+  },
+  "PR-10": {
+   "concern": "process",
+   "weight": 2,
+   "gate": false,
+   "evidence": "T",
+   "form": "binary",
+   "status": "missing",
+   "score": null,
+   "units": {},
+   "reason": "not run: the account's spend limit was reached mid-run (261123); the prompt is filled in prompts/ and listed in dispatch.tsv, ready to re-dispatch with the presenter's OK"
+  }
+ },
+ "flags": [
+  {
+   "criterion": "CN-01",
+   "unit": "s-6",
+   "flags": [
+    "high-spread"
+   ]
+  }
+ ]
+}

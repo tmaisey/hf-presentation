@@ -1,0 +1,27 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-010",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_notes_copy.py",
+   "note": "test_on_screen_figures_are_whole_percentages pass at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_notes_copy.py",
+   "note": "test_routes_are_named_number_then_name pass at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_notes_copy.py",
+   "note": "test_sources_come_from_the_research_pack pass at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 3 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

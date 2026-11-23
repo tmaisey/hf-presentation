@@ -1,0 +1,40 @@
+# s-6 · Risks
+
+Steps 0–1 (2 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 06 · Risks
+Title: Roof leaks, falling tariffs and later upkeep are the pilot’s main risks
+
+## Step 0
++ [li#s6-leaks] Roof leaks: 9 respondents’ main worry
++ [li#s6-tariffs] Tariffs may fall next year
++ [li#s6-upkeep] Upkeep after year five: £1,150 a year
+
+## Step 1
++ [th] Installer
++ [th] Treasurer
++ [td] 7 years
++ [td] 11 years
++ [td] Current tariffs
++ [td] Adds inverter replacement and 2% yearly output loss
+
+## Reader notes
+### Note 1 (for #s6-leaks): Residents’ main worry
+Nine survey respondents named roof leaks during installation as their main worry. Blocks C and D resident survey, Sep 2026, Q5
+- source: Blocks C and D resident survey, Sep 2026, Q5 <https://larkmoor.example.org/survey-2026-09>
+### Note 2 (for #s6-tariffs): Single-sourced forecast
+Single-sourced: one regional tariff forecast says prices may fall next year, which would shrink the saving. No second source supports or contradicts it. Regional energy outlook, Oct 2026
+- source: Regional energy outlook, Oct 2026 <https://outlook.example.org/2026-10>
+### Note 3 (for #s6-upkeep): Upkeep after the plan
+One inspection and panel clean a year costs £1,150 for both roofs once the five-year service plan ends. Installer quotation Q-2291, §5
+- source: Installer quotation Q-2291, §5 <https://installer.example.org/quotes/q-2291>
+### Note 4 (for #s6-payback): Disputed payback
+Disputed: the installer puts payback at about 7 years at current tariffs (relayed in the quote). The treasurer puts it at about 11 years once inverter replacement and a 2% yearly output loss are counted. The deck shows both. Installer quotation Q-2291, §6 Treasurer’s note to the board, 14 Oct 2026
+- source: Installer quotation Q-2291, §6 <https://installer.example.org/quotes/q-2291>
+- source: Treasurer’s note to the board, 14 Oct 2026 <https://larkmoor.example.org/board/2026-10-treasurer>
+
+## Sources (every link on the slide and in its notes)
+- Blocks C and D resident survey, Sep 2026, Q5 <https://larkmoor.example.org/survey-2026-09>
+- Regional energy outlook, Oct 2026 <https://outlook.example.org/2026-10>
+- Installer quotation Q-2291, §5 <https://installer.example.org/quotes/q-2291>
+- Treasurer’s note to the board, 14 Oct 2026 <https://larkmoor.example.org/board/2026-10-treasurer>

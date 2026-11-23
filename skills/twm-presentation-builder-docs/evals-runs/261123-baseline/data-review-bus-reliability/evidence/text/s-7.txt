@@ -1,0 +1,51 @@
+# s-7 · Roadworks
+
+Steps 0–3 (4 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 07 · Roadworks
+Title: Planning and the depot disagree on why 12 Cross-town fell a further 4 points in October
+
+## Step 0
++ [p#s7-text] In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.
++ [g#s7-oct.tile] 12 Cross-town, October a further 4 points down
+
+## Step 1
+  [p#s7-text] In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.
++ [p] Planning and the depot read the same dip differently.
++ [g#s7-plan.tile] Evening closures Planning’s reading
+  [g#s7-oct.tile] 12 Cross-town, October a further 4 points down
+
+## Step 2
+  [p#s7-text] In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.
+  [p] Planning and the depot read the same dip differently.
+  [g#s7-plan.tile] Evening closures Planning’s reading
++ [g#s7-depot.tile] 6 driver vacancies Depot’s reading
+  [g#s7-oct.tile] 12 Cross-town, October a further 4 points down
++ [g.layer-labels] DISPUTED
+
+## Step 3
+  [p#s7-text] In October, with phase 3 closing Mill Street in the evenings, on-time departures on 12 Cross-town fell a further 4 points.
+  [p] Planning and the depot read the same dip differently.
+  [g#s7-plan.tile] Evening closures Planning’s reading
+  [g#s7-depot.tile] 6 driver vacancies Depot’s reading
+  [g#s7-oct.tile] 12 Cross-town, October a further 4 points down
+  [g.layer-labels] DISPUTED
++ [p#s7-annot.annot] Disputed: only 12 and 14 Cross-town dipped, which favours planning’s reading; this review gives both.
+
+## Reader notes
+### Note 1 (for #s7-oct): The October figure
+On-time departures on route 12 Cross-town fell a further 4 points in October, while phase 3’s evening closures were in place. OVT performance dashboard, October 2026
+- source: OVT performance dashboard, October 2026 <https://ovt.example.org/performance/2026-10>
+### Note 2 (for #s7-plan): Planning’s reading
+Service planning attributes the October dip to phase 3’s evening closures of Mill Street, which hit the two routes that cross it. Depot staffing report, Oct 2026 (dispute recorded)
+- source: Depot staffing report, Oct 2026 (dispute recorded) <https://ovt.example.org/depot/staffing-2026-10>
+### Note 3 (for #s7-depot): The depot’s reading
+The depot reports 6 driver vacancies in October, which would cut recovery time on every route. The depot manager’s view, as summarised in the pack: {vacancies, not roadworks, explain October} (paraphrased by the brief’s author, not a quote). Depot staffing report, Oct 2026
+- source: Depot staffing report, Oct 2026 <https://ovt.example.org/depot/staffing-2026-10>
+### Note 4 (for #s7-annot): What would settle it
+Only routes 12 and 14 Cross-town dipped in October, which favours planning, but the evidence is one month and both readings stay open. Other routes’ October figures, or the January check after retiming, would separate them. OVT performance dashboard, October 2026
+- source: OVT performance dashboard, October 2026 <https://ovt.example.org/performance/2026-10>
+
+## Sources (every link on the slide and in its notes)
+- OVT performance dashboard, October 2026 <https://ovt.example.org/performance/2026-10>
+- Depot staffing report, Oct 2026 (dispute recorded) <https://ovt.example.org/depot/staffing-2026-10>

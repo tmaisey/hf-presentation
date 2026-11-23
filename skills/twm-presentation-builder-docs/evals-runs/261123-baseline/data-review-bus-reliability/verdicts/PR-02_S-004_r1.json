@@ -1,0 +1,22 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-004",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_glossary.py",
+   "note": "test_definitions_match_the_methodology fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_glossary.py",
+   "note": "test_no_secondary_measure_results_are_claimed pass at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 2 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

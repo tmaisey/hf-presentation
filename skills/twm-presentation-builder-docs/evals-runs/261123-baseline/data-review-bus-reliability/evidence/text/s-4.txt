@@ -1,0 +1,37 @@
+# s-4 · Results
+
+Steps 0–3 (4 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 04 · Results
+Title: 12 Cross-town and 14 Cross-town fell 14 and 11 points while the network fell 5
+
+## Step 0
++ [p#s4-text] Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.
++ [g.layer-labels] On-time departures (%) Q2 2026 Q3 2026 86% Network 85% 12 Cross-town 85% 14 Cross-town 87% Other six (median) 0% 50% 100%
+
+## Step 1
+  [p#s4-text] Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.
++ [p] The two cross-town routes through the roadworks fell furthest; the other six routes held.
++ [g.layer-labels] On-time departures (%) Q2 2026 Q3 2026 86% 81% Network 85% 70% 12 Cross-town 85% 74% 14 Cross-town 87% 87% Other six (median) 0% 50% 100%
+
+## Step 2
+  [p#s4-text] Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.
+  [p] The two cross-town routes through the roadworks fell furthest; the other six routes held.
++ [g.layer-labels] On-time departures (%) Q2 2026 Q3 2026 Target 90% 86% 81% Network 85% 70% 12 Cross-town 85% 74% 14 Cross-town 87% 87% Other six (median) 0% 50% 100%
+
+## Step 3
+  [p#s4-text] Share of timetabled departures leaving on time, Q3 2026 against Q2. The axis starts at 0%.
+  [p] The two cross-town routes through the roadworks fell furthest; the other six routes held.
+  [g.layer-labels] On-time departures (%) Q2 2026 Q3 2026 Target 90% 86% 81% Network 85% 70% 12 Cross-town 85% 74% 14 Cross-town 87% 87% Other six (median) 0% 50% 100%
++ [p] Routes 12 and 14 Cross-town account for almost all of the network’s fall. The other six routes’ median moved by under 1 point.
+
+## Reader notes
+### Note 1 (for #s4-chart): Reading the chart
+Bars are drawn from the dashboard’s figures to one decimal place; labels are rounded to whole percentages. “Other six” is the median of the six routes away from the roadworks, not their mean; each was within 2 points of its Q2 figure. OVT performance dashboard, Q3 2026 extract, tabs 1–2
+- source: OVT performance dashboard, Q3 2026 extract, tabs 1–2 <https://ovt.example.org/performance/2026-q3>
+### Note 2 (for #s4-target): The 90% target
+The council’s target is 90% on-time departures. The network was below it in Q2 as well, at 86%. OVT performance dashboard, Q3 2026 extract, tab 1
+- source: OVT performance dashboard, Q3 2026 extract, tab 1 <https://ovt.example.org/performance/2026-q3>
+
+## Sources (every link on the slide and in its notes)
+- OVT performance dashboard, Q3 2026 extract, tabs 1–2 <https://ovt.example.org/performance/2026-q3>

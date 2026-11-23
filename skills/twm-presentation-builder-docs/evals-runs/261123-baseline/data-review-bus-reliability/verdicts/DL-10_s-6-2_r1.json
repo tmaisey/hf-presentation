@@ -1,0 +1,15 @@
+{
+ "criterion": "DL-10",
+ "unit": "s-6/2",
+ "repeat": 1,
+ "evidence": [
+  {
+   "slide": "s-6",
+   "step": 2,
+   "note": "every visible connector is gapped with a tangent, centred head (or none at this step)"
+  }
+ ],
+ "rationale": "Gate rule: every connector ends ≥ 0.5 units clear of both tiles; markers orient=auto with refY centred. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

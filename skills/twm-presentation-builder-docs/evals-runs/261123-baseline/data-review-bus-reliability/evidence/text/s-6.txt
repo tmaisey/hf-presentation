@@ -1,0 +1,63 @@
+# s-6 · Roadworks
+
+Steps 0–4 (5 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 06 · Roadworks
+Title: Mill Street closed in three phases from 7 July, and routes 12 and 14 ran the diversion without retiming
+
+## Step 0
++ [strong] 7 Jul–3 Aug
++ [li#s6-p1] Phase 1: one lane closed on Mill Street
+
+## Step 1
+  [strong] 7 Jul–3 Aug
+  [li#s6-p1] Phase 1: one lane closed on Mill Street
++ [strong] 4 Aug–28 Sep
++ [li#s6-p2] Phase 2: full closure, 1.8 km diversion
+
+## Step 2
+  [strong] 7 Jul–3 Aug
+  [li#s6-p1] Phase 1: one lane closed on Mill Street
+  [strong] 4 Aug–28 Sep
+  [li#s6-p2] Phase 2: full closure, 1.8 km diversion
++ [p.msg-agent] Driver, 12 Cross-town
++ [blockquote.msg-text] The diversion adds six minutes at the school run and the timetable gives us none of it back.
++ [p.cite] Driver feedback log, 18 Sep 2026, entry 31
+
+## Step 3
+  [strong] 7 Jul–3 Aug
+  [li#s6-p1] Phase 1: one lane closed on Mill Street
+  [strong] 4 Aug–28 Sep
+  [li#s6-p2] Phase 2: full closure, 1.8 km diversion
++ [strong] From 29 Sep
++ [li#s6-p3] Phase 3: one lane, closed in the evenings
+  [p.msg-agent] Driver, 12 Cross-town
+  [blockquote.msg-text] The diversion adds six minutes at the school run and the timetable gives us none of it back.
+  [p.cite] Driver feedback log, 18 Sep 2026, entry 31
+
+## Step 4
+  [strong] 7 Jul–3 Aug
+  [li#s6-p1] Phase 1: one lane closed on Mill Street
+  [strong] 4 Aug–28 Sep
+  [li#s6-p2] Phase 2: full closure, 1.8 km diversion
+  [strong] From 29 Sep
+  [li#s6-p3] Phase 3: one lane, closed in the evenings
++ [strong] All of Q3
++ [li#s6-retime] Timetables for 12 and 14 not retimed
+  [p.msg-agent] Driver, 12 Cross-town
+  [blockquote.msg-text] The diversion adds six minutes at the school run and the timetable gives us none of it back.
+  [p.cite] Driver feedback log, 18 Sep 2026, entry 31
+
+## Reader notes
+### Note 1 (for #s6-p1): Bridge works in three phases
+Phase 1 (7 July–3 August) closed one lane; phase 2 (4 August–28 September) closed Mill Street fully, with a 1.8 km diversion; phase 3 (from 29 September) reopened one lane with evening closures. County highways notice HW-0412
+- source: County highways notice HW-0412 <https://highways.example.org/notices/hw-0412>
+### Note 2 (for #s6-quote): One driver’s report
+Quoted verbatim from the driver feedback log. It is one driver’s account of the school run, not a measured running time; no passenger-count data for the diversion exists yet. Source: driver feedback log, 18 Sep 2026, entry 31 (no link in the research pack).
+### Note 3 (for #s6-retime): No retiming in Q3
+The service change log shows no timetable change for routes 12 and 14 Cross-town for the diversion during Q3. OVT service change log, Q3 2026
+- source: OVT service change log, Q3 2026 <https://ovt.example.org/service-changes/2026-q3>
+
+## Sources (every link on the slide and in its notes)
+- County highways notice HW-0412 <https://highways.example.org/notices/hw-0412>
+- OVT service change log, Q3 2026 <https://ovt.example.org/service-changes/2026-q3>

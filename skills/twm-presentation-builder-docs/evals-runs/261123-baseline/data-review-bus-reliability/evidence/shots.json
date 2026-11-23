@@ -1,0 +1,894 @@
+{
+  "tool": "shoot",
+  "version": 1,
+  "deck": "../twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.html",
+  "sizes": [
+    "1920x1080",
+    "1288x598"
+  ],
+  "settle_ms": 0,
+  "notes": true,
+  "slides": [
+    {
+      "id": "s-1",
+      "steps": 0
+    },
+    {
+      "id": "s-2",
+      "steps": 3
+    },
+    {
+      "id": "s-3",
+      "steps": 0
+    },
+    {
+      "id": "s-4",
+      "steps": 3
+    },
+    {
+      "id": "s-5",
+      "steps": 1
+    },
+    {
+      "id": "s-6",
+      "steps": 4
+    },
+    {
+      "id": "s-7",
+      "steps": 3
+    },
+    {
+      "id": "s-8",
+      "steps": 3
+    }
+  ],
+  "shots": [
+    {
+      "file": "s-1-0-1920x1080.png",
+      "slide": "s-1",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-1-n1-1920x1080.png",
+      "slide": "s-1",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-2-0-1920x1080.png",
+      "slide": "s-2",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-1-1920x1080.png",
+      "slide": "s-2",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-2-1920x1080.png",
+      "slide": "s-2",
+      "step": 2,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-3-1920x1080.png",
+      "slide": "s-2",
+      "step": 3,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-n1-1920x1080.png",
+      "slide": "s-2",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-2-n2-1920x1080.png",
+      "slide": "s-2",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-2-n3-1920x1080.png",
+      "slide": "s-2",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-3-0-1920x1080.png",
+      "slide": "s-3",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-3-n1-1920x1080.png",
+      "slide": "s-3",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-3-n2-1920x1080.png",
+      "slide": "s-3",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-3-n3-1920x1080.png",
+      "slide": "s-3",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-4-0-1920x1080.png",
+      "slide": "s-4",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-1-1920x1080.png",
+      "slide": "s-4",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-2-1920x1080.png",
+      "slide": "s-4",
+      "step": 2,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-3-1920x1080.png",
+      "slide": "s-4",
+      "step": 3,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-n1-1920x1080.png",
+      "slide": "s-4",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-4-n2-1920x1080.png",
+      "slide": "s-4",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-5-0-1920x1080.png",
+      "slide": "s-5",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-5-1-1920x1080.png",
+      "slide": "s-5",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-5-n1-1920x1080.png",
+      "slide": "s-5",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-5-n2-1920x1080.png",
+      "slide": "s-5",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-5-n3-1920x1080.png",
+      "slide": "s-5",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-6-0-1920x1080.png",
+      "slide": "s-6",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-1-1920x1080.png",
+      "slide": "s-6",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-2-1920x1080.png",
+      "slide": "s-6",
+      "step": 2,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-3-1920x1080.png",
+      "slide": "s-6",
+      "step": 3,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-4-1920x1080.png",
+      "slide": "s-6",
+      "step": 4,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-n1-1920x1080.png",
+      "slide": "s-6",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-6-n2-1920x1080.png",
+      "slide": "s-6",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-6-n3-1920x1080.png",
+      "slide": "s-6",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-7-0-1920x1080.png",
+      "slide": "s-7",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-1-1920x1080.png",
+      "slide": "s-7",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-2-1920x1080.png",
+      "slide": "s-7",
+      "step": 2,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-3-1920x1080.png",
+      "slide": "s-7",
+      "step": 3,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-n1-1920x1080.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-7-n2-1920x1080.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-7-n3-1920x1080.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-7-n4-1920x1080.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 4
+    },
+    {
+      "file": "s-8-0-1920x1080.png",
+      "slide": "s-8",
+      "step": 0,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-1-1920x1080.png",
+      "slide": "s-8",
+      "step": 1,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-2-1920x1080.png",
+      "slide": "s-8",
+      "step": 2,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-3-1920x1080.png",
+      "slide": "s-8",
+      "step": 3,
+      "size": "1920x1080",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-n1-1920x1080.png",
+      "slide": "s-8",
+      "step": null,
+      "size": "1920x1080",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-1-0-1288x598.png",
+      "slide": "s-1",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-1-n1-1288x598.png",
+      "slide": "s-1",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-2-0-1288x598.png",
+      "slide": "s-2",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-1-1288x598.png",
+      "slide": "s-2",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-2-1288x598.png",
+      "slide": "s-2",
+      "step": 2,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-3-1288x598.png",
+      "slide": "s-2",
+      "step": 3,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-2-n1-1288x598.png",
+      "slide": "s-2",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-2-n2-1288x598.png",
+      "slide": "s-2",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-2-n3-1288x598.png",
+      "slide": "s-2",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-3-0-1288x598.png",
+      "slide": "s-3",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-3-n1-1288x598.png",
+      "slide": "s-3",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-3-n2-1288x598.png",
+      "slide": "s-3",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-3-n3-1288x598.png",
+      "slide": "s-3",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-4-0-1288x598.png",
+      "slide": "s-4",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-1-1288x598.png",
+      "slide": "s-4",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-2-1288x598.png",
+      "slide": "s-4",
+      "step": 2,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-3-1288x598.png",
+      "slide": "s-4",
+      "step": 3,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-4-n1-1288x598.png",
+      "slide": "s-4",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-4-n2-1288x598.png",
+      "slide": "s-4",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-5-0-1288x598.png",
+      "slide": "s-5",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-5-1-1288x598.png",
+      "slide": "s-5",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-5-n1-1288x598.png",
+      "slide": "s-5",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-5-n2-1288x598.png",
+      "slide": "s-5",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-5-n3-1288x598.png",
+      "slide": "s-5",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-6-0-1288x598.png",
+      "slide": "s-6",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-1-1288x598.png",
+      "slide": "s-6",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-2-1288x598.png",
+      "slide": "s-6",
+      "step": 2,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-3-1288x598.png",
+      "slide": "s-6",
+      "step": 3,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-4-1288x598.png",
+      "slide": "s-6",
+      "step": 4,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-6-n1-1288x598.png",
+      "slide": "s-6",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-6-n2-1288x598.png",
+      "slide": "s-6",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-6-n3-1288x598.png",
+      "slide": "s-6",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-7-0-1288x598.png",
+      "slide": "s-7",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-1-1288x598.png",
+      "slide": "s-7",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-2-1288x598.png",
+      "slide": "s-7",
+      "step": 2,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-3-1288x598.png",
+      "slide": "s-7",
+      "step": 3,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-7-n1-1288x598.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "s-7-n2-1288x598.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 2
+    },
+    {
+      "file": "s-7-n3-1288x598.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 3
+    },
+    {
+      "file": "s-7-n4-1288x598.png",
+      "slide": "s-7",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 4
+    },
+    {
+      "file": "s-8-0-1288x598.png",
+      "slide": "s-8",
+      "step": 0,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-1-1288x598.png",
+      "slide": "s-8",
+      "step": 1,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-2-1288x598.png",
+      "slide": "s-8",
+      "step": 2,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-3-1288x598.png",
+      "slide": "s-8",
+      "step": 3,
+      "size": "1288x598",
+      "mode": "step"
+    },
+    {
+      "file": "s-8-n1-1288x598.png",
+      "slide": "s-8",
+      "step": null,
+      "size": "1288x598",
+      "mode": "notes",
+      "note": 1
+    },
+    {
+      "file": "contact-1920x1080-1.png",
+      "slide": null,
+      "step": null,
+      "size": "1920x1080",
+      "mode": "contact",
+      "tiles": [
+        {
+          "file": "s-1-0-1920x1080.png",
+          "slide": "s-1",
+          "step": 0,
+          "label": "s-1 \u00b7 step 0"
+        },
+        {
+          "file": "s-2-0-1920x1080.png",
+          "slide": "s-2",
+          "step": 0,
+          "label": "s-2 \u00b7 step 0"
+        },
+        {
+          "file": "s-2-1-1920x1080.png",
+          "slide": "s-2",
+          "step": 1,
+          "label": "s-2 \u00b7 step 1"
+        },
+        {
+          "file": "s-2-2-1920x1080.png",
+          "slide": "s-2",
+          "step": 2,
+          "label": "s-2 \u00b7 step 2"
+        },
+        {
+          "file": "s-2-3-1920x1080.png",
+          "slide": "s-2",
+          "step": 3,
+          "label": "s-2 \u00b7 step 3"
+        },
+        {
+          "file": "s-3-0-1920x1080.png",
+          "slide": "s-3",
+          "step": 0,
+          "label": "s-3 \u00b7 step 0"
+        },
+        {
+          "file": "s-4-0-1920x1080.png",
+          "slide": "s-4",
+          "step": 0,
+          "label": "s-4 \u00b7 step 0"
+        },
+        {
+          "file": "s-4-1-1920x1080.png",
+          "slide": "s-4",
+          "step": 1,
+          "label": "s-4 \u00b7 step 1"
+        },
+        {
+          "file": "s-4-2-1920x1080.png",
+          "slide": "s-4",
+          "step": 2,
+          "label": "s-4 \u00b7 step 2"
+        },
+        {
+          "file": "s-4-3-1920x1080.png",
+          "slide": "s-4",
+          "step": 3,
+          "label": "s-4 \u00b7 step 3"
+        },
+        {
+          "file": "s-5-0-1920x1080.png",
+          "slide": "s-5",
+          "step": 0,
+          "label": "s-5 \u00b7 step 0"
+        },
+        {
+          "file": "s-5-1-1920x1080.png",
+          "slide": "s-5",
+          "step": 1,
+          "label": "s-5 \u00b7 step 1"
+        }
+      ]
+    },
+    {
+      "file": "contact-1920x1080-2.png",
+      "slide": null,
+      "step": null,
+      "size": "1920x1080",
+      "mode": "contact",
+      "tiles": [
+        {
+          "file": "s-6-0-1920x1080.png",
+          "slide": "s-6",
+          "step": 0,
+          "label": "s-6 \u00b7 step 0"
+        },
+        {
+          "file": "s-6-1-1920x1080.png",
+          "slide": "s-6",
+          "step": 1,
+          "label": "s-6 \u00b7 step 1"
+        },
+        {
+          "file": "s-6-2-1920x1080.png",
+          "slide": "s-6",
+          "step": 2,
+          "label": "s-6 \u00b7 step 2"
+        },
+        {
+          "file": "s-6-3-1920x1080.png",
+          "slide": "s-6",
+          "step": 3,
+          "label": "s-6 \u00b7 step 3"
+        },
+        {
+          "file": "s-6-4-1920x1080.png",
+          "slide": "s-6",
+          "step": 4,
+          "label": "s-6 \u00b7 step 4"
+        },
+        {
+          "file": "s-7-0-1920x1080.png",
+          "slide": "s-7",
+          "step": 0,
+          "label": "s-7 \u00b7 step 0"
+        },
+        {
+          "file": "s-7-1-1920x1080.png",
+          "slide": "s-7",
+          "step": 1,
+          "label": "s-7 \u00b7 step 1"
+        },
+        {
+          "file": "s-7-2-1920x1080.png",
+          "slide": "s-7",
+          "step": 2,
+          "label": "s-7 \u00b7 step 2"
+        },
+        {
+          "file": "s-7-3-1920x1080.png",
+          "slide": "s-7",
+          "step": 3,
+          "label": "s-7 \u00b7 step 3"
+        },
+        {
+          "file": "s-8-0-1920x1080.png",
+          "slide": "s-8",
+          "step": 0,
+          "label": "s-8 \u00b7 step 0"
+        },
+        {
+          "file": "s-8-1-1920x1080.png",
+          "slide": "s-8",
+          "step": 1,
+          "label": "s-8 \u00b7 step 1"
+        },
+        {
+          "file": "s-8-2-1920x1080.png",
+          "slide": "s-8",
+          "step": 2,
+          "label": "s-8 \u00b7 step 2"
+        }
+      ]
+    },
+    {
+      "file": "contact-1920x1080-3.png",
+      "slide": null,
+      "step": null,
+      "size": "1920x1080",
+      "mode": "contact",
+      "tiles": [
+        {
+          "file": "s-8-3-1920x1080.png",
+          "slide": "s-8",
+          "step": 3,
+          "label": "s-8 \u00b7 step 3"
+        }
+      ]
+    }
+  ]
+}

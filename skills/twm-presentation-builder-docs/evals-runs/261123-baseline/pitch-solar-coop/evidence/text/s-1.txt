@@ -1,0 +1,21 @@
+# s-1 · Overview
+
+Steps 0–0 (1 state). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Title: A shared rooftop array could undercut what blocks C and D pay for daytime power
+
+## Step 0
++ [p#s1-sub] We propose a 12-month pilot on two roofs.
++ [p.byline] Energy working group, November 2026
+
+## Reader notes
+### Note 1 (for #s1-title): A synthetic brief
+Larkmoor Housing Co-op, its residents, every figure and every source in this deck are invented for a test brief. None of it describes a real co-op or a real installation. Larkmoor Co-op energy audit 2025 (synthetic)
+- source: Larkmoor Co-op energy audit 2025 (synthetic) <https://larkmoor.example.org/energy-audit-2025>
+### Note 2 (for #s1-sub): What the pilot is
+One array on each south-facing roof, blocks C and D: 64 kW in all, quoted at £86,400 installed, including scaffolding and a five-year service plan. Installer quotation Q-2291
+- source: Installer quotation Q-2291 <https://installer.example.org/quotes/q-2291>
+
+## Sources (every link on the slide and in its notes)
+- Larkmoor Co-op energy audit 2025 (synthetic) <https://larkmoor.example.org/energy-audit-2025>
+- Installer quotation Q-2291 <https://installer.example.org/quotes/q-2291>

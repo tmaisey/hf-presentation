@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-08",
+ "unit": "s-7",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "6 diagram parts are named shapes; SVG pictures: 0",
+   "slide": "s-7",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "Diagram is named native shapes.",
+ "flaws": [],
+ "result": "pass"
+}

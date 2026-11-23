@@ -1,0 +1,27 @@
+{
+ "criterion": "PR-02",
+ "unit": "S-009",
+ "repeat": 1,
+ "evidence": [
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_close.py",
+   "note": "test_closing_slide_has_no_kicker pass at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_close.py",
+   "note": "test_prompts_arrive_one_per_step fail-other at red (needs an assertion failure)"
+  },
+  {
+   "commit": "cbf52be9d5",
+   "file": "tests/test_close.py",
+   "note": "test_three_prompts_are_grounded_questions fail-other at red (needs an assertion failure)"
+  }
+ ],
+ "rationale": "Gate rule: spec tests re-run in a worktree: every new test fails on an assertion at red (no errors), and the spec's tests pass at done. 3 finding(s) break it.",
+ "flaws": [
+  "false-red"
+ ],
+ "result": "fail"
+}

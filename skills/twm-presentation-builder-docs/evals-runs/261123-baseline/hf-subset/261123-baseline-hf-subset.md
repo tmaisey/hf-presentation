@@ -93,6 +93,29 @@
 | AR-06 | architecture | 2 |  | pass | 1.00 |
 | AR-07 | architecture | 2 |  | missing | – |
 
+## Missing criteria
+
+- CN-02: no judge verdict in this run (not dispatched)
+- CN-07: no judge verdict in this run (not dispatched)
+- CN-09: no judge verdict in this run (not dispatched)
+- RS-03: no judge verdict in this run (not dispatched)
+- RS-06: no judge verdict in this run (not dispatched)
+- VC-01: no judge verdict in this run (not dispatched)
+- VC-02: no judge verdict in this run (not dispatched)
+- VC-04: no judge verdict in this run (not dispatched)
+- VC-06: no judge verdict in this run (not dispatched)
+- VC-07: no judge verdict in this run (not dispatched)
+- DL-03: no judge verdict in this run (not dispatched)
+- DL-04: no judge verdict in this run (not dispatched)
+- DL-06: no judge verdict in this run (not dispatched)
+- DL-08: no judge verdict in this run (not dispatched)
+- DP-04: no judge verdict in this run (not dispatched)
+- DP-05: needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)
+- DP-06: no judge verdict in this run (not dispatched)
+- DP-07: repo-target T criterion; output-only scope
+- DS-05: no judge verdict in this run (not dispatched)
+- AR-07: repo-target D criterion; no --repo (the example has no history)
+
 ## Flagged for the presenter
 
 - CN-06 @ deck: insufficient-evidence

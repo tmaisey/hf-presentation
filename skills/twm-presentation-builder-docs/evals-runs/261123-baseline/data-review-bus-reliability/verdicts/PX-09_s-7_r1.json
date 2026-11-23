@@ -1,0 +1,15 @@
+{
+ "criterion": "PX-09",
+ "unit": "s-7",
+ "repeat": 1,
+ "evidence": [
+  {
+   "note": "notes equal the reader note",
+   "slide": "s-7",
+   "file": "bus-reliability-q3.pptx"
+  }
+ ],
+ "rationale": "Notes carry the reader note.",
+ "flaws": [],
+ "result": "pass"
+}

@@ -1,0 +1,5 @@
+# Screenshots, contact sheets and worktrees are regenerable (from the skill folder): uv run scripts/shoot.py <run>/builds/pitch-solar-coop/deck/deck.html <this>/evidence --sizes 1920x1080,1288x598 --notes --contact 1920x1080; uv run evals/extract.py <run>/builds/pitch-solar-coop/deck/deck.html <this>/evidence/text
+evidence/**/*.png
+evidence/*.png
+evidence/*.scene.json
+evidence/worktrees/

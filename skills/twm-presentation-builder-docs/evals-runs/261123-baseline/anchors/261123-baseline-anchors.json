@@ -1,0 +1,172 @@
+{
+ "tool": "aggregate-suite",
+ "label": "baseline-anchors",
+ "date": "261123",
+ "calibration": "Calibration: agreement with the presenter is unmeasured until a calibration set exists.",
+ "outcome": "fail",
+ "runs": [
+  {
+   "run": "an-00",
+   "label": "baseline-an-00",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-00.html",
+   "outcome": "incomplete",
+   "gates_failed": [],
+   "gates_undecided": [
+    "RS-02"
+   ],
+   "overall": {
+    "score": 1.0,
+    "coverage": 0.4661016949152542
+   },
+   "flags": 0,
+   "report": "an-00/261123-baseline-an-00.json"
+  },
+  {
+   "run": "an-01",
+   "label": "baseline-an-01",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-01.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "DL-01"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.9512195121951219,
+    "coverage": 0.3474576271186441
+   },
+   "flags": 0,
+   "report": "an-01/261123-baseline-an-01.json"
+  },
+  {
+   "run": "an-02",
+   "label": "baseline-an-02",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-02.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "DP-01"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.9069767441860465,
+    "coverage": 0.3644067796610169
+   },
+   "flags": 1,
+   "report": "an-02/261123-baseline-an-02.json"
+  },
+  {
+   "run": "an-03",
+   "label": "baseline-an-03",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-03.html",
+   "outcome": "incomplete",
+   "gates_failed": [],
+   "gates_undecided": [
+    "RS-01",
+    "RS-02"
+   ],
+   "overall": {
+    "score": 0.9302325581395349,
+    "coverage": 0.3644067796610169
+   },
+   "flags": 0,
+   "report": "an-03/261123-baseline-an-03.json"
+  },
+  {
+   "run": "an-04",
+   "label": "baseline-an-04",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-04.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "RS-01"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.8913043478260869,
+    "coverage": 0.3898305084745763
+   },
+   "flags": 0,
+   "report": "an-04/261123-baseline-an-04.json"
+  },
+  {
+   "run": "an-05",
+   "label": "baseline-an-05",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-05.html",
+   "outcome": "incomplete",
+   "gates_failed": [],
+   "gates_undecided": [
+    "RS-01",
+    "RS-02"
+   ],
+   "overall": {
+    "score": 0.7433333333333334,
+    "coverage": 0.5084745762711864
+   },
+   "flags": 0,
+   "report": "an-05/261123-baseline-an-05.json"
+  },
+  {
+   "run": "an-06",
+   "label": "baseline-an-06",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-06.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "DL-01"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.9055555555555556,
+    "coverage": 0.3813559322033898
+   },
+   "flags": 0,
+   "report": "an-06/261123-baseline-an-06.json"
+  },
+  {
+   "run": "an-07",
+   "label": "baseline-an-07",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-07.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "DP-01"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.9069767441860465,
+    "coverage": 0.3644067796610169
+   },
+   "flags": 0,
+   "report": "an-07/261123-baseline-an-07.json"
+  },
+  {
+   "run": "an-08",
+   "label": "baseline-an-08",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-08.html",
+   "outcome": "incomplete",
+   "gates_failed": [],
+   "gates_undecided": [
+    "RS-01",
+    "RS-02"
+   ],
+   "overall": {
+    "score": 0.9512195121951219,
+    "coverage": 0.3474576271186441
+   },
+   "flags": 0,
+   "report": "an-08/261123-baseline-an-08.json"
+  },
+  {
+   "run": "an-09",
+   "label": "baseline-an-09",
+   "target": "skills/twm-presentation-builder/evals/anchors/an-09.html",
+   "outcome": "incomplete",
+   "gates_failed": [],
+   "gates_undecided": [
+    "RS-02"
+   ],
+   "overall": {
+    "score": 0.9545454545454546,
+    "coverage": 0.3728813559322034
+   },
+   "flags": 0,
+   "report": "an-09/261123-baseline-an-09.json"
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+# s-3 · Problem
+
+Steps 0–0 (1 state). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 03 · Problem
+Title: 26 of the 33 households that answered the survey support a pilot
+
+## Step 0
++ [p.msg-agent] Resident, block D
++ [blockquote.msg-text] We sit under that roof all day and still pay peak rates for the lights.
++ [p.cite] Blocks C and D resident survey, Sep 2026
+
+## Reader notes
+### Note 1 (for #s3-title): Who answered
+33 of the 48 households on blocks C and D answered; 26 support a pilot. That is 79% of respondents and 54% of all households. Fifteen households did not reply. Blocks C and D resident survey, Sep 2026, Q3
+- source: Blocks C and D resident survey, Sep 2026, Q3 <https://larkmoor.example.org/survey-2026-09>
+### Note 2 (for #s3-card): Verbatim free text
+Quoted as written in the survey's free-text answers. The main worry residents named, roof leaks during installation, is on slide 6. Blocks C and D resident survey, Sep 2026, Q6
+- source: Blocks C and D resident survey, Sep 2026, Q6 <https://larkmoor.example.org/survey-2026-09>
+
+## Sources (every link on the slide and in its notes)
+- Blocks C and D resident survey, Sep 2026, Q3 <https://larkmoor.example.org/survey-2026-09>

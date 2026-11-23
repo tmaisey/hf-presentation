@@ -1,0 +1,14 @@
+{
+ "criterion": "DS-03",
+ "unit": "deck",
+ "repeat": 1,
+ "evidence": [
+  {
+   "file": "bus-reliability-q3.html",
+   "note": "ambient only on lead or build-free slides; nothing loops; still under reduced motion"
+  }
+ ],
+ "rationale": "Gate rule: ambient layer only on lead or build-free, diagram-free slides; no other looping animation; reduced motion stops all drift. No finding breaks it.",
+ "flaws": [],
+ "result": "pass"
+}

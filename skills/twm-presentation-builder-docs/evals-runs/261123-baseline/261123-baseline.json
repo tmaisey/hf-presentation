@@ -1,0 +1,251 @@
+{
+ "tool": "aggregate-suite",
+ "label": "baseline",
+ "date": "261123",
+ "calibration": "Calibration: agreement with the presenter is unmeasured until a calibration set exists.",
+ "outcome": "fail",
+ "runs": [
+  {
+   "run": "hf-subset",
+   "label": "baseline-hf-subset",
+   "target": "skills/twm-presentation-builder/examples/hf-incident/deck.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "DL-02",
+    "DP-02"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.7587719298245613,
+    "coverage": 0.6440677966101694
+   },
+   "flags": 2,
+   "report": "hf-subset/261123-baseline-hf-subset.json"
+  },
+  {
+   "run": "hf-subset-bright",
+   "label": "baseline-hf-subset-bright",
+   "target": "skills/twm-presentation-builder/examples/hf-incident/deck-bright.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "DL-02"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.7630952380952382,
+    "coverage": 0.7088607594936709
+   },
+   "flags": 0,
+   "report": "hf-subset-bright/261123-baseline-hf-subset-bright.json"
+  },
+  {
+   "run": "anchors",
+   "label": "baseline-anchors",
+   "target": null,
+   "outcome": "fail",
+   "gates_failed": [],
+   "gates_undecided": [],
+   "overall": null,
+   "flags": null,
+   "report": "anchors/261123-baseline-anchors.json",
+   "runs": [
+    {
+     "run": "an-00",
+     "label": "baseline-an-00",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-00.html",
+     "outcome": "incomplete",
+     "gates_failed": [],
+     "gates_undecided": [
+      "RS-02"
+     ],
+     "overall": {
+      "score": 1.0,
+      "coverage": 0.4661016949152542
+     },
+     "flags": 0,
+     "report": "an-00/261123-baseline-an-00.json"
+    },
+    {
+     "run": "an-01",
+     "label": "baseline-an-01",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-01.html",
+     "outcome": "fail",
+     "gates_failed": [
+      "DL-01"
+     ],
+     "gates_undecided": [],
+     "overall": {
+      "score": 0.9512195121951219,
+      "coverage": 0.3474576271186441
+     },
+     "flags": 0,
+     "report": "an-01/261123-baseline-an-01.json"
+    },
+    {
+     "run": "an-02",
+     "label": "baseline-an-02",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-02.html",
+     "outcome": "fail",
+     "gates_failed": [
+      "DP-01"
+     ],
+     "gates_undecided": [],
+     "overall": {
+      "score": 0.9069767441860465,
+      "coverage": 0.3644067796610169
+     },
+     "flags": 1,
+     "report": "an-02/261123-baseline-an-02.json"
+    },
+    {
+     "run": "an-03",
+     "label": "baseline-an-03",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-03.html",
+     "outcome": "incomplete",
+     "gates_failed": [],
+     "gates_undecided": [
+      "RS-01",
+      "RS-02"
+     ],
+     "overall": {
+      "score": 0.9302325581395349,
+      "coverage": 0.3644067796610169
+     },
+     "flags": 0,
+     "report": "an-03/261123-baseline-an-03.json"
+    },
+    {
+     "run": "an-04",
+     "label": "baseline-an-04",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-04.html",
+     "outcome": "fail",
+     "gates_failed": [
+      "RS-01"
+     ],
+     "gates_undecided": [],
+     "overall": {
+      "score": 0.8913043478260869,
+      "coverage": 0.3898305084745763
+     },
+     "flags": 0,
+     "report": "an-04/261123-baseline-an-04.json"
+    },
+    {
+     "run": "an-05",
+     "label": "baseline-an-05",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-05.html",
+     "outcome": "incomplete",
+     "gates_failed": [],
+     "gates_undecided": [
+      "RS-01",
+      "RS-02"
+     ],
+     "overall": {
+      "score": 0.7433333333333334,
+      "coverage": 0.5084745762711864
+     },
+     "flags": 0,
+     "report": "an-05/261123-baseline-an-05.json"
+    },
+    {
+     "run": "an-06",
+     "label": "baseline-an-06",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-06.html",
+     "outcome": "fail",
+     "gates_failed": [
+      "DL-01"
+     ],
+     "gates_undecided": [],
+     "overall": {
+      "score": 0.9055555555555556,
+      "coverage": 0.3813559322033898
+     },
+     "flags": 0,
+     "report": "an-06/261123-baseline-an-06.json"
+    },
+    {
+     "run": "an-07",
+     "label": "baseline-an-07",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-07.html",
+     "outcome": "fail",
+     "gates_failed": [
+      "DP-01"
+     ],
+     "gates_undecided": [],
+     "overall": {
+      "score": 0.9069767441860465,
+      "coverage": 0.3644067796610169
+     },
+     "flags": 0,
+     "report": "an-07/261123-baseline-an-07.json"
+    },
+    {
+     "run": "an-08",
+     "label": "baseline-an-08",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-08.html",
+     "outcome": "incomplete",
+     "gates_failed": [],
+     "gates_undecided": [
+      "RS-01",
+      "RS-02"
+     ],
+     "overall": {
+      "score": 0.9512195121951219,
+      "coverage": 0.3474576271186441
+     },
+     "flags": 0,
+     "report": "an-08/261123-baseline-an-08.json"
+    },
+    {
+     "run": "an-09",
+     "label": "baseline-an-09",
+     "target": "skills/twm-presentation-builder/evals/anchors/an-09.html",
+     "outcome": "incomplete",
+     "gates_failed": [],
+     "gates_undecided": [
+      "RS-02"
+     ],
+     "overall": {
+      "score": 0.9545454545454546,
+      "coverage": 0.3728813559322034
+     },
+     "flags": 0,
+     "report": "an-09/261123-baseline-an-09.json"
+    }
+   ]
+  },
+  {
+   "run": "pitch-solar-coop",
+   "label": "baseline-pitch-solar-coop",
+   "target": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/pitch-solar-coop/deck/deck.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "RS-02"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.8465931087882308,
+    "coverage": 0.6212121212121212
+   },
+   "flags": 1,
+   "report": "pitch-solar-coop/261123-baseline-pitch-solar-coop.json"
+  },
+  {
+   "run": "data-review-bus-reliability",
+   "label": "baseline-data-review-bus-reliability",
+   "target": "skills/twm-presentation-builder-docs/evals-runs/261123-baseline/builds/data-review-bus-reliability/drafts/bus-reliability-q3.html",
+   "outcome": "fail",
+   "gates_failed": [
+    "RS-02",
+    "DP-02"
+   ],
+   "gates_undecided": [],
+   "overall": {
+    "score": 0.8497938144329897,
+    "coverage": 0.6339869281045751
+   },
+   "flags": 0,
+   "report": "data-review-bus-reliability/261123-baseline-data-review-bus-reliability.json"
+  }
+ ]
+}

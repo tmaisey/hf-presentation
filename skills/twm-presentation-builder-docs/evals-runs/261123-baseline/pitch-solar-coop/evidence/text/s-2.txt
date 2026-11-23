@@ -1,0 +1,21 @@
+# s-2 · Problem
+
+Steps 0–0 (1 state). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 02 · Problem
+Title: About 40% of what flats on blocks C and D spend on electricity falls in daylight hours
+
+## Step 0
++ [strong] £612
++ [p#s2-stat.stat] median yearly electricity spend per flat, 2025
+
+## Reader notes
+### Note 1 (for #s2-stat): Median of the bills residents shared
+The audit covers the 48 flats on blocks C and D; 41 households shared their 2025 bills. The median annual spend was £612 per flat. Larkmoor Co-op energy audit 2025, p4
+- source: Larkmoor Co-op energy audit 2025, p4 <https://larkmoor.example.org/energy-audit-2025>
+### Note 2 (for #s2-title): Daylight hours
+The audit counts spend between 08:00 and 18:00 as daylight: about 40% of the total. That is the share a rooftop array can supply directly. Larkmoor Co-op energy audit 2025, p6
+- source: Larkmoor Co-op energy audit 2025, p6 <https://larkmoor.example.org/energy-audit-2025>
+
+## Sources (every link on the slide and in its notes)
+- Larkmoor Co-op energy audit 2025, p4 <https://larkmoor.example.org/energy-audit-2025>

@@ -1,0 +1,30 @@
+# s-8 · Close
+
+Steps 0–3 (4 states). Each line is one visible block, [region] first; '+' marks a line new at that step.
+
+Kicker: 08 · Close
+Title: Retiming 12 and 14 Cross-town for the diversion is the Q4 test, checked at the end of January
+
+## Step 0
+
+## Step 1
++ [li.prompt] How much running time does the diversion need at the school run, and where should it come from?
+
+## Step 2
+  [li.prompt] How much running time does the diversion need at the school run, and where should it come from?
++ [li.prompt] What result in January would tell us the vacancies, not the closures, drove October?
+
+## Step 3
+  [li.prompt] How much running time does the diversion need at the school run, and where should it come from?
+  [li.prompt] What result in January would tell us the vacancies, not the closures, drove October?
++ [li.prompt] Should reports to the council show lost mileage beside the 90% target while the works run?
+
+## Reader notes
+### Note 1 (for #s8-prompts): Grounding for the discussion
+Neither cross-town timetable was retimed for the diversion in Q3; one driver reports it adds six minutes at the school run. The council’s target counts on-time departures only. OVT service change log, Q3 2026 Council transport committee minutes, 3 Jun 2026, item 6
+- source: OVT service change log, Q3 2026 <https://ovt.example.org/service-changes/2026-q3>
+- source: Council transport committee minutes, 3 Jun 2026, item 6 <https://council.example.org/transport/2026-06-03>
+
+## Sources (every link on the slide and in its notes)
+- OVT service change log, Q3 2026 <https://ovt.example.org/service-changes/2026-q3>
+- Council transport committee minutes, 3 Jun 2026, item 6 <https://council.example.org/transport/2026-06-03>
