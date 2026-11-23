@@ -31,15 +31,25 @@ Docs hold **intent and state** that code, docstrings and git can't. This file is
 | `AGENTS.md` | Root (always loaded): doc rules, index, workflow, spec model, test authoring | Every session | When a doc is added/changed or workflow changes |
 | `docs/PRD.md` | Living requirements: what and why, core message, audience, delivery, design intent, decisions, exclusions | Before scoping or changing any slide or feature; on any intent change | First, on any intent change (before spec/code) |
 | `docs/SPEC.jsonl` | Feature backlog + live state, one line per feature (*Spec model*) | Start of a build session; before writing tests | On spec add/refine and every status flip, in the same commit as the work |
+| `docs/ADR.md` | ADR model; records in `docs/ADR.jsonl` (born with the first record) | Before adding or superseding a decision record | When the ADR model changes |
+| `tests/` | pytest + Playwright: static checks and in-browser behaviour, incl. the always-on layout guard `test_layout_guard.py` (every slide × step × review size, via the presentation-builder skill's `layout_guard.guard`; helpers in `helper_skill_tools.py`, which also holds the deck path). Shoot with the skill's `shoot.py`. Browser tests **MUST** wait on a condition, **NEVER** a fixed sleep | Before changing the deck; to prove red/green | When a spec's acceptance detail changes or the deck moves |
+
+### Rows born on content
+
+These docs don't exist until their first content (*Doc hygiene*). Copy a
+row into the index above in the same commit as the doc, **before** writing it; never add a row for
+a doc that isn't there yet.
+
+| File | Description | When to use | When to update |
+| --- | --- | --- | --- |
 | `docs/STORYBOARD.md` | Slide-by-slide arc: titles, visuals, overlays, sources, timings, core message served | Before building or reordering any slide | When a slide is added, cut, retitled or re-sourced |
 | `docs/research/RESEARCH.md` | Child index of sourced research notes | Before writing any factual claim; before new research | When a research note is added/changed |
 | `docs/VOICE.md` | Which voice profile applies, plus this deck's own approved/rejected copy verdicts | Before writing any slide copy or note | When the presenter approves/rejects copy |
 | `docs/DESIGN.md` | Chosen layout, palette and style, and binding visual rules for this deck, linked to prototypes | Before writing slide markup, CSS, diagrams or animation | When a visual rule is agreed, changed or retired |
 | `design/prototypes/PROTOTYPES.md` | Child index of throwaway prototypes: what each tests + verdict | Before making or judging a prototype | When a prototype is added or verdicted |
-| `docs/ADR.md` | ADR model; records in `docs/ADR.jsonl` | Before adding or superseding a decision record | When the ADR model changes |
-| `deck/<name>.html` | **The deliverable**: one self-contained HTML deck | To build/edit slides; open in a browser to present | Every slide/engine change, with its spec's tests |
+| `docs/ADR.jsonl` | Decision records, one per line (model: `docs/ADR.md`) | Filter for `accepted` before touching what a record governs | When a decision is added, accepted, superseded or deprecated |
+| `<deck path>` | **The deliverable**: one self-contained HTML deck. Path from the project's house rules if it has any, else `deck/<name>.html`; also set `DECK` in `tests/helper_skill_tools.py` | To build/edit slides; open in a browser to present | Every slide/engine change, with its spec's tests |
 | `evals/runs/` | Dated eval runs (`yymmdd-<label>/`: manifest, evidence, verdicts, report), written by the skill's eval protocol | To read past eval results or compare runs | Never edit a run; each run adds a new folder |
-| `tests/` | pytest + Playwright: static checks and in-browser behaviour, incl. the always-on layout guard (every slide × step × review size; wrap the presentation-builder skill's `layout_guard.py`, and shoot with its `shoot.py`). Browser tests **MUST** wait on a condition, **NEVER** a fixed sleep | Before changing the deck; to prove red/green | When a spec's acceptance detail changes |
 
 ### Doc hygiene
 
@@ -104,6 +114,11 @@ every merge, re-run the layout guard and re-screenshot the assembled deck.
    affected step and review size were looked at, never only component screenshots. **NEVER** call
    deck work done or presentable without that look: a green suite once shipped overlapping titles
    because nobody looked.
+
+Title approval is **not** part of done: a slide may be done with titles still ✎ (or ◇) in
+`docs/STORYBOARD.md`. Approval is needed **before presenting**: the deck is not presentable until
+the presenter has marked every title ✓. **NEVER** mark a title ✓ yourself, even with no presenter
+available.
 
 ## Test authoring — tests are the detailed spec
 

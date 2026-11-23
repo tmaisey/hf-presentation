@@ -85,4 +85,8 @@ Read a part only when its line applies. Parts never link each other; every part 
   worked case, with cited excerpts per part and the rejected first draft. Read when you want to see
   a finished case.
 
+Paths: `${CLAUDE_SKILL_DIR}` (and the skill folder in tool messages) may show a
+`.claude/skills/…` symlink path rather than the real folder; it is the same folder, so it is
+harmless and needs no fixing.
+
 More parts are linked here as they land.

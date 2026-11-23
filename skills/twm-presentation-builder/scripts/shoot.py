@@ -26,8 +26,11 @@ sheet, default 3x4) so a deck-scope judge sees every state in a few images, and
                 "mode": "step" | "notes" | "contact", "note"?: int,
                 "tiles"?: [{"file", "slide", "step", "label"}]}]}
 
-Default ``out_dir``: ``shots/`` beside the deck. A re-run removes the PNGs the previous ``shots.json``
-listed (and nothing else), so the folder never mixes two runs. Exit codes: 0 ok, 2 unusable input.
+Default ``out_dir``: ``shots/`` beside the deck. A full re-run removes the PNGs the previous
+``shots.json`` listed (and nothing else), so the folder never mixes two runs. A ``--slides`` run
+replaces only those slides' shots: it keeps (and re-indexes) other slides' shots from earlier runs,
+and drops shots of slides no longer in the deck; re-shoot everything after a change that touches
+shared parts. Exit codes: 0 ok, 2 unusable input.
 """
 
 from __future__ import annotations
@@ -52,18 +55,34 @@ figcaption {{ padding-top: 5px; }}
 </style><div class="g">{tiles}</div>"""
 
 
-def _drop_previous(out: Path) -> None:
-    """Delete the files a previous run's index listed (plain names inside ``out`` only)."""
+def _drop_previous(out: Path, plan: list[tuple[str, int]], chosen: list[str] | None) -> list[dict]:
+    """Delete the files a previous run's index listed, except other slides' shots on a ``--slides`` run.
+
+    Args:
+        out: Output folder.
+        plan: The whole deck's ``deck.plan()`` pairs.
+        chosen: Slide ids this run shoots (``None`` = all: every previous file goes).
+
+    Returns:
+        The previous index entries kept (shots of slides still in the deck that this run does not
+        re-shoot), so the new index lists them too.
+    """
     old = out / INDEX
     if not old.is_file():
-        return
+        return []
     try:
-        listed = [e.get("file", "") for e in json.loads(old.read_text(encoding="utf-8")).get("shots", [])]
+        entries = [e for e in json.loads(old.read_text(encoding="utf-8")).get("shots", []) if isinstance(e, dict)]
     except (ValueError, AttributeError):
-        return
-    for name in listed:
-        if name and Path(name).name == name and name.endswith(".png"):
+        return []
+    in_deck = {s for s, _ in plan}
+    keep = [e for e in entries if chosen is not None and e.get("slide") in in_deck - set(chosen)
+            and (out / str(e.get("file", ""))).is_file()]
+    kept = {e["file"] for e in keep}
+    for e in entries:
+        name = str(e.get("file", ""))
+        if name and name not in kept and Path(name).name == name and name.endswith(".png"):
             (out / name).unlink(missing_ok=True)
+    return keep
 
 
 def _notes_shots(page, sid: str, size: str, out: Path) -> list[dict]:
@@ -139,6 +158,18 @@ def shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: li
           contact_grid=CONTACT_GRID) -> dict:
     """Screenshot every chosen slide at every step and size; write and return the index.
 
+    Runs Chrome in a worker thread, so it also works while the caller holds its own sync Playwright
+    session (a deck test suite's browser fixture). Arguments, return value and errors: ``_shoot``.
+    """
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+        return pool.submit(_shoot, deck, out, sizes, slides, settle_ms, notes).result()
+
+
+def _shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: list[str] | None = None,
+           settle_ms: int = 0, notes: bool = False) -> dict:
+    """Screenshot every chosen slide at every step and size; write and return the index.
+
     Args:
         deck: Assembled deck HTML file.
         out: Output folder (default: ``shots/`` beside the deck); created if missing.
@@ -169,7 +200,7 @@ def shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: li
         if min(contact_grid) < 1:
             raise lg.ToolError("--contact-grid needs at least 1x1")
     out = Path(out) if out else deck.parent / "shots"
-    shots, chosen = [], None
+    shots, chosen, kept, order = [], None, [], []
     with sync_playwright() as p:
         browser = lg.launch(p)
         try:
@@ -177,11 +208,12 @@ def shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: li
                 sid_ = lg.size_id(size)
                 ctx = browser.new_context(viewport={"width": size[0], "height": size[1]})
                 page = ctx.new_page()
-                plan = lg.pick_slides(lg.open_deck(page, deck), slides)
+                full = lg.open_deck(page, deck)
+                plan = lg.pick_slides(full, slides)
                 if chosen is None:
-                    chosen = plan
+                    chosen, order = plan, full
                     out.mkdir(parents=True, exist_ok=True)
-                    _drop_previous(out)
+                    kept = _drop_previous(out, full, slides)
                 for sid, steps in plan:
                     for k in range(steps + 1):
                         lg.goto_step(page, sid, k, settle_ms)
@@ -195,9 +227,16 @@ def shoot(deck: Path, out: Path | None = None, sizes=lg.REVIEW_SIZES, slides: li
                 shots += contact_sheets(browser, out, shots, contact, contact_grid)
         finally:
             browser.close()
-    index = {"tool": "shoot", "version": 1, "deck": str(deck), "sizes": [lg.size_id(s) for s in sizes],
+    rank = {s: i for i, (s, _) in enumerate(order)}
+    shots = sorted(kept, key=lambda e: rank.get(e.get("slide"), 0)) + shots
+    shots.sort(key=lambda e: rank.get(e["slide"], 0))  # stable: deck order, each slide's shots as taken
+    steps = dict(order)
+    shot_ids = sorted({e["slide"] for e in shots}, key=lambda s: rank.get(s, 0))
+    size_ids = [lg.size_id(s) for s in sizes]
+    size_ids += [z for z in dict.fromkeys(e["size"] for e in kept) if z not in size_ids]
+    index = {"tool": "shoot", "version": 1, "deck": str(deck), "sizes": size_ids,
              "settle_ms": settle_ms, "notes": notes,
-             "slides": [{"id": s, "steps": k} for s, k in (chosen or [])], "shots": shots}
+             "slides": [{"id": s, "steps": steps[s]} for s in shot_ids], "shots": shots}
     (out / INDEX).write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
     return index
 

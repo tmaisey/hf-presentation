@@ -38,6 +38,7 @@ bright-primaries` (slides byte-identical), proof the layer reads roles only.
 | Standard | `section.slide` · grid `kicker / title / body`, padding below the bar | Use when a slide has a kicker, a title and one body: the default |
 | Lead (title) | `section.slide.slide--lead` (+ `data-ambient`, `p.byline`) | Use when opening the deck or a summary: big lead title (≤ 20ch), body below, vertically centred; byline pinned bottom-left |
 | Closing | `section.slide.slide--lead.slide--end` | Use when closing: one lead-size line centred on the whole page, no kicker |
+| Closing with prompts | `section.slide.slide--lead.slide--end > h2.title + div.body > ol.prompts` | Use when the close asks the room questions: the closing finding drops to title size, centred and clear of the bar, over the numbered prompts (centred block, left-aligned text); prompts may arrive by step |
 | Flow body | `div.body` | Use when the body is text, a list, a table or terms: centred in the body area |
 | Split | `div.body.body--split` (36 / 64) | Use when text or a step list sits beside a diagram (narrow left, wide right); a `div` column stacks its blocks evenly |
 | Split, flipped | `div.body.body--split.body--flip` (64 / 36) | Use when wide content sits left and a quote or message card right |
@@ -46,10 +47,19 @@ bright-primaries` (slides byte-identical), proof the layer reads roles only.
 | Figure column | `div.fig > svg.diagram + div.fig-notes > p.annot…` (inside a split) | Use when a diagram needs short annotation cards under it that swap by step |
 | Narration column | slide with a `div.narration` child | Use when message tiles narrate a build: a right column (`--comp-narr-width`) spans kicker → body; an Insight or pop-over may span both |
 | Three-column scene | `section.slide[data-scene]` + `div.scene-slot` | Use when one shared diagram persists across slides: body (≈30%, step list at small size) · scene slot (≈40%) · narration (≈30%), title spanning the top; pop-overs and Insights span slot → narration (`.popover--left`: body → slot, so a step can carry a pop-over and a narration tile), a tile row spans all three |
-| Timeline | `div.body.body--timeline > ol.steps > li` (`strong` date, then the event; `li.sub` sub-entries) | Use when a scene's body is a dated sequence: each entry appears at its step (none shown ahead), the date on its own line in ink |
+| Timeline | `div.body.body--timeline > ol.steps > li` (`strong` date, then the event; `li.sub` sub-entries) | Use when a body is a dated sequence, on any slide (standard, split column or a scene's body): each entry appears at its step (none shown ahead), the date on its own line in ink |
 
 Stepped titles and bodies (one `h2.title` or `div.body` per phase, swapped by step) share their grid
-cell. Overlays, pop-overs, tile rows and narration stop above the always-visible Notes button
+cell.
+
+**Fitting diagram text.** SVG text never wraps and grows to its floor on small screens, so a label
+that fits at 1920 can spill at 1288. Anchor a label at the edge it grows away from
+(`.label--start` / `.label--end`), keep it inside the diagram's `viewBox` at every review size
+(the layout guard flags text outside it as `outside diagram`), and break a long one into lines
+yourself with `<tspan x="…" dy="1.2em">`, splitting where the words allow: a name that must stay
+together ("12 Cross-town") stays on one line. In HTML copy, join such a name with a no-break space
+(`&nbsp;`), never a span class. Too long still: reword shorter (voice profile), never shrink the
+type. Overlays, pop-overs, tile rows and narration stop above the always-visible Notes button
 (`--comp-notes-clear`).
 
 ## 3 · Components
@@ -78,10 +88,11 @@ tokens it reads. `--sys-type-<role>-*` means that role's family/size/weight/lead
 | Insight overlay | `aside.overlay.overlay--insight`, `.is-shown`, `.is-delayed`, `.was-shown`; slide `.is-overlaid` | One frosted card (label "Insight" in kicker style, serif statement), bottom-right, `--comp-overlay-width`; rises in sharp, exits by rack focus; the body softens beneath | `--sys-material-frost`, `--sys-material-blur`, `--sys-material-saturate`, `--sys-shadow-overlay`, `--sys-type-overlay-*`, `--comp-frost-filter`, `--comp-overlay-pad`, `--comp-radius-overlay`, `--comp-rack-blur`, `--comp-soften-blur`, `--comp-soften-opacity`, `--comp-motion-handover`, `--sys-motion-ease-late` |
 | Message card | `div.msg-card > p.msg-agent + blockquote.msg-text + p.cite` (`p.msg-from` = same as `.msg-agent`) | In-flow agent voice: dense frost card, kicker-style sender, serif quote with CSS quote marks | `--sys-material-frost-dense`, `--sys-type-msg-*`, `--comp-card-pad`, `--comp-radius-card` |
 | Ambient | `div.ambient > .orb.orb--far/mid/near.orb--1…5` | Soft radial orbs in three blur planes, tinted per index | `--sys-ambient-*`, `--comp-orb-tint` |
-| Diagram tile | `g.tile > rect + text.tile-title + text.tile-sub` | Borderless tile fill, `#lift` shadow, `--comp-radius-tile` corners; sans title ink, sub ink-2 | `--comp-tile-fill`, `--sys-type-d-title-*`, `--sys-type-d-sub-*`, `--comp-tile-title-floor`, `--comp-tile-sub-floor` |
+| Diagram tile | `g.tile > rect + text.tile-title + text.tile-sub`, `g.tile.tile--centred` | Borderless tile fill, `#lift` shadow, `--comp-radius-tile` corners; sans title ink, sub ink-2. Tiles in a row share one title baseline; `.tile--centred` centres its own text block instead (a one-line tile among two-line siblings). Never use tiles as chart bars: use the chart parts | `--comp-tile-fill`, `--sys-type-d-title-*`, `--sys-type-d-sub-*`, `--comp-tile-title-floor`, `--comp-tile-sub-floor` |
 | Key tile | `g.tile.tile--key` (in `.layer-key`) | Accent-tinted fill, `#lift-key` glow, ink text | `--comp-key-fill` |
 | Edge | `path.edge`, `.edge--reinforced`, `.edge--ok`, `.edge--loss` | Ink-3 line, round caps, gapped; reinforced = thicker ink-2; ok/loss = heavier accent/loss with matching heads (`#arr-ok`, `#arr-loss`) | `--comp-edge-stroke`, `--comp-edge-width`, `--comp-edge-floor`, `--comp-edge-strong`, `--comp-edge-strong-floor`, `--comp-edge-reinforced`, `--sys-color-loss` |
-| Labels | `text.label`, `text.tag`, `.tag--loss` | Tracked sans caps: label ink-2, tag accent-ink (loss: loss) | `--comp-label-floor`, `--comp-tag-floor` |
+| Labels | `text.label`, `text.tag`, `.tag--loss`, `.label--start`, `.label--end` | Tracked sans caps: label ink-2, tag accent-ink (loss: loss); middle-anchored at `x` by default, `--start` grows right from `x`, `--end` grows left (for an edge or axis). Fit rules below the table | `--comp-label-floor`, `--comp-tag-floor` |
+| Chart parts | `rect.chart-bar` (`.chart-bar--key` = the focus series), `rect.chart-swatch` (`.chart-swatch--key`), `line.chart-axis`, `line.chart-grid`, `line.chart-target`; values and ticks are `text.label` | Bars and legend swatches: flat comparison fill or accent for the key series, 3px corners (swatches stay square), **no lift**; axis ink-3, gridline paper-deep, target a dashed accent-ink line, all at edge widths. Bars in `.layer-nodes`, swatches in `.layer-key`, lines in `.layer-edges`; drawn to scale from a stated baseline | `--comp-chart-fill`, `--comp-chart-radius`, `--sys-color-accent`, `--sys-color-accent-ink`, `--sys-color-ink-3`, `--sys-color-paper-deep`, `--comp-edge-*` |
 | Domain | `g.domain > rect + text.domain-label`, `.domain--out` (in `.layer-edges`) | Soft paper-deep region naming where things run, borderless; `--out` = lighter (outside); tracked sans caps label in ink-2 | `--comp-domain-fill`, `--comp-domain-out-fill`, `--comp-domain-label-floor`, `--sys-type-kicker-size` |
 | Dot · ring · link | `circle.dot` (`.dot--ink`, `.dot--loss`, `.dot--alarm`), `circle.dot-ring` (`.dot-ring--bold`), `line.link` (`.link--lit`, `.link--bold`, `.link--ink`) | Line-drawn actor: accent-tinted disc, accent-ink outline; ink = a leading role, loss = lost, alarm = fault light; ring = an actor singled out; link = hairline ink-3 at 40%, lit = accent-ink, bold = privileged path, ink = a leading role's | `--comp-dot-fill`, `--sys-color-accent-ink`, `--sys-color-loss`, `--sys-color-alarm` |
 | Badge | `g.badge > circle + path… (+ rect, .badge-dot)`, `.badge--loss`, `.badge--off` | Status disc on a tile's corner: accent-tinted disc with ink line marks (tick, key, padlock); loss = loss disc, paper marks; off = paper-deep disc, ink-3 | `--comp-dot-fill`, `--sys-color-loss`, `--sys-color-paper-deep` |
@@ -94,7 +105,7 @@ tokens it reads. `--sys-type-<role>-*` means that role's family/size/weight/lead
 | Veil | `div.veil` | Paper veil, blurred, desaturated, with a window over the target | `--sys-material-veil`, `--sys-material-veil-blur`, `--sys-material-veil-saturate` |
 | Spotlight ring | `div.ring` | Accent ring + soft accent glow, glides between targets | `--comp-ring`, `--comp-motion-glide` |
 | Pins | `button.pin`, `.is-current` | Ink disc with an accent halo; current = accent | `--comp-pin-size`, `--comp-pin-halo` |
-| Callout | `div.callout` (`h3`, `p`, `p.cite > a.src`), `.fade-t`, `.fade-b` | Pane-frost card: serif heading, body text, a ruled cite line; soft fade at a scrolling edge | `--sys-material-pane`, `--sys-material-pane-blur`, `--sys-shadow-soft`, `--comp-note-title-size`, `--comp-note-text-size`, `--comp-note-cite-size` |
+| Callout | `div.callout` (`h3`, `p`, `p.src-unlinked`, `p.cite > a.src`), `.fade-t`, `.fade-b` | Pane-frost card: serif heading, body text, a ruled cite line; soft fade at a scrolling edge | `--sys-material-pane`, `--sys-material-pane-blur`, `--sys-shadow-soft`, `--comp-note-title-size`, `--comp-note-text-size`, `--comp-note-cite-size` |
 | Notes bar | `nav.notes-nav button`, `.notes-pos` | Static Prev / position / Next / Close, pill hover | `--comp-chrome-size`, `--sys-color-paper-deep` |
 | Scene | `div.scene`, `.is-on`, `.is-soft`, `.is-backdrop`, `.cam`, parts `[data-scene-at].is-visible`, `.is-settled`, `.is-dim`, `.is-muted` | On: fades in; soft (focus elsewhere) = body softening; backdrop = heavy blur, faded, desaturated; camera glides; parts fade; dim (history) = 35%; muted (out of action) = glyphs and tiles grey | `--comp-soften-blur`, `--comp-backdrop-blur`, `--comp-backdrop-opacity`, `--sys-motion-duration-camera` |
 | Scene key | `p.scene-key` (last child of `div.scene`) `> svg + text`, `span.scene-key-item[data-scene-at]` | One-row legend under the scene diagram, small ink-2 text, a dot per entry; entries may arrive by scene point | `--sys-type-small-size`, `--sys-color-ink-2` |
@@ -123,6 +134,7 @@ Geometry and aliases owned by this layer. Colours are always `--sys-color-*` rol
 | `--comp-tile-fill`, `--comp-key-fill`, `--comp-edge-stroke` | Diagram colour aliases (tile, accent-tinted key, ink-3) |
 | `--comp-domain-fill`, `--comp-domain-out-fill`, `--comp-domain-label-floor` | Domain region tints (paper-deep 55% / 30% on paper) and label floor (SVG units) |
 | `--comp-dot-fill`, `--comp-glyph-folder-fill` | Accent-tinted actor fill (dots, badges, illustration actors); folder glyph fill |
+| `--comp-chart-fill`, `--comp-chart-radius` | Chart comparison-series fill (ink-3 into paper-deep) and bar/swatch corner radius (SVG units) |
 | `--comp-card-frost`, `--comp-tile-frost`, `--comp-inset-fill` | Narration card frost (paper 84%), tile-row frost (paper 62%), inset message fill |
 | `--comp-frost-filter` | Backdrop filter of frosted cards (style blur + saturate) |
 | `--comp-soften-blur`, `--comp-soften-opacity`, `--comp-rack-blur`, `--comp-backdrop-blur`, `--comp-backdrop-opacity` | Softening beneath focus, rack-focus exit blur, scene backdrop |

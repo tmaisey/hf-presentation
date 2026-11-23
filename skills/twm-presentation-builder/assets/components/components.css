@@ -64,6 +64,9 @@
     --comp-domain-out-fill: color-mix(in srgb, var(--sys-color-paper-deep) 30%, var(--sys-color-paper));
     --comp-dot-fill: color-mix(in srgb, var(--sys-color-accent) 30%, var(--sys-color-paper));
     --comp-glyph-folder-fill: color-mix(in srgb, var(--sys-color-paper-deep) 55%, var(--sys-color-tile));
+    /* chart parts: the comparison series' fill (the key series takes the accent), corner radius */
+    --comp-chart-fill: color-mix(in srgb, var(--sys-color-ink-3) 60%, var(--sys-color-paper-deep));
+    --comp-chart-radius: 3px;
     /* overlays: soften what is beneath, rack focus on exit */
     --comp-soften-blur: 3px;
     --comp-soften-opacity: .55;
@@ -140,6 +143,16 @@
   .slide--lead { grid-template-rows: auto auto auto; align-content: center; }
   .slide--end { padding-top: var(--comp-slide-pad-bottom); justify-items: center; text-align: center; }
   .slide--end .title { margin: 0; max-width: none; }
+  /* closing with prompts: the closing finding at title size over its discussion prompts, clear of the bar */
+  .slide--end:has(> .body .prompts) { padding-top: var(--comp-slide-pad-top); }
+  .slide--end:has(> .body .prompts) > .title { margin: 0 0 .8em; max-width: var(--comp-measure-title);
+    font-size: var(--sys-type-title-size); line-height: var(--sys-type-title-leading); letter-spacing: var(--sys-type-title-tracking); }
+  .slide--end > .body:has(.prompts) { text-align: left; }
+  .slide--end > .body .prompts .prompt:last-child { margin-bottom: 0; }
+  @media (max-height: 660px) {
+    .slide--end:has(> .body .prompts) > .title { margin-bottom: .5em; }
+    .slide--end > .body .prompts .prompt { margin-bottom: .6em; }
+  }
   .slide > .kicker { grid-area: kicker; }
   .slide > .title { grid-area: title; }
   .slide > .body, .slide > .overlay { grid-area: body; }
@@ -318,6 +331,19 @@
   .edge--ok, .edge--loss { stroke-width: max(var(--comp-edge-strong-floor), calc(var(--k) * var(--comp-edge-strong))); }
   .edge--ok { stroke: var(--sys-color-accent); }
   .edge--loss { stroke: var(--sys-color-loss); }
+  /* label alignment: start = grows rightwards from x, end = grows leftwards (default middle) */
+  .diagram .label--start { text-anchor: start; }
+  .diagram .label--end { text-anchor: end; }
+
+  /* ---------- diagram kit, chart parts: bars, legend swatches, axis, gridlines, target (no lift, SVG units) ---------- */
+  .chart-bar, .chart-swatch { fill: var(--comp-chart-fill); stroke: none; rx: var(--comp-chart-radius); }
+  .chart-bar--key, .chart-swatch--key { fill: var(--sys-color-accent); }
+  .chart-axis { stroke: var(--sys-color-ink-3); stroke-linecap: round;
+    stroke-width: max(var(--comp-edge-floor), calc(var(--k) * var(--comp-edge-width))); }
+  .chart-grid { stroke: var(--sys-color-paper-deep);
+    stroke-width: max(var(--comp-edge-floor), calc(var(--k) * var(--comp-edge-width))); }
+  .chart-target { stroke: var(--sys-color-accent-ink); stroke-linecap: round; stroke-dasharray: 10 9;
+    stroke-width: max(var(--comp-edge-strong-floor), calc(var(--k) * var(--comp-edge-strong))); }
 
   /* ---------- diagram kit, network parts: domains, dots, links, badges, glyphs, line icons ---------- */
   /* domain: a soft-toned region naming where things run, drawn first (in .layer-edges), behind edges and tiles */
@@ -424,6 +450,7 @@
   .notes-focus .callout { transform: none; }
   .callout h3 { margin: 0 0 10px; font: var(--sys-type-title-weight) var(--comp-note-title-size)/1.15 var(--sys-type-title-family); color: var(--sys-color-ink); }
   .callout p { margin: 0 0 12px; font-size: var(--comp-note-text-size); line-height: var(--sys-type-body-leading); color: var(--sys-color-ink-2); }
+  .callout .src-unlinked { font-size: var(--comp-note-cite-size); }
   .callout .cite { margin: 0; padding-top: 10px; border-top: 1px solid var(--sys-color-paper-deep);
     font: 400 var(--comp-note-cite-size)/1.4 var(--sys-font-sans); color: var(--sys-color-ink-3); }
   .callout.fade-t { -webkit-mask-image: linear-gradient(transparent, var(--sys-color-ink) 40px); mask-image: linear-gradient(transparent, var(--sys-color-ink) 40px); }

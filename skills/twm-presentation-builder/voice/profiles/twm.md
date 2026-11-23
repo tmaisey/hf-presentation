@@ -80,6 +80,9 @@ entries) · Open (decided titles, accepted, pending)
 
 - Slide number · chapter: "02 · Concepts" … "10 · Takeaways". The title slide has no kicker; its
   byline reads "<presenter name>, <Month year>" (e.g. "Tom Maisey, November 2026").
+- A team talk, or no named presenter: "<team or organisation>, <Month year>" (e.g. "Service
+  planning team, November 2026"). **NEVER** invent a person's name or borrow this profile's
+  presenter for a byline; with nothing to name, ask, and record the answer in PRD *Decisions*.
 
 ## Discussion prompts
 

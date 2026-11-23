@@ -13,6 +13,7 @@ Usage (stdlib only, so ``uv run`` needs no project)::
     uv run scripts/assemble.py new deck.html --title "Title" [--subtitle "Sub"] [--slides slides.html]
         [--palette paper-green] [--style editorial] [--layout components]
     uv run scripts/assemble.py swap deck.html [--palette P] [--style S] [--layout L] [--refresh-engine] [-o out.html]
+    uv run scripts/assemble.py slides deck.html (--from slides.html | --to slides.html)
     uv run scripts/assemble.py check deck.html
 
 - ``new`` fills FONTS (the faces of every family the style names, base64 woff2), ARCH (``arch.css`` +
@@ -23,6 +24,9 @@ Usage (stdlib only, so ``uv run`` needs no project)::
   falling back to the names recorded in each block's first-line comment; with ``--refresh-engine`` it
   also rewrites ARCH, DEFS, MODULES and ENGINE from the shipped assets (modules re-detected from SLIDES).
   SLIDES, DECK and everything outside the blocks are copied byte for byte.
+- ``slides`` replaces SLIDES from a file (``--from``) or extracts it (``--to``). The deck's SLIDES block
+  is the source of truth; a slides file is a working copy. When the new slides trigger a different set
+  of modules, ARCH and MODULES are rewritten to match; everything else is copied byte for byte.
 - ``check`` prints endpoint-safety faults (``endpoint_faults``); ``new``/``swap`` run it and refuse
   to write a faulty deck.
 
@@ -547,6 +551,42 @@ def swap(deck: Path, palette: str | None = None, style: str | None = None, layou
     return target
 
 
+def slides_block(deck: Path, src_file: Path | None = None, to_file: Path | None = None) -> Path:
+    """Replace a deck's SLIDES block from a file, or extract it to one.
+
+    The deck's SLIDES block is the slides' source of truth; a slides file is a working copy taken
+    out with ``to_file`` and put back with ``src_file``. A replacement whose module triggers differ
+    from the old slides' also rewrites ARCH and MODULES (the modules the new slides need); every other
+    block and byte is copied unchanged.
+
+    Args:
+        deck: Existing deck file.
+        src_file: Slide markup to put in SLIDES.
+        to_file: File to write the current SLIDES markup to.
+
+    Returns:
+        The file written (the deck, or ``to_file``).
+
+    Raises:
+        AssembleError: On broken markers, both or neither of the files, or unsafe output; nothing is written.
+    """
+    if (src_file is None) == (to_file is None):
+        raise AssembleError("give exactly one of --from (replace SLIDES) or --to (extract SLIDES)")
+    src = deck.read_bytes().decode("utf-8")
+    old = read_block(src, "SLIDES")
+    if to_file is not None:
+        to_file.parent.mkdir(parents=True, exist_ok=True)
+        to_file.write_bytes((old + "\n").encode("utf-8"))
+        return to_file
+    new = src_file.read_text(encoding="utf-8").strip("\n")
+    blocks = {"SLIDES": new}
+    if detect_modules(new) != detect_modules(old):
+        eng = engine_blocks(new)
+        blocks |= {"ARCH": eng["ARCH"], "MODULES": eng["MODULES"]}
+    _write(deck, fill(src, blocks))
+    return deck
+
+
 def main(argv: list[str] | None = None) -> int:
     """Run the CLI.
 
@@ -573,6 +613,11 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--layout")
     s.add_argument("--refresh-engine", action="store_true", help="also rewrite ARCH, DEFS, MODULES, ENGINE")
     s.add_argument("-o", "--out", type=Path, help="write here instead of over the deck")
+    sl = sub.add_parser("slides", help="replace the SLIDES block from a file (--from) or extract it to one (--to)")
+    sl.add_argument("deck", type=Path)
+    g = sl.add_mutually_exclusive_group(required=True)
+    g.add_argument("--from", dest="src", type=Path, help="slide markup to put in SLIDES")
+    g.add_argument("--to", type=Path, help="write the current SLIDES markup here")
     c = sub.add_parser("check", help="list endpoint-safety faults")
     c.add_argument("deck", type=Path)
     args = ap.parse_args(argv)
@@ -580,6 +625,9 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "new":
             slides = args.slides.read_text(encoding="utf-8") if args.slides else None
             f = new(args.out, args.title, args.subtitle, slides, args.palette, args.style, args.layout)
+            print(f"wrote {f} ({f.stat().st_size:,} bytes)")
+        elif args.command == "slides":
+            f = slides_block(args.deck, args.src, args.to)
             print(f"wrote {f} ({f.stat().st_size:,} bytes)")
         elif args.command == "swap":
             f = swap(args.deck, args.palette, args.style, args.layout, args.refresh_engine, args.out)

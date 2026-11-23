@@ -170,6 +170,16 @@ review, internal update) through profiles, without duplicating criteria.
   (`shoot.py --contact`, 3×4 tiles); every missing criterion carries a reason and `incomplete` lists
   undecided gates; PX-06 is reported missing without `soffice`; judges run in rolling batches of
   ≤20; inline SVG art becomes native PPTX shapes + text boxes.
+- **Cold-build fixes (PB-027, agent, 23 Nov; review):** `layout_guard.guard()` and `shoot.shoot()` run
+  Chrome in a worker thread so deck test suites can call them (template ships
+  `tests/test_layout_guard.py`); the deck's SLIDES block is the slides' source of truth
+  (`assemble.py slides --to/--from`); `shoot --slides` keeps other slides' shots; template index
+  rows are born on content and the deck path follows house rules; title approval gates presenting,
+  not done; "visible words" = CN-04's per-step count, voice wins on wording and detail moves to
+  notes; team bylines never invent a name; closing slide with prompts (`.slide--end` + `ol.prompts`);
+  chart parts (bars, square swatches, axis, grid, dashed target, start/end labels) built in situ;
+  `tile--centred`; `data-for` takes any selector; unlinked sources as `p.src-unlinked`; the guard
+  flags diagram text outside its viewBox.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing

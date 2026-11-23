@@ -25,11 +25,26 @@ voice profile, facts in the research notes.
 5. **Title approval marks.** Titles are findings (voice profile) and the presenter approves each
    one. Mark every title: **✓** approved (add who and when) · **◇** carried over, pending approval
    · **✎** new, needs approval. Never mark a title ✓ yourself. Record rejected wordings beside the
-   approved one (✗ …) so the reason survives; the voice profile gets the pair too.
+   approved one (✗ …) so the reason survives; the voice profile gets the pair too. With no
+   presenter available (a test build, or the presenter unavailable), draft titles to the voice
+   profile and leave them ✎: a slide can be done with ✎ titles, but the deck is not presentable
+   until every title is ✓.
 6. **Sources inline.** Each fact on the slide names its source in the entry using short codes
    defined in the header (e.g. `R` = research report, `N` = note, page refs `p12`). Flag thin
    evidence **⚠ thin** and disputed or single-sourced claims as the research part requires.
-7. **Decisions in place.** When the presenter decides something about a slide, write it in that
+7. **Visible words.** When a word cap applies (the brief, or the eval profile's CN-04
+   `max_words`), count per **step**: every word on screen at that step, and the slide's wordiest
+   step must be within the cap. Counted: kicker, title, body text, list items, cite lines, card
+   sender lines, tile and table text, diagram text (tile titles, labels, tags, values), and any
+   Insight, narration tile or pop-over shown at that step, softened or not. Not counted: reader
+   notes, the chrome (title bar, agenda, Notes button), parts not shown at that step, and a
+   shared scene's own diagram text. A word is any space-separated run with a letter or digit
+   (so "·" and "—" are not words). When the cap fights the voice profile (fuller titles, 1–2
+   sentence Insights), the voice wins on wording: move detail to the reader note, let the
+   diagram carry it, split the beat into steps that replace each other, or split the slide; never
+   cut a title below a complete finding. If it still runs over, record the accepted overrun in
+   PRD *Decisions*, and the eval will report it.
+8. **Decisions in place.** When the presenter decides something about a slide, write it in that
    slide's entry with "(presenter, date)". The storyboard is the single home for slide content;
    don't repeat it in specs or code comments.
 

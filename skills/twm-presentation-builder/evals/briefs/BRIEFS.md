@@ -19,7 +19,9 @@ time, so skill versions compare. Never use a brief for a user's own deck.
 2. Copy the research pack (`research`) to the project's `docs/research/`. The pack is fixed: never
    research further. Synthetic packs are invented and marked so; never present them as real.
 3. Play the presenter from the brief: answer interview questions from `audience`, `length`,
-   `core_message` and `constraints`; approve titles that follow them.
+   `core_message` and `constraints`, recording each call as "(agent, presenter unavailable)" in
+   PRD *Decisions*. Titles stay ✎: drafting them to the brief is allowed, approving them is not
+   (only a real presenter marks ✓), and a slide may still reach done with ✎ titles.
 4. Build with the skill as for any deck, exercising every `features` id (`evals/features.json`).
 5. Eval with the brief's `profile` and `concerns`; compare with `gold_reference` only after the
    build. Results go in the deck project, never here.

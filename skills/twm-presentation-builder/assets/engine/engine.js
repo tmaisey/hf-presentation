@@ -5,6 +5,9 @@
 (() => {
   'use strict';
   const $ = (sel, root = document) => root.querySelector(sel);
+  // a note's data-for: any CSS selector, first match on its slide, else a module's (scene) target;
+  // an invalid selector matches nothing, so that note is dropped and the others still work
+  const query = (sel, root, other) => { try { return sel ? root.querySelector(sel) || other() : null; } catch (e) { return null; } };
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
   const body = document.body, root = document.documentElement;
   const deckEl = $('.deck');
@@ -217,16 +220,17 @@
   function layoutDiagram(svg) {
     scaleDiagram(svg);
     // tile text: all lines centred as one block in the rect; tiles sharing a row (same y and height)
-    // share one block height, so their titles line up
+    // share one block height, so their titles line up; a .tile--centred tile centres its own block
     const tiles = $$('.tile', svg).map(t => {
       const rc = $('rect', t), lines = $$('text', t);
       const b = rc && { x: num(rc, 'x'), y: num(rc, 'y'), w: num(rc, 'width'), h: num(rc, 'height') };
-      return b && lines.length && { b, lines, lh: lines.map(l => (parseFloat(getComputedStyle(l).fontSize) || 20) * 1.3) };
+      return b && lines.length && { b, lines, own: t.classList.contains('tile--centred'),
+        lh: lines.map(l => (parseFloat(getComputedStyle(l).fontSize) || 20) * 1.3) };
     }).filter(Boolean);
-    const rowH = {};
-    tiles.forEach(({ b, lh }) => { const key = b.y + ':' + b.h, tot = lh.reduce((a, c) => a + c, 0); rowH[key] = Math.max(rowH[key] || 0, tot); });
-    tiles.forEach(({ b, lines, lh }) => {
-      let y = b.y + b.h / 2 - rowH[b.y + ':' + b.h] / 2;
+    const rowH = {}, sum = lh => lh.reduce((a, c) => a + c, 0);
+    tiles.forEach(({ b, lh, own }) => { const key = b.y + ':' + b.h; if (!own) rowH[key] = Math.max(rowH[key] || 0, sum(lh)); });
+    tiles.forEach(({ b, lines, lh, own }) => {
+      let y = b.y + b.h / 2 - (own ? sum(lh) : rowH[b.y + ':' + b.h]) / 2;
       lines.forEach((l, k) => { l.setAttribute('x', b.x + b.w / 2); l.setAttribute('y', y + lh[k] / 2); y += lh[k]; });
     });
     // edges: a gapped straight or curved connector between two tiles' rects
@@ -315,7 +319,7 @@
       const s = slides[cur], node = s.node;
       if (step !== s.steps) render(s, (step = s.steps), true);
       notes.list = $$('aside.note', node)
-        .map(n => ({ n, target: $(n.dataset.for, node) || first('noteTarget', n.dataset.for, s) }))
+        .map(n => ({ n, target: query(n.dataset.for, node, () => first('noteTarget', n.dataset.for, s)) }))
         .filter(x => x.target)
         .map(x => Object.assign(x, { range: first('noteRange', x.target, s) || shownRange(x.target, node) }));
       notes.pins = notes.list.map((x, k) => {
