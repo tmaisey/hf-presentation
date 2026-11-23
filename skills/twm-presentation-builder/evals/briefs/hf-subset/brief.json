@@ -48,6 +48,7 @@
   "process.prototype-or-in-situ", "process.tdd", "process.screenshot-look",
   "examples.hf-incident",
   "eval.criteria", "eval.profiles", "eval.protocol", "eval.gates", "eval.judges", "eval.aggregate",
-  "eval.pairwise", "eval.anchors", "eval.briefs"
+  "eval.pairwise", "eval.anchors", "eval.briefs",
+  "eval.extract", "eval.contact-sheets", "eval.accuracy", "eval.suites"
  ]
 }

@@ -42,6 +42,7 @@
   "process.merge", "process.prd-first", "process.interview", "process.research-consent",
   "process.prototype-or-in-situ", "process.tdd", "process.screenshot-look",
   "eval.criteria", "eval.profiles", "eval.protocol", "eval.gates", "eval.judges", "eval.aggregate",
-  "eval.briefs"
+  "eval.briefs",
+  "assemble.slides", "layout.closing-prompts", "comp.chart-parts"
  ]
 }

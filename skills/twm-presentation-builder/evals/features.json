@@ -87,6 +87,13 @@
   {"id": "eval.aggregate", "area": "eval", "spec": "PB-018", "criteria": ["DL-01", "CN-03"], "description": "Validate verdicts, take medians, flag spread, fail on gates and write the report with calibration status"},
   {"id": "eval.pairwise", "area": "eval", "spec": "PB-018", "criteria": ["DS-06"], "description": "Pairwise skill-version A/B judged in both orders, disagreement as a tie"},
   {"id": "eval.anchors", "area": "eval", "spec": "PB-020", "criteria": ["DL-01", "VC-01", "RS-01"], "description": "Deliberately flawed anchor decks and a clean control, labelled with the criteria they must fail or pass"},
-  {"id": "eval.briefs", "area": "eval", "spec": "PB-019", "criteria": ["CN-07", "RS-02"], "description": "Bundled test briefs with fixed research packs, built and judged the same way every run"}
+  {"id": "eval.briefs", "area": "eval", "spec": "PB-019", "criteria": ["CN-07", "RS-02"], "description": "Bundled test briefs with fixed research packs, built and judged the same way every run"},
+  {"id": "assemble.slides", "area": "assemble", "spec": "PB-027", "criteria": ["AR-01", "AR-07"], "description": "Replace or extract an existing deck's SLIDES block (the slides' source of truth), re-deriving module blocks"},
+  {"id": "eval.extract", "area": "eval", "spec": "PB-026", "criteria": ["CN-06", "RS-02"], "description": "Per-step text extracts from the rendered deck (titles, blocks, notes, sources) for text judges"},
+  {"id": "eval.contact-sheets", "area": "eval", "spec": "PB-026", "criteria": ["DS-06", "CN-10"], "description": "Labelled contact sheets of every slide x step so deck-scope judges see every state"},
+  {"id": "eval.accuracy", "area": "eval", "spec": "PB-026", "criteria": ["DL-01", "RS-01"], "description": "Anchor judge-accuracy table: labelled must_fail/must_pass against aggregated verdicts"},
+  {"id": "eval.suites", "area": "eval", "spec": "PB-026", "criteria": ["DL-01", "CN-03"], "description": "Several targets in one run as sub-runs under a suite manifest, with a roll-up report"},
+  {"id": "layout.closing-prompts", "area": "layout", "spec": "PB-027", "criteria": ["DL-01", "DL-03"], "description": "Closing slide that sets the finding at title size over centred discussion prompts"},
+  {"id": "comp.chart-parts", "area": "comp", "spec": "PB-027", "criteria": ["CN-13", "DP-02"], "description": "Chart parts in the diagram kit: bars, square swatches, axis, gridline, dashed target, start/end labels"}
  ]
 }

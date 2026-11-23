@@ -105,7 +105,7 @@ def test_every_tool_command_and_pptx_step_has_a_feature(features):
     ids = _ids(features)
     src = (SKILL_DIR / "scripts" / "assemble.py").read_text(encoding="utf-8")
     commands = set(re.findall(r"add_parser\(\s*[\"'](\w+)[\"']", src))
-    assert commands == {"new", "swap", "check"}
+    assert {"new", "swap", "check", "slides"} <= commands
     assert {f"assemble.{c}" for c in commands} <= ids
     assert {"tools.shoot", "tools.layout-guard", "tokens.generator", "tokens.contrast-gate"} <= ids
     steps = {p.stem for p in (SKILL_DIR / "pptx" / "scripts").glob("*.py")}
