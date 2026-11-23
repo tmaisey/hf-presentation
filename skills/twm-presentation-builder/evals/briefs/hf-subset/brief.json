@@ -1,0 +1,53 @@
+{
+ "id": "hf-subset",
+ "title": "HF incident subset (gold reference)",
+ "synthetic": false,
+ "profile": "editorial-talk",
+ "theme": {"palette": "paper-green", "style": "editorial"},
+ "target": {"mode": "build-from-brief"},
+ "gold_reference": [
+  "examples/hf-incident/deck.html",
+  "examples/hf-incident/slides.html",
+  "examples/hf-incident/storyboard-rows.md",
+  "examples/hf-incident/prd-core-message.md"
+ ],
+ "research": "evals/briefs/hf-subset/research",
+ "audience": "Technical colleagues (engineers, data scientists, a few managers) watching a live Teams screen-share, who know what an AI agent is but have not read the incident reports.",
+ "length": {"minutes": 10, "slides": 6},
+ "core_message": [
+  {"code": "M1", "text": "AI risk is not only bad actors: misalignment can turn benign tasks into large-scale harm, with no attempt by agents to notify humans."},
+  {"code": "M2", "text": "This incident was discoverable; a more capable future system could do far more damage and be much harder to detect."},
+  {"code": "M3", "text": "Capabilities are advancing at full speed while no known solution to alignment exists."}
+ ],
+ "constraints": [
+  "Six slides in this order: lead title, concepts (reward as a proxy, step-built loop diagram), early warning signals (persistent scene with a dated timeline, narration tiles and pop-overs), the board coordinating at scale (same scene, camera moves), insights (tile row over the scene as backdrop), closing.",
+  "Every factual claim comes from the research pack and carries a reader note citing it; flag the disputed count of unsolvable tasks rather than picking one figure.",
+  "Titles are full declarative sentences in the presenter's voice (twm profile); one Insight overlay per slide at most.",
+  "Single self-contained HTML file built with the skill's assembler; review at 1920x1080, 1280x720 and 1288x598.",
+  "Hand off an editable PPTX of the finished deck.",
+  "Compare the result with the gold reference only after the build: never copy its markup."
+ ],
+ "concerns": ["content", "research", "voice", "design-layout", "design-palette", "design-style", "architecture", "pptx", "process"],
+ "features": [
+  "arch.single-file", "arch.authoring-contract", "arch.svg-defs",
+  "engine.navigation", "engine.steps", "engine.title-bar-agenda", "engine.overlays", "engine.notes",
+  "engine.ambient", "engine.diagram-layout", "engine.reduced-motion", "engine.api",
+  "module.scene", "module.narration", "module.popover", "module.tile-row",
+  "layout.lead", "layout.closing", "layout.standard", "layout.split", "layout.figure-column",
+  "layout.scene-columns", "layout.timeline",
+  "comp.text-slots", "comp.body-text", "comp.points", "comp.step-list", "comp.motion", "comp.insight",
+  "comp.diagram-tiles", "comp.diagram-edges", "comp.diagram-labels", "comp.diagram-domains",
+  "comp.diagram-actors", "comp.diagram-badges", "comp.diagram-glyphs", "comp.annotation", "comp.links",
+  "comp.notes-ui", "comp.scene-key", "comp.illustration",
+  "tokens.palette-paper-green", "tokens.style-editorial", "tokens.contrast-gate", "tokens.generator",
+  "tokens.pptx-bands",
+  "assemble.new", "assemble.check", "tools.shoot", "tools.layout-guard",
+  "pptx.scene", "pptx.emit", "pptx.animations", "pptx.check",
+  "content.storyboard", "research.sourcing", "research.flagging", "research.quotes", "voice.profile",
+  "process.install", "process.prd-first", "process.interview", "process.research-consent",
+  "process.prototype-or-in-situ", "process.tdd", "process.screenshot-look",
+  "examples.hf-incident",
+  "eval.criteria", "eval.profiles", "eval.protocol", "eval.gates", "eval.judges", "eval.aggregate",
+  "eval.pairwise", "eval.anchors", "eval.briefs"
+ ]
+}

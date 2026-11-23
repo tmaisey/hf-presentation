@@ -1,0 +1,47 @@
+{
+ "id": "data-review-bus-reliability",
+ "title": "Quarterly bus reliability review (synthetic)",
+ "synthetic": true,
+ "profile": "data-review",
+ "theme": {"palette": "paper-green", "style": "editorial"},
+ "target": {"mode": "build-from-brief"},
+ "gold_reference": [],
+ "research": "evals/briefs/data-review-bus-reliability/research",
+ "audience": "The service-planning team and two council transport officers of an invented regional bus network (Orrin Valley Transit), reviewing Q3 2026 results over a video call; numerate, comfortable with tables, short on time.",
+ "length": {"minutes": 12, "slides": 8},
+ "core_message": [
+  {"code": "M1", "text": "On-time departures fell from 86% to 81% in Q3, almost all of it on the two cross-town routes through the roadworks."},
+  {"code": "M2", "text": "Away from the roadworks reliability held, so the drop is a diversion problem, not a fleet or staffing one."},
+  {"code": "M3", "text": "Retiming the two cross-town routes for the diversion is the fix to test in Q4, with a check at the end of January."}
+ ],
+ "constraints": [
+  "Synthetic topic: every figure comes from the research pack, whose data is invented; never research further and never present it as real.",
+  "The deck project already has an AGENTS.md (the fixture in this brief's project/ folder): merge the skill's process into it, never overwrite it.",
+  "Every chart labels axes with units, states its baseline and shows the comparison period; quantities come with their baseline or prior quarter.",
+  "One results table by route; one glossary of the reliability terms; one timeline of the roadworks phases; a summary tile row; discussion prompts on the closing slide.",
+  "Charts are new visual language for this deck: prototype them or record the presenter's in-situ choice; build them from the diagram kit, not a charting library.",
+  "Flag the disputed cause of the October dip rather than choosing one; quote the driver report verbatim.",
+  "Hand off an editable PPTX and re-flow it into the network's plain template; review at 1920x1080, 1280x720 and 1288x598."
+ ],
+ "concerns": ["content", "research", "voice", "design-layout", "design-palette", "design-style", "architecture", "pptx", "process"],
+ "features": [
+  "arch.single-file", "arch.authoring-contract", "arch.svg-defs",
+  "engine.navigation", "engine.steps", "engine.title-bar-agenda", "engine.overlays", "engine.notes",
+  "engine.diagram-layout", "engine.reduced-motion", "engine.api",
+  "module.tile-row",
+  "layout.lead", "layout.closing", "layout.standard", "layout.split", "layout.stack", "layout.layers",
+  "layout.figure-column", "layout.timeline",
+  "comp.text-slots", "comp.body-text", "comp.points", "comp.step-list", "comp.terms", "comp.prompts",
+  "comp.table", "comp.motion", "comp.insight", "comp.diagram-tiles", "comp.diagram-key-tile",
+  "comp.diagram-edges", "comp.diagram-labels", "comp.annotation", "comp.links", "comp.notes-ui",
+  "tokens.palette-paper-green", "tokens.style-editorial", "tokens.contrast-gate", "tokens.generator",
+  "tokens.pptx-bands",
+  "assemble.new", "assemble.check", "tools.shoot", "tools.layout-guard",
+  "pptx.scene", "pptx.emit", "pptx.animations", "pptx.check", "pptx.reflow",
+  "content.storyboard", "research.sourcing", "research.flagging", "research.quotes", "voice.profile",
+  "process.merge", "process.prd-first", "process.interview", "process.research-consent",
+  "process.prototype-or-in-situ", "process.tdd", "process.screenshot-look",
+  "eval.criteria", "eval.profiles", "eval.protocol", "eval.gates", "eval.judges", "eval.aggregate",
+  "eval.briefs"
+ ]
+}

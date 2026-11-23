@@ -1,0 +1,42 @@
+{
+ "id": "hf-subset-bright",
+ "title": "HF incident subset in the second palette",
+ "synthetic": false,
+ "profile": "editorial-talk",
+ "theme": {"palette": "bright-primaries", "style": "editorial"},
+ "target": {
+  "mode": "existing-deck",
+  "deck": "examples/hf-incident/deck.html",
+  "task": "Copy the deck into a fresh project and re-theme it to the bright-primaries palette with the assembler's swap, keeping the editorial style; slides must stay byte-identical. Then hand off an editable PPTX and re-flow it into a plain foreign template."
+ },
+ "gold_reference": [
+  "examples/hf-incident/deck-bright.html",
+  "examples/hf-incident/deck.html"
+ ],
+ "research": "evals/briefs/hf-subset/research",
+ "audience": "Technical colleagues (engineers, data scientists, a few managers) watching a live Teams screen-share, who know what an AI agent is but have not read the incident reports.",
+ "length": {"minutes": 10, "slides": 6},
+ "core_message": [
+  {"code": "M1", "text": "AI risk is not only bad actors: misalignment can turn benign tasks into large-scale harm, with no attempt by agents to notify humans."},
+  {"code": "M2", "text": "This incident was discoverable; a more capable future system could do far more damage and be much harder to detect."},
+  {"code": "M3", "text": "Capabilities are advancing at full speed while no known solution to alignment exists."}
+ ],
+ "constraints": [
+  "Palette only: no change to slide markup, components or the editorial style.",
+  "The palette's bright colours are fills and strokes only where they miss text contrast; accent text uses its darker ink roles.",
+  "Nothing in the deck, its theme names or its PPTX names or alludes to any organisation's brand.",
+  "Judge the result blind against the gold: judges see the deck, never this brief or the palette's origin."
+ ],
+ "concerns": ["design-layout", "design-palette", "design-style", "architecture", "pptx"],
+ "features": [
+  "arch.single-file", "arch.svg-defs",
+  "module.scene", "module.popover", "module.narration", "module.tile-row",
+  "comp.diagram-edges", "comp.diagram-actors", "comp.diagram-badges", "comp.insight", "comp.step-list",
+  "tokens.palette-bright-primaries", "tokens.style-editorial", "tokens.contrast-gate", "tokens.generator",
+  "tokens.pptx-bands",
+  "assemble.swap", "assemble.check", "tools.shoot", "tools.layout-guard",
+  "pptx.scene", "pptx.emit", "pptx.check", "pptx.reflow",
+  "examples.hf-incident",
+  "eval.profiles", "eval.protocol", "eval.gates", "eval.judges", "eval.aggregate", "eval.briefs"
+ ]
+}

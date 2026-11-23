@@ -66,6 +66,9 @@ Read a part only when its line applies. Parts never link each other; every part 
 - [evals/EVAL.md](evals/EVAL.md): eval run protocol: scope prompt, evidence capture, gates, judge
   dispatch, aggregation, where results go. Read whenever the user asks to evaluate a deck, its
   PPTX or its build process, before asking anything else.
+- [evals/briefs/BRIEFS.md](evals/briefs/BRIEFS.md): bundled test briefs (four fixed briefs with
+  research packs) for iterating on the skill itself. Read only when evaluating the skill against
+  a brief; never for a user's own deck.
 - Judge prompt templates ([output](evals/judges/output-judge.md),
   [process](evals/judges/process-judge.md), [pairwise](evals/judges/pairwise-judge.md)): filled
   and sent to judge subagents as `evals/EVAL.md` directs. Never read them to build or judge

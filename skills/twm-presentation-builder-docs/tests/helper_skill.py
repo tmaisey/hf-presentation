@@ -60,7 +60,10 @@ def broken_links(skill_dir: Path) -> list[str]:
 def unrouted_parts(skill_dir: Path) -> list[str]:
     """List markdown parts not linked directly from ``SKILL.md`` (the one-hop rule).
 
-    Files under ``examples/`` and ``assets/`` are content, not parts, so they are exempt.
+    Files under ``examples/`` and ``assets/`` are content, not parts, so they are exempt. So are
+    files inside a bundled brief's folder (``evals/briefs/<id>/…``): research packs and fixtures a
+    build is given as input, never instructions the agent reads to work. The briefs index
+    (``evals/briefs/BRIEFS.md``) and every other file under ``evals/`` stay parts.
 
     Args:
         skill_dir: The skill folder.
@@ -73,6 +76,8 @@ def unrouted_parts(skill_dir: Path) -> list[str]:
     for md in skill_dir.rglob("*.md"):
         rel = md.relative_to(skill_dir)
         if rel.name == "SKILL.md" or rel.parts[0] in {"examples", "assets"}:
+            continue
+        if rel.parts[:2] == ("evals", "briefs") and len(rel.parts) >= 4:
             continue
         if str(rel) not in linked:
             parts.append(str(rel))

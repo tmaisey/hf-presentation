@@ -1,0 +1,42 @@
+{
+ "id": "pitch-solar-coop",
+ "title": "Rooftop solar co-op pitch (synthetic)",
+ "synthetic": true,
+ "profile": "pitch",
+ "theme": {"palette": "bright-primaries", "style": "editorial"},
+ "target": {"mode": "build-from-brief"},
+ "gold_reference": [],
+ "research": "evals/briefs/pitch-solar-coop/research",
+ "audience": "The five-member board of an invented housing co-operative (Larkmoor Housing Co-op), deciding at its monthly meeting whether to fund a pilot; financially careful, not technical, in the room with the deck on a meeting-room screen.",
+ "length": {"minutes": 7, "slides": 7},
+ "core_message": [
+  {"code": "M1", "text": "Residents on the two south-facing blocks pay more for daytime power than a shared rooftop array would cost them."},
+  {"code": "M2", "text": "A 12-month pilot on two roofs tests savings and upkeep before the co-op commits to every block."},
+  {"code": "M3", "text": "The board is asked to approve the pilot budget at this meeting, with a go or stop review after twelve months."}
+ ],
+ "constraints": [
+  "Synthetic topic: every fact comes from the research pack, whose figures are invented; never research the topic further and never present it as real.",
+  "Arc: problem, stakes, proposal, how the pilot works (one step-built diagram with the shared array as the key tile), risks and the disputed payback, one explicit ask on the final slide.",
+  "One stat slide with a single headline number and its unit; one resident quote as a message card, verbatim from the pack.",
+  "At most 30 visible words per slide; detail goes to reader notes with sources.",
+  "The pilot diagram is new visual language for this deck: prototype it or record the presenter's in-situ choice before building.",
+  "Single self-contained HTML file; review at 1920x1080, 1280x720 and 1288x598."
+ ],
+ "concerns": ["content", "research", "voice", "design-layout", "design-palette", "design-style", "architecture", "process"],
+ "features": [
+  "arch.single-file", "arch.authoring-contract", "arch.svg-defs",
+  "engine.navigation", "engine.steps", "engine.title-bar-agenda", "engine.overlays", "engine.notes",
+  "engine.ambient", "engine.diagram-layout", "engine.reduced-motion", "engine.api",
+  "layout.lead", "layout.closing", "layout.standard", "layout.split", "layout.stack", "layout.layers",
+  "comp.text-slots", "comp.body-text", "comp.points", "comp.step-list", "comp.motion", "comp.insight",
+  "comp.message-card", "comp.diagram-tiles", "comp.diagram-key-tile", "comp.diagram-edges",
+  "comp.diagram-labels", "comp.links", "comp.notes-ui",
+  "tokens.palette-bright-primaries", "tokens.style-editorial", "tokens.contrast-gate", "tokens.generator",
+  "assemble.new", "assemble.check", "tools.shoot", "tools.layout-guard",
+  "content.storyboard", "research.sourcing", "research.flagging", "research.quotes", "voice.profile",
+  "process.install", "process.prd-first", "process.interview", "process.research-consent",
+  "process.prototype-or-in-situ", "process.tdd", "process.screenshot-look",
+  "eval.criteria", "eval.profiles", "eval.protocol", "eval.gates", "eval.judges", "eval.aggregate",
+  "eval.briefs"
+ ]
+}

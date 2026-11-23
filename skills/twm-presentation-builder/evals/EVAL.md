@@ -16,7 +16,8 @@ multi-option picker. Ask before capturing any evidence or dispatching any judge.
 answer in the run's `manifest.json` (§6).
 
 1. **Target:** a bundled brief or a deck path? Then confirm the profile (`profiles/<id>.json`)
-   that fits the deck type.
+   that fits the deck type. A bundled brief (index: `evals/briefs/BRIEFS.md`) fixes its profile
+   and concerns; build its deck first as that index says.
 2. **Output and/or process:** judge the artefacts (deck, PPTX), the build process (repo history),
    or both?
 3. **Concerns:** which of content, research, voice, design-layout, design-palette, design-style,
