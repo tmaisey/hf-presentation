@@ -222,6 +222,7 @@ Triggers: `[data-scene]`, `.scene`. Hooks: `init`, `render` (current slide only)
 | `data-scene` | `section.slide` | A live scene slide: the scene is on and fitted to its slot |
 | `data-scene="backdrop"` | `section.slide` | Backdrop slide: the scene stays at the state reached so far, softened behind the body |
 | `div.scene-slot` | child of a scene slide | Empty placeholder the layout layer places; the scene takes its box |
+| `p.scene-key` | last child of `div.scene`, after the svg | Optional one-row legend under the diagram (fitted with it); `span.scene-key-item[data-scene-at]` entries arrive by scene point |
 | `data-scene-at="slide:step"` | any scene part | Shown from that slide-point on, across later scene slides. A point on a slide raises that slide's step count |
 | `data-scene-until="slide:step"` | any scene part | Hidden from that slide-point on |
 | `data-scene-is="name slide:step [slide:step], …"` | any scene part | Adds `.is-<name>` from the first point until the optional second |
