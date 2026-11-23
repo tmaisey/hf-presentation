@@ -9,6 +9,7 @@ spec ids; tests (once written) live in `tests/` here and run with
 | --- | --- | --- | --- |
 | `PRD.md` | Skill requirements: what/why, scope, separation of concerns, eval design, decisions, exclusions | Before scoping, specifying or changing any part of the skill | First, on any skill intent change (before spec/code). Not for feature state |
 | `SPEC.jsonl` | Skill feature backlog + live state (`PB-0NN`, root Spec model) | Start of a skill build session to find done/next; before writing skill tests | On spec add/refine and every status flip, in the same commit as the work |
+| `evals-runs/` | Dated eval runs of the skill itself (`yymmdd-<label>/`: manifest, evidence, verdicts, report), per `evals/EVAL.md` | To read past skill eval results or compare skill versions | Never edit a run; each run adds a new folder |
 | `tests/` | pytest suite for the skill: `Spec: PB-0NN` markers, `helper_` modules, no conftest by default; outputs in git-ignored `tests/artifacts/`; PPTX schema validation reads `PB_OOXML_SCHEMAS` (skips without it) | Before changing the skill; to prove red/green for a `PB-` spec | When the run command or helper contract changes |
 | `research/llm-judge.md` | LLM-as-judge methods: rubric anchoring, biases, judge count/aggregation, multimodal judging | Before designing rubrics, judge prompts or aggregation | When judge research is extended or overturned |
 | `research/deck-rubrics.md` | Prior rubrics and benchmarks for slide/deck quality | Before choosing rubric dimensions or anchors | When new deck-eval prior art is found |
