@@ -107,6 +107,12 @@ def test_every_deterministic_must_pass_label_yields_pass(anchor_runs, labels, li
                 assert _status(vs, cid) == "pass", f"{a['id']} {cid}: {bad[:2]}"
 
 
+# Known conflict, reported to the presenter: the shipped editorial style sets its kicker role
+# (kickers, quote and sender lines) at 13 px at 1280 wide and 19 px at 1920, below DL-02's default
+# floor (15 / 20 px). The gate reports it faithfully; resolving it is a style or profile decision.
+LABEL_ROLE = ("p.kicker", "p.quote-from", "p.msg-from")
+
+
 def test_clean_control_passes_every_deck_gate(anchor_runs, library):
     """Over-strict checks show up here: the control must pass everything a gate can check."""
     vs = anchor_runs["AN-00"]["verdicts"]
@@ -114,8 +120,16 @@ def test_clean_control_passes_every_deck_gate(anchor_runs, library):
     deck_d = {c for c, x in library.items() if x["evidence"] == "D" and x["target"] == "deck"}
     assert checked >= {"DL-01", "DP-01", "AR-01", "AR-02", "AR-03", "AR-05", "CN-04", "VC-03"}
     assert checked <= deck_d
-    fails = [(v["criterion"], v["unit"], v["evidence"][:2]) for v in vs if v["result"] != "pass"]
+    fails = [(v["criterion"], v["unit"], v["evidence"][:2]) for v in vs
+             if v["result"] != "pass" and v["criterion"] != "DL-02"]
     assert fails == []
+
+
+def test_control_fails_the_size_floor_only_on_kicker_role_labels(anchor_runs):
+    notes = [e["note"] for v in anchor_runs["AN-00"]["verdicts"]
+             if v["criterion"] == "DL-02" and v["result"] == "fail" for e in v["evidence"]]
+    assert notes, "the style's kicker role sits below the default floor (see LABEL_ROLE)"
+    assert all(n.startswith(LABEL_ROLE) or "more)" in n for n in notes), notes
 
 
 def test_every_verdict_validates_in_the_judge_format(anchor_runs, library, profile):
@@ -149,7 +163,9 @@ def test_failures_locate_the_fault_by_slide_step_and_size(anchor_runs):
 def test_pptx_criteria_are_reported_missing_never_guessed(anchor_runs, library, gates):
     run = anchor_runs["AN-00"]
     log = json.loads((run["dir"] / "evidence" / "gates.json").read_text(encoding="utf-8"))
-    pptx = {c for c, x in library.items() if x["evidence"] == "D" and x["target"] == "pptx"}
+    assert log["criteria"] and all(("checked" in c) != ("missing" in c) for c in log["criteria"].values())
+    assert all(c["missing"].strip() for c in log["criteria"].values() if "missing" in c), "a reason, always"
+    pptx ={c for c, x in library.items() if x["evidence"] == "D" and x["target"] == "pptx"}
     assert pptx, "library has D pptx criteria"
     assert not {v["criterion"] for v in run["verdicts"]} & pptx
     full = gates.coverage()
@@ -160,21 +176,78 @@ def test_pptx_criteria_are_reported_missing_never_guessed(anchor_runs, library, 
             assert c in full and (full[c].get("checked") or full[c].get("missing")), c
 
 
+# Unlabelled deck criteria: each mutation of the clean control must trip exactly the gate named.
+MUTATIONS = [
+    ("DL-10", 'markerUnits="strokeWidth" orient="auto"', 'markerUnits="strokeWidth" orient="0"'),
+    ("AR-06", 'role="img" aria-label="Walk-in queue, booking page and pick-up slot, joined in order"', 'role="img"'),
+    ("AR-04", '<div class="body"><ul class="points">', '<div class="body zzfancy" style="margin:0"><ul class="points">'),
+    ("AR-07", "", ""),  # the zzfancy class above is in no contract doc
+    ("DS-07", "<li>Keep walk-in collection open</li>",
+     '<li>Keep walk-in collection <a href="https://pharmacy-review.example.org/walk-in">open</a></li>'),
+    ("DS-07", "/* DECK:BEGIN */\n", "/* DECK:BEGIN */\n@layer deck { .points a { color: revert; } }\n"),
+    ("AR-05", "Offer booked slots at the next two branches", "Staff said the afternoons became calmer"),
+    ("VC-05", '<aside class="note" data-for="#a0-4-title">',
+     '<aside class="overlay" data-at="1"><p>One. Two. Three. Four.</p></aside>\n  <aside class="note" data-for="#a0-4-title">'),
+    ("AR-02", '<p class="kicker">03 · Next</p>', '<p class="kicker">03 · Next</p><!-- window.open( -->'),
+    ("DS-01", "/* DECK:BEGIN */\n", '/* DECK:BEGIN */\n@layer deck { .points li { font-family: "Comic Sans MS"; } }\n'),
+    ("DP-03", "/* DECK:BEGIN */\n", "/* DECK:BEGIN */\n@layer deck { .lede { color: #2b2a27; } }\n"),
+    ("DP-02", "/* DECK:BEGIN */\n", "/* DECK:BEGIN */\n@layer deck { .edge { stroke: var(--sys-color-paper-deep); } }\n"),
+]
+
+
+def test_each_unlabelled_deck_gate_catches_its_mutation_of_the_control(gates, browser, tmp_path):
+    src = (ANCHOR_DIR / "an-00.html").read_text(encoding="utf-8")
+    for cid, old, new in MUTATIONS:
+        if old:
+            assert old in src, cid
+            src = src.replace(old, new, 1)
+    deck = tmp_path / "mutated.html"
+    deck.write_text(src, encoding="utf-8")
+    repo = _base(tmp_path)
+    run_dir = tmp_path / "run"
+    gates.run_gates(run_dir, deck=deck, repo=repo.root, profile=PROFILE, concerns=DECK_CONCERNS,
+                    sizes=[(1280, 720)], browser=browser)
+    vs = _verdicts(run_dir)
+    assert {cid: _status(vs, cid) for cid, _, _ in MUTATIONS} == {cid: "fail" for cid, _, _ in MUTATIONS}
+
+
+def test_a_freshly_assembled_deck_uses_only_contract_markup(gates, browser, tmp_path):
+    """Positive partner of the AR-07 mutation. (The anchors themselves use `lede`, `quote-from` and
+    `body--diagram`, which no contract doc names, so they fail AR-07: a finding, not a gate fault.)"""
+    deck = tmp_path / "fresh.html"
+    gates.asm_mod.new(deck, "A fresh deck", "Its subtitle")
+    repo = _base(tmp_path)
+    gates.run_gates(tmp_path / "run", deck=deck, repo=repo.root, profile=PROFILE,
+                    concerns=["architecture"], sizes=[(1280, 720)], browser=browser)
+    vs = _verdicts(tmp_path / "run")
+    assert _status(vs, "AR-07") == "pass", [v["evidence"] for v in vs if v["criterion"] == "AR-07"]
+    assert _status(vs, "AR-01") == "pass" and _status(vs, "AR-02") == "pass"
+
+
+def _aggregate(run_dir: Path, label: str, concerns: list[str]) -> dict:
+    manifest = {"label": label, "date": "261123", "target": label, "profile": PROFILE,
+                "concerns": concerns, "depth": "gates", "k": 1, "transcripts": False, "mode": "pointwise"}
+    (run_dir / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    json_path, md_path = aggregator().run(run_dir)
+    assert md_path.is_file()
+    return json.loads(json_path.read_text(encoding="utf-8"))
+
+
 def test_gates_only_run_aggregates_and_a_failed_gate_fails_the_deck(anchor_runs):
-    agg = aggregator()
-    outcomes = {}
-    for aid in ("AN-00", "AN-01"):
-        run_dir = anchor_runs[aid]["dir"]
-        manifest = {"label": f"gates-{aid.lower()}", "date": "261123", "target": aid, "profile": PROFILE,
-                    "concerns": DECK_CONCERNS, "depth": "gates", "k": 1, "transcripts": False,
-                    "mode": "pointwise"}
-        (run_dir / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
-        json_path, _ = agg.run(run_dir)
-        report = json.loads(json_path.read_text(encoding="utf-8"))
-        outcomes[aid] = report
-    assert outcomes["AN-01"]["outcome"] == "fail"
-    assert outcomes["AN-01"]["criteria"]["DL-01"]["status"] == "fail"
-    assert outcomes["AN-00"]["outcome"] == "pass", outcomes["AN-00"]["gates"]
+    report = _aggregate(anchor_runs["AN-01"]["dir"], "gates-an-01", DECK_CONCERNS)
+    assert report["outcome"] == "fail"
+    assert report["criteria"]["DL-01"]["status"] == "fail"
+    assert {g["criterion"] for g in report["gates"] if g["status"] == "fail"} >= {"DL-01"}
+
+
+def test_gates_only_run_of_a_passing_deck_aggregates_to_pass(gates, browser, tmp_path):
+    """Layout concerns left out (see LABEL_ROLE), so every gate in scope is decided by code."""
+    concerns = [c for c in DECK_CONCERNS if c != "design-layout"]
+    gates.run_gates(tmp_path, deck=ANCHOR_DIR / "an-00.html", profile=PROFILE, concerns=concerns,
+                    browser=browser)
+    report = _aggregate(tmp_path, "gates-an-00", concerns)
+    assert report["gates"] and all(g["status"] == "pass" for g in report["gates"]), report["gates"]
+    assert report["outcome"] == "pass"
 
 
 # ---------- repo gates on synthetic deck repos ----------
@@ -234,7 +307,7 @@ class Repo:
             p = self.root / rel
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(text, encoding="utf-8")
-        self.git("add", "-A")
+        self.git("add", "--", *files)
         env = dict(os.environ, GIT_AUTHOR_DATE=f"@{t} +0000", GIT_COMMITTER_DATE=f"@{t} +0000")
         subprocess.run(["git", "-C", str(self.root), "commit", "-q", "-m", msg], check=True, env=env)
         return self.git("rev-parse", "HEAD").strip()
@@ -260,8 +333,8 @@ def _shots(repo: Repo, t: int, slides=(("s-2", 1),)) -> None:
 
 def _good_history(tmp_path) -> Repo:
     r = _base(tmp_path)
-    r.commit("Red: S-001 second slide test", {"tests/test_second.py": TEST_S2, "docs/SPEC.jsonl": _spec("build")},
-             T0 + 100)
+    r.commit("Red: S-001 second slide test", {"tests/test_second.py": TEST_S2, "docs/SPEC.jsonl": _spec("build"),
+                                              ".gitignore": "shots/\n"}, T0 + 100)  # test config is not implementation
     _shots(r, T0 + 200)
     r.commit("Done: S-001 second slide", {
         "deck/deck.html": DECK_V2, "docs/SPEC.jsonl": _spec("done"),

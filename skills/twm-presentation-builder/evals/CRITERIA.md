@@ -10,7 +10,7 @@ later). Gates and judge prompts consume it; they never restate a criterion.
 | `profiles/<id>.json` | One deck-type profile each: which criteria, how much they weigh, which gate |
 | `criteria.py` | Loader and validator (`check`, `resolve <profile>`); run it, don't read it |
 | `anchors/anchors.json`, `anchors/an-NN.html` | Deliberately flawed decks + a clean control, each labelled `must_fail`/`must_pass`; judge them like any deck, a judge or gate that passes a `must_fail` is wrong |
-| `EVAL.md`, `judges/`, `aggregate.py` | Run protocol, judge prompt templates, verdict validation and aggregation |
+| `EVAL.md`, `judges/`, `gates.py`, `aggregate.py` | Run protocol, judge prompt templates, the deterministic gate runner (`D` criteria), verdict validation and aggregation |
 
 Validate after any edit: `uv run ${CLAUDE_SKILL_DIR}/evals/criteria.py check`. A runner gets a
 profile's rubric with `uv run ${CLAUDE_SKILL_DIR}/evals/criteria.py resolve <profile>` (JSON list:
