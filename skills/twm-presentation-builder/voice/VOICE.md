@@ -42,5 +42,6 @@ Every time the presenter approves or rejects copy, or states a preference, add i
 
 A profile is a markdown file with: a one-line scope and spelling convention; one section per kind
 of copy (titles, Insight overlays, body text, bullets, quote tiles, discussion prompts, labels…),
-each with its rules first and its ✗/✓ pair table after; a *Word choice* section; and an *Open*
+each with its rules first and its ✗/✓ pair table after (the byline rule gives a named-presenter
+form and a team or unnamed form); a *Word choice* section; and an *Open*
 section for pending decisions. It holds no personal details beyond what appears on the slides.

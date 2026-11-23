@@ -27,6 +27,12 @@ and before putting a quote on a slide.
    Tag evidence **[FOR]** / **[AGAINST]** the claim it is filed under, so mixed evidence shows.
 5. **Cite precisely.** Source name, date, URL, and page or section (`p12`, `§III.B`). Date the
    access. A claim with no traceable source does not go on a slide.
+   **Unlinked sources** (logs, internal documents, interviews, print-only reports) are cited, not
+   skipped: name it, date it, and say what it is and where it is held, so a reader knows how to
+   obtain it. In a note: `— <source name, date> (unlinked: <what it is, where held>) <page/section>`.
+   On a slide's reader note: `<p class="src-unlinked">Unlinked source: <name, date> (<what it is,
+   where held>; accessed <date>)</p>` in place of the `a.src` link. Never a bare "Source: …"
+   sentence, and never an invented URL.
 6. **Match the claim to the evidence.** Don't widen a claim beyond what the source says (a share
    of *tasks discussed* is not a share of *discussion volume*). When the copy must shrink, cut
    detail to the note; never change what is claimed.
@@ -80,6 +86,7 @@ Fetch notes: <sources that failed, and how they were relayed instead>
 ## Claims
 - **[FOR][primary]** <claim>. — [<source, date>](<url>) <page/section>
 - **[AGAINST][secondary]** <claim>; single-sourced: <source>. — [<source>](<url>)
+- **[FOR][primary]** <claim>. — <source name, date> (unlinked: <what it is, where held>) <page/section>
 
 ## Quotes
 | # | Label | Quote | Location | Status |

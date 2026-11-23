@@ -77,7 +77,7 @@ tok_mod = _load("skill_gates_tokens", SCRIPTS / "tokens.py")
 CHECKS = {
     "CN-04": "visible words per slide (max over steps, notes excluded) ≤ params.max_words (default 40)",
     "CN-08": "every slide except lead/closing slides has an aside.note with text",
-    "RS-05": "every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link",
+    "RS-05": "every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link, except a named p.src-unlinked line",
     "VC-03": "each title: no trailing full stop, one sentence, ≤ 1 em/i run",
     "VC-05": "each .overlay holds ≤ 3 sentences",
     "DL-01": "layout_guard faults plus pairwise text/tile box collisions and off-canvas boxes, at every size; "
@@ -284,8 +284,9 @@ STATIC = r"""(id) => {
     lead: s.classList.contains('slide--lead'),
     titles: titles.map(t => ({ text: txt(t), em: t.querySelectorAll('em, i').length })),
     notes: [...s.querySelectorAll('aside.note')].map(n => {
-      const c = n.cloneNode(true); c.querySelectorAll('a').forEach(a => a.remove());
-      return { text: txt(n), bare: txt(c), hrefs: [...n.querySelectorAll('a')].map(a => a.getAttribute('href') || '') }; }),
+      const c = n.cloneNode(true); c.querySelectorAll('a, .src-unlinked').forEach(a => a.remove());
+      return { text: txt(n), bare: txt(c), hrefs: [...n.querySelectorAll('a')].map(a => a.getAttribute('href') || ''),
+        unlinked: [...n.querySelectorAll('.src-unlinked')].map(txt) }; }),
     hrefs: [...s.querySelectorAll('a')].filter(a => !a.closest('aside.note')).map(a => a.getAttribute('href') || ''),
     overlays: [...s.querySelectorAll('.overlay')].map(o => ({ id: o.id, text: txt(o) })),
     imgs: [...s.querySelectorAll('img')].map(i => ({ src: (i.getAttribute('src') || '').slice(0, 40), alt: i.hasAttribute('alt'),
@@ -648,6 +649,10 @@ def _deck_rules(facts: dict, src: str, crit: dict, deck: Path) -> list[dict]:
             for n in st["notes"]:
                 if re.search(r"\bsources?\s*:", n["bare"], re.I):
                     bad.append({"slide": sid, "note": f"bare-text citation in note: {n['bare'][-70:]!r}"})
+                for u in n.get("unlinked", []):
+                    name = re.sub(r"^\s*unlinked source\s*:\s*", "", u, flags=re.I)
+                    if not re.search(r"\w{3}", name) or re.search(r"\b(todo|tbd|placeholder|xxx)\b", name, re.I):
+                        bad.append({"slide": sid, "note": f"unlinked source names nothing real: {u[:70]!r}"})
         deck_level(bad, "every citation is a well-formed https link")
     elif cid == "DP-03":
         bad = []

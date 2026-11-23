@@ -10,7 +10,8 @@ scrolling have settled (a condition, never a fixed sleep) and checks the current
 
 - ``overlap``: a block or text covering a title's glyph lines, a title under the bar, the bar title
   meeting the agenda;
-- ``overflow``: text clipped by its own or an ancestor's overflow box;
+- ``overflow``: text clipped by its own or an ancestor's overflow box, or diagram text drawn outside
+  its own diagram's viewBox (``outside diagram``: SVG text never wraps, so a long label spills);
 - ``off-canvas``: visible text outside the slide (scene text outside the viewport), the bar title
   off-screen;
 - ``occlusion``: a visible overlay or card under the always-visible Notes button.
@@ -25,6 +26,11 @@ Exit codes: 0 clean, 1 faults (one ``FAIL <slide>@<step> <WxH> <kind>: <check>: 
     {"tool": "layout_guard", "version": 1, "deck": str, "sizes": ["1920x1080", ...], "states": int,
      "ok": bool, "faults": [{"slide": str, "step": int, "size": "WxH", "kind": str, "check": str,
      "target": str}]}
+
+From a deck's test suite, import this file by path and call ``guard(deck)``: with no ``browser`` it
+runs Chrome in a worker thread, so it works beside the suite's own sync Playwright session; or pass
+``browser=`` an open Playwright browser to reuse it. The project template ships a ready test
+(``assets/templates/project/tests/test_layout_guard.py``).
 
 The browser helpers here (``open_deck``, ``settle``, ``goto_step``, ``parse_sizes``) are shared with
 ``scripts/shoot.py``.
@@ -232,6 +238,15 @@ LAYOUT_CHECK = r"""id => {
       if (outside(r, a.getBoundingClientRect())) { bad.push('clipped by ' + name(a).split(' ')[0] + ': ' + name(e)); break; }
     }
   }));
+  // diagram text past its own diagram's viewBox (spills into the letterbox or off the drawing)
+  s.querySelectorAll('svg.diagram').forEach(svg => {
+    const vb = svg.viewBox && svg.viewBox.baseVal, m = svg.getScreenCTM();
+    if (!vb || !vb.width || !m || !shown(svg)) return;
+    const p = (x, y) => new DOMPoint(x, y).matrixTransform(m), a = p(vb.x, vb.y), b = p(vb.x + vb.width, vb.y + vb.height);
+    const box = {left: Math.min(a.x, b.x), top: Math.min(a.y, b.y), right: Math.max(a.x, b.x), bottom: Math.max(a.y, b.y)};
+    svg.querySelectorAll('text').forEach(t => {
+      if (shown(t) && (t.textContent || '').trim() && outside(t.getBoundingClientRect(), box)) bad.push('outside diagram: ' + name(t)); });
+  });
   s.querySelectorAll('.body, .steps, .overlay, table, .fig-notes, .narration, .narr-tile, .popover, .pop-panel, .text-tile').forEach(e => {
     if (inNote(e) || !shown(e)) return;
     const c = getComputedStyle(e);
@@ -301,7 +316,7 @@ def classify(fault: str) -> tuple[str, str, str]:
         ``kind`` (one of ``KINDS``), the check label and the element it names (may be empty).
     """
     check, _, target = fault.partition(": ")
-    if check.startswith("clipped"):
+    if check.startswith("clipped") or check == "outside diagram":
         kind = "overflow"
     elif check in ("off-slide", "bar title off-screen"):
         kind = "off-canvas"
@@ -312,13 +327,18 @@ def classify(fault: str) -> tuple[str, str, str]:
     return kind, check, target
 
 
-def guard(deck: Path, sizes=REVIEW_SIZES, slides: list[str] | None = None) -> dict:
+def guard(deck: Path, sizes=REVIEW_SIZES, slides: list[str] | None = None, browser=None) -> dict:
     """Check every slide × step × size of a deck.
+
+    Safe to call from a test suite: with no ``browser`` it launches Chrome in a worker thread, so it
+    also runs while the caller holds its own sync Playwright session (a pytest browser fixture).
 
     Args:
         deck: Assembled deck HTML file.
         sizes: Viewport sizes ``(w, h)``.
         slides: Slide ids to check (default: all, in deck order).
+        browser: An open Playwright ``Browser`` to reuse (left open); when ``None`` the system Chrome
+            is launched and closed again.
 
     Returns:
         The report (schema in the module docstring); ``ok`` is ``True`` when there are no faults.
@@ -326,29 +346,36 @@ def guard(deck: Path, sizes=REVIEW_SIZES, slides: list[str] | None = None) -> di
     Raises:
         ToolError: When the deck is missing or not an assembled deck, or a slide is unknown.
     """
-    from playwright.sync_api import sync_playwright
-
     deck = Path(deck)
     if not deck.is_file():
         raise ToolError(f"{deck}: no such file")
+    if browser is None:
+        def run():
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as p:
+                b = launch(p)
+                try:
+                    return guard(deck, sizes, slides, browser=b)
+                finally:
+                    b.close()
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+            return pool.submit(run).result()
     faults, states = [], 0
-    with sync_playwright() as p:
-        browser = launch(p)
+    for size in sizes:
+        ctx = browser.new_context(viewport={"width": size[0], "height": size[1]})
         try:
-            for size in sizes:
-                ctx = browser.new_context(viewport={"width": size[0], "height": size[1]})
-                page = ctx.new_page()
-                for sid, steps in pick_slides(open_deck(page, deck), slides):
-                    states += steps + 1
-                    for f in slide_faults(page, sid):
-                        head, _, rest = f.partition(": ")
-                        kind, check, target = classify(rest)
-                        sl, _, k = head.rpartition("@")
-                        faults.append({"slide": sl, "step": int(k), "size": size_id(size), "kind": kind,
-                                       "check": check, "target": target})
-                ctx.close()
+            page = ctx.new_page()
+            for sid, steps in pick_slides(open_deck(page, deck), slides):
+                states += steps + 1
+                for f in slide_faults(page, sid):
+                    head, _, rest = f.partition(": ")
+                    kind, check, target = classify(rest)
+                    sl, _, k = head.rpartition("@")
+                    faults.append({"slide": sl, "step": int(k), "size": size_id(size), "kind": kind,
+                                   "check": check, "target": target})
         finally:
-            browser.close()
+            ctx.close()
     return {"tool": "layout_guard", "version": 1, "deck": str(deck), "sizes": [size_id(s) for s in sizes],
             "states": states, "ok": not faults, "faults": faults}
 

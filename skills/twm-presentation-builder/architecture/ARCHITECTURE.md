@@ -67,8 +67,15 @@ hand-edited.
 uv run scripts/assemble.py new deck.html --title "…" --subtitle "…" [--slides slides.html] \
   [--palette paper-green] [--style editorial] [--layout components]   # names or file paths
 uv run scripts/assemble.py swap deck.html [--palette P] [--style S] [--layout L] [--refresh-engine] [-o out.html]
-uv run scripts/assemble.py check deck.html   # endpoint-safety faults (§1); new/swap refuse unsafe output
+uv run scripts/assemble.py slides deck.html (--from slides.html | --to slides.html)   # replace / extract SLIDES
+uv run scripts/assemble.py check deck.html   # endpoint-safety faults (§1); new/swap/slides refuse unsafe output
 ```
+
+**Source of truth for slides:** the deck file's SLIDES block. Edit it in place, or extract a
+working copy with `assemble.py slides --to`, edit, and put it back with `--from`: only SLIDES is
+rewritten (plus ARCH and MODULES when the new slides trigger a different module set, §9); every
+other byte is copied. A slides file passed to `new --slides` seeds the first build only; never keep
+it as a second source.
 
 `new` embeds the faces of every font family the style names (`assets/fonts/fonts.json` maps family →
 woff2 + OFL licence; a family with no file is refused) and includes modules by trigger (§9). `swap`
@@ -93,7 +100,7 @@ engine discovers everything from these attributes:
 | `data-show-at="n"` | any element, HTML or SVG | Hidden before step `n`, revealed (`.is-visible`) from step `n`. Keeps its layout space while hidden |
 | `data-hide-at="n"` | any element, HTML or SVG | Hidden from step `n`. Pair with `data-show-at` on a replacement at the same place to **swap** at step `n` |
 | `data-at="n"` | step-only element, e.g. an `.overlay` | Shown (`.is-shown`) at exactly step `n`, never before or after, never in notes mode |
-| `data-for="#id"` | `aside.note` | Reader note for the element `#id` on the same slide (a module may resolve other targets, §7) |
+| `data-for="<selector>"` | `aside.note` | Reader note for the first element on the same slide matching any CSS selector (`#id` preferred: stable and unique; `.class`, `[attr='v']`, `li:nth-child(2)` also work); no match there → a module may resolve it (scene parts, §7, §9); no match at all, or an invalid selector, drops that note from notes mode (no pin) and the others still work |
 | `data-from="#a"` `data-to="#b"` | `path.edge` in `svg.diagram` | The engine draws a gapped straight or curved connector between the two tiles' rects (omit `d`) |
 | `data-notes="prev\|next\|close"` | buttons in `nav.notes-nav` (skeleton chrome) | Notes-bar actions; not for slides |
 
@@ -103,13 +110,16 @@ elements, then `aside.note`s. Modifiers such as `.slide--lead` and body layouts 
 part, not this contract.
 
 Reader notes: `aside.note[data-for] > h3 + p… + a.src[href]` (the real source; link text = source
-name). Notes are never displayed in place (`.note` is `display: none`); notes mode copies their
+name). A source with no URL (a log, an internal document) is a `p.src-unlinked` line in place of
+the link, "Unlinked source: <name, date> (<what it is and where it is held>)"; it shows in notes
+mode as a small line and passes the citation gate (RS-05), where bare "Source:" text does not. Notes are never displayed in place (`.note` is `display: none`); notes mode copies their
 children into the callout and gathers the `a.src` links into a `p.cite` line.
 
 Diagrams: `svg.diagram[viewBox]` with groups `g.layer-edges`, `g.layer-nodes`, `g.layer-key`,
 `g.layer-labels` in that order. A tile is `g.tile#id > rect[x y width height] + text…` with no text
 coordinates: the engine centres the lines as one block in the rect, and tiles sharing a row (same
-`y` and height) share one title baseline. Edges carry `marker-end="url(#arr)"`.
+`y` and height) share one title baseline. `g.tile.tile--centred` opts out: its own block is centred
+in its rect (a one-line tile among two-line siblings). Edges carry `marker-end="url(#arr)"`.
 
 ## 4 · Steps
 

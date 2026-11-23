@@ -338,7 +338,7 @@ def test_title_approval_is_needed_before_presenting_not_for_done():
 
 def test_byline_rule_has_a_team_or_unnamed_form():
     byline = _text(PROFILE).split("## Kickers and byline", 1)[1].split("\n## ", 1)[0]
-    assert re.search(r"team", byline, re.I) and re.search(r"never (invent|a person)", byline, re.I), byline
+    assert re.search(r"team", byline, re.I) and re.search(r"never\**\s+(invent|a person)", byline, re.I), byline
     assert re.search(r"byline", _text(VOICE), re.I), "the profile shape names the byline forms"
 
 
@@ -377,8 +377,8 @@ def test_closing_slide_with_prompts_is_layout_clean_and_centred_at_every_size(gu
 
 
 def test_layout_documents_the_closing_layout_with_prompts():
-    row = next((l for l in _text(LAYOUT).splitlines() if l.startswith("| Closing")), "")
-    assert ".prompts" in row, row
+    rows = [l for l in _text(LAYOUT).splitlines() if l.startswith("| Closing")]
+    assert any(".prompts" in r and "slide--end" in r for r in rows), rows
 
 
 # ---------- row 10: a timeline body outside a scene ----------

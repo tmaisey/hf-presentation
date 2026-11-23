@@ -47,7 +47,7 @@ its `form` text; profiles set the value. In use:
 
 | Criterion | Param | Default | Meaning |
 | --- | --- | --- | --- |
-| `CN-04` | `max_words` | 40 | Visible words per slide, notes excluded |
+| `CN-04` | `max_words` | 40 | Visible words at the slide's wordiest step, notes and chrome excluded (counted as the content part defines) |
 | `DL-02` | `min_px_1280`, `min_px_1920` | 15, 20 | Reading-text floor (px) at 1280/1288 wide and at 1920 |
 | `DL-02` | `min_label_px_1280`, `min_label_px_1920` | 12, 18 | Label floor for uppercase tracked labels (kicker, sender/`msg-from`, `pop-tag`, a `.cite`/`.quote-from` source line): read as tags, never prose |
 
