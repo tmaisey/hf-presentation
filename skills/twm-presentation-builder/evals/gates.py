@@ -1,10 +1,11 @@
 # /// script
 # requires-python = ">=3.12"
-# dependencies = ["playwright>=1.49", "pytest>=8"]
+# dependencies = ["playwright>=1.49", "pytest>=8", "python-pptx>=1.0.2", "lxml>=5"]
 # ///
 """Deterministic gate runner: check every in-scope ``D`` criterion and write judge-format verdicts.
 
-Given a run folder and its scope (a deck and/or a deck repo, a profile, the concerns), it resolves
+Given a run folder and its scope (a deck, its emitted PPTX and/or a deck repo, a profile, the
+concerns), it resolves
 the profile's ``D`` criteria, checks each one in code, and writes one verdict per unit
 (``repeat`` 1, ``unit`` per the criterion's scope: ``deck``, a slide id, ``<slide>/<step>`` or a
 spec id) to ``<run>/verdicts/<criterion>_<unit>_r1.json``, the files ``aggregate.py`` reads. It
@@ -12,7 +13,9 @@ also writes ``<run>/evidence/gates.json``: what was checked, what is missing and
 
 **Deck checks** open the deck in the system Chrome (Playwright, network blocked) and step every
 slide × step × review size through ``window.deck`` with ``scripts/layout_guard.py``'s helpers,
-waiting on a settle condition, never a fixed sleep. **Repo checks** read git history only
+waiting on a settle condition, never a fixed sleep. **PPTX checks** are the PPTX part's own
+(``pptx/scripts/check.py`` ``verdicts``), run on the given ``.pptx`` with its scene and emitter
+report (default: the sidecars beside it). **Repo checks** read git history only
 (``git`` via subprocess, read-only on the target: tests are re-run in throwaway ``git worktree``
 checkouts under ``<run>/evidence/worktrees/``, removed afterwards). A self-reported process log
 is never read: every process fact comes from commits, the SPEC file at each commit, test runs
@@ -22,9 +25,9 @@ missing (with the reason); a criterion with no rule here gets no verdict, so the
 
 Usage (from the skill folder)::
 
-    uv run evals/gates.py <run-dir> [--deck deck.html] [--repo path] [--profile editorial-talk]
-        [--concerns design-layout,process] [--sizes 1920x1080,1280x720,1288x598] [--no-rerun]
-        [--test-cmd "uv run pytest"]
+    uv run evals/gates.py <run-dir> [--deck deck.html] [--pptx deck.pptx [--scene s.json] [--report r.json]]
+        [--repo path] [--profile editorial-talk] [--concerns design-layout,process]
+        [--sizes 1920x1080,1280x720,1288x598] [--no-rerun] [--test-cmd "uv run pytest"]
 
 ``--profile``/``--concerns`` default to the run's ``manifest.json`` (concerns: all). ``--no-rerun``
 skips re-running spec tests (PR-02 is then missing). Exit codes: 0 every verdict passes, 1 any
@@ -34,6 +37,7 @@ verdict fails, 2 usage error or unusable input.
 from __future__ import annotations
 
 import argparse
+import ast
 import importlib.util
 import json
 import os
@@ -49,6 +53,7 @@ from urllib.parse import urlparse
 EVAL_DIR = Path(__file__).resolve().parent
 SKILL_DIR = EVAL_DIR.parent
 SCRIPTS = SKILL_DIR / "scripts"
+PPTX_CHECK = SKILL_DIR / "pptx" / "scripts" / "check.py"
 CONTRACT_DOCS = (SKILL_DIR / "architecture" / "ARCHITECTURE.md", SKILL_DIR / "design" / "LAYOUT.md")
 MAX_EVIDENCE = 12
 SPEC_FILE = "docs/SPEC.jsonl"
@@ -75,14 +80,20 @@ CHECKS = {
     "RS-05": "every link in notes and slides is https with a real host (no example.com/TODO/#); no 'Source:' text without a link",
     "VC-03": "each title: no trailing full stop, one sentence, ≤ 1 em/i run",
     "VC-05": "each .overlay holds ≤ 3 sentences",
-    "DL-01": "layout_guard faults plus pairwise text/tile box collisions and off-canvas boxes, at every size",
-    "DL-02": "rendered text px ≥ params.min_px_1920 (20) at ≥ 1920 wide, else ≥ params.min_px_1280 (15)",
+    "DL-01": "layout_guard faults plus pairwise text/tile box collisions and off-canvas boxes, at every size; "
+             "deliberate stacks are not collisions: a textless tile with another shape of its own diagram, or a "
+             "focus card (overlay, pop-over) over body content (never over a title or chrome)",
+    "DL-02": "rendered text px ≥ params.min_px_1920 (20) at ≥ 1920 wide, else ≥ params.min_px_1280 (15); labels "
+             "(uppercase and tracked ≥ .05em, or a .cite/.quote-from source line) ≥ params.min_label_px_1920 (18) "
+             "/ params.min_label_px_1280 (12)",
     "DL-09": "bar, agenda and notes button keep their box (±1 px) between consecutive slides",
     "DL-10": "every connector ends ≥ 0.5 units clear of both tiles; markers orient=auto with refY centred",
-    "DP-01": "WCAG 2 ratio of each visible text run against its composited background (4.5, large 3), unrounded; never-text palette roles used as text fail",
-    "DP-02": "connector strokes ≥ 3:1 against the diagram's composited background",
+    "DP-01": "WCAG 2 ratio of each visible text run against its composited background (4.5, large 3), unrounded; "
+             "never-text palette roles used as text fail; text softened (blurred) beneath a focus layer is skipped",
+    "DP-02": "unsoftened connector strokes ≥ 3:1 against the diagram's composited background",
     "DP-03": "no hex/rgb()/hsl()/oklch()/lab()/lch() colour literal outside the PALETTE block",
-    "DS-01": "≤ 2 primary font families, each declared in --sys-font-*; every size on the --sys-type-*/--comp-* size scale",
+    "DS-01": "≤ 2 primary font families, each declared in --sys-font-*; every size on the --sys-type-*/--comp-* size "
+             "scale (diagram text: rendered size on the scale, or its SVG size on a --comp-*-floor)",
     "DS-03": "ambient layer only on lead or build-free, diagram-free slides; no other looping animation; reduced motion stops all drift",
     "DS-07": "no visible link (slide or notes callout) in the browser's default link colours",
     "AR-01": "network blocked: no external request, no failed resource, no console error; no external reference in the source",
@@ -101,7 +112,25 @@ CHECKS = {
 MISSING = {
     "DP-05": "needs a second shipped palette to swap to; only one palette ships (add the check with the second theme)",
 }
-PPTX_MISSING = "PPTX target: checked by the PPTX emitter's own gates (PB-024), not built yet"
+
+
+def pptx_rules() -> dict[str, str]:
+    """Read the PPTX checks' criteria and rules from ``pptx/scripts/check.py`` without importing it.
+
+    Returns:
+        ``{criterion: rule}`` for each id in its ``CRITERIA`` (the rule from its docstring table).
+    """
+    if not PPTX_CHECK.is_file():
+        return {}
+    tree = ast.parse(PPTX_CHECK.read_text(encoding="utf-8"))
+    ids = next(ast.literal_eval(n.value) for n in tree.body if isinstance(n, ast.Assign)
+               and any(getattr(t, "id", "") == "CRITERIA" for t in n.targets))
+    doc, out = ast.get_docstring(tree) or "", {}
+    for cid in ids:
+        m = re.search(rf"^{cid}\s+(.+(?:\n {{12}}.+)*)", doc, re.M)
+        out[cid] = "pptx/scripts/check.py: " + (" ".join(m.group(1).split()) if m else "see its rule table")
+    return out
+
 FLAW = {  # flaw tag(s) a failure carries, from each criterion's own taxonomy
     "CN-04": ["excessive-text-density"], "CN-08": ["missing-note"], "RS-05": ["broken-link"],
     "VC-03": ["title-form"], "VC-05": ["overlong-overlay"], "DL-02": ["inappropriate-font-sizing"],
@@ -130,7 +159,8 @@ def coverage(library: dict | None = None) -> dict[str, dict]:
         if c["evidence"] != "D":
             continue
         if c["target"] == "pptx":
-            out[cid] = {"missing": PPTX_MISSING}
+            rule = pptx_rules().get(cid)
+            out[cid] = {"checked": rule} if rule else {"missing": "no PPTX check implements it"}
         elif cid in CHECKS:
             out[cid] = {"checked": CHECKS[cid]}
         else:
@@ -177,11 +207,17 @@ PROBE = r"""(id) => {
   const R = r => ({ l: r.left, t: r.top, r: r.right, b: r.bottom });
   const lines = e => { const rg = document.createRange(); rg.selectNodeContents(e);
     return [...rg.getClientRects()].filter(r => r.width > 1 && r.height > 1).map(R); };
+  // softened = blurred by a focus state (body under an Insight, scene under a pop-over): out of focus on purpose
+  const soft = e => { for (let n = e; n && n !== document.documentElement; n = n.parentElement) {
+      const f = getComputedStyle(n).filter; if (f && /blur\((?!0(px)?\))/.test(f)) return true; } return false; };
+  const svgs = [...s.querySelectorAll('svg')];
   const BLOCKS = 'h2, h3, p, li, blockquote, figcaption, .narr-tile, .quote, g.tile';
   const cands = [...s.querySelectorAll(BLOCKS)].filter(e => !out(e) && !hidden(e));
   const top = cands.filter(e => !cands.some(o => o !== e && o.contains(e)));
   const solid = e => e.matches('.narr-tile, .quote, g.tile');
-  const boxes = top.map(e => ({ who: label(e), rects: solid(e) ? [R(e.getBoundingClientRect())] : lines(e) }))
+  const boxes = top.map(e => ({ who: label(e), rects: solid(e) ? [R(e.getBoundingClientRect())] : lines(e),
+      svg: e instanceof SVGElement ? svgs.indexOf(e.ownerSVGElement) : -1, textless: !(e.textContent || '').trim(),
+      focus: !!e.closest('.overlay, .popover'), title: !!e.closest('.title') }))
     .concat(['.bar', '.notes-btn'].map(q => document.querySelector(q)).filter(e => e && !hidden(e))
       .map(e => ({ who: label(e), chrome: true, rects: [R(e.getBoundingClientRect())] })));
   const bodyBg = (() => { const c = rgba(getComputedStyle(document.body).backgroundColor); return c[3] > 0 ? over(c, [255, 255, 255, 1]) : [255, 255, 255, 1]; })();
@@ -199,8 +235,10 @@ PROBE = r"""(id) => {
       const scale = svg && e.getScreenCTM ? Math.hypot(e.getScreenCTM().a, e.getScreenCTM().b) : 1;
       return { who: label(e), text: [...e.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(' ').trim(),
         fg: over([fg[0], fg[1], fg[2], fg[3] * alpha(e)], bg), raw: fg, bg, px: parseFloat(cs.fontSize),
-        rpx: parseFloat(cs.fontSize) * scale, weight: +cs.fontWeight, family: fam(cs),
-        kicker: !!e.closest('.kicker') }; });
+        rpx: parseFloat(cs.fontSize) * scale, weight: +cs.fontWeight, family: fam(cs), svg,
+        kicker: !!e.closest('.kicker'), soft: soft(e),
+        label: (cs.textTransform === 'uppercase' && parseFloat(cs.letterSpacing) >= 0.05 * parseFloat(cs.fontSize))
+          || !!e.closest('.cite, .quote-from') }; });
   const edges = [...s.querySelectorAll('svg path.edge')].filter(e => !hidden(e) && e.getTotalLength).map(e => {
     const svg = e.ownerSVGElement, cs = getComputedStyle(e), n = e.getTotalLength();
     const p0 = e.getPointAtLength(0), p1 = e.getPointAtLength(n);
@@ -214,7 +252,7 @@ PROBE = r"""(id) => {
       marker = { found: !!m, orient: m ? (m.getAttribute('orient') || '') : '',
         centred: !!(m && vb && vb.height && Math.abs(m.refY.baseVal.value - (vb.y + vb.height / 2)) <= 0.5) }; }
     const st = rgba(cs.stroke);
-    return { who: label(e), len: n, gapFrom: gap(p0, e.dataset.from), gapTo: gap(p1, e.dataset.to), marker,
+    return { who: label(e), len: n, gapFrom: gap(p0, e.dataset.from), gapTo: gap(p1, e.dataset.to), marker, soft: soft(e),
       stroke: over([st[0], st[1], st[2], st[3] * alpha(e) * (+cs.strokeOpacity || 1)], bgOf(svg)), bg: bgOf(svg) }; });
   const links = [...s.querySelectorAll('a[href]')].filter(a => !out(a) && !hidden(a))
     .map(a => ({ who: label(a), color: rgba(getComputedStyle(a).color) }));
@@ -318,6 +356,15 @@ def _guard_faults(page, sid: str) -> list[str]:
     return page.evaluate(guard_mod.LAYOUT_CHECK, sid)
 
 
+def _stacked(a: dict, b: dict) -> bool:
+    """True for a deliberate stack, not a collision: a textless tile (a decorative card behind a
+    labelled one) with another shape of its own diagram, or a focus card (overlay, pop-over) over
+    body content. A focus card over a title or chrome, or two labelled tiles, still collide."""
+    if a.get("svg", -1) >= 0 and a.get("svg") == b.get("svg") and (a.get("textless") or b.get("textless")):
+        return True
+    return any(x.get("focus") and not (y.get("focus") or y.get("title") or y.get("chrome")) for x, y in ((a, b), (b, a)))
+
+
 def _collisions(m) -> list[str]:
     hits, boxes = [], m["boxes"]
     for i, a in enumerate(boxes):
@@ -325,7 +372,7 @@ def _collisions(m) -> list[str]:
             if not a.get("chrome") and (r["l"] < -1 or r["t"] < -1 or r["r"] > m["vw"] + 1 or r["b"] > m["vh"] + 1):
                 hits.append(f"off-canvas {a['who']}")
         for b in boxes[i + 1:]:
-            if a.get("chrome") and b.get("chrome"):
+            if a.get("chrome") and b.get("chrome") or _stacked(a, b):
                 continue
             if any(min(r["r"], q["r"]) - max(r["l"], q["l"]) > 2 and min(r["b"], q["b"]) - max(r["t"], q["t"]) > 2
                    for r in a["rects"] for q in b["rects"]):
@@ -375,7 +422,7 @@ def measure_deck(deck: Path, sizes, browser, needs: set[str]) -> dict:
     facts = {"plan": None, "states": {}, "guard": {}, "static": {}, "net": log, "keys": None,
              "motion": None, "callout": None, "scale": {}, "families": {}}
     src = deck.read_text(encoding="utf-8")
-    size_names = sorted(set(re.findall(r"(--(?:sys-type-[\w-]*size|comp-[\w-]*size))\s*:", src)))
+    size_names = sorted(set(re.findall(r"(--(?:sys-type-[\w-]*size|comp-[\w-]*(?:size|floor)))\s*:", src)))
     font_names = sorted(set(re.findall(r"(--sys-font-[\w-]+)\s*:", src)))
     for i, size in enumerate(sizes):
         sid_ = guard_mod.size_id(size)
@@ -504,11 +551,16 @@ def _deck_rules(facts: dict, src: str, crit: dict, deck: Path) -> list[dict]:
         per_state(chk, f"no overlap, overflow or off-canvas box at {', '.join(sizes)}")
     elif cid == "DL-02":
         def chk(sid, k, size):
-            w = int(size.split("x")[0])
-            floor = params.get("min_px_1920", 20) if w >= 1920 else params.get("min_px_1280", 15)
-            return [f"{r['who']} at {r['rpx']:.1f}px < {floor}px" for r in facts["states"][size][(sid, k)]["runs"]
-                    if r["rpx"] < floor - 0.05]
-        per_state(chk, "all text at or above the size floor")
+            big = int(size.split("x")[0]) >= 1920
+            text = params.get("min_px_1920", 20) if big else params.get("min_px_1280", 15)
+            label = params.get("min_label_px_1920", 18) if big else params.get("min_label_px_1280", 12)
+            bad = []
+            for r in facts["states"][size][(sid, k)]["runs"]:
+                floor = label if r.get("label") else text
+                if r["rpx"] < floor - 0.05:
+                    bad.append(f"{r['who']} at {r['rpx']:.1f}px < {floor}px" + (" (label floor)" if r.get("label") else ""))
+            return bad
+        per_state(chk, "reading text at or above the text floor, labels at or above the label floor")
     elif cid == "DL-09":
         bad = []
         for size in sizes:
@@ -528,6 +580,8 @@ def _deck_rules(facts: dict, src: str, crit: dict, deck: Path) -> list[dict]:
         def chk(sid, k, size):
             bad = []
             for r in facts["states"][size][(sid, k)]["runs"]:
+                if r.get("soft"):
+                    continue
                 large = r["rpx"] >= 24 or (r["rpx"] >= 18.5 and r["weight"] >= 700)
                 ratio, need = _ratio(r["fg"], r["bg"]), (3.0 if large else 4.5)
                 if ratio < need:
@@ -539,7 +593,8 @@ def _deck_rules(facts: dict, src: str, crit: dict, deck: Path) -> list[dict]:
     elif cid == "DP-02":
         def chk(sid, k, size):
             return [f"{e['who']} stroke {tok_mod.fmt_ratio(_ratio(e['stroke'], e['bg']))} < 3:1"
-                    for e in facts["states"][size][(sid, k)]["edges"] if _ratio(e["stroke"], e["bg"]) < 3.0]
+                    for e in facts["states"][size][(sid, k)]["edges"]
+                    if not e.get("soft") and _ratio(e["stroke"], e["bg"]) < 3.0]
         per_state(chk, "every visible connector stroke ≥ 3:1 (or none at this step)")
     elif cid == "DL-10":
         def chk(sid, k, size):
@@ -614,13 +669,18 @@ def _deck_rules(facts: dict, src: str, crit: dict, deck: Path) -> list[dict]:
         declared = {v.split(",")[0].strip().strip("'\"").lower() for v in facts["families"].values() if v.strip()}
         bad, used = [], {}
         for size in sizes:
-            scale = list(facts["scale"][size].values())
+            scale = [v for n, v in facts["scale"][size].items() if not n.endswith("-floor")]
+            floors = [v for n, v in facts["scale"][size].items() if n.endswith("-floor")]
+
+            def off(r):  # diagram text is max(floor, --k × role size): on the scale, or at a floor in SVG units
+                return min(abs(r["rpx"] - v) for v in scale) > 0.6 and not (
+                    r.get("svg") and floors and min(abs(r["px"] - v) for v in floors) <= 0.6)
             for (sid, k), m in facts["states"][size].items():
                 for r in m["runs"]:
                     used.setdefault(r["family"], f"{sid}/{k} {r['who']}")
                     if declared and r["family"] not in declared:
                         bad.append({"slide": sid, "step": k, "size": size, "note": f"{r['who']} in undeclared family {r['family']!r}"})
-                    if scale and min(abs(r["rpx"] - v) for v in scale) > 0.6:
+                    if scale and off(r):
                         bad.append({"slide": sid, "step": k, "size": size, "note": f"{r['who']} at {r['rpx']:.1f}px is off the type scale"})
         if len(used) > 2:
             bad.append({"file": fname, "note": f"{len(used)} families: {sorted(used)}"})
@@ -1200,7 +1260,36 @@ def hist_parent(hist: dict, sha: str) -> str | None:
 
 # ---------- run ----------
 
+def pptx_verdicts(pptx: Path, criteria: list[dict], scene: Path | None = None,
+                  report: Path | None = None) -> list[dict]:
+    """Check pptx-target ``D`` criteria with the PPTX part's own checks (``pptx/scripts/check.py``).
+
+    Args:
+        pptx: The emitted ``.pptx``.
+        criteria: Resolved criteria; only pptx-target ones are kept.
+        scene: The deck's scene JSON (default: ``<stem>.scene.json`` beside the file).
+        report: The emitter's report (default: ``<stem>.pptx-report.json`` beside the file).
+
+    Returns:
+        Verdicts in the judge format (``insufficient-evidence`` where the scene or report is needed
+        and missing).
+
+    Raises:
+        ValueError: When the file cannot be opened as a presentation.
+    """
+    want = {c["id"] for c in criteria if c["target"] == "pptx"}
+    if not want:
+        return []
+    check = _load("skill_gates_pptx_check", PPTX_CHECK)
+    try:
+        vs = check.verdicts(Path(pptx), scene, report)
+    except check.CheckError as e:
+        raise ValueError(str(e)) from e
+    return [v for v in vs if v["criterion"] in want]
+
+
 def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = None,
+              pptx: Path | None = None, scene: Path | None = None, report: Path | None = None,
               profile: str | None = None, concerns: list[str] | None = None, rerun: bool = True,
               sizes=guard_mod.REVIEW_SIZES, test_cmd: str | None = None, browser=None,
               eval_dir: Path = EVAL_DIR) -> dict:
@@ -1211,6 +1300,9 @@ def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = No
             profile or concerns.
         deck: Deck HTML file (deck-target criteria, and AR-07).
         repo: Deck repo root (repo-target criteria).
+        pptx: Emitted ``.pptx`` (pptx-target criteria, through ``pptx/scripts/check.py``).
+        scene: The PPTX's scene JSON (default: the sidecar beside ``pptx``).
+        report: The emitter's report (default: the sidecar beside ``pptx``).
         profile: Profile id (default: the manifest's).
         concerns: Concerns in scope (default: the manifest's, else all).
         rerun: Re-run spec tests at red and done (PR-02).
@@ -1224,7 +1316,7 @@ def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = No
         per in-scope ``D`` criterion, ``checked`` units/fails or ``missing`` with the reason.
 
     Raises:
-        ValueError: With neither deck nor repo, an unknown profile, or a missing deck/repo path.
+        ValueError: With no deck, pptx or repo, an unknown profile, a missing path, or an unreadable pptx.
     """
     run_dir = Path(run_dir)
     manifest = {}
@@ -1234,9 +1326,9 @@ def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = No
     concerns = concerns or manifest.get("concerns") or list(crit_mod.CONCERN_PREFIX)
     if not profile:
         raise ValueError("no profile: pass --profile or write manifest.json first")
-    if not deck and not repo:
-        raise ValueError("nothing to check: give a deck, a repo or both")
-    for p, what in ((deck, "deck"), (repo, "repo")):
+    if not deck and not repo and not pptx:
+        raise ValueError("nothing to check: give a deck, a pptx and/or a repo")
+    for p, what in ((deck, "deck"), (repo, "repo"), (pptx, "pptx"), (scene, "scene"), (report, "report")):
         if p and not Path(p).exists():
             raise ValueError(f"{what} not found: {p}")
     library = crit_mod.load_library(eval_dir)
@@ -1249,6 +1341,8 @@ def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = No
     verdicts, missing = [], {}
     if deck:
         verdicts += deck_verdicts(Path(deck), scope, sizes, browser)
+    if pptx:
+        verdicts += pptx_verdicts(Path(pptx), scope, scene, report)
     if repo:
         vs, miss = repo_verdicts(Path(repo), scope, run_dir, rerun, deck, test_cmd)
         verdicts += vs
@@ -1261,19 +1355,20 @@ def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = No
         path.write_text(json.dumps(v, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         written.append(path.name)
     log = {"tool": "gates", "version": 1, "deck": str(deck) if deck else None,
+           "pptx": str(pptx) if pptx else None,
            "repo": str(repo) if repo else None, "profile": profile, "concerns": concerns,
            "rerun": rerun, "verdicts": written, "criteria": {}}
     for c in scope:
         cid = c["id"]
         mine = [v for v in verdicts if v["criterion"] == cid]
         if mine:
-            log["criteria"][cid] = {"checked": CHECKS[cid], "units": len(mine),
+            log["criteria"][cid] = {"checked": cov[cid]["checked"], "units": len(mine),
                                     "fail": sum(v["result"] == "fail" for v in mine)}
         else:
-            given = {"deck": deck, "repo": repo, "pptx": None}[c["target"]]
+            given = {"deck": deck, "repo": repo, "pptx": pptx}[c["target"]]
             reason = missing.get(cid) or cov[cid].get("missing") or (
                 "checked, but the target has no unit to judge" if given else
-                f"target {c['target']} not given (pass --{'deck' if c['target'] == 'deck' else 'repo'})")
+                f"target {c['target']} not given (pass --{c['target']})")
             log["criteria"][cid] = {"missing": reason}
     ev = run_dir / "evidence"
     ev.mkdir(parents=True, exist_ok=True)
@@ -1293,6 +1388,9 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Run the eval's deterministic (D) gates on a deck and/or a deck repo.")
     ap.add_argument("run_dir", type=Path, help="run folder (evals/runs/yymmdd-label/ in the deck project)")
     ap.add_argument("--deck", type=Path, help="assembled deck HTML file")
+    ap.add_argument("--pptx", type=Path, help="emitted .pptx (PX criteria via pptx/scripts/check.py)")
+    ap.add_argument("--scene", type=Path, help="the .pptx's scene JSON (default: <stem>.scene.json beside it)")
+    ap.add_argument("--report", type=Path, help="the emitter report (default: <stem>.pptx-report.json beside it)")
     ap.add_argument("--repo", type=Path, help="deck repo root (git)")
     ap.add_argument("--profile", help="profile id (default: the run manifest's)")
     ap.add_argument("--concerns", help="comma-separated concerns (default: the manifest's, else all)")
@@ -1301,7 +1399,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--test-cmd", help="pytest command for re-runs, e.g. 'uv run pytest'")
     args = ap.parse_args(argv)
     try:
-        log = run_gates(args.run_dir, deck=args.deck, repo=args.repo, profile=args.profile,
+        log = run_gates(args.run_dir, deck=args.deck, repo=args.repo, pptx=args.pptx, scene=args.scene,
+                        report=args.report, profile=args.profile,
                         concerns=args.concerns.split(",") if args.concerns else None,
                         rerun=not args.no_rerun, sizes=guard_mod.parse_sizes(args.sizes), test_cmd=args.test_cmd)
     except (ValueError, guard_mod.ToolError) as e:

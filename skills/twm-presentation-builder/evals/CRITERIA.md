@@ -41,7 +41,13 @@ reference deck's subject matter may appear; every other field stays generic so t
 any deck. Anchors calibrate the judge's scale; they are not the presenter's scores.
 
 **Parameters:** a criterion that needs a number reads it from `params.<name>` with a default in
-its `form` text (e.g. `CN-04` `max_words`); profiles set the value.
+its `form` text; profiles set the value. In use:
+
+| Criterion | Param | Default | Meaning |
+| --- | --- | --- | --- |
+| `CN-04` | `max_words` | 40 | Visible words per slide, notes excluded |
+| `DL-02` | `min_px_1280`, `min_px_1920` | 15, 20 | Reading-text floor (px) at 1280/1288 wide and at 1920 |
+| `DL-02` | `min_label_px_1280`, `min_label_px_1920` | 12, 18 | Label floor for uppercase tracked labels (kicker, sender/`msg-from`, `pop-tag`, a `.cite`/`.quote-from` source line): read as tags, never prose |
 
 ## Adding or changing a criterion
 

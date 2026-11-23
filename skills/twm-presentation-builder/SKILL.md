@@ -73,6 +73,7 @@ Read a part only when its line applies. Parts never link each other; every part 
 - Tools (`scripts/`, `uv run scripts/<tool>.py --help` from the skill folder): `assemble.py` builds,
   re-themes and checks a deck (and owns font embedding); `shoot.py` screenshots every slide × step ×
   review size; `layout_guard.py` checks the same states for overlap, overflow, off-canvas and
-  occlusion. When to run each: [process/PROCESS.md](process/PROCESS.md) *Tools*.
+  occlusion. When to run each: [process/PROCESS.md](process/PROCESS.md) *Tools*. `evals/gates.py`
+  runs every deterministic eval criterion (deck, PPTX, repo) as `evals/EVAL.md` §3 directs.
 
 More parts are linked here as they land.

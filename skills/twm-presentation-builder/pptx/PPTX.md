@@ -26,7 +26,8 @@ uv run pptx/scripts/check.py verdicts deck.pptx --out verdicts/   # 5. eval verd
   (PX-01 native text, PX-02 layouts/placeholders, PX-03 theme refs, PX-04 animations and Morph,
   PX-05 effect bands, PX-07 accessibility, PX-08 named diagram shapes, PX-09 notes); `validate`
   (zip, content types, relationships, timing); `reflow` (see §5). PX-06, text wrap, is judged by
-  eye from renders (`soffice --headless --convert-to pdf` when LibreOffice is installed).
+  eye from renders (`soffice --headless --convert-to pdf` when LibreOffice is installed). In an
+  eval run the gate runner calls `verdicts` for you (`evals/gates.py --pptx`, `evals/EVAL.md` §3).
 
 Show the presenter the report's `counts` and every `dropped` item before handing the file over.
 

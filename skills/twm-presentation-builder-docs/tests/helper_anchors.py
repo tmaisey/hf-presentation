@@ -57,7 +57,7 @@ AN00 = f"""
 <section class="slide" id="a0-2" data-chapter="Change">
   <p class="kicker">01 · Change</p>
   <h2 class="title">Booking moved refill collection out of the lunchtime peak</h2>
-  <div class="body">
+  <div class="body body--stack">
     {_diagram("Walk-in queue, booking page and pick-up slot, joined in order", "0 0 760 420",
               [_edge("a0-e1", "a0-walk", "a0-book", 1), _edge("a0-e2", "a0-book", "a0-slot", 2)],
               [_tile("a0-walk", 20, 40, 240, 110, "Walk-in queue", "midday"),
@@ -211,7 +211,7 @@ AN05 = f"""
                _tile("a5-wh", 290, 275, 320, 90, "Warehouse", "", 2),
                _tile("a5-ref", 290, 490, 320, 90, "Refund", "", 3)])}
   </div>
-  <div class="quotes" id="a5-quotes">
+  <div id="a5-quotes">
     <div class="msg-card quote" data-show-at="1"><p class="msg-agent">Customer</p><blockquote class="msg-text">The form takes a minute.</blockquote></div>
     <div class="msg-card quote" data-show-at="2"><p class="msg-agent">Warehouse lead</p><blockquote class="msg-text">We scan it the morning it lands.</blockquote></div>
     <div class="msg-card quote" data-show-at="3"><p class="msg-agent">Finance</p><blockquote class="msg-text">Refunds go out in the afternoon batch.</blockquote></div>
@@ -229,8 +229,8 @@ AN05_DECK = """@layer deck {
   #a5-1 > .caption { grid-area: steps; align-self: end; margin: 0; font-size: var(--sys-type-small-size); color: var(--sys-color-ink-2); }
   #a5-1 > .body { grid-area: diagram; padding: 2vh 1vw; border-radius: 18px; background: var(--sys-color-tile); box-shadow: var(--sys-shadow-rest); }
   #a5-1 .tile rect { fill: var(--sys-color-paper); }
-  #a5-1 > .quotes { grid-area: quotes; display: grid; align-content: start; gap: 6px; }
-  #a5-1 .quotes .quote { padding: 8px 12px; }
+  #a5-quotes { grid-area: quotes; display: grid; align-content: start; gap: 6px; }
+  #a5-quotes .quote { padding: 8px 12px; }
 }"""
 
 # ---------- AN-06: quote tiles stacked far from the nodes they narrate, the first over the title (ferry) ----------
@@ -246,7 +246,7 @@ AN06 = f"""
                _tile("a6-f2", 380, 320, 220, 110, "Ferry B", "", 2),
                _tile("a6-south", 660, 175, 220, 110, "South pier", "", 3)])}
   </div>
-  <div class="quotes" id="a6-quotes">
+  <div id="a6-quotes">
     <div class="msg-card quote" data-show-at="1"><p class="msg-agent">Commuter</p><blockquote class="msg-text">One boat an hour was too few.</blockquote></div>
     <div class="msg-card quote" data-show-at="2"><p class="msg-agent">Deckhand</p><blockquote class="msg-text">The half-past boat is never full.</blockquote></div>
     <div class="msg-card quote" data-show-at="3"><p class="msg-agent">Skipper</p><blockquote class="msg-text">We land on time now.</blockquote></div>
@@ -260,7 +260,7 @@ AN06_DECK = """@layer deck {
   #a6-1 { grid-template: "kicker kicker" auto "title title" auto "quotes body" minmax(0, 1fr) / minmax(0, 2fr) minmax(0, 3fr); column-gap: 3vw; }
   #a6-1 > .kicker { grid-area: kicker; } #a6-1 > .title { grid-area: title; }
   #a6-1 > .body { grid-area: body; }
-  #a6-1 > .quotes { grid-column: quotes; grid-row: 2 / 4; margin-top: 1.3em; display: grid; align-content: start; gap: 14px; }
+  #a6-quotes { grid-column: quotes; grid-row: 2 / 4; margin-top: 1.3em; display: grid; align-content: start; gap: 14px; }
 }"""
 
 # ---------- AN-07: accent colour used as text (rooftop solar) ----------

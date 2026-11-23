@@ -239,7 +239,8 @@ EXAMPLE = EVAL_DIR.parent / "examples" / "hf-incident" / "deck.html"
 KNOWN = {
     "CN-04": r"visible words at step \d+ > 40",             # build-up slides exceed the 40-word budget
     "DS-03": r"looping animation outside the ambient layer",  # pop-over illustrations loop their tries
-    "DL-02": r"^text\.art-text ",                             # pop-over illustration words (10 px at 1280)
+    "DL-02": r"^text\.(art-[\w-]+)? «",                       # pop-over illustration words (10 px at 1280)
+    "DS-01": r"^text\.(art-[\w-]+)? «.* is off the type scale", # the same words, fixed in illustration units
     "DP-02": r"^#s2-(pass|reward) ",                          # accent-green edges, 2.05:1 on paper
 }
 
