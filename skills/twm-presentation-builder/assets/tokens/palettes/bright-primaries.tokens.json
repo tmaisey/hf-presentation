@@ -1,0 +1,482 @@
+{
+  "$description": "bright-primaries: four bright primaries (blue, red, yellow, green) on plain white, near-black ink, grey secondary text and light-grey surfaces. Crisp and high-key; the brights are fills and strokes, darker shades carry accent text.",
+  "$extensions": {
+    "com.twm.palette": {
+      "pairs": [
+        {
+          "fg": "{sys.color.ink}",
+          "bg": "{sys.color.paper}",
+          "use": "text",
+          "$description": "titles and body on the page"
+        },
+        {
+          "fg": "{sys.color.ink}",
+          "bg": "{sys.color.paper-deep}",
+          "use": "text",
+          "$description": "text on quiet fills and pills"
+        },
+        {
+          "fg": "{sys.color.ink}",
+          "bg": "{sys.color.tile}",
+          "use": "text",
+          "$description": "tile titles and card text"
+        },
+        {
+          "fg": "{sys.color.ink-2}",
+          "bg": "{sys.color.paper}",
+          "use": "text",
+          "$description": "secondary text on the page"
+        },
+        {
+          "fg": "{sys.color.ink-2}",
+          "bg": "{sys.color.paper-deep}",
+          "use": "text",
+          "$description": "secondary text on quiet fills"
+        },
+        {
+          "fg": "{sys.color.ink-2}",
+          "bg": "{sys.color.tile}",
+          "use": "text",
+          "$description": "tile subtitles"
+        },
+        {
+          "fg": "{sys.color.accent-ink}",
+          "bg": "{sys.color.paper}",
+          "use": "text",
+          "$description": "kickers and links on the page"
+        },
+        {
+          "fg": "{sys.color.accent-ink}",
+          "bg": "{sys.color.paper-deep}",
+          "use": "text",
+          "$description": "current chapter on a quiet pill"
+        },
+        {
+          "fg": "{sys.color.accent-ink}",
+          "bg": "{sys.color.tile}",
+          "use": "text",
+          "$description": "tags and the current chapter on a tile"
+        },
+        {
+          "fg": "{sys.color.loss}",
+          "bg": "{sys.color.paper}",
+          "use": "text",
+          "$description": "loss figures and labels"
+        },
+        {
+          "fg": "{sys.color.loss}",
+          "bg": "{sys.color.tile}",
+          "use": "text",
+          "$description": "loss tags and annotation leads on tiles"
+        },
+        {
+          "fg": "{sys.color.loss}",
+          "bg": "{sys.color.paper-deep}",
+          "use": "text",
+          "$description": "loss labels on quiet fills"
+        },
+        {
+          "fg": "{sys.color.paper}",
+          "bg": "{sys.color.ink}",
+          "use": "text",
+          "$description": "inverse chips (notes button, pins)"
+        },
+        {
+          "fg": "{sys.color.ink}",
+          "bg": "{sys.color.accent}",
+          "use": "text",
+          "$description": "numerals on accent badges and the current pin"
+        },
+        {
+          "fg": "{sys.color.ink}",
+          "bg": "{sys.color.caution}",
+          "use": "text",
+          "$description": "ink labels on a caution fill"
+        },
+        {
+          "fg": "{sys.color.ink}",
+          "bg": "{sys.color.ok}",
+          "use": "text",
+          "$description": "ink labels on an ok fill"
+        },
+        {
+          "fg": "{sys.color.ink-3}",
+          "bg": "{sys.color.paper}",
+          "use": "large-text",
+          "$description": "labels of 24px or more, sources"
+        },
+        {
+          "fg": "{sys.color.ink-3}",
+          "bg": "{sys.color.tile}",
+          "use": "large-text",
+          "$description": "large labels on tiles"
+        },
+        {
+          "fg": "{sys.color.ink-3}",
+          "bg": "{sys.color.paper}",
+          "use": "non-text",
+          "$description": "arrows and muted strokes"
+        },
+        {
+          "fg": "{sys.color.accent}",
+          "bg": "{sys.color.paper}",
+          "use": "non-text",
+          "$description": "accent strokes, edges and arrows on the page"
+        },
+        {
+          "fg": "{sys.color.accent}",
+          "bg": "{sys.color.tile}",
+          "use": "non-text",
+          "$description": "accent strokes on tiles"
+        },
+        {
+          "fg": "{sys.color.accent-ink}",
+          "bg": "{sys.color.paper}",
+          "use": "non-text",
+          "$description": "bold links, rings and node outlines"
+        },
+        {
+          "fg": "{sys.color.alarm}",
+          "bg": "{sys.color.paper}",
+          "use": "non-text",
+          "$description": "the alarm status light"
+        },
+        {
+          "fg": "{sys.color.alarm}",
+          "bg": "{sys.color.tile}",
+          "use": "non-text",
+          "$description": "the alarm light on a tile"
+        },
+        {
+          "fg": "{sys.color.loss}",
+          "bg": "{sys.color.paper}",
+          "use": "non-text",
+          "$description": "loss edges and badges"
+        },
+        {
+          "fg": "{sys.color.ok}",
+          "bg": "{sys.color.paper}",
+          "use": "non-text",
+          "$description": "ok strokes and status lights"
+        },
+        {
+          "fg": "{sys.color.caution}",
+          "bg": "{sys.color.paper}",
+          "use": "decorative",
+          "$description": "caution fills: never the only carrier of meaning, so no minimum; reported for the record"
+        }
+      ]
+    }
+  },
+  "ref": {
+    "color": {
+      "$type": "color",
+      "white": {
+        "0": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "hex": "#ffffff"
+          }
+        }
+      },
+      "grey": {
+        "100": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.9451,
+              0.9529,
+              0.9569
+            ],
+            "hex": "#f1f3f4"
+          }
+        },
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.502,
+              0.5255,
+              0.5451
+            ],
+            "hex": "#80868b"
+          }
+        },
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.3725,
+              0.3882,
+              0.4078
+            ],
+            "hex": "#5f6368"
+          }
+        },
+        "900": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.1255,
+              0.1294,
+              0.1412
+            ],
+            "hex": "#202124"
+          }
+        }
+      },
+      "blue": {
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.2588,
+              0.5216,
+              0.9569
+            ],
+            "hex": "#4285f4"
+          }
+        },
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.098,
+              0.4039,
+              0.8235
+            ],
+            "hex": "#1967d2"
+          }
+        }
+      },
+      "red": {
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.9176,
+              0.2627,
+              0.2078
+            ],
+            "hex": "#ea4335"
+          }
+        },
+        "800": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.702,
+              0.0784,
+              0.0706
+            ],
+            "hex": "#b31412"
+          }
+        }
+      },
+      "yellow": {
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.9843,
+              0.7373,
+              0.0196
+            ],
+            "hex": "#fbbc05"
+          }
+        }
+      },
+      "green": {
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.2039,
+              0.6588,
+              0.3255
+            ],
+            "hex": "#34a853"
+          }
+        }
+      }
+    }
+  },
+  "sys": {
+    "color": {
+      "$type": "color",
+      "paper": {
+        "$value": "{ref.color.white.0}",
+        "$description": "Page ground behind every slide: plain white; inverse text on ink chips. No texture or grain.",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "lt1"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": true
+          }
+        }
+      },
+      "paper-deep": {
+        "$value": "{ref.color.grey.100}",
+        "$description": "Light-grey quiet fills, active pills and rules. A surface: never text, and too close to paper to carry meaning alone.",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "lt2"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": false
+          }
+        }
+      },
+      "tile": {
+        "$value": "{ref.color.white.0}",
+        "$description": "Raised surface: diagram tiles, cards, menus and the inset highlight of every shadow. White on the white page, so the style's shadow does the lifting. A surface: never text.",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "accent6"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": false
+          }
+        }
+      },
+      "ink": {
+        "$value": "{ref.color.grey.900}",
+        "$description": "Near-black titles and body text, and the tint of every shadow. Text-safe on every surface (16.0:1 on paper, 14.4:1 on paper-deep).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "dk1"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": true
+          }
+        }
+      },
+      "ink-2": {
+        "$value": "{ref.color.grey.700}",
+        "$description": "Grey secondary text: subtitles, labels, the Insight label (6.0:1 on paper, 5.4:1 on paper-deep).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "dk2"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": true
+          }
+        }
+      },
+      "ink-3": {
+        "$value": "{ref.color.grey.500}",
+        "$description": "Muted strokes, arrows and sources. As text only at 24px or larger (3.6:1 on paper: large text and non-text only, never body text).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "accent5"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": true
+          }
+        }
+      },
+      "accent": {
+        "$value": "{ref.color.blue.500}",
+        "$description": "The bright blue lead: glows, fills, strokes, progress, bokeh. Fills/strokes only, never text (3.5:1 on paper: enough for strokes, not for text); ink numerals sit on it (4.5:1).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "accent1"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": false
+          }
+        }
+      },
+      "accent-ink": {
+        "$value": "{ref.color.blue.700}",
+        "$description": "A darker shade of the accent blue for accent-coloured text: kickers, the current chapter, links (5.3:1 on paper, 4.8:1 on paper-deep). Use it wherever accent colour must be read.",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "hlink"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": true
+          }
+        }
+      },
+      "loss": {
+        "$value": "{ref.color.red.800}",
+        "$description": "Deep red for sacrifice and irreversible loss, darker than the alarm red so the two never read as one. Sparingly; text-safe (6.9:1 on paper).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "folHlink"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": true
+          }
+        }
+      },
+      "alarm": {
+        "$value": "{ref.color.red.500}",
+        "$description": "The bright red: a status light that something is down. Only for alarm lights and strokes, never text or large fills (3.9:1 on paper).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "accent2"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": false
+          }
+        }
+      },
+      "caution": {
+        "$value": "{ref.color.yellow.500}",
+        "$description": "The bright yellow: caution fills and a chart series in PowerPoint (accent3). No component reads it yet. Never text and never a stroke on white (1.7:1 on paper): fills only, outlined or labelled in ink.",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "accent3"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": false
+          }
+        }
+      },
+      "ok": {
+        "$value": "{ref.color.green.500}",
+        "$description": "The bright green: healthy or passing state, and a chart series in PowerPoint (accent4). No component reads it yet. Never text (3.0:1 on paper: strokes and fills only).",
+        "$extensions": {
+          "com.twm.pptx": {
+            "slots": [
+              "accent4"
+            ]
+          },
+          "com.twm.palette": {
+            "textSafe": false
+          }
+        }
+      }
+    }
+  }
+}
