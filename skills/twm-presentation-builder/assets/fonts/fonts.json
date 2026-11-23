@@ -1,0 +1,18 @@
+{
+  "$description": "Family → embedded woff2 faces and licence, read by scripts/assemble.py, which embeds the faces of every family a style names. Faces are the latin subsets of the variable fonts as served by Google Fonts; licence texts are the SIL OFL 1.1 files from github.com/google/fonts (ofl/newsreader/OFL.txt, ofl/inter/OFL.txt), fetched 23 Nov 2026. Neither declares a Reserved Font Name.",
+  "Newsreader": {
+    "licence": "OFL-Newsreader.txt",
+    "source": "https://github.com/productiontype/Newsreader",
+    "faces": [
+      {"style": "normal", "weight": "200 800", "file": "newsreader-latin.woff2"},
+      {"style": "italic", "weight": "200 800", "file": "newsreader-italic-latin.woff2"}
+    ]
+  },
+  "Inter": {
+    "licence": "OFL-Inter.txt",
+    "source": "https://github.com/rsms/inter",
+    "faces": [
+      {"style": "normal", "weight": "100 900", "file": "inter-latin.woff2"}
+    ]
+  }
+}

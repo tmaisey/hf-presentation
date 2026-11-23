@@ -1,18 +1,18 @@
 """Helpers for engine and design-layer tests: assemble fixture decks from the skeleton and wait on state.
 
-The assembler here is a test stand-in (the real one is a later spec): it inlines the engine parts
-into the skeleton's marked blocks and writes one self-contained HTML file. ``assemble_themed`` adds
-the shipped components layer, a generated palette/style and embedded fonts; ``layout_faults`` is a
-generic layout guard (overlap/overflow/off-canvas per step).
+Assembly delegates to the shipped ``scripts/assemble.py`` (one assembler): ``assemble`` builds a
+fixture deck with given block contents (stand-in CSS in DECK); ``assemble_themed`` adds the shipped
+components layer, a generated palette/style and the style's embedded fonts; ``block`` is an
+independent marker reader for assertions; ``layout_faults`` is a generic layout guard
+(overlap/overflow/off-canvas per step).
 """
 
 from __future__ import annotations
 
 import re
-from html.parser import HTMLParser
 from pathlib import Path
 
-from helper_skill import REPO, SKILL_DIR
+from helper_skill import SKILL_DIR
 
 ENGINE_DIR = SKILL_DIR / "assets" / "engine"
 ENGINE_JS = ENGINE_DIR / "engine.js"
@@ -257,6 +257,35 @@ MODULE_CSS = FIXTURE_CSS + """
 """
 
 
+ASSEMBLE = SKILL_DIR / "scripts" / "assemble.py"
+
+
+def load_assemble():
+    """Import the shipped assembler by path (``scripts/`` is not a package).
+
+    Returns:
+        The imported ``assemble`` module.
+    """
+    import importlib.util
+    import sys
+    spec = importlib.util.spec_from_file_location("pb_assemble", ASSEMBLE)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+_ASM = None
+
+
+def _asm():
+    """Return the shipped assembler, loaded once."""
+    global _ASM
+    if _ASM is None:
+        _ASM = load_assemble()
+    return _ASM
+
+
 def block(text: str, name: str) -> re.Match | None:
     """Find a named insertion block (``/* NAME:BEGIN */…/* NAME:END */`` or the HTML-comment form).
 
@@ -271,27 +300,8 @@ def block(text: str, name: str) -> re.Match | None:
     return re.search(pat, text, re.S)
 
 
-def fill(text: str, name: str, content: str) -> str:
-    """Replace a named block's contents, keeping its markers.
-
-    Args:
-        text: Source containing the block.
-        name: Block name.
-        content: New contents.
-
-    Returns:
-        The source with the block filled.
-
-    Raises:
-        AssertionError: When the block is missing.
-    """
-    m = block(text, name)
-    assert m, f"skeleton lacks the {name} block"
-    return text[:m.start(1)] + "\n" + content + "\n" + text[m.end(1):]
-
-
 def module_triggers(js: Path) -> list[str]:
-    """Read a module file's ``Triggers:`` header: the simple selectors that make a deck need it.
+    """Read a module file's ``Triggers:`` header (delegates to the shipped assembler).
 
     Args:
         js: A module file, ``modules/<name>.js``.
@@ -299,32 +309,11 @@ def module_triggers(js: Path) -> list[str]:
     Returns:
         Selectors, each ``[data-attr]`` or ``.class``; empty when the header is missing.
     """
-    m = re.search(r"Triggers:\s*([^\n*]+)", js.read_text(encoding="utf-8"))
-    return m.group(1).split() if m else []
-
-
-class _Markup(HTMLParser):
-    """Collects every attribute name and class token in a markup fragment."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.attrs: set[str] = set()
-        self.classes: set[str] = set()
-
-    def handle_starttag(self, tag, attrs):  # noqa: D102
-        for k, v in attrs:
-            self.attrs.add(k)
-            if k == "class" and v:
-                self.classes.update(v.split())
-
-    handle_startendtag = handle_starttag
+    return _asm().module_triggers(js)
 
 
 def detect_modules(slides: str) -> list[str]:
-    """Name the modules a deck needs: those whose triggers appear in its slide markup.
-
-    The inclusion rule the real assembler (a later spec) adopts: a module ships in a deck only when
-    one of its trigger attributes or classes appears in the SLIDES block.
+    """Name the modules a deck needs, by the shipped assembler's inclusion rule.
 
     Args:
         slides: Slide markup (the SLIDES block).
@@ -332,24 +321,13 @@ def detect_modules(slides: str) -> list[str]:
     Returns:
         Module names (file stems), sorted.
     """
-    mk = _Markup()
-    mk.feed(slides)
-    found = []
-    for js in sorted(MODULES_DIR.glob("*.js")):
-        for t in module_triggers(js):
-            if (t.startswith("[") and t.strip("[]") in mk.attrs) or (t.startswith(".") and t[1:] in mk.classes):
-                found.append(js.stem)
-                break
-    return found
+    return _asm().detect_modules(slides)
 
 
 def assemble(out: Path, slides: str = FIXTURE_SLIDES, title: str = "Fixture Deck",
              subtitle: str = "Core engine", modules: str = "", css: str = FIXTURE_CSS,
              components: str = "", palette: str = "", style: str = "", fonts: str = "") -> Path:
-    """Inline the engine parts, the modules the slides need and ``slides`` into the skeleton.
-
-    Module JS goes in the MODULES block (before the engine); module CSS is appended to the ARCH
-    block after ``arch.css``. A deck whose slides trigger no module carries no module code.
+    """Build a fixture deck with the shipped assembler's ``build`` (engine, triggered modules, given blocks).
 
     Args:
         out: Path of the HTML file to write.
@@ -366,21 +344,8 @@ def assemble(out: Path, slides: str = FIXTURE_SLIDES, title: str = "Fixture Deck
     Returns:
         ``out``.
     """
-    names = detect_modules(slides)
-    js = [(MODULES_DIR / f"{n}.js").read_text(encoding="utf-8") for n in names]
-    arch = [ARCH_CSS.read_text(encoding="utf-8")]
-    arch += [(MODULES_DIR / f"{n}.css").read_text(encoding="utf-8") for n in names
-             if (MODULES_DIR / f"{n}.css").is_file()]
-    src = SKELETON.read_text(encoding="utf-8")
-    src = src.replace("{{title}}", title).replace("{{subtitle}}", subtitle)
-    src = fill(src, "ARCH", "\n".join(arch))
-    for name, content in (("FONTS", fonts), ("COMPONENTS", components), ("PALETTE", palette), ("STYLE", style)):
-        if content:
-            src = fill(src, name, content)
-    src = fill(src, "DECK", css)
-    src = fill(src, "MODULES", "\n".join(js + ([modules] if modules else [])))
-    src = fill(src, "ENGINE", ENGINE_JS.read_text(encoding="utf-8"))
-    src = fill(src, "SLIDES", slides)
+    src = _asm().build(slides, title, subtitle, fonts=fonts, components=components, palette=palette,
+                       style=style, deck=css, extra_modules=modules)
     out.write_text(src, encoding="utf-8")
     return out
 
@@ -451,10 +416,6 @@ def opacity(page, sel: str) -> float:
 # ---------- themed assembly (components + generated palette/style), for design-layer tests ----------
 
 COMPONENTS_CSS = SKILL_DIR / "assets" / "components" / "components.css"
-FONT_DIR = REPO / "assets" / "fonts"   # dev-side copy of the deck's fonts (test-only; the assembler owns embedding)
-FONT_FACES = (("Newsreader", "normal", "200 800", "newsreader-latin.woff2"),
-              ("Newsreader", "italic", "200 800", "newsreader-italic-latin.woff2"),
-              ("Inter", "normal", "100 900", "inter-latin.woff2"))
 
 # Generic slides exercising every core component: lead + byline (ambient), flow body with points and an
 # Insight, split body with a step list beside a figure (tiles, key tile, coloured edges, label, tag,
@@ -591,19 +552,17 @@ COMPONENT_SLIDES = """
 """
 
 
-def fonts_css() -> str:
-    """Return ``@font-face`` rules embedding the dev-side woff2 files as base64 (test-only).
+def fonts_css(style: str = "editorial") -> str:
+    """Return the FONTS block the shipped assembler embeds for a style.
+
+    Args:
+        style: Style name.
 
     Returns:
-        CSS for the FONTS block.
+        ``@font-face`` CSS with base64 woff2.
     """
-    import base64
-    rules = []
-    for family, style, weight, file in FONT_FACES:
-        data = base64.b64encode((FONT_DIR / file).read_bytes()).decode("ascii")
-        rules.append(f'@font-face {{ font-family: "{family}"; font-style: {style}; font-weight: {weight}; '
-                     f'font-display: block; src: url(data:font/woff2;base64,{data}) format("woff2"); }}')
-    return "\n".join(rules)
+    asm = _asm()
+    return asm.fonts_css(asm.style_families(style))
 
 
 def components_css() -> str:
@@ -616,7 +575,7 @@ def components_css() -> str:
 
 
 def theme_blocks(palette: str = "paper-green", style: str = "editorial") -> tuple[str, str]:
-    """Generate the PALETTE and STYLE block contents with the shipped generator.
+    """Generate the PALETTE and STYLE block contents through the shipped assembler.
 
     Args:
         palette: Shipped palette name.
@@ -625,10 +584,7 @@ def theme_blocks(palette: str = "paper-green", style: str = "editorial") -> tupl
     Returns:
         ``(palette_css, style_css)``.
     """
-    from helper_tokens import load_script
-    tok = load_script()
-    theme = tok.load(palette, style)
-    return tok.palette_css(theme), tok.style_css(theme)
+    return _asm().theme_css(palette, style)
 
 
 def assemble_themed(out: Path, slides: str = COMPONENT_SLIDES, title: str = "Component Fixture",
@@ -652,7 +608,7 @@ def assemble_themed(out: Path, slides: str = COMPONENT_SLIDES, title: str = "Com
     pal, sty = theme_blocks(palette, style)
     comp = components_css() if components is None else components
     return assemble(out, slides=slides, title=title, subtitle=subtitle, css=deck_css,
-                    components=comp, palette=pal, style=sty, fonts=fonts_css())
+                    components=comp, palette=pal, style=sty, fonts=fonts_css(style))
 
 
 # ---------- layout guard (generic port of the deck's S-030 idea) ----------

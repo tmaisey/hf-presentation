@@ -122,6 +122,8 @@ review, internal update) through profiles, without duplicating criteria.
   and never the only carrier of meaning. The contrast gate uses WCAG 2 ratios.
 - **Pop-over tile is opaque (presenter, 23 Nov):** a shadowed opaque tile as in the reference deck,
   not frosted; fixed in PB-007.
+- **Fonts ship in the skill (PB-006):** woff2 files under `assets/fonts/` with their SIL OFL 1.1
+  licences; `fonts.json` maps family → files, and the assembler embeds every family a style names.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
