@@ -238,7 +238,8 @@ slide or the scene.
 
 ### Pop-overs · `modules/popover.js` + `modules/popover.css`
 
-An illustration on a lifted tile over the slide and scene for a step range. Triggers: `.popover`.
+An illustration on a lifted tile over the slide and scene for a step range; panels are `.pop-panel`
+(`.pop-panel--wide` spans both columns). Triggers: `.popover`.
 Hooks: `overlaid`, `noteFrame`.
 
 Markup: `div.popover[data-show-at][data-hide-at]` (any content, e.g. `figure` panels); the core
