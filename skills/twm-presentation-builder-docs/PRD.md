@@ -116,6 +116,10 @@ review, internal update) through profiles, without duplicating criteria.
   persists across sessions; compliance is measured by the process eval, never enforced by hooks.
 - **Voice profile is seeded into the deck project** as its `docs/VOICE.md` and grows there with each
   verdict (PB-013). How new verdicts flow back into the skill's profile is open (below).
+- **Token tiers (PB-005):** comp tokens are owned by the components layer (palettes and styles ship
+  ref + sys only); style may alias palette roles, never the reverse, so a palette swap retints
+  frost, shadows and bokeh. The paper-green accent is *decorative* (2.05:1 on paper): never text
+  and never the only carrier of meaning. The contrast gate uses WCAG 2 ratios.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing

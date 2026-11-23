@@ -1,0 +1,292 @@
+{
+  "$description": "editorial: Newsreader titles over Inter text, frosted cards, slow bokeh on summary pages, soft ink-tinted shadows and slow, eased motion. Holds no colour literal: every tint aliases a palette role, so a palette swap retints it.",
+  "ref": {
+    "font": {
+      "$type": "fontFamily",
+      "newsreader": {"$value": ["Newsreader", "Georgia", "serif"]},
+      "inter": {"$value": ["Inter", "system-ui", "sans-serif"]}
+    },
+    "curve": {
+      "$type": "cubicBezier",
+      "out-soft": {"$value": [0.2, 0.7, 0.2, 1]},
+      "in-out": {"$value": [0.4, 0, 0.6, 1]},
+      "in-late": {"$value": [0.6, 0, 0.8, 1]}
+    }
+  },
+  "sys": {
+    "font": {
+      "$type": "fontFamily",
+      "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "named as theme major/minor fonts, not embedded: PowerPoint substitutes when they are not installed"}},
+      "serif": {
+        "$value": "{ref.font.newsreader}",
+        "$description": "Titles, leads, Insight and message text, stats.",
+        "$extensions": {"com.twm.pptx": {"fontSlot": "major"}}
+      },
+      "sans": {
+        "$value": "{ref.font.inter}",
+        "$description": "Everything else: body, kickers, labels, diagram text, chrome.",
+        "$extensions": {"com.twm.pptx": {"fontSlot": "minor"}}
+      }
+    },
+    "type": {
+      "$description": "Text roles. Sizes are fluid (clamp): on-slide text stays at or above ~24px at 1920 wide and legible in a small screen-share window.",
+      "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "fluid sizes become fixed sizes at the slide width; family, weight, leading and tracking carry over"}},
+      "body": {
+        "family": {"$type": "fontFamily", "$value": "{sys.font.sans}"},
+        "size": {"$type": "dimension", "$value": {"value": 24, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 16, "unit": "px"}, "preferred": "1.25vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 400},
+        "leading": {"$type": "number", "$value": 1.55}
+      },
+      "text": {
+        "$description": "Running text in a slide body: step lists, tables.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.sans}"},
+        "size": {"$type": "dimension", "$value": {"value": 26, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 17, "unit": "px"}, "preferred": "1.35vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 400},
+        "leading": {"$type": "number", "$value": 1.35}
+      },
+      "small": {
+        "family": {"$type": "fontFamily", "$value": "{sys.font.sans}"},
+        "size": {"$type": "dimension", "$value": {"value": 22, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 16, "unit": "px"}, "preferred": "1.15vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 400},
+        "leading": {"$type": "number", "$value": 1.3}
+      },
+      "kicker": {
+        "$description": "Chapter kicker: set in uppercase by the component, coloured accent-ink.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.sans}"},
+        "size": {"$type": "dimension", "$value": {"value": 19, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 13, "unit": "px"}, "preferred": "1vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 600},
+        "leading": {"$type": "number", "$value": 1},
+        "tracking": {"$type": "number", "$value": 0.14, "$extensions": {"com.twm.css": {"unit": "em"}}}
+      },
+      "title": {
+        "$description": "Slide titles: serif 500, tight leading; one key word may be italic.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.serif}"},
+        "size": {"$type": "dimension", "$value": {"value": 60, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 30, "unit": "px"}, "preferred": "3vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 500},
+        "leading": {"$type": "number", "$value": 1.06},
+        "tracking": {"$type": "number", "$value": -0.01, "$extensions": {"com.twm.css": {"unit": "em"}}}
+      },
+      "lead": {
+        "$description": "Lead (title page) titles.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.serif}"},
+        "size": {"$type": "dimension", "$value": {"value": 84, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 38, "unit": "px"}, "preferred": "4.2vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 500},
+        "leading": {"$type": "number", "$value": 1.04},
+        "tracking": {"$type": "number", "$value": -0.01, "$extensions": {"com.twm.css": {"unit": "em"}}}
+      },
+      "overlay": {
+        "$description": "Insight overlays, quotes, stat captions.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.serif}"},
+        "size": {"$type": "dimension", "$value": {"value": 36, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 20, "unit": "px"}, "preferred": "1.75vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 400},
+        "leading": {"$type": "number", "$value": 1.28}
+      },
+      "msg": {
+        "$description": "Quoted message cards.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.serif}"},
+        "size": {"$type": "dimension", "$value": {"value": 26, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 16, "unit": "px"}, "preferred": "1.3vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 400},
+        "leading": {"$type": "number", "$value": 1.35}
+      },
+      "stat": {
+        "$description": "Headline figures.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.serif}"},
+        "size": {"$type": "dimension", "$value": {"value": 168, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 72, "unit": "px"}, "preferred": "8vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 500},
+        "leading": {"$type": "number", "$value": 1},
+        "tracking": {"$type": "number", "$value": -0.02, "$extensions": {"com.twm.css": {"unit": "em"}}}
+      },
+      "d-title": {
+        "$description": "Diagram tile titles: a screen-px floor the engine converts with each SVG's --k.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.sans}"},
+        "size": {"$type": "dimension", "$value": {"value": 26, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 17, "unit": "px"}, "preferred": "1.3vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 500}
+      },
+      "d-sub": {
+        "$description": "Diagram subtitles and labels: a screen-px floor, as d-title.",
+        "family": {"$type": "fontFamily", "$value": "{sys.font.sans}"},
+        "size": {"$type": "dimension", "$value": {"value": 22, "unit": "px"}, "$extensions": {"com.twm.css": {"fluid": {"min": {"value": 15, "unit": "px"}, "preferred": "1.12vw"}}}},
+        "weight": {"$type": "fontWeight", "$value": 400}
+      }
+    },
+    "shadow": {
+      "$type": "shadow",
+      "$description": "Soft, ink-tinted elevation ramp; every level adds a 1px tile-coloured inset highlight.",
+      "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "the drop becomes an outer shadow effect; the inset highlight is lost"}},
+      "rest": {
+        "$description": "Resting pills and chips.",
+        "$value": [
+          {"color": "{sys.color.tile}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 1, "unit": "px"}, "blur": {"value": 0, "unit": "px"}, "spread": {"value": 0, "unit": "px"}, "inset": true},
+          {"color": "{sys.color.ink}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 3, "unit": "px"}, "blur": {"value": 8, "unit": "px"}, "spread": {"value": -5, "unit": "px"}}
+        ],
+        "$extensions": {"com.twm.css": {"mix": [null, {"with": "transparent", "weight": 0.28}]}}
+      },
+      "lift": {
+        "$description": "Hovered or lifted items.",
+        "$value": [
+          {"color": "{sys.color.tile}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 1, "unit": "px"}, "blur": {"value": 0, "unit": "px"}, "spread": {"value": 0, "unit": "px"}, "inset": true},
+          {"color": "{sys.color.ink}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 8, "unit": "px"}, "blur": {"value": 18, "unit": "px"}, "spread": {"value": -10, "unit": "px"}}
+        ],
+        "$extensions": {"com.twm.css": {"mix": [null, {"with": "transparent", "weight": 0.45}]}}
+      },
+      "soft": {
+        "$description": "Menus and tiles that float.",
+        "$value": [
+          {"color": "{sys.color.tile}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 1, "unit": "px"}, "blur": {"value": 0, "unit": "px"}, "spread": {"value": 0, "unit": "px"}, "inset": true},
+          {"color": "{sys.color.ink}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 30, "unit": "px"}, "blur": {"value": 60, "unit": "px"}, "spread": {"value": -30, "unit": "px"}}
+        ],
+        "$extensions": {"com.twm.css": {"mix": [null, {"with": "transparent", "weight": 0.53}]}}
+      },
+      "key": {
+        "$description": "The one key element on a slide.",
+        "$value": [
+          {"color": "{sys.color.tile}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 1, "unit": "px"}, "blur": {"value": 0, "unit": "px"}, "spread": {"value": 0, "unit": "px"}, "inset": true},
+          {"color": "{sys.color.ink}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 50, "unit": "px"}, "blur": {"value": 90, "unit": "px"}, "spread": {"value": -34, "unit": "px"}}
+        ],
+        "$extensions": {"com.twm.css": {"mix": [null, {"with": "transparent", "weight": 0.58}]}}
+      },
+      "overlay": {
+        "$description": "Frosted overlay cards.",
+        "$value": [
+          {"color": "{sys.color.tile}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 1, "unit": "px"}, "blur": {"value": 0, "unit": "px"}, "spread": {"value": 0, "unit": "px"}, "inset": true},
+          {"color": "{sys.color.ink}", "offsetX": {"value": 0, "unit": "px"}, "offsetY": {"value": 40, "unit": "px"}, "blur": {"value": 80, "unit": "px"}, "spread": {"value": -40, "unit": "px"}}
+        ],
+        "$extensions": {"com.twm.css": {"mix": [null, {"with": "transparent", "weight": 0.40}]}}
+      }
+    },
+    "material": {
+      "$description": "Frost: translucent paper over a backdrop blur, with a solid fallback where blur is unavailable. Never put accent-coloured text on frost.",
+      "frost": {
+        "$type": "color", "$value": "{sys.color.paper}",
+        "$description": "Floating cards (Insight overlays).",
+        "$extensions": {"com.twm.css": {"mix": {"with": "transparent", "weight": 0.55}}, "com.twm.pptx": {"band": "approximated", "note": "flat translucent fill"}}
+      },
+      "frost-dense": {
+        "$type": "color", "$value": "{sys.color.paper}",
+        "$description": "Cards over diagrams: denser so text stays readable.",
+        "$extensions": {"com.twm.css": {"mix": {"with": "transparent", "weight": 0.9}}, "com.twm.pptx": {"band": "approximated", "note": "flat translucent fill"}}
+      },
+      "blur": {
+        "$type": "dimension", "$value": {"value": 18, "unit": "px"},
+        "$description": "Backdrop blur behind frost.",
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "PowerPoint has no backdrop blur"}}
+      },
+      "saturate": {
+        "$type": "number", "$value": 1.15,
+        "$description": "Backdrop saturation behind frost.",
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "no backdrop filters in PowerPoint"}}
+      },
+      "chrome": {
+        "$type": "color", "$value": "{sys.color.paper}",
+        "$description": "The fixed title bar.",
+        "$extensions": {"com.twm.css": {"mix": {"with": "transparent", "weight": 0.78}}, "com.twm.pptx": {"band": "approximated", "note": "flat translucent fill"}}
+      },
+      "chrome-blur": {
+        "$type": "dimension", "$value": {"value": 14, "unit": "px"},
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "PowerPoint has no backdrop blur"}}
+      },
+      "chrome-saturate": {
+        "$type": "number", "$value": 1.1,
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "no backdrop filters in PowerPoint"}}
+      },
+      "pane": {
+        "$type": "color", "$value": "{sys.color.tile}",
+        "$description": "Reader-note callout.",
+        "$extensions": {"com.twm.css": {"mix": {"with": "transparent", "weight": 0.82}}, "com.twm.pptx": {"band": "lost", "note": "reader notes become speaker notes"}}
+      },
+      "pane-blur": {
+        "$type": "dimension", "$value": {"value": 16, "unit": "px"},
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "reader notes become speaker notes"}}
+      },
+      "chip": {
+        "$type": "color", "$value": "{sys.color.paper}",
+        "$description": "Small floating controls (notes toggle).",
+        "$extensions": {"com.twm.css": {"mix": {"with": "transparent", "weight": 0.7}}, "com.twm.pptx": {"band": "lost", "note": "deck chrome is not exported"}}
+      },
+      "chip-blur": {
+        "$type": "dimension", "$value": {"value": 10, "unit": "px"},
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "deck chrome is not exported"}}
+      },
+      "veil": {
+        "$type": "color", "$value": "{sys.color.paper}",
+        "$description": "Notes-mode veil around the spotlit target.",
+        "$extensions": {"com.twm.css": {"mix": {"with": "transparent", "weight": 0.45}}, "com.twm.pptx": {"band": "lost", "note": "notes mode is not exported"}}
+      },
+      "veil-blur": {
+        "$type": "dimension", "$value": {"value": 7, "unit": "px"},
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "notes mode is not exported"}}
+      },
+      "veil-saturate": {
+        "$type": "number", "$value": 0.85,
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "notes mode is not exported"}}
+      }
+    },
+    "ambient": {
+      "$description": "Bokeh: three blur planes of soft radial orbs that drift slowly on title, summary and closing pages only, never on detail or diagram pages.",
+      "far": {
+        "blur": {"$type": "dimension", "$value": {"value": 48, "unit": "px"}, "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "soft-edged ellipse"}}},
+        "opacity": {"$type": "number", "$value": 0.55, "$extensions": {"com.twm.pptx": {"band": "native", "note": "fill transparency"}}}
+      },
+      "mid": {
+        "blur": {"$type": "dimension", "$value": {"value": 22, "unit": "px"}, "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "soft-edged ellipse"}}},
+        "opacity": {"$type": "number", "$value": 0.5, "$extensions": {"com.twm.pptx": {"band": "native", "note": "fill transparency"}}}
+      },
+      "near": {
+        "blur": {"$type": "dimension", "$value": {"value": 6, "unit": "px"}, "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "soft-edged ellipse"}}},
+        "opacity": {"$type": "number", "$value": 0.35, "$extensions": {"com.twm.pptx": {"band": "native", "note": "fill transparency"}}}
+      },
+      "tint": {
+        "$type": "color",
+        "$description": "Orb colours 1-5, cycled by the engine: the accent, three accent-to-paper mixes, the deep paper.",
+        "$extensions": {"com.twm.pptx": {"band": "native", "note": "radial gradient fill to transparent"}},
+        "1": {"$value": "{sys.color.accent}"},
+        "2": {"$value": "{sys.color.accent}", "$extensions": {"com.twm.css": {"mix": {"with": "{sys.color.paper}", "weight": 0.42}}}},
+        "3": {"$value": "{sys.color.accent}", "$extensions": {"com.twm.css": {"mix": {"with": "{sys.color.paper}", "weight": 0.16}}}},
+        "4": {"$value": "{sys.color.accent}", "$extensions": {"com.twm.css": {"mix": {"with": "{sys.color.paper}", "weight": 0.28}}}},
+        "5": {"$value": "{sys.color.paper-deep}"}
+      },
+      "drift": {
+        "$type": "number", "$value": 13,
+        "$description": "Peak drift speed in px per second: perceptible, still subtle.",
+        "$extensions": {"com.twm.pptx": {"band": "lost", "note": "no looping drift in PowerPoint"}}
+      }
+    },
+    "motion": {
+      "$description": "Slow, eased motion. Reduced motion (:root.still) keeps fades and drops travel, scale and blur.",
+      "ease": {
+        "$type": "cubicBezier", "$value": "{ref.curve.out-soft}",
+        "$description": "Default easing: entries, reveals, camera moves.",
+        "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "nearest preset easing (decelerate)"}}
+      },
+      "ease-rack": {
+        "$type": "cubicBezier", "$value": "{ref.curve.in-out}",
+        "$description": "Rack focus: the blur half of an overlay exit.",
+        "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "nearest preset easing"}}
+      },
+      "ease-late": {
+        "$type": "cubicBezier", "$value": "{ref.curve.in-late}",
+        "$description": "Late fade: an overlay fades only after it has defocused.",
+        "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "nearest preset easing (accelerate)"}}
+      },
+      "duration": {
+        "$type": "duration",
+        "$extensions": {"com.twm.pptx": {"band": "native", "note": "animation durations"}},
+        "fast": {"$value": {"value": 250, "unit": "ms"}, "$description": "Hover and chrome feedback."},
+        "base": {"$value": {"value": 600, "unit": "ms"}, "$description": "Step reveals."},
+        "slow": {"$value": {"value": 800, "unit": "ms"}, "$description": "Overlay entries and exits."},
+        "camera": {"$value": {"value": 1400, "unit": "ms"}, "$description": "Camera and world moves."}
+      },
+      "rise": {
+        "$type": "dimension", "$value": {"value": 12, "unit": "px"},
+        "$description": "Travel of a revealed part as it rises into place.",
+        "$extensions": {"com.twm.pptx": {"band": "native", "note": "fly-in or motion-path entrance"}}
+      },
+      "reveal": {
+        "$type": "transition",
+        "$value": {"duration": "{sys.motion.duration.base}", "delay": {"value": 0, "unit": "ms"}, "timingFunction": "{sys.motion.ease}"},
+        "$description": "A step reveal: fade plus rise.",
+        "$extensions": {"com.twm.pptx": {"band": "approximated", "note": "fade + fly-in entrance with preset easing"}}
+      }
+    }
+  }
+}

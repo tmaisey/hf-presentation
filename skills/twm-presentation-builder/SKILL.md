@@ -51,6 +51,9 @@ Read a part only when its line applies. Parts never link each other; every part 
   data-attribute authoring contract, component API, shared SVG defs, engine API and module hooks.
   Read before writing slide markup, styling a design layer, writing an engine module or assembling
   a deck.
+- [design/TOKENS.md](design/TOKENS.md): palette and style tokens (DTCG tiers, file schema, contrast
+  gate, PPTX bands), the generator, and how to add a palette or style. Read before choosing,
+  editing or adding a palette or style, or styling components against tokens.
 - [evals/CRITERIA.md](evals/CRITERIA.md): eval criterion library, flaw taxonomy and deck-type
   profiles. Read before judging a deck or process, or before adding or changing a criterion or
   profile; not needed to build a deck.
