@@ -9,7 +9,9 @@ criteria verdicts in the eval schema, validates the package and re-flows slides 
 template.
 
 Decks: the core component fixture and the module fixture (scene, narration, pop-over, tile row,
-camera move), assembled with `scripts/assemble.py new`; the worked example deck when present.
+camera move), assembled with `scripts/assemble.py new`; the worked example deck when present, and
+the HF example in both palettes (`deck.html`, `deck-bright.html`) for the gaps the baseline eval
+found (pop-over illustration words, theme-equal literal colours, undeclared shape opacity).
 
 Coverage: happy (opens, slide count, named layouts used, text in placeholders, theme = tokens,
 scheme colour refs, named round-rect tiles, arrowed edges, cubic curves, notes with sources, click
@@ -17,7 +19,9 @@ order = HTML steps, Morph pair for the camera move, effect bands, report, verdic
 and schema valid, re-flow inherits the foreign theme, CLI) · edge (paragraph-level builds in a
 body placeholder, a stepped table, exits, a step softening the body, the Morph slide's clicks) ·
 negative (check fails text flattened to a picture, literal RGB, missing animations, missing notes,
-a dropped Morph; emit refuses an invalid scene).
+a dropped Morph; emit refuses an invalid scene; on the HF example: no illustration word outside a
+native text box, no literal colour equal to a theme colour (step recolours included), no scene
+effect missing from the report).
 """
 
 from __future__ import annotations
@@ -46,6 +50,7 @@ SKILL = hp.SCRIPTS.parents[1]
 EVALS = SKILL / "evals"
 OUT = hp.ARTIFACTS / "pb-024"
 EXAMPLE = SKILL / "examples" / "hf-incident" / "deck.html"
+EXAMPLE_BRIGHT = SKILL / "examples" / "hf-incident" / "deck-bright.html"
 
 NS = {
     "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
@@ -698,3 +703,86 @@ def test_pptx_part_is_routed_and_names_its_pipeline():
     for must in ("scene.py", "emit.py", "check.py", "Morph", "native", "approximated", "lost", "re-flow",
                  "PowerPoint"):
         assert must in doc, must
+
+
+# ---------- HF example: gaps found by the baseline eval (261123) ----------
+
+@pytest.fixture(scope="module")
+def hf(browser, tmp_path_factory):
+    """The HF example in both palettes, measured and emitted once per module."""
+    d = tmp_path_factory.mktemp("hf")
+    out = {}
+    for k, deck in (("paper", EXAMPLE), ("bright", EXAMPLE_BRIGHT)):
+        scene = scene_mod.extract(deck, browser=browser)
+        path = emit.emit(scene, d / f"{k}.pptx")
+        report = json.loads((d / f"{k}.pptx-report.json").read_text(encoding="utf-8"))
+        out[k] = {"scene": scene, "path": path, "prs": Presentation(path), "report": report}
+    OUT.mkdir(parents=True, exist_ok=True)
+    for k, v in out.items():
+        shutil.copy(v["path"], OUT / f"hf-{k}.pptx")
+    return out
+
+
+def _art(scene):
+    """(slide, element, text primitive) for every SVG illustration's words (e.g. pop-over art)."""
+    for s in scene["slides"]:
+        for e in s["elements"]:
+            if e["role"] == "image" and e.get("svg"):
+                for p in e["svg"]:
+                    if p["type"] == "text" and run_text(p["runs"]).strip():
+                        yield s, e, p
+
+
+@pytest.mark.parametrize("k", ["paper", "bright"])
+def test_illustration_words_are_native_text_boxes(hf, k):
+    """PX-01: words drawn inside an SVG illustration stay editable text, named after the illustration."""
+    b = hf[k]
+    art = list(_art(b["scene"]))
+    assert any(s["id"] == "s-5" for s, _, _ in art), "the example's s-5 pop-overs carry illustration words"
+    for s, e, p in art:
+        want = norm(run_text(p["runs"]))
+        found = False
+        for ps in pslides_for(b["prs"], s["id"]):
+            for el in ps._element.iter(P + "cNvPr"):
+                name = el.get("name", "").removeprefix("!!")
+                if (name == e["id"] or name.startswith(e["id"] + "#")) and \
+                        want in norm(shape_text(el.getparent().getparent())):
+                    found = True
+        assert found, (k, s["id"], e["id"], want)
+    lost = [i for i in b["report"]["items"] if i["what"] == "image" and i["result"] == "lost"
+            and any(e["id"] == i["el"] for _, e, _ in art)]
+    assert not lost, lost
+    vs = verdicts_by(check.verdicts(b["path"], scene=b["scene"], report=b["report"]))
+    assert all(v["result"] == "pass" for v in vs["PX-01"].values()), {u: v["evidence"] for u, v in vs["PX-01"].items()}
+
+
+@pytest.mark.parametrize("k", ["paper", "bright"])
+def test_colours_equal_to_theme_colours_are_scheme_references(hf, k):
+    """PX-03: no literal colour equal to a theme colour anywhere in a slide, step recolours included."""
+    b = hf[k]
+    theme_vals = {c.get("val") for c in theme_xml(b["prs"]).find(".//a:clrScheme", NS).iter(A + "srgbClr")}
+    for s in b["prs"].slides:
+        lits = {c.get("val") for c in s._element.iter(A + "srgbClr")}
+        assert not lits & theme_vals, (k, s._element.find("p:cSld", NS).get("name"), lits & theme_vals)
+    recolours = [c for s in b["prs"].slides for c in s._element.iter(P + "animClr")]
+    assert recolours, "the example recolours fills on steps"
+    assert any(c.find("p:to/a:schemeClr", NS) is not None for c in recolours), "recolours keep theme refs"
+    v = verdicts_by(check.verdicts(b["path"], scene=b["scene"], report=b["report"]))["PX-03"]["deck"]
+    assert v["result"] == "pass", v["evidence"]
+
+
+@pytest.mark.parametrize("k", ["paper", "bright"])
+def test_report_declares_every_scene_effect_with_its_band(hf, k):
+    """PX-05: every style effect in the scene (shape opacity included) is in the report with its band."""
+    b = hf[k]
+    keyed = {(i["slide"], i["el"], i["what"]): i for i in b["report"]["items"]}
+    missing = []
+    for s in b["scene"]["slides"]:
+        for e in s["elements"]:
+            for fx in e["effects"]:
+                hit = keyed.get((s["id"], e["id"], fx["kind"]))
+                if hit is None or hit["band"] != fx["band"]:
+                    missing.append((s["id"], e["id"], fx["kind"], fx["band"]))
+    assert not missing, (len(missing), missing[:5])
+    v = verdicts_by(check.verdicts(b["path"], scene=b["scene"], report=b["report"]))["PX-05"]["deck"]
+    assert v["result"] == "pass", v["evidence"]
