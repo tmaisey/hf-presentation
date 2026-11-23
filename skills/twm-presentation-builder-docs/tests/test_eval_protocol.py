@@ -357,8 +357,9 @@ def test_scope_prompt_asks_each_question_before_any_run(eval_md):
 
 def test_transcripts_need_consent_for_this_run_default_no(eval_md):
     scope = section(eval_md, r"scope").lower()
-    line = next(ln for ln in scope.splitlines() if "transcript" in ln)
-    assert re.search(r"default[^.]*\bno\b", line), line
+    items = re.findall(r"^\d+\. .*?(?=^\d+\. |^\s*$|\Z)", scope, re.S | re.M)
+    item = " ".join(next(i for i in items if "transcript" in i).split())
+    assert re.search(r"default[^.]*\bno\b", item), item
     assert "only if process" in scope or "only when process" in scope
     assert re.search(r"never[^.]*(self-reported|process log)", eval_md.lower())
 
