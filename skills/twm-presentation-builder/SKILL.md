@@ -57,6 +57,9 @@ Read a part only when its line applies. Parts never link each other; every part 
 - [design/LAYOUT.md](design/LAYOUT.md): layout variants (standard, lead, split, scene…) with
   when to use each, every component's look, states and tokens, and the components CSS rules. Read
   before choosing a slide layout, styling or reviewing a component, or adding one.
+- [pptx/PPTX.md](pptx/PPTX.md): editable PowerPoint hand-off: scene → emit → check pipeline,
+  layouts, what is native / approximated / lost, step policy, corporate-template re-flow, the
+  presenter's PowerPoint check. Read before converting a deck to PPTX or judging a PPTX.
 - [evals/CRITERIA.md](evals/CRITERIA.md): eval criterion library, flaw taxonomy and deck-type
   profiles. Read before judging a deck or process, or before adding or changing a criterion or
   profile; not needed to build a deck.

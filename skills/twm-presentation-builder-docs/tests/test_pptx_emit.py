@@ -295,6 +295,12 @@ def test_palette_roles_become_scheme_colour_references(built):
         for s in bb["prs"].slides:
             lits = {c.get("val") for c in s._element.iter(A + "srgbClr")}
             assert not lits & theme_vals, (k, lits & theme_vals)
+            # the fixtures use palette colours and their mixes only: nothing should stay literal
+            assert not lits, (k, s._element.find("p:cSld", NS).get("name"), lits)
+    lit = [i for b in built.values() for i in b["report"]["items"] if i["what"] == "literal colour"]
+    assert not lit, lit[:3]
+    orb2 = shape_named(pslides_for(b["prs"], "c-1")[0], "c-1/orb-2")
+    assert orb2.find(".//a:gs/a:schemeClr", NS).get("val") == slot("accent"), "a mixed orb tint stays on the accent"
 
 
 def test_runs_use_theme_font_references(built):
@@ -468,8 +474,11 @@ def test_report_lists_every_dropped_or_approximated_item(built):
                 for fx in e["effects"]:
                     hit = keyed.get((s["id"], e["id"], fx["kind"]))
                     assert hit is not None, (k, s["id"], e["id"], fx["kind"])
-                    want = {"native": "native", "approximated": "approximated"}.get(fx["band"], "lost")
-                    assert hit["result"] == want, hit
+                    assert hit["band"] == fx["band"], hit
+                    if fx["band"] == "undeclared":  # components-layer effect: no style band to honour
+                        assert hit["result"] in ("approximated", "lost"), hit
+                    else:
+                        assert hit["result"] == fx["band"], hit
             for t in s["timeline"]:
                 for d in t["deltas"]:
                     if d["effect"] == "unsupported":
@@ -606,6 +615,8 @@ def test_package_validates_structurally_and_against_the_schema(built, tmp_path):
 def test_reflow_into_a_foreign_template_inherits_its_theme(built, tmp_path):
     b = built["core"]
     out = check.reflow(b["path"], tmp_path / "reflowed.pptx")
+    OUT.mkdir(parents=True, exist_ok=True)
+    shutil.copy(out, OUT / "core-reflowed-default-template.pptx")  # for the presenter to open
     prs = Presentation(out)
     foreign = Presentation()
     assert len(prs.slides) == len(b["prs"].slides)
