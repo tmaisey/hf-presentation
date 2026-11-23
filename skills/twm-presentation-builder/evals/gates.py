@@ -9,7 +9,9 @@ concerns), it resolves
 the profile's ``D`` criteria, checks each one in code, and writes one verdict per unit
 (``repeat`` 1, ``unit`` per the criterion's scope: ``deck``, a slide id, ``<slide>/<step>`` or a
 spec id) to ``<run>/verdicts/<criterion>_<unit>_r1.json``, the files ``aggregate.py`` reads. It
-also writes ``<run>/evidence/gates.json``: what was checked, what is missing and why.
+also writes ``<run>/evidence/gates.json``: what was checked, what is missing and why, and, with a
+``.pptx``, ``judge_inputs``: whether each judged PPTX criterion in scope (PX-06) has a renderer
+(``soffice``) or why it will be missing.
 
 **Deck checks** open the deck in the system Chrome (Playwright, network blocked) and step every
 slide × step × review size through ``window.deck`` with ``scripts/layout_guard.py``'s helpers,
@@ -1288,6 +1290,31 @@ def pptx_verdicts(pptx: Path, criteria: list[dict], scene: Path | None = None,
     return [v for v in vs if v["criterion"] in want]
 
 
+PPTX_RENDERERS = ("soffice", "libreoffice")
+NO_RENDERER = ("no PPTX renderer: LibreOffice (soffice) is not on PATH, so no image of the PPTX exists for "
+               "its judges; install LibreOffice and render it (EVAL.md §2), or leave the criterion missing")
+
+
+def pptx_renderer() -> str | None:
+    """Name of the PPTX renderer on PATH (LibreOffice's ``soffice``), or None when none is installed."""
+    return next((name for name in PPTX_RENDERERS if shutil.which(name)), None)
+
+
+def _judge_inputs(prof: dict, library: dict, concerns: list[str], pptx: Path | None) -> dict:
+    """What the judged (``S``/``T``) PPTX criteria in scope need beyond the file: a renderer.
+
+    Returns:
+        ``{criterion: {"renderer": name}}`` or ``{criterion: {"missing": reason}}`` for each
+        in-scope judged pptx criterion (e.g. PX-06), when a ``.pptx`` is given; else ``{}``.
+    """
+    if not pptx:
+        return {}
+    judged = [c["id"] for c in crit_mod.resolve(prof, library)
+              if c["target"] == "pptx" and c["evidence"] != "D" and c["concern"] in concerns]
+    renderer = pptx_renderer()
+    return {cid: ({"renderer": renderer} if renderer else {"missing": NO_RENDERER}) for cid in judged}
+
+
 def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = None,
               pptx: Path | None = None, scene: Path | None = None, report: Path | None = None,
               profile: str | None = None, concerns: list[str] | None = None, rerun: bool = True,
@@ -1357,7 +1384,8 @@ def run_gates(run_dir: Path, *, deck: Path | None = None, repo: Path | None = No
     log = {"tool": "gates", "version": 1, "deck": str(deck) if deck else None,
            "pptx": str(pptx) if pptx else None,
            "repo": str(repo) if repo else None, "profile": profile, "concerns": concerns,
-           "rerun": rerun, "verdicts": written, "criteria": {}}
+           "rerun": rerun, "verdicts": written, "criteria": {},
+           "judge_inputs": _judge_inputs(prof, library, concerns, pptx)}
     for c in scope:
         cid = c["id"]
         mine = [v for v in verdicts if v["criterion"] == cid]

@@ -164,6 +164,12 @@ review, internal update) through profiles, without duplicating criteria.
   illustration words at 10 px @1280 (DL-02 gate, DS-01); accent-green "ok" edges at 2.05:1 (DP-02
   gate); build-up slides over the 40-word CN-04 budget; illustration "tries" loop forever (DS-03).
   For each: fix the content, accept as an exception, or change the criterion.
+- **Eval run tooling (PB-026, agent, 23 Nov):** several targets in one run = sub-run folders under a
+  suite `manifest.json` (`label`, `date`, `runs`) with an `aggregate.py` roll-up; text evidence is
+  read from the rendered deck per step (`evals/extract.py`); deck-scope judges get contact sheets
+  (`shoot.py --contact`, 3×4 tiles); every missing criterion carries a reason and `incomplete` lists
+  undecided gates; PX-06 is reported missing without `soffice`; judges run in rolling batches of
+  ≤20; inline SVG art becomes native PPTX shapes + text boxes.
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing

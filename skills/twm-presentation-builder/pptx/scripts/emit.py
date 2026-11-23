@@ -49,6 +49,9 @@ with a Morph transition and ``!!``-named shapes, per the PRD step-delta policy):
   round rectangles holding their text (generated labels and quote marks merged in);
 - diagram tiles → named ``roundRect`` with their labels as paragraphs; edges → straight
   connectors or ``cubicBezTo`` freeforms with ``a:tailEnd`` arrowheads; SVG labels → text boxes;
+- inline SVG illustrations (an ``image`` with measured primitives and no raster source, e.g.
+  pop-over art inside a card) → named native shapes with their words as text boxes, never dropped
+  with the card that holds them; their style effects (opacity, lift) are applied and reported;
 - tables → native tables (split into stacked tables where rows build on separate steps);
 - orbs (bokeh) → radial-gradient ellipses with soft edges, marked decorative;
 - every colour with a palette role → ``a:schemeClr`` (a role-less mix → a theme colour with
@@ -366,6 +369,11 @@ class Text:
         for para in paras or [Para(runs=[])]:
             tb.append(self.paragraph(para, opacity, where))
         return tb
+
+
+def _is_vector_art(e: dict) -> bool:
+    """True for an inline SVG image (no raster source) whose primitives were measured."""
+    return e["role"] == "image" and bool(e.get("svg")) and not (e.get("image") or {}).get("src")
 
 
 def _el_text(e: dict) -> str:
@@ -1007,7 +1015,9 @@ class SlideBuilder:
                 if eid != e["id"]:
                     self.targets[eid] = Target(proxy, [i])
         self.consumed.add(e["id"])
-        self.consumed.update(d["id"] for d in self.descendants(e["id"]))
+        art = {a["id"] for a in self.descendants(e["id"]) if _is_vector_art(a)}
+        art |= {d["id"] for a in art for d in self.descendants(a)}
+        self.consumed.update(d["id"] for d in self.descendants(e["id"]) if d["id"] not in art)
 
     def textbox(self, e: dict, paras: list[Para] | None = None, box=None, anchor="t", wrap="square"):
         box = box or (e["text"]["box"] if e.get("text") else self.geom(e)[0])
@@ -1202,6 +1212,10 @@ class SlideBuilder:
             self._register(el, e, (2, e["z"], n))
             made.append(proxy)
         if made:
+            # the element's style effects (lift shadow, opacity) land on its first shape, and are reported
+            sppr = made[0]._element.find("p:spPr", NS)
+            if e["effects"] and sppr is not None:
+                self._effects(e, sppr, e["box"])
             self.targets[e["id"]] = Target(made[0])
             for extra in made[1:]:
                 self.em.extra_targets.setdefault((self.s["id"], e["id"]), []).append(extra)
@@ -1390,8 +1404,8 @@ class SlideBuilder:
                 self.orb(e)
             elif role in ("tile", "key-tile"):
                 self.tile(e)
-            elif role in ("edge", "label", "tag", "shape") and e.get("svg"):
-                self.svg_part(e)
+            elif (role in ("edge", "label", "tag", "shape") and e.get("svg")) or _is_vector_art(e):
+                self.svg_part(e)  # vector art (e.g. a pop-over illustration): native shapes + text boxes
             elif role == "table":
                 self.table(e)
             elif role == "image":
@@ -1513,6 +1527,10 @@ class SlideBuilder:
                         continue
                     seen.add(key)
                     params = {k2: v for k2, v in d["params"].items()}
+                    if d["effect"] == "fill_colour":
+                        role = d.get("role") or self.colours.by_rgb.get(params["rgb"].upper())
+                        if role in self.colours.pal and self.colours.pal[role]["rgb"] == params["rgb"].upper():
+                            params["scheme"] = self.colours.slot(role)
                     entries.append((shape, d["effect"], params, rng))
             if entries:
                 out.append(entries)
