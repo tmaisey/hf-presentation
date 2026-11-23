@@ -1,0 +1,17 @@
+{
+ "id": "data-review",
+ "description": "Evidence review of quantitative results: charts with units and baselines, comparisons and uncertainty; denser slides allowed.",
+ "weights": {
+  "CN-01": 2, "CN-02": 2, "CN-03": 3, "CN-04": 2, "CN-05": 1, "CN-06": 2, "CN-07": 2, "CN-08": 2, "CN-09": 2, "CN-13": 3,
+  "RS-01": 3, "RS-02": 3, "RS-03": 2, "RS-04": 2, "RS-05": 2, "RS-06": 3, "RS-07": 3,
+  "VC-01": 2, "VC-02": 2, "VC-03": 2, "VC-04": 2, "VC-05": 2, "VC-06": 2, "VC-08": 1,
+  "DL-01": 2, "DL-02": 2, "DL-03": 2, "DL-04": 2, "DL-05": 2, "DL-06": 2, "DL-07": 2, "DL-08": 2, "DL-09": 2, "DL-10": 1,
+  "DP-01": 2, "DP-02": 3, "DP-03": 2, "DP-04": 2, "DP-05": 2, "DP-06": 2, "DP-07": 2, "DP-08": 3,
+  "DS-01": 2, "DS-02": 1, "DS-03": 2, "DS-04": 2, "DS-05": 1, "DS-06": 2, "DS-07": 2,
+  "AR-01": 2, "AR-02": 2, "AR-03": 2, "AR-04": 2, "AR-05": 2, "AR-06": 2, "AR-07": 2,
+  "PX-01": 2, "PX-02": 2, "PX-03": 2, "PX-04": 2, "PX-05": 2, "PX-06": 2, "PX-07": 2, "PX-08": 2, "PX-09": 2,
+  "PR-01": 2, "PR-02": 2, "PR-03": 2, "PR-04": 2, "PR-05": 2, "PR-06": 2, "PR-07": 2, "PR-08": 2, "PR-09": 2, "PR-10": 2
+ },
+ "gates": ["RS-01", "RS-02", "DL-01", "DP-01", "DP-02", "AR-01", "CN-13"],
+ "params": {"CN-04": {"max_words": 70}}
+}

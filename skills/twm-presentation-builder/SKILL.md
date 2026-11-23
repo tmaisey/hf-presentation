@@ -51,5 +51,8 @@ Read a part only when its line applies. Parts never link each other; every part 
   data-attribute authoring contract, component API, shared SVG defs, engine API and module hooks.
   Read before writing slide markup, styling a design layer, writing an engine module or assembling
   a deck.
+- [eval/CRITERIA.md](eval/CRITERIA.md): eval criterion library, flaw taxonomy and deck-type
+  profiles. Read before judging a deck or process, or before adding or changing a criterion or
+  profile; not needed to build a deck.
 
 More parts are linked here as they land.

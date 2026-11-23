@@ -1,0 +1,17 @@
+{
+ "id": "internal-update",
+ "description": "Routine status update for a team: status first, decisions, owners and dates explicit; light on builds and polish.",
+ "weights": {
+  "CN-01": 2, "CN-02": 2, "CN-03": 1, "CN-04": 1, "CN-06": 2, "CN-07": 1, "CN-08": 1, "CN-09": 2, "CN-14": 3, "CN-15": 3,
+  "RS-01": 1, "RS-02": 2, "RS-03": 1, "RS-04": 1, "RS-05": 1, "RS-06": 1,
+  "VC-01": 1, "VC-02": 1, "VC-03": 1, "VC-04": 1, "VC-05": 1, "VC-06": 1, "VC-08": 1,
+  "DL-01": 2, "DL-02": 1, "DL-03": 1, "DL-04": 1, "DL-05": 1, "DL-06": 1, "DL-07": 1, "DL-08": 1, "DL-09": 1,
+  "DP-01": 2, "DP-02": 1, "DP-03": 1, "DP-04": 1, "DP-05": 1, "DP-06": 1, "DP-07": 1,
+  "DS-01": 1, "DS-02": 1, "DS-03": 1, "DS-04": 1, "DS-06": 1, "DS-07": 1,
+  "AR-01": 2, "AR-02": 1, "AR-03": 1, "AR-04": 1, "AR-05": 1, "AR-06": 1, "AR-07": 1,
+  "PX-01": 1, "PX-02": 1, "PX-03": 1, "PX-04": 1, "PX-05": 1, "PX-06": 1, "PX-07": 1, "PX-08": 1, "PX-09": 1,
+  "PR-01": 1, "PR-02": 1, "PR-03": 1, "PR-04": 1, "PR-05": 1, "PR-06": 1, "PR-07": 1, "PR-09": 1, "PR-10": 1
+ },
+ "gates": ["RS-02", "DL-01", "DP-01", "AR-01", "CN-15"],
+ "params": {"CN-04": {"max_words": 60}}
+}
