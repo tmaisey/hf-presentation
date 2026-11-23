@@ -128,6 +128,10 @@ review, internal update) through profiles, without duplicating criteria.
   duplicated slides + Morph; text/line colour changes (e.g. step-list current/done) are dropped and
   the slide keeps its final look, unless an emphasis effect can express them; blur softening is
   lost. The scene is measured at its final visible step with reduced motion (`pptx/scene.schema.json`).
+- **Reference visuals ported under PB-007 (agent, 23 Nov):** the reference deck's diagram and
+  illustration kit (domains, dots/links, badges, glyphs, timeline body, scene key and dim/muted
+  states) moved into the components layer as gap fixes, not new visual language. Anchor decks now
+  embed fonts so judges see the real look (~5 MB across 10 anchors).
 - **Trigger (presenter, 22 Nov):** the skill triggers on requests to build HTML slides / an HTML
   deck or presentation.
 - **Second theme = palette only (presenter, 22 Nov):** it changes the colour scheme and nothing
