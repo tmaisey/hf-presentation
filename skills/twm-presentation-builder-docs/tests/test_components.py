@@ -231,8 +231,8 @@ PAIRS = [
      ("backgroundColor", "borderTopColor", "color", "borderRadius"), "::before"),
     ("step done disc", ("c-3", 2, "#c3-s1"), ("s-3", 3, "#s-3 .steps li.is-done:not(.sub)"),
      ("backgroundColor", "borderTopColor", "color"), "::before"),
-    ("prompt", ("c-7", 0, "#c7-q1"), ("s-11", 0, "#s11-q1"), TYPE + ("paddingLeft",), None),
-    ("prompt disc", ("c-7", 0, "#c7-q1"), ("s-11", 0, "#s11-q1"), ("backgroundColor", "color", "fontSize"), "::before"),
+    ("prompt", ("c-7", 0, "#c7-q1"), ("s-12", 0, "#s12-q1"), TYPE + ("paddingLeft",), None),
+    ("prompt disc", ("c-7", 0, "#c7-q1"), ("s-12", 0, "#s12-q1"), ("backgroundColor", "color", "fontSize"), "::before"),
     ("orb far", ("c-1", 0, "#c-1 .orb--far"), ("s-1", 0, "#s-1 .orb.far"), ("filter", "opacity", "borderRadius"), None),
     ("orb mid", ("c-1", 0, "#c-1 .orb--mid"), ("s-1", 0, "#s-1 .orb.mid"), ("filter", "opacity"), None),
     ("orb near", ("c-1", 0, "#c-1 .orb--near"), ("s-1", 0, "#s-1 .orb.near"), ("filter", "opacity"), None),
@@ -315,8 +315,8 @@ def test_citation_links_underline_in_the_surrounding_colour(pages):
     js = """sel => { const a = document.querySelector(sel), s = getComputedStyle(a);
       return [s.textDecorationLine, s.textDecorationThickness, s.textUnderlineOffset, s.color === getComputedStyle(a.parentElement).color]; }"""
     _at(fixture, "c-4", 1)
-    _at(v2, "s-11", 0)
-    assert fixture.evaluate(js, "#c-4 .cite a") == v2.evaluate(js, "#s-11 .cite a")
+    _at(v2, "s-12", 0)
+    assert fixture.evaluate(js, "#c-4 .cite a") == v2.evaluate(js, "#s-12 .cite a")
     assert fixture.evaluate(js, "#c-4 .cite a")[3] is True, "never blue: the link takes its text's colour"
 
 

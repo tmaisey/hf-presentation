@@ -33,7 +33,7 @@ shared credential for every agent; internet access by default).
 
 ## Shape (v2)
 
-v2 is a chronological 12-slide arc (~21 min incl. 4 min Q&A). Slide-level detail (titles, diagram
+v2 is a chronological 13-slide arc (~21 min incl. 4 min Q&A). Slide-level detail (titles, diagram
 builds, narration quotes, timings) lives in `docs/STORYBOARD.md`; v1 (18 slides) stays in
 `deck/deck.html` as reference.
 

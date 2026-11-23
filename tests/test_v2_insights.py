@@ -24,7 +24,7 @@ import re
 
 import pytest
 
-from helper_deck import ROOT, deck_source, goto_slide, open_deck, parse_slides, settle, slides_source
+from helper_deck import ROOT, deck_source, goto_slide, open_deck, parse_slides, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -450,7 +450,7 @@ def test_s9_tiles_read_left_to_right_in_one_row_at_a_readable_size(page, size):
     """The layout guard covers clipping and overlap with the title; this checks the row reads as one."""
     open_deck(page, *size)
     goto_slide(page, "s-9", 3)
-    settle(page, "#s9-t3")
+    settle_animations(page, "#s-9")
     res = page.evaluate("""ids => { const nb = document.querySelector('.notes-btn').getBoundingClientRect();
       return { vw: innerWidth, notes: [nb.left, nb.top, nb.right, nb.bottom], tiles: ids.map(id => { const t = document.getElementById(id),
         b = t.getBoundingClientRect(); return { box: [b.left, b.top, b.right, b.bottom],
@@ -471,7 +471,7 @@ def test_s9_headings_wrap_on_whole_words(page, size):
     """Presenter, 22 Nov: 're-' / 'emerged' split across lines (line count: the shared tile-row test)."""
     open_deck(page, *size)
     goto_slide(page, "s-9", 3)
-    settle(page, "#s9-t3")
+    settle_animations(page, "#s-9")
     res = page.evaluate("""ids => ids.map(id => { const h = document.querySelector('#' + id + ' h3'),
         lh = parseFloat(getComputedStyle(h).lineHeight), w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), split = [];
       for (let node; (node = w.nextNode());) for (const m of node.textContent.matchAll(/\\S+/g)) {
@@ -543,10 +543,10 @@ def test_s10_tiles_read_left_to_right_in_one_row_as_on_s9(page, size):
     """Same row and type as s-9: one row, readable width, body type no smaller than s-9's."""
     open_deck(page, *size)
     goto_slide(page, "s-9", 3)
-    settle(page, "#s9-t3")
+    settle_animations(page, "#s-9")
     s9_body = page.evaluate("() => parseFloat(getComputedStyle(document.querySelector('#s9-t1 li')).fontSize)")
     goto_slide(page, "s-10", 3)
-    settle(page, "#s10-t3")
+    settle_animations(page, "#s-10")
     res = page.evaluate("""ids => { const nb = document.querySelector('.notes-btn').getBoundingClientRect();
       return { vw: innerWidth, notes: [nb.left, nb.top, nb.right, nb.bottom], tiles: ids.map(id => { const t = document.getElementById(id),
         b = t.getBoundingClientRect(); return { box: [b.left, b.top, b.right, b.bottom],

@@ -37,9 +37,25 @@ SLIDES = EXAMPLE / "slides.html"
 DECK = EXAMPLE / "deck.html"
 TITLE, SUBTITLE = "The Hugging Face Attack", "Misaligned Agents"
 PORTED = ["s-1", "s-2", "s-4", "s-5", "s-9", "s-12"]
+# deck-v2 split Takeaways into two slides (23 Nov), so its Thank you is s-13; the example keeps s-12 (dated eval
+# runs cite it). Every deck-v2 lookup goes through v2id / v2sel.
+V2_ID = {"s-12": "s-13"}
+
+
+def v2id(sid: str) -> str:
+    """Return deck-v2's id for an example slide id."""
+    return V2_ID.get(sid, sid)
+
+
+def v2sel(sel: str) -> str:
+    """Return a selector rewritten to deck-v2's slide ids."""
+    for ours, theirs in V2_ID.items():
+        sel = sel.replace(f"#{ours} ", f"#{theirs} ")
+    return sel
+
 ARTIFACTS = Path(__file__).parent / "artifacts" / "pb-007"
-BAR_CROP = 66   # the bar (64 px) and its progress hairline: agenda and progress differ by design (6 of 12 slides)
-# ambient orbs are seeded by a slide's place among the ambient slides (s-12 is 2nd here, 3rd in deck-v2) and drift
+BAR_CROP = 66   # the bar (64 px) and its progress hairline: agenda and progress differ by design (6 of 13 slides)
+# ambient orbs are seeded by a slide's place among the ambient slides (s-12 is 2nd here; deck-v2's s-13 is 3rd) and drift
 # with time; their look is PB-004's parity test, so both decks hide them for the image comparison
 HIDE_AMBIENT = "document.querySelectorAll('.ambient, .orb').forEach(a => a.style.visibility = 'hidden')"
 TYPE = ("fontFamily", "fontSize", "fontWeight", "fontStyle", "lineHeight", "letterSpacing", "color", "textTransform")
@@ -179,14 +195,14 @@ def test_ported_slides_are_deck_v2s_subset_in_order(pages):
     ex, v2 = pages
     plan, ref = ex.evaluate("deck.plan()"), dict(v2.evaluate("deck.plan()"))
     assert [s for s, _ in plan] == PORTED
-    assert {s: n for s, n in plan} == {s: ref[s] for s in PORTED}, "same steps per slide as deck-v2"
+    assert {s: n for s, n in plan} == {s: ref[v2id(s)] for s in PORTED}, "same steps per slide as deck-v2"
 
 
 @pytest.mark.parametrize("sid", PORTED)
 def test_copy_is_verbatim_from_deck_v2(sid):
     """Sourced, approved copy: every text run (incl. notes, pop-over art labels) as in deck-v2."""
     ours = _copy(_section(SLIDES.read_text(encoding="utf-8"), sid))
-    theirs = _copy(_section(DECK_V2.read_text(encoding="utf-8"), sid))
+    theirs = _copy(_section(DECK_V2.read_text(encoding="utf-8"), v2id(sid)))
     assert ours == theirs
 
 
@@ -286,7 +302,7 @@ PAIRS = [
 @pytest.mark.parametrize("what, sid, k, sel, ref, props, pseudo", PAIRS, ids=[p[0] for p in PAIRS])
 def test_part_computes_like_deck_v2(pages, what, sid, k, sel, ref, props, pseudo):
     ex, v2 = pages
-    want = _probe(v2, sid, k, ref or sel, props, pseudo)
+    want = _probe(v2, v2id(sid), k, v2sel(ref or sel), props, pseudo)
     got = _probe(ex, sid, k, sel, props, pseudo)
     assert got == want, what
 
@@ -318,8 +334,8 @@ TOLERANCE = 3   # px: sub-pixel layout and font hinting, never a moved block
 def test_box_sits_where_deck_v2_puts_it(pages, sid, k, sel):
     js = "s => { const r = document.querySelector(s).getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }"
     ex, v2 = pages
-    _at(v2, sid, k)
-    want = v2.evaluate(js, sel)
+    _at(v2, v2id(sid), k)
+    want = v2.evaluate(js, v2sel(sel))
     _at(ex, sid, k)
     got = ex.evaluate(js, sel)
     assert all(abs(a - b) <= TOLERANCE for a, b in zip(got, want)), f"{sel}: {got} vs {want}"
@@ -327,16 +343,16 @@ def test_box_sits_where_deck_v2_puts_it(pages, sid, k, sel):
 
 # ---------- image comparison at 1920×1080 ----------
 
-def _shots(browser, path, tag, w=1920, h=1080, slides=PORTED) -> dict[tuple[str, int], Path]:
-    """Screenshot every step of the given slides into the artifacts folder."""
+def _shots(browser, path, tag, w=1920, h=1080, slides=PORTED, idmap=lambda s: s) -> dict[tuple[str, int], Path]:
+    """Screenshot every step of the given slides into the artifacts folder, keyed by example slide id."""
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     c, pg, errors = _open(browser, path, w, h)
     plan = dict(pg.evaluate("deck.plan()"))
     pg.evaluate(HIDE_AMBIENT)
     out = {}
     for sid in slides:
-        for k in range(plan[sid] + 1):
-            _at(pg, sid, k)
+        for k in range(plan[idmap(sid)] + 1):
+            _at(pg, idmap(sid), k)
             f = ARTIFACTS / f"{sid}-{k}-{w}x{h}-{tag}.png"
             pg.screenshot(path=str(f))
             out[(sid, k)] = f
@@ -347,7 +363,7 @@ def _shots(browser, path, tag, w=1920, h=1080, slides=PORTED) -> dict[tuple[str,
 
 @pytest.fixture(scope="module")
 def shots(browser):
-    return _shots(browser, DECK, "skill"), _shots(browser, DECK_V2, "v2")
+    return _shots(browser, DECK, "skill"), _shots(browser, DECK_V2, "v2", idmap=v2id)
 
 
 def mean_diff(a: Path, b: Path, top: int = BAR_CROP) -> float:

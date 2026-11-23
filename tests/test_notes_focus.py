@@ -90,7 +90,7 @@ def test_every_note_arrives_fully_drawn(page):
 
 
 def test_stepping_back_through_notes_also_arrives_fully_drawn(page):
-    """Going back can move the slide to an earlier step (e.g. s-5's pop-over, s-10's swapped panels)."""
+    """Going back can move the slide to an earlier step (e.g. s-5's pop-over)."""
     open_deck(page)
     bad = []
     for sid in page.evaluate(NOTED_SLIDES):

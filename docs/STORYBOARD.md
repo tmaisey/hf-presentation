@@ -1,6 +1,6 @@
 # Storyboard v2
 
-Chronological 12-slide arc, ~21 min incl. 4 min Q&A, built as `deck/deck-v2.html`. **v1** (18
+Chronological 13-slide arc, ~21 min incl. 4 min Q&A, built as `deck/deck-v2.html`. **v1** (18
 slides, chapter arc) lives in `deck/deck.html` and git history (cee382f); reuse its engine,
 components and approved copy. Copy follows `docs/VOICE.md`; visuals follow `docs/DESIGN.md`.
 
@@ -28,9 +28,10 @@ approval · ✎ = new for v2, needs approval.
 | s-7 | OpenAI cluster takeover | M1, M2 | 1:00 |
 | s-8 | Investigation | M2 | 1:30 |
 | s-9 | Insights | M1, M2 | 2:00 |
-| s-10 | Pace and takeaway | M3, T | 1:00 |
-| s-11 | Close: discussion | T | 4:00 Q&A |
-| s-12 | Close: thank you | — | 0:00 |
+| s-10 | Takeaways: pace | M3, T | 0:30 |
+| s-11 | Takeaways: controls | T | 0:30 |
+| s-12 | Close: discussion | T | 4:00 Q&A |
+| s-13 | Close: thank you | — | 0:00 |
 | | **Total** (s-5 and s-6 each +0:30; presenter accepted the longer talk, 22 Nov) | | **21:00** |
 
 **Timeline copy (presenter, 22 Nov):** the step lines below describe each beat; the on-slide timeline
@@ -429,13 +430,15 @@ risk making it harder to see": rejected as AI-sounding)
   unstated: our inference); crude tampering (METR fn 55); Hubinger as an individual; research
   caveats; the disputed firing reason.
 
-## s-10 · Pace and takeaway (1:00) · M3, T
+## s-10 · Pace (0:30) · M3, T
 
-**Rework (presenter, 22 Nov):** one title per phase, swapped by step; s-9's tile-row style for the
-pace phase (tile bodies as bullets, quote and one-line cite bottom-aligned, DESIGN tile row; the
-approved sentences below are converted to bullets without dropping facts); the separate Insight step folds into tile 1. Sources: `research_notes/AI capability pace
+Takeaways is two slides under one agenda entry (presenter, 23 Nov): s-10 pace tiles, s-11 controls,
+each with its own notes (they were two phases of one slide, so their notes ran together).
+**Rework (presenter, 22 Nov):** s-9's tile-row style (tile bodies as bullets, quote and one-line cite
+bottom-aligned, DESIGN tile row; the approved sentences below are converted to bullets without
+dropping facts); the separate Insight step folds into tile 1. Sources: `research_notes/AI capability pace
 2026/` (`capability_pace.md`, `public_sentiment.md`).
-- **Tiles phase** ✓ title: *Capability keeps accelerating as industry calls for restraint and public
+- **Tiles** ✓ title: *Capability keeps accelerating as industry calls for restraint and public
   concern grows* (replaces "Capability, compute and spending are still accelerating despite pauses and
   pledges"). Three tiles, one per step:
   1. **Capability, compute and spending are still accelerating:** "The length of task AI agents can
@@ -456,7 +459,12 @@ approved sentences below are converted to bullets without dropping facts); the s
      were about spending and growth, not safety." Quote (Pew, Jun 2026, clipped verbatim): "a majority of adults under 30 (55%) … more concerned than
      excited about AI" (✗ dropping "under 30": all adults is 52%). (Quinnipiac Sep; NBC exit poll, nbcnews.com/politics/2026-elections/exit-polls; AP 5 Nov. Most of the
      attitude shift predates the incident: never claim it caused it.)
-- **Controls phase** ✓ title: *Practical controls keep AI agents within the bounds their tasks need*.
+- Notes: per tile, the cited figures and caveats.
+
+## s-11 · Controls (0:30) · T
+
+Kicker "11 · Takeaways". The table is shown whole on arrival (no build; presenter, 23 Nov).
+- ✓ title: *Practical controls keep AI agents within the bounds their tasks need*.
   Table: Control · **Practical considerations for AI projects** (replaces "Where it failed in the
   incident"; the incident links move to the notes):
   - Least agency and autonomy: "While it's tempting to use the most powerful tools for every use case,
@@ -469,14 +477,13 @@ approved sentences below are converted to bullets without dropping facts); the s
     rule-based escalation to a human, so a warning always reaches someone who can stop the agent."
   - Network access only when justified: "Block internet and outside access by default, and open only
     the routes a task needs."
-- **Discussion:** moved to its own slide, s-11 (presenter, 22 Nov).
-- Notes: per tile, the cited figures and caveats; per control, where it failed in the incident (shared
-  credential, shared writable mirror, 27 June alert left to judgement, mirror proxying to the internet,
-  persistent agents with large budgets).
+- Notes: per control, where it failed in the incident (shared credential, shared writable mirror,
+  27 June alert left to judgement, mirror proxying to the internet, persistent agents with large
+  budgets).
 
-## s-11 · Close (4:00 Q&A) · T
+## s-12 · Close (4:00 Q&A) · T
 
-New nav chapter **Close** (presenter, 22 Nov); kicker "11 · Close"; ambient fireflies as s-1 (DESIGN §4:
+New nav chapter **Close** (presenter, 22 Nov); kicker "12 · Close"; ambient fireflies as s-1 (DESIGN §4:
 a summary page). Title ✎ *Questions for discussion* (default; presenter may retitle). Three prompts,
 all shown from the outset (no build; presenter, 22 Nov) (✓, presenter, 22 Nov):
 1. "Where do you see these alignment risks materialising in enterprise environments?"
@@ -484,7 +491,7 @@ all shown from the outset (no build; presenter, 22 Nov) (✓, presenter, 22 Nov)
    from AI?"
 3. "What approaches could improve efforts to manage AI safety under pressures to accelerate
    capability?"
-Replaces s-10's discussion phase and its v1 6.1 ◇ title.
+Replaces the old s-10 discussion phase and its v1 6.1 ◇ title.
 
 Right of the questions, one quote tile (s-8/s-9 tile style, shown from the outset; presenter, 22 Nov):
 - Lead line ✓: "In this incident, training aligned the agents with each other more successfully than with
@@ -496,7 +503,7 @@ Right of the questions, one quote tile (s-8/s-9 tile style, shown from the outse
   "trained to advance persistence and multiagent collaboration" (TR p12); scope per
   `agent_collective_alignment.md` (✗ "easier to align agents to each other" in general: unmeasured).
 
-## s-12 · Thank you (Close)
+## s-13 · Thank you (Close)
 
 Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's firefly template, a single
 "Thank you" centred on the page; no kicker line, no notes needed.
@@ -510,7 +517,7 @@ Final slide in the **Close** chapter (presenter, 22 Nov): the title slide's fire
 - s-7 accepted by the presenter (22 Nov: third layout stage, timeline copy, closing Insight at
   step 4, no narration on step 2).
 - Round 3 (22 Nov: two-line timelines, short copy, one-row key, signing on s-7, s-1/s-2 rework, tile
-  bullets on s-8–s-10) built, merged and accepted. s-11/s-12 Close (S-035) and the notes callout fixes built
+  bullets on s-8–s-10) built, merged and accepted. s-12/s-13 Close (S-035) and the notes callout fixes built
   (22 Nov; s-10's old discussion notes dropped with its prompts). Notes Prev/Next overlap at
   1288×598 (scroll clear + soft fade) closed: S-029 done.
 - S-018 (narration tiles) closed 22 Nov: built, used on s-3–s-7, `tests/test_narration.py` green.

@@ -68,7 +68,7 @@ everything else binds both. Slide authors need only §10.
 - Bokeh (the presenter's "fireflies": same thing; P2's dropped canvas fireflies were different):
   three blur planes (far 48px / mid 22px / near 6px) of soft radial orbs (5 / 6 / 6), slow
   drift (peak ~13px/s: perceptible, still subtle; presenter, 22 Nov) + slight mouse parallax. [P2:57–59](../design/prototypes/02-chapters-depth.html#L57), [drift](../design/prototypes/02-chapters-depth.html#L249)
-- Ambient **only** on title / summary / Insight / close pages (s-1, s-11, s-12; s-12 is a
+- Ambient **only** on title / summary / Insight / close pages (s-1, s-12, s-13; s-13 is a
   `slide--end` closing page: one centred line, no kicker); **NEVER** on detail or diagram pages. [P2 detail chapter](../design/prototypes/02-chapters-depth.html#L123)
 - Respect `prefers-reduced-motion` (no drift, no rise). Reduced-motion CSS is keyed on `:root.still` (set by the engine from
   `prefers-reduced-motion` and while notes mode is open), **NEVER** a bare `@media` block; notes mode also
@@ -176,7 +176,7 @@ Agent messages narrate the swarm's thinking **as the diagram builds**. Presenter
   `--ink`; sacrificed = `--loss`, and its links fade. [P4:49–51](../design/prototypes/04-diagram-swarm.html#L49)
 - Illustrative scale goes in the reader note (e.g. s-5: "The lit dots are illustrative"), **NEVER** on-slide.
 - **v2 is diagram-led:** most slides (all but title, investigation (s-8, text-led tiles), insights,
-  takeaways (s-10: tiles, then a controls table) and discussion) **MUST** carry a
+  takeaways (s-10 tiles, s-11 controls table) and discussion) **MUST** carry a
   dynamic, step-built diagram of the slide's core concept (the v1 swarm on `s-3-1` is the bar),
   paired with narration tiles (§5a).
 
@@ -212,21 +212,23 @@ slide needs something new, extend the component CSS / engine once and document i
   that area, so they can never cover the title.
 - Stepped titles: a slide with build phases may carry one `h2.title` per phase, swapped with
   `data-show-at` / `data-hide-at` (title rules apply to each). Notes on a phase's content show that phase (Reader notes below).
+  Reader notes, kicker and step count are per slide, so when a phase brings a new title and wholly new
+  content, make it a **new slide** in the same chapter instead (the agenda groups by `data-chapter`):
+  Takeaways was split into s-10/s-11 for this (presenter, 23 Nov), as its notes ran together.
 - Stepped bodies: likewise, one `div.body` per build phase, siblings in the one body cell, swapped
-  with `data-show-at` / `data-hide-at` (s-10: `body--tiles[data-hide-at=4]` → `body--layers`
-  controls); **NEVER** nested.
+  with `data-show-at` / `data-hide-at`; **NEVER** nested.
 
 **Body layouts** (only ever on a slide's `div.body`, never nested): `div.body` (flow, centred
 vertically in the body area) · `div.body.body--split` (left ≈36%, right ≈64%; a `div` column stacks
 its blocks with even spacing) · `div.body.body--split.body--flip` (64 / 36: wide content left, quotes
 right) · `div.body.body--stack` (centred column: diagram then quote/cite) ·
 `div.body.body--layers` (children share one grid cell and swap by step via `data-show-at` /
-`data-hide-at`: build phases that can't fit together (s-10's holds the controls phase); a phase
+`data-hide-at`: build phases that can't fit together; one unstepped panel also centres a table vertically (s-11); a phase
 of several blocks is one wrapper `div[data-show-at][data-hide-at]`, e.g. table + `blockquote` +
 `p.cite`; a quote under a table keeps clear of its last rule, and on short screens table rows
 tighten so a phase fits under its title) ·
 `div.body.body--tiles` (tile row, S-026; s-8, s-9, s-10; a single heading-less `text-tile` with a
-body `p` may also sit in a `body--split body--flip`, as on s-11; built in situ: 2–4 equal-width, equal-height
+body `p` may also sit in a `body--split body--flip`, as on s-12; built in situ: 2–4 equal-width, equal-height
 frosted `article.text-tile[data-show-at]`, one per step, earlier tiles stay; each `h3` heading
 (**MUST** fit 2 lines at every size, using the tile's full width: normal wrapping, not
 `balance`/`pretty`, which leave unused space; `.keep` stops hyphen splits; spacing tightens on short
