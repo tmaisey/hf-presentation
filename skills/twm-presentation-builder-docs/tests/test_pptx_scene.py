@@ -24,11 +24,10 @@ import copy
 import json
 import re
 
-import pytest
-from playwright.sync_api import sync_playwright
-
 import helper_engine as he
 import helper_pptx as hp
+import pytest
+from playwright.sync_api import sync_playwright
 
 scene_mod = hp.load_script("scene")
 anim = hp.load_script("animations")
@@ -123,6 +122,13 @@ def go(page, slide, step):
     page.evaluate("([s, k]) => deck.goto(s, k)", [slide, step])
     page.wait_for_function("([s, k]) => deck.state().slide === s && deck.state().step === k", arg=[slide, step])
     he.settle(page)
+
+
+def walk(page, slide_id, step):
+    """Step a slide from 0 to ``step`` one input at a time, as a presenter (and the extractor) does:
+    narration placement depends on the tiles leaving at each step."""
+    for k in range(step + 1):
+        go(page, slide_id, k)
 
 
 def slide(doc, sid):
@@ -231,7 +237,7 @@ def test_boxes_match_the_render_at_their_measured_step(scenes, pages):
     for name, sid, eid in (("core", "c-2", "c2-b"), ("core", "c-2", "c2-insight"), ("core", "c-3", "c3-c"),
                            ("mods", "m-2", "n-2b"), ("mods", "m-3", "m3-pop"), ("mods", "m-4", "t-2")):
         e = el(scenes[name], sid, eid)
-        go(pages[name], sid, e["measured_at"])
+        walk(pages[name], sid, e["measured_at"])
         assert near(e["box"], screen_box(pages[name], f"#{eid}")), (eid, e["box"])
 
 
@@ -322,7 +328,7 @@ def _paths(doc):
 
 
 def test_svg_paths_are_absolute(scenes):
-    found = list(p for doc in scenes.values() for p in _paths(doc))
+    found = [p for doc in scenes.values() for p in _paths(doc)]
     assert len(found) >= 8
     for sid, eid, p in found:
         assert ABSOLUTE.match(p["d"]), (sid, eid, p["d"])
