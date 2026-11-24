@@ -126,8 +126,17 @@ def state(page) -> dict:
     return page.evaluate("window.deck.state()")
 
 
+# parts the world's layout tween moves by requestAnimationFrame (invisible to getAnimations)
+WORLD_TWEENED = ".world .cam, .world .mirror-group, #w-oai rect"
+
+
 def goto_slide(page, slide_id: str, step: int = 0) -> None:
-    """Jump straight to a slide and step, then let transitions settle.
+    """Jump straight to a slide and step, and return once the page is at rest.
+
+    Waits for the engine to report the slide and step, then for every finite CSS/Web animation and
+    transition (including those still in their delay) and the world's JS layout tween to finish, however
+    long they take: a fixed wait races them under parallel load. A beat started later by a ``setTimeout``
+    (e.g. the coordinator grouping, 1.3 s after its step) is not waited for: wait on its end state in the test.
 
     Args:
         page: A Playwright ``Page`` with the deck loaded.
@@ -135,7 +144,10 @@ def goto_slide(page, slide_id: str, step: int = 0) -> None:
         step: Step within the slide.
     """
     page.evaluate("([id, s]) => window.deck.goto(id, s)", [slide_id, step])
-    page.wait_for_timeout(1200)
+    # a step past the slide's last lands on its last (callers use e.g. 9 for "the end state")
+    page.wait_for_function("([id, s]) => { const st = window.deck.state(); "
+                           "return st.slide === id && st.step === Math.min(s, st.steps); }", arg=[slide_id, step])
+    settle_animations(page, still=WORLD_TWEENED)
 
 
 def settle(page, selector: str, timeout: int = 5000) -> None:

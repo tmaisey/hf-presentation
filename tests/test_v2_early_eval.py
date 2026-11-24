@@ -23,7 +23,7 @@ import re
 
 import pytest
 
-from helper_deck import goto_slide, open_deck, parse_slides, settle_animations, slides_source
+from helper_deck import goto_slide, open_deck, parse_slides, sample_at, settle_animations, slides_source
 
 pytestmark = pytest.mark.deck("v2")
 
@@ -379,10 +379,14 @@ def test_load_pulses_accelerate_and_notes_flood_onto_the_mirror(page):
 def test_crash_comes_after_the_flood_then_mirror_and_notes_grey(page):
     """At first the mirror is live (light off); once the flood lands the light flashes red and all greys."""
     open_deck(page)
-    goto_slide(page, SID, 5)
-    assert page.evaluate(OPACITY, "#w-down .status-light") < 0.05
+    goto_slide(page, SID, 4)
     live = page.evaluate(FILL, "#w-mirror rect")
+    page.evaluate("s => window.deck.goto(s, 5)", SID)
+    early = sample_at(page, 1000, f"() => [({OPACITY})('#w-down .status-light'), ({FILL})('#w-mirror rect')]")
+    assert early[0] < 0.05 and early[1] == live, "1 s into the step: light off, mirror still live"
     settle_animations(page, ".world .mirror-group")   # the crash (greying 4 s into the step) has run
+    # the blink is infinite (delay 4 s), so no settle waits for it: wait on it showing
+    helper_until(page, f"() => ({OPACITY})('#w-down .status-light') > .2")
     res = page.evaluate("""() => { const q = s => document.querySelector(s), cs = e => getComputedStyle(e);
       const l = q('#w-down .status-light').getBoundingClientRect(), m = q('#w-mirror rect').getBoundingClientRect();
       return { light: Math.max(...[0, 1, 2].map(() => +cs(q('#w-down .status-light')).opacity)), lightFill: cs(q('#w-down .status-light')).fill,
